@@ -11,10 +11,17 @@ const colorMode = useColorMode()
 const localePath = useLocalePath()
 
 const navLinks = computed(() => [
-  { key: 'nav.solutions', to: localePath('/solutions') },
   { key: 'nav.portfolio', to: localePath('/') + '#projects' },
+  { key: 'nav.solutions', to: localePath('/solutions') },
   { key: 'nav.contact', to: localePath('/contact') },
 ])
+
+const linksBeforeSolutions = computed(() =>
+  navLinks.value.slice(0, navLinks.value.findIndex(l => l.key === 'nav.solutions'))
+)
+const linksAfterSolutions = computed(() =>
+  navLinks.value.slice(navLinks.value.findIndex(l => l.key === 'nav.solutions') + 1)
+)
 
 const otherLocale = computed(() =>
   locales.value.find((l) => l.code !== locale.value)
@@ -83,8 +90,19 @@ onMounted(() => {
 
       <!-- Desktop Links -->
       <ul class="hidden md:flex items-center gap-1">
+        <!-- Links before Services -->
+        <li v-for="link in linksBeforeSolutions" :key="link.key">
+          <NuxtLink
+            :to="link.to"
+            class="px-3 py-1.5 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all"
+            active-class="text-fg bg-muted"
+          >
+            {{ t(link.key) }}
+          </NuxtLink>
+        </li>
+
         <!-- Services Dropdown -->
-        <li 
+        <li
           class="relative"
           @mouseenter="servicesDropdownOpen = true"
           @mouseleave="servicesDropdownOpen = false"
@@ -166,8 +184,8 @@ onMounted(() => {
           </Transition>
         </li>
         
-        <!-- Other Links -->
-        <li v-for="link in navLinks.filter(l => l.key !== 'nav.solutions')" :key="link.key">
+        <!-- Links after Services -->
+        <li v-for="link in linksAfterSolutions" :key="link.key">
           <NuxtLink
             :to="link.to"
             class="px-3 py-1.5 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all"
@@ -238,6 +256,17 @@ onMounted(() => {
           v-if="mobileOpen"
           class="md:hidden border-t border-border bg-surface px-6 py-4 flex flex-col gap-1"
         >
+          <!-- Links before Services -->
+          <NuxtLink
+            v-for="link in linksBeforeSolutions"
+            :key="link.key"
+            :to="link.to"
+            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg"
+            @click="mobileOpen = false"
+          >
+            {{ t(link.key) }}
+          </NuxtLink>
+
           <!-- Services Mobile Section -->
           <div class="py-2.5">
             <button
@@ -286,9 +315,9 @@ onMounted(() => {
             </Transition>
           </div>
           
-          <!-- Other Links -->
+          <!-- Links after Services -->
           <NuxtLink
-            v-for="link in navLinks.filter(l => l.key !== 'nav.solutions')"
+            v-for="link in linksAfterSolutions"
             :key="link.key"
             :to="link.to"
             class="py-2.5 text-sm font-body text-fg-muted hover:text-fg"

@@ -185,9 +185,22 @@ const getHeroIcon = (iconName: string | null) => {
         <div class="border-l-2 border-accent pl-8">
           <!-- Text Section -->
           <template v-if="parseSectionBody(section.body).type === 'text'">
-            <p class="font-body text-fg-muted leading-relaxed text-base sm:text-lg whitespace-pre-line">
-              {{ parseSectionBody(section.body).text }}
-            </p>
+            <div class="font-body text-fg-muted leading-relaxed text-base sm:text-lg">
+              <template v-for="(line, li) in parseSectionBody(section.body).text.split('\n')" :key="li">
+                <div
+                  v-if="line.match(/\(#([0-9a-fA-F]{3,8})\)/)"
+                  class="flex items-center gap-3 py-0.5"
+                >
+                  <span
+                    class="inline-block w-4 h-4 rounded-md shrink-0 border border-border"
+                    :style="{ backgroundColor: '#' + (line.match(/\(#([0-9a-fA-F]{3,8})\)/) || [])[1] }"
+                  />
+                  <span>{{ line }}</span>
+                </div>
+                <p v-else-if="line.trim()">{{ line }}</p>
+                <div v-else class="h-4" />
+              </template>
+            </div>
           </template>
 
           <!-- Single Centered Image Section -->

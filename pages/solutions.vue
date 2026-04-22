@@ -128,25 +128,25 @@ const services = [
           class="w-full p-8 md:p-10 text-left group transition-colors duration-200"
         >
           <div class="flex items-start gap-4 md:gap-6">
-            <div class="flex items-center gap-3 md:flex-col md:items-start md:gap-2">
-              <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                <div class="w-6 h-6 text-accent">
-                  <LightBulbIcon v-if="service.icon === 'lightbulb'" />
-                  <CodeBracketIcon v-else-if="service.icon === 'code-bracket'" />
-                  <ChartBarIcon v-else-if="service.icon === 'chart-bar'" />
-                  <CalendarDaysIcon v-else />
-                </div>
+            <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors">
+              <div class="w-6 h-6 text-accent">
+                <LightBulbIcon v-if="service.icon === 'lightbulb'" />
+                <CodeBracketIcon v-else-if="service.icon === 'code-bracket'" />
+                <ChartBarIcon v-else-if="service.icon === 'chart-bar'" />
+                <CalendarDaysIcon v-else />
               </div>
-              <span class="font-display font-bold text-2xl text-accent opacity-60 group-hover:opacity-100 transition-opacity">
-                {{ service.number }}
-              </span>
             </div>
 
-            <div class="flex-1">
-              <h2 class="font-display font-bold text-2xl text-fg mb-3">
-                {{ locale === 'de' ? service.titleDe : service.titleEn }}
-              </h2>
-              <p class="font-body text-fg-muted leading-relaxed mb-4 max-w-2xl">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-baseline gap-3 mb-3">
+                <span class="font-display font-bold text-sm text-accent opacity-60 group-hover:opacity-100 transition-opacity tracking-widest">
+                  {{ service.number }}
+                </span>
+                <h2 class="font-display font-bold text-2xl text-fg">
+                  {{ locale === 'de' ? service.titleDe : service.titleEn }}
+                </h2>
+              </div>
+              <p class="font-body text-fg-muted leading-relaxed mb-4 max-w-2xl -mt-1">
                 {{ locale === 'de' ? service.descDe : service.descEn }}
               </p>
               

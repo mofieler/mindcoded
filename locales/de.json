@@ -105,11 +105,11 @@
         },
         {
           "heading": "Screens",
-          "body": "[[GALLERY:paquita/paquita-mac.png|paquita/paquita-mobile.png]]"
+          "body": "[[GALLERY:paquita/paquita-mac.png~~paquita/paquita-mobile.png]]"
         },
         {
           "heading": "Highlights",
-          "body": "[[CARDS:Mobile-first Design;heroIcon:device-mobile|Intuitive Navigation;heroIcon:cursor-arrow-rays|Nahtlose Buchung;heroIcon:calendar|Modernes Tech-Stack;heroIcon:layers]]"
+          "body": "[[CARDS:Mobile-first Design;heroIcon:device-mobile~~Intuitive Navigation;heroIcon:cursor-arrow-rays~~Nahtlose Buchung;heroIcon:calendar~~Modernes Tech-Stack;heroIcon:layers]]"
         }
       ]
     }

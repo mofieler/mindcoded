@@ -44,10 +44,10 @@ const parseSectionBody = (body: string) => {
     }
   }
 
-  // [[GALLERY:path1|path2|...]] - gallery of images
+  // [[GALLERY:path1~~path2~~...]] - gallery of images
   const galleryMatch = body.match(/\[\[GALLERY:([^\]]+)\]\]/)
   if (galleryMatch) {
-    const images = galleryMatch[1].split('|').map(i => i.trim())
+    const images = galleryMatch[1].split('~~').map(i => i.trim())
     return {
       type: 'gallery',
       text: body.replace(galleryMatch[0], '').trim(),
@@ -55,10 +55,10 @@ const parseSectionBody = (body: string) => {
     }
   }
 
-  // [[CARDS:card1;heroIcon:icon1|card2;heroIcon:icon2|...]] - cards layout with hero icons
+  // [[CARDS:card1;heroIcon:icon1~~card2;heroIcon:icon2~~...]] - cards layout with hero icons
   const cardsMatch = body.match(/\[\[CARDS:([^\]]+)\]\]/)
   if (cardsMatch) {
-    const cardEntries = cardsMatch[1].split('|').map(c => {
+    const cardEntries = cardsMatch[1].split('~~').map(c => {
       const [text, iconPart] = c.split(';heroIcon:')
       return {
         text: text.trim(),

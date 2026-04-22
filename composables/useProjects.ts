@@ -1,5 +1,3 @@
-import { useI18n } from 'vue-i18n'
-
 export interface ProjectSection {
   heading: string
   body: string
@@ -19,7 +17,6 @@ export interface Project {
   nextSlug?: string
 }
 
-// Non-translatable project metadata (images, client, year, slug, nextSlug)
 const projectMeta: Pick<Project, 'slug' | 'client' | 'year' | 'heroImage' | 'coverImage' | 'nextSlug'>[] = [
   {
     slug: 'paquita-pilates',
@@ -38,14 +35,8 @@ export const useProjects = () => {
     const meta = projectMeta.find((m) => m.slug === slug)
     if (!meta) return undefined
 
-    const key = `projects.${slug}`
-    const data = tm(key) as any
+    const data = tm(`projects.${slug}`) as any
     if (!data) return undefined
-
-    const sections: ProjectSection[] = (data.sections ?? []).map((s: any) => ({
-      heading: rt(s.heading),
-      body: rt(s.body),
-    }))
 
     return {
       ...meta,
@@ -53,7 +44,10 @@ export const useProjects = () => {
       title: rt(data.title ?? ''),
       tagline: rt(data.tagline ?? ''),
       tags: (data.tags ?? []).map((t: any) => rt(t)),
-      sections,
+      sections: (data.sections ?? []).map((s: any) => ({
+        heading: rt(s.heading),
+        body: rt(s.body),
+      })),
     }
   }
 

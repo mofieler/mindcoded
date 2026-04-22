@@ -2,4 +2,4 @@
 NIXPACKS_NODE_VERSION = "22.13.0"
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["rm -f package-lock.json && npm install"]

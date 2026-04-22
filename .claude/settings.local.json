@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(node -e ' *)",
+      "Read(//c/Users/morit/MyCode/mindcoded/**)",
+      "Bash(awk '/\"@oxc-parser\\\\/binding-linux-x64-gnu\"/ {for\\(i=0; i<20; i++\\) {if\\(NR+i<=NR+20\\) print NR+i\": \"lines[NR+i]}} {lines[NR]=$0}' /c/Users/morit/MyCode/mindcoded/package-lock.json)",
+      "Bash(git -C /c/Users/morit/MyCode/mindcoded check-ignore .nixpacks)"
+    ]
+  }
+}

@@ -85,6 +85,33 @@ const parseSectionBody = (body: string) => {
   return { type: 'text', text: body }
 }
 
+// Lightbox state
+const lightboxImages = ref<string[]>([])
+const lightboxIndex = ref(0)
+const lightboxOpen = ref(false)
+
+const openLightbox = (images: string[], index: number) => {
+  lightboxImages.value = images
+  lightboxIndex.value = index
+  lightboxOpen.value = true
+}
+const closeLightbox = () => { lightboxOpen.value = false }
+const nextImage = () => {
+  lightboxIndex.value = (lightboxIndex.value + 1) % lightboxImages.value.length
+}
+const prevImage = () => {
+  lightboxIndex.value = (lightboxIndex.value - 1 + lightboxImages.value.length) % lightboxImages.value.length
+}
+
+const onKeydown = (e: KeyboardEvent) => {
+  if (!lightboxOpen.value) return
+  if (e.key === 'Escape') closeLightbox()
+  else if (e.key === 'ArrowRight') nextImage()
+  else if (e.key === 'ArrowLeft') prevImage()
+}
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
+
 // Get the appropriate Heroicon component
 const getHeroIcon = (iconName: string | null) => {
   const iconMap: {
@@ -222,32 +249,44 @@ const getHeroIcon = (iconName: string | null) => {
               {{ parseSectionBody(section.body).text }}
             </p>
             <div class="flex justify-center">
-              <NuxtImg
-                :src="parseSectionBody(section.body).image"
-                alt="Screenshot"
-                class="w-full h-auto object-contain max-w-4xl"
-                format="webp"
-                width="900"
-                height="600"
-                loading="lazy"
-              />
+              <button
+                type="button"
+                class="group block w-full max-w-4xl cursor-zoom-in overflow-hidden rounded-md"
+                @click="openLightbox([parseSectionBody(section.body).image], 0)"
+              >
+                <NuxtImg
+                  :src="parseSectionBody(section.body).image"
+                  alt="Screenshot"
+                  class="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                  format="webp"
+                  width="900"
+                  height="600"
+                  loading="lazy"
+                />
+              </button>
             </div>
           </template>
 
           <!-- Gallery Section -->
           <template v-if="parseSectionBody(section.body).type === 'gallery'">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <NuxtImg
+              <button
                 v-for="(img, idx) in parseSectionBody(section.body).images"
                 :key="idx"
-                :src="img"
-                :alt="`Screenshot ${idx + 1}`"
-                class="w-full h-auto object-contain"
-                format="webp"
-                width="600"
-                height="450"
-                loading="lazy"
-              />
+                type="button"
+                class="group block w-full cursor-zoom-in overflow-hidden rounded-md"
+                @click="openLightbox(parseSectionBody(section.body).images, idx)"
+              >
+                <NuxtImg
+                  :src="img"
+                  :alt="`Screenshot ${idx + 1}`"
+                  class="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                  format="webp"
+                  width="600"
+                  height="450"
+                  loading="lazy"
+                />
+              </button>
             </div>
           </template>
 
@@ -330,5 +369,83 @@ const getHeroIcon = (iconName: string | null) => {
       </NuxtLink>
     </div>
 
+    <!-- ─── LIGHTBOX ─────────────────────────────────────────────── -->
+    <Teleport to="body">
+      <Transition name="fade">
+        <div
+          v-if="lightboxOpen"
+          class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+          @click.self="closeLightbox"
+        >
+          <!-- Close -->
+          <button
+            type="button"
+            class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label="Close"
+            @click="closeLightbox"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+
+          <!-- Prev -->
+          <button
+            v-if="lightboxImages.length > 1"
+            type="button"
+            class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label="Previous image"
+            @click.stop="prevImage"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+
+          <!-- Image -->
+          <NuxtImg
+            :key="lightboxIndex"
+            :src="lightboxImages[lightboxIndex]"
+            alt="Screenshot"
+            class="max-h-[90vh] max-w-[92vw] w-auto h-auto object-contain"
+            format="webp"
+            loading="eager"
+          />
+
+          <!-- Next -->
+          <button
+            v-if="lightboxImages.length > 1"
+            type="button"
+            class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label="Next image"
+            @click.stop="nextImage"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+
+          <!-- Counter -->
+          <div
+            v-if="lightboxImages.length > 1"
+            class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-xs font-body tracking-widest"
+          >
+            {{ lightboxIndex + 1 }} / {{ lightboxImages.length }}
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

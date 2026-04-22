@@ -403,13 +403,11 @@ const getHeroIcon = (iconName: string | null) => {
           </button>
 
           <!-- Image -->
-          <NuxtImg
+          <img
             :key="lightboxIndex"
-            :src="lightboxImages[lightboxIndex]"
+            :src="lightboxImages[lightboxIndex].startsWith('/') ? lightboxImages[lightboxIndex] : '/' + lightboxImages[lightboxIndex]"
             alt="Screenshot"
             class="max-h-[90vh] max-w-[92vw] w-auto h-auto object-contain"
-            format="webp"
-            loading="eager"
           />
 
           <!-- Next -->

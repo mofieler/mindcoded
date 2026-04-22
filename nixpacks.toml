@@ -6,6 +6,3 @@ cmds = ["rm -f package-lock.json && npm install"]
 
 [phases.build]
 cmds = ["npm run postinstall && npm run generate"]
-
-[start]
-cmd = "nginx -c /app/nginx.conf -g 'daemon off;'"

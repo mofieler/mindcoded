@@ -139,7 +139,7 @@ const services = [
 
             <div class="flex-1 min-w-0">
               <div class="flex items-baseline gap-3 mb-3">
-                <span class="font-display font-bold text-sm text-accent opacity-60 group-hover:opacity-100 transition-opacity tracking-widest">
+                <span class="font-display font-bold text-lg text-accent opacity-60 group-hover:opacity-100 transition-opacity">
                   {{ service.number }}
                 </span>
                 <h2 class="font-display font-bold text-2xl text-fg">

@@ -197,6 +197,19 @@ const getHeroIcon = (iconName: string | null) => {
                   />
                   <span>{{ line }}</span>
                 </div>
+                <p
+                  v-else-if="line.includes('Metanoia')"
+                  :style="{ fontFamily: '\'Metanoia\', \'Cormorant Garamond\', serif' }"
+                  class="text-lg sm:text-xl"
+                >
+                  {{ line }}
+                </p>
+                <p
+                  v-else-if="line.includes('Poppins')"
+                  :style="{ fontFamily: '\'Poppins\', sans-serif' }"
+                >
+                  {{ line }}
+                </p>
                 <p v-else-if="line.trim()">{{ line }}</p>
                 <div v-else class="h-4" />
               </template>

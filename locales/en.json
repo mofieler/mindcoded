@@ -71,5 +71,47 @@
     "contact_title": "Contact – Mindcoded",
     "privacy_title": "Privacy Policy – Mindcoded",
     "privacy_desc": "Privacy Policy / Datenschutzerklärung"
+  },
+  "projects": {
+    "paquita-pilates": {
+      "category": "Web Development",
+      "title": "Paquita Pilates Stuttgart",
+      "tagline": "Website & Booking System for a Pilates Studio in Stuttgart",
+      "tags": ["Vue.js", "Nuxt", "UX Design", "Booking System", "Node.js", "MongoDB", "Ionic", "Figma"],
+      "sections": [
+        {
+          "heading": "The Challenge",
+          "body": "Paquita Pilates is a boutique studio in Stuttgart-East specialising in Reformer and Classical Pilates — offering private, duo and small-group sessions. Despite delivering a premium experience, the studio lacked a coherent brand identity, a professional website, and booking was handled manually. Friction for clients and trainers alike.\n\nThe core question: how do you translate the calm, body-aware spirit of a boutique Pilates studio into a complete brand and digital experience — one that attracts the right clients and makes studio management effortless?"
+        },
+        {
+          "heading": "Goals",
+          "body": "Building identity and digital infrastructure from scratch:\n\n• Brand development: logo, colour system, visual language — consistent across all touchpoints\n• Website: a digital presence that communicates philosophy, class offering and team\n• Booking system: an integrated platform with self-service for clients and admin tools for trainers\n• Live at: paquitapilatesreformer.com"
+        },
+        {
+          "heading": "Scope & Services",
+          "body": "Three interconnected pillars:\n\n• Brand Identity & Design System: complete branding from scratch — logo, typography, colour palette. Flexible application across digital (website, Instagram) and physical (print materials) touchpoints.\n• Website Design & Development: custom website as the primary digital presence — calm layouts, intentional whitespace, clear calls-to-action. Mobile-first responsive design: navigation collapses elegantly, content flows seamlessly from smartphone to desktop.\n• Digital Booking System: dual architecture with a client interface (self-service booking, schedule) and an admin/trainer interface (class management, capacity).\n\n[[IMAGE:paquita/paquita-mac.png]]"
+        },
+        {
+          "heading": "Design System",
+          "body": "The visual system captures the dual nature of the studio: grounded and physical on one side, mindful and spiritual on the other.\n\nLogo: a central eye — symbol of awareness and inner vision — with wings and ornamental detail, set in soft forms. The wordmark motto \"RETURN TO LIFE\" (Joseph Pilates' original method name) completes the timeless, contemporary emblem.\n\nTypography:\n• Metanoia (Display): a high-contrast editorial serif. The name means \"transformative change of heart\" — a direct mirror of the studio's philosophy. Elegance for headlines.\n• Poppins (UI): geometric sans-serif for body text and interface elements — modern and legible\n\nColour Palette (7 colours):\n• Olive Gold (#86703f): earthy depth, accent for structure\n• Warm Taupe (#937955): neutral midtone\n• Terracotta Copper (#b27d55): warmest tone, logo and key brand moments\n• Cream White (#f0f1ed): primary background — soft, breathing\n• Soft Teal (#97cbcc): the only cool tone — clarity and calm, highlight\n• Muted Rose Taupe (#968173): resting tone for secondary text\n• Warm Grey (#bbbbaf): versatile neutral for surfaces\n\nThe result: a colour world that communicates the sensory studio experience — natural materials, soft light, stillness."
+        },
+        {
+          "heading": "Technology & Implementation",
+          "body": "• Frontend: Vue.js + Ionic for cross-platform experience\n• Backend: Node.js + MongoDB API, custom built\n• Real-time schedule: instant availability and confirmation\n• Credit system: flexible prepaid model for clients"
+        },
+        {
+          "heading": "Results & Outlook",
+          "body": "Branding and website are live. The booking system is in active development and being rolled out incrementally.\n\nPlanned extensions:\n• Automated Waitlist Management\n• Credit / Package Systems\n• Push notifications for class reminders\n\nMy contribution: complete branding, UX architecture, UI design and full-stack implementation. A booking platform that does not feel like off-the-shelf software — but like a conversation outside the studio."
+        },
+        {
+          "heading": "Screens",
+          "body": "[[GALLERY:paquita/paquita-mac.png|paquita/paquita-mobile.png]]"
+        },
+        {
+          "heading": "Highlights",
+          "body": "[[CARDS:Mobile-first Design;heroIcon:device-mobile|Intuitive Navigation;heroIcon:cursor-arrow-rays|Seamless Booking;heroIcon:calendar|Modern Tech Stack;heroIcon:layers]]"
+        }
+      ]
+    }
   }
 }

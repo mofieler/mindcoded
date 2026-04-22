@@ -77,8 +77,8 @@ onMounted(() => {
       <!-- Logo -->
       <NuxtLink :to="localePath('/')" class="flex items-center gap-2.5 shrink-0">
         <NuxtImg
-          src="/logo.png" 
-          alt="Mindcoded Logo" 
+          :src="colorMode.value === 'dark' ? '/logo.png' : '/logo-transparent.png'"
+          alt="Mindcoded Logo"
           class="w-8 h-8 rounded-md"
           width="32"
           height="32"

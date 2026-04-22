@@ -1,0 +1,181 @@
+/* ─────────────────────────────────────────────────────────────────
+   DESIGN TOKENS  –  alle globalen Werte hier anpassen
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  /* Accent (Blau) – nur diesen Wert ändern für neue Brandfarbe */
+  --color-accent: 37 99 235;          /* #2563EB  Tailwind blue-600 */
+  --color-accent-hover: 29 78 216;    /* #1D4ED8  Tailwind blue-700 */
+
+  /* Light Mode */
+  --color-base:     248 248 248;      /* #F8F8F8  Hintergrund      */
+  --color-surface:  255 255 255;      /* #FFFFFF  Karten / Nav      */
+  --color-muted:    243 244 246;      /* #F3F4F6  Subtile Flächen  */
+  --color-border:   229 231 235;      /* #E5E7EB                    */
+  --color-fg:       10  10  10;       /* #0A0A0A  Haupttext         */
+  --color-fg-muted: 107 114 128;      /* #6B7280  Hilfstext         */
+
+  /* Grid-Linienstärke für Hero-Hintergrund */
+  --grid-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Dark Mode */
+.dark {
+  --color-base:     10  10  10;       /* #0A0A0A  */
+  --color-surface:  20  20  20;       /* #141414  */
+  --color-muted:    28  28  28;       /* #1C1C1C  */
+  --color-border:   38  38  38;       /* #262626  */
+  --color-fg:       248 248 248;      /* #F8F8F8  */
+  --color-fg-muted: 161 161 170;      /* #A1A1AA  */
+
+  --grid-color: rgba(255, 255, 255, 0.04);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   BASE STYLES
+   ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: rgb(var(--color-base));
+  color: rgb(var(--color-fg));
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TYPOGRAPHY SCALE
+   ───────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  color: rgb(var(--color-fg));
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   HERO GRID BACKGROUND  (wiederverwendbar als Klasse)
+   ───────────────────────────────────────────────────────────────── */
+.hero-grid {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   ACCENT UTILITIES
+   ───────────────────────────────────────────────────────────────── */
+.text-accent   { color: rgb(var(--color-accent)); }
+.bg-accent     { background-color: rgb(var(--color-accent)); }
+.border-accent { border-color: rgb(var(--color-accent)); }
+
+/* ─────────────────────────────────────────────────────────────────
+   TRANSITIONS
+   ───────────────────────────────────────────────────────────────── */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SCROLLBAR  (dezent, passt zum Theme)
+   ───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: rgb(var(--color-base)); }
+::-webkit-scrollbar-thumb  { background: rgb(var(--color-border)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--color-fg-muted)); }
+
+/* ─────────────────────────────────────────────────────────────────
+   ELECTRIC LINE ANIMATIONS  (Hero Grid Background)
+   ───────────────────────────────────────────────────────────────── */
+
+/* Light Mode - Subtle blue electric lines */
+.electric-line-h {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(37, 99, 235, 0.4) 45%,
+    rgba(37, 99, 235, 0.8) 50%,
+    rgba(37, 99, 235, 0.4) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: electric-pulse-h 6s ease-in-out infinite;
+}
+
+.electric-line-v {
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(37, 99, 235, 0.4) 45%,
+    rgba(37, 99, 235, 0.8) 50%,
+    rgba(37, 99, 235, 0.4) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: electric-pulse-v 6s ease-in-out infinite;
+}
+
+/* Dark Mode - Brighter cyan/blue electric lines */
+.electric-line-h-dark {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(6, 182, 212, 0.3) 45%,
+    rgba(6, 182, 212, 0.7) 50%,
+    rgba(6, 182, 212, 0.3) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: electric-pulse-h 6s ease-in-out infinite;
+}
+
+.electric-line-v-dark {
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(6, 182, 212, 0.3) 45%,
+    rgba(6, 182, 212, 0.7) 50%,
+    rgba(6, 182, 212, 0.3) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: electric-pulse-v 6s ease-in-out infinite;
+}
+
+@keyframes electric-pulse-h {
+  0%, 100% {
+    background-position: 150% 0;
+    opacity: 0.3;
+  }
+  50% {
+    background-position: -50% 0;
+    opacity: 1;
+  }
+}
+
+@keyframes electric-pulse-v {
+  0%, 100% {
+    background-position: 0 150%;
+    opacity: 0.3;
+  }
+  50% {
+    background-position: 0 -50%;
+    opacity: 1;
+  }
+}

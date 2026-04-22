@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "solutions": "Solutions",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero_eyebrow": "Web Design & Development",
+    "hero_title": "Digital experiences\nthat last.",
+    "hero_sub": "We build modular, user-centered websites for small businesses and freelancers – based in Stuttgart, working everywhere.",
+    "hero_cta_primary": "Explore Projects",
+    "hero_cta_secondary": "Get in Touch",
+    "projects_title": "Selected Projects",
+    "services_title": "Services",
+    "services": {
+      "ux_title": "UX & Design",
+      "ux_desc": "User-centered design with Figma – from concept to final prototype.",
+      "dev_title": "Web Development",
+      "dev_desc": "Modern frontend development with Vue.js, Nuxt 3 and TypeScript.",
+      "seo_title": "SEO & Performance",
+      "seo_desc": "Core Web Vitals optimized, fast-loading, top-ranked by Google.",
+      "booking_title": "Booking Systems",
+      "booking_desc": "Custom booking solutions for appointments, services and resources.",
+      "services_list": [
+        {
+          "name": "UX & Design",
+          "description": "User-centered design with Figma – from concept to final prototype.",
+          "tags": ["Figma", "Prototyping", "UX Research", "Usability Testing", "Design System"]
+        },
+        {
+          "name": "Web Development",
+          "description": "Modern frontend development with Vue.js, Nuxt 3 and TypeScript. Performance-optimized.",
+          "tags": ["Vue.js", "Nuxt 3", "TypeScript", "TailwindCSS", "Node.js"]
+        },
+        {
+          "name": "SEO & Performance",
+          "description": "Core Web Vitals optimized, structured data, technical SEO.",
+          "tags": ["Core Web Vitals", "Structured Data", "Nuxt Image", "Lighthouse"]
+        },
+        {
+          "name": "Booking Systems",
+          "description": "Custom booking solutions for appointments, services and resources.",
+          "tags": ["Calendar", "Appointment Management", "Payment Integration", "Automation"]
+        }
+      ]
+    }
+  },
+  "project": {
+    "client": "Client",
+    "category": "Category",
+    "tech": "Technologies",
+    "back": "Back to Portfolio",
+    "next_project": "Next Project"
+  },
+  "contact": {
+    "title": "Let's talk.",
+    "sub": "Open for projects, collaborations and new ideas.",
+    "email_label": "Email",
+    "phone_label": "Phone",
+    "location_label": "Location"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "imprint": "Imprint",
+    "privacy": "Privacy"
+  },
+  "meta": {
+    "home_title": "Mindcoded – Web Design & Development Stuttgart",
+    "home_desc": "Professional websites for small businesses and freelancers. UX Design, frontend development and SEO from Stuttgart.",
+    "projects_title": "Portfolio – Mindcoded",
+    "contact_title": "Contact – Mindcoded",
+    "privacy_title": "Privacy Policy – Mindcoded",
+    "privacy_desc": "Privacy Policy / Datenschutzerklärung"
+  }
+}

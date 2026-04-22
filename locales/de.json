@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "solutions": "Leistungen",
+    "portfolio": "Portfolio",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "hero_eyebrow": "Web Design & Entwicklung",
+    "hero_title": "Digitale Erlebnisse,\ndie bleiben.",
+    "hero_sub": "Wir bauen modulare, nutzerzentrierte Websites für kleine Unternehmen und Selbstständige – von Stuttgart aus, für alle.",
+    "hero_cta_primary": "Projekte entdecken",
+    "hero_cta_secondary": "Kontakt aufnehmen",
+    "projects_title": "Ausgewählte Projekte",
+    "services_title": "Leistungen",
+    "services": {
+      "ux_title": "UX & Design",
+      "ux_desc": "Nutzerzentriertes Design mit Figma – von der Konzeption bis zum finalen Prototyp.",
+      "dev_title": "Web­entwicklung",
+      "dev_desc": "Moderne Frontend-Entwicklung mit Vue.js, Nuxt und TypeScript.",
+      "seo_title": "SEO & Performance",
+      "seo_desc": "Core Web Vitals optimiert, schnell geladen, top bewertet von Google.",
+      "booking_title": "Buchungssysteme",
+      "booking_desc": "Individuelle Buchungslösungen für Termine, Dienstleistungen und Ressourcen.",
+      "services_list": [
+        {
+          "name": "UX & Design",
+          "description": "Nutzerzentriertes Design mit Figma – von der Konzeption bis zum finalen Prototyp.",
+          "tags": ["Figma", "Prototyping", "UX Research", "Usability Testing", "Design System"]
+        },
+        {
+          "name": "Webentwicklung",
+          "description": "Moderne Frontend-Entwicklung mit Vue.js, Nuxt 3 und TypeScript. Performance-optimiert.",
+          "tags": ["Vue.js", "Nuxt 3", "TypeScript", "TailwindCSS", "Node.js"]
+        },
+        {
+          "name": "SEO & Performance",
+          "description": "Core Web Vitals optimiert, strukturierte Daten, technisches SEO.",
+          "tags": ["Core Web Vitals", "Structured Data", "Nuxt Image", "Lighthouse"]
+        },
+        {
+          "name": "Buchungssysteme",
+          "description": "Individuelle Buchungslösungen für Termine, Dienstleistungen und Ressourcen.",
+          "tags": ["Kalender", "Terminverwaltung", "Zahlungsintegration", "Automatisierung"]
+        }
+      ]
+    }
+  },
+  "project": {
+    "client": "Kunde",
+    "category": "Kategorie",
+    "tech": "Technologien",
+    "back": "Zurück zum Portfolio",
+    "next_project": "Nächstes Projekt"
+  },
+  "contact": {
+    "title": "Lass uns reden.",
+    "sub": "Offen für Projekte, Kooperationen und neue Ideen.",
+    "email_label": "E-Mail",
+    "phone_label": "Telefon",
+    "location_label": "Standort"
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "meta": {
+    "home_title": "Mindcoded – Web Design & Entwicklung Stuttgart",
+    "home_desc": "Professionelle Websites für kleine Unternehmen und Freelancer. UX Design, Frontend-Entwicklung und SEO aus Stuttgart.",
+    "projects_title": "Portfolio – Mindcoded",
+    "contact_title": "Kontakt – Mindcoded",
+    "privacy_title": "Datenschutz – Mindcoded",
+    "privacy_desc": "Datenschutzerklärung / Privacy Policy"
+  }
+}

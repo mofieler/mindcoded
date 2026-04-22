@@ -1,0 +1,1 @@
+export { default } from "file:///C:/Users/morit/MyCode/mindcoded/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs"

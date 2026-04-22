@@ -2,7 +2,7 @@
 NIXPACKS_NODE_VERSION = "22.13.0"
 
 [phases.install]
-cmds = ["npm install --package-lock-only && npm ci"]
+cmds = ["npm install --ignore-scripts"]
 
 [phases.build]
-cmds = ["npm run generate"]
+cmds = ["npm run postinstall && npm run generate"]

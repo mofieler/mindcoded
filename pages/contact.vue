@@ -45,10 +45,10 @@ const contact = {
         </p>
         <a
           :href="`mailto:${contact.email}`"
-          class="font-display font-bold text-xl text-fg hover:text-accent transition-colors break-all inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-accent/20 hover:border-accent hover:bg-accent/5 hover:shadow-md"
+          class="font-display font-bold text-xl text-fg hover:text-accent transition-colors inline-flex items-center gap-2 min-w-0"
         >
-          <EnvelopeIcon class="w-5 h-5" />
-          {{ contact.email }}
+          <EnvelopeIcon class="w-5 h-5 shrink-0" />
+          <span class="break-all">{{ contact.email }}</span>
         </a>
       </div>
 

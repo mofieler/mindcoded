@@ -90,11 +90,11 @@ onMounted(() => {
 
       <!-- Desktop Links -->
       <ul class="hidden md:flex items-center gap-1">
-        <!-- Links before Services -->
+        <!-- Links before Solutions -->
         <li v-for="link in linksBeforeSolutions" :key="link.key">
           <NuxtLink
             :to="link.to"
-            class="px-3 py-1.5 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all"
+            class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all inline-flex items-center justify-center"
             active-class="text-fg bg-muted"
           >
             {{ t(link.key) }}
@@ -108,7 +108,7 @@ onMounted(() => {
           @mouseleave="servicesDropdownOpen = false"
         >
           <button
-            class="px-3 py-1.5 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all flex items-center gap-1"
+            class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all flex items-center justify-center gap-1"
             :class="{ 'text-fg bg-muted': $route.path.startsWith('/solutions') }"
           >
             {{ t('nav.solutions') }}
@@ -188,7 +188,7 @@ onMounted(() => {
         <li v-for="link in linksAfterSolutions" :key="link.key">
           <NuxtLink
             :to="link.to"
-            class="px-3 py-1.5 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all"
+            class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all inline-flex items-center justify-center"
             active-class="text-fg bg-muted"
           >
             {{ t(link.key) }}

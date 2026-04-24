@@ -7,15 +7,15 @@
   --color-accent-hover: 29 78 216;    /* #1D4ED8  Tailwind blue-700 */
 
   /* Light Mode */
-  --color-base:     248 248 248;      /* #F8F8F8  Hintergrund      */
+  --color-base:     246 246 249;      /* #F6F6F9  leicht kühl       */
   --color-surface:  255 255 255;      /* #FFFFFF  Karten / Nav      */
-  --color-muted:    243 244 246;      /* #F3F4F6  Subtile Flächen  */
-  --color-border:   229 231 235;      /* #E5E7EB                    */
-  --color-fg:       10  10  10;       /* #0A0A0A  Haupttext         */
-  --color-fg-muted: 107 114 128;      /* #6B7280  Hilfstext         */
+  --color-muted:    232 233 238;      /* #E8E9EE  deutlich sichtbar */
+  --color-border:   208 210 218;      /* #D0D2DA  klar definiert    */
+  --color-fg:       11  12  17;       /* #0B0C11  fast schwarz      */
+  --color-fg-muted: 88  94 112;       /* #585E70  kühles Grau       */
 
   /* Grid-Linienstärke für Hero-Hintergrund */
-  --grid-color: rgba(0, 0, 0, 0.06);
+  --grid-color: rgba(0, 0, 0, 0.09);
 }
 
 /* Dark Mode */

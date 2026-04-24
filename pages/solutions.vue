@@ -217,12 +217,12 @@ const services = [
 
     <!-- ─── CONTACT CTA ──────────────────────────────────────────── -->
     <section class="max-w-7xl mx-auto px-6 py-24">
-      <div class="rounded-2xl dark:bg-gradient-to-br dark:from-blue-600 dark:via-blue-800 dark:to-black bg-gradient-to-br from-blue-50 via-white to-blue-50 p-12 sm:p-16 text-center relative overflow-hidden shadow-lg dark:shadow-2xl transform transition-all duration-300 hover:scale-[1.02] dark:hover:shadow-blue-900/20 hover:shadow-blue-200/50">
-        <!-- Subtle 3D overlay effect -->
-        <div class="absolute inset-0 dark:bg-gradient-to-t dark:from-transparent dark:via-white/5 dark:to-transparent bg-gradient-to-t from-transparent via-blue-50/30 to-transparent pointer-events-none"></div>
+      <div class="rounded-2xl dark:bg-gradient-to-br dark:from-blue-600 dark:via-blue-800 dark:to-black bg-gradient-to-br from-accent/8 via-surface to-accent/5 border border-border p-12 sm:p-16 text-center relative overflow-hidden shadow-xl dark:shadow-2xl transform transition-all duration-300 hover:scale-[1.02] dark:hover:shadow-blue-900/20 hover:shadow-accent/10">
+        <!-- Accent top border line -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent rounded-t-2xl pointer-events-none"></div>
         <!-- Inner shadow for depth -->
         <div class="absolute inset-0 rounded-2xl shadow-inner pointer-events-none"></div>
-        
+
         <div class="relative z-10">
           <h2 class="font-display font-extrabold text-3xl sm:text-4xl dark:text-white text-fg mb-4">
             {{ t('contact.title') }}
@@ -230,7 +230,7 @@ const services = [
           <p class="font-body dark:text-white/95 text-fg-muted mb-8">{{ t('contact.sub') }}</p>
           <NuxtLink
             :to="localePath('/optin')"
-            class="inline-block px-8 py-3 rounded-lg dark:bg-white/10 dark:backdrop-blur-sm dark:border dark:border-white/20 bg-accent text-white font-display font-bold text-sm dark:hover:bg-white/20 hover:bg-accent/95 transition-all duration-300 hover:scale-105 dark:hover:shadow-lg dark:hover:shadow-white/10 hover:shadow-lg hover:shadow-accent/30"
+            class="inline-block px-8 py-3 rounded-lg dark:bg-white/10 dark:backdrop-blur-sm dark:border dark:border-white/20 bg-accent text-white font-display font-bold text-sm dark:hover:bg-white/20 hover:bg-accent/90 transition-all duration-300 hover:scale-105 dark:hover:shadow-lg dark:hover:shadow-white/10 hover:shadow-lg hover:shadow-accent/30"
           >
             {{ t('home.hero_cta_secondary') }}
           </NuxtLink>

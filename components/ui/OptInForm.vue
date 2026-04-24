@@ -1,13 +1,13 @@
 <template>
-  <div class="w-full max-w-md mx-auto">
-    <div v-if="state === 'success'" class="rounded-xl border border-green-500/20 bg-green-500/5 p-8 text-center">
+  <div class="w-full">
+    <div v-if="state === 'success'" class="rounded-xl border border-green-500/30 bg-green-500/10 p-8 text-center">
       <div class="mb-4 text-4xl">✓</div>
-      <p class="text-white/80 leading-relaxed">{{ t('optin.success') }}</p>
+      <p class="text-fg-muted leading-relaxed">{{ t('optin.success') }}</p>
     </div>
 
     <form v-else @submit.prevent="handleSubmit" class="space-y-5" novalidate>
       <div>
-        <label for="optin-email" class="mb-2 block text-sm font-medium text-white/80">
+        <label for="optin-email" class="mb-2 block text-sm font-medium text-fg-muted">
           {{ t('optin.emailLabel') }}
         </label>
         <input
@@ -17,10 +17,10 @@
           autocomplete="email"
           :placeholder="t('optin.emailPlaceholder')"
           :disabled="state === 'loading'"
-          class="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
+          class="w-full rounded-lg border border-border bg-muted px-4 py-3 text-sm text-fg placeholder-fg-muted/50 outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
           :class="{ 'border-red-500/50': errors.email }"
         />
-        <p v-if="errors.email" class="mt-1 text-xs text-red-400">{{ errors.email }}</p>
+        <p v-if="errors.email" class="mt-1 text-xs text-red-500">{{ errors.email }}</p>
       </div>
 
       <div class="flex items-start gap-3">
@@ -29,18 +29,18 @@
           v-model="gdprConsent"
           type="checkbox"
           :disabled="state === 'loading'"
-          class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-white/20 accent-accent disabled:opacity-50"
+          class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-border accent-accent disabled:opacity-50"
         />
-        <label for="optin-gdpr" class="cursor-pointer text-sm text-white/60 leading-relaxed">
+        <label for="optin-gdpr" class="cursor-pointer text-sm text-fg-muted leading-relaxed">
           {{ t('optin.checkboxLabel') }}
-          <NuxtLink :to="localePath('/privacy')" class="underline hover:text-white transition-colors" target="_blank">
+          <NuxtLink :to="localePath('/privacy')" class="underline hover:text-fg transition-colors" target="_blank">
             {{ t('footer.privacy') }}
           </NuxtLink>
         </label>
       </div>
-      <p v-if="errors.gdpr" class="text-xs text-red-400">{{ errors.gdpr }}</p>
+      <p v-if="errors.gdpr" class="text-xs text-red-500">{{ errors.gdpr }}</p>
 
-      <p v-if="errors.general" class="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-400">
+      <p v-if="errors.general" class="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-sm text-red-500">
         {{ errors.general }}
       </p>
 

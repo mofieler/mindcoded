@@ -73,7 +73,7 @@ useSeo({
         </NuxtLink>
         <NuxtLink
           :to="localePath('/optin')"
-          class="px-8 py-4 rounded-xl border-2 border-accent/40 bg-accent/20 text-fg font-display font-bold text-base shadow-lg hover:shadow-xl hover:border-accent hover:text-accent hover:bg-accent/30 transition-all hover:scale-110 dark:border-accent/60 dark:bg-accent/30 dark:hover:bg-accent/40"
+          class="px-8 py-4 rounded-xl border-2 border-accent text-accent font-display font-bold text-base shadow-lg hover:shadow-xl hover:bg-accent hover:text-white transition-all hover:scale-110 dark:border-accent/60 dark:text-fg dark:bg-accent/20 dark:hover:bg-accent/40 dark:hover:border-accent dark:hover:text-fg"
         >
           {{ t('home.hero_cta_secondary') }}
         </NuxtLink>
@@ -135,20 +135,22 @@ useSeo({
 
   <!-- ─── CONTACT CTA ──────────────────────────────────────────── -->
   <section class="max-w-7xl mx-auto px-6 py-24">
-    <div class="rounded-2xl dark:bg-gradient-to-br dark:from-blue-600 dark:via-blue-800 dark:to-black bg-gradient-to-br from-blue-50 via-white to-blue-50 p-12 sm:p-16 text-center relative overflow-hidden shadow-lg dark:shadow-2xl transform transition-all duration-300 hover:scale-[1.02] dark:hover:shadow-blue-900/20 hover:shadow-blue-200/50">
-      <!-- Subtle 3D overlay effect -->
-      <div class="absolute inset-0 dark:bg-gradient-to-t dark:from-transparent dark:via-white/5 dark:to-transparent bg-gradient-to-t from-transparent via-blue-50/30 to-transparent pointer-events-none"></div>
+    <div class="rounded-2xl dark:bg-gradient-to-br dark:from-blue-600 dark:via-blue-800 dark:to-black bg-gradient-to-br from-accent/8 via-surface to-accent/5 border border-border p-12 sm:p-16 text-center relative overflow-hidden shadow-xl dark:shadow-2xl transform transition-all duration-300 hover:scale-[1.02] dark:hover:shadow-blue-900/20 hover:shadow-accent/10">
+      <!-- Accent top border line -->
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent rounded-t-2xl pointer-events-none"></div>
       <!-- Inner shadow for depth -->
       <div class="absolute inset-0 rounded-2xl shadow-inner pointer-events-none"></div>
-      
+
       <div class="relative z-10 w-full">
         <h2 class="font-display font-extrabold text-3xl sm:text-4xl dark:text-white text-fg mb-4">
           {{ t('contact.title') }}
         </h2>
         <p class="font-body dark:text-white/90 text-fg-muted mb-10">{{ t('contact.sub') }}</p>
-        <ClientOnly>
-          <UiOptInForm />
-        </ClientOnly>
+        <div class="max-w-md mx-auto">
+          <ClientOnly>
+            <UiOptInForm />
+          </ClientOnly>
+        </div>
       </div>
     </div>
   </section>

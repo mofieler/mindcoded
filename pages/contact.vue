@@ -81,7 +81,7 @@ const contact = {
     </div>
 
     <!-- Opt-In Form -->
-    <div class="mt-20 max-w-xl">
+    <div class="mt-20 max-w-md">
       <h2 class="font-display font-bold text-2xl text-fg mb-2">
         {{ t('optin.headline') }}
       </h2>

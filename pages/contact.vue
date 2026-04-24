@@ -80,5 +80,16 @@ const contact = {
       </div>
     </div>
 
+    <!-- Opt-In Form -->
+    <div class="mt-20 max-w-xl">
+      <h2 class="font-display font-bold text-2xl text-fg mb-2">
+        {{ t('optin.headline') }}
+      </h2>
+      <p class="font-body text-fg-muted mb-8">{{ t('optin.subline') }}</p>
+      <ClientOnly>
+        <UiOptInForm />
+      </ClientOnly>
+    </div>
+
   </div>
 </template>

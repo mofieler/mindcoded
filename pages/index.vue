@@ -141,17 +141,14 @@ useSeo({
       <!-- Inner shadow for depth -->
       <div class="absolute inset-0 rounded-2xl shadow-inner pointer-events-none"></div>
       
-      <div class="relative z-10">
+      <div class="relative z-10 w-full">
         <h2 class="font-display font-extrabold text-3xl sm:text-4xl dark:text-white text-fg mb-4">
           {{ t('contact.title') }}
         </h2>
-        <p class="font-body dark:text-white/90 text-fg-muted mb-8">{{ t('contact.sub') }}</p>
-        <NuxtLink
-          :to="localePath('/optin')"
-          class="inline-block px-8 py-3 rounded-lg dark:bg-white/10 dark:backdrop-blur-sm dark:border dark:border-white/20 bg-accent text-white font-display font-bold text-sm dark:hover:bg-white/20 hover:bg-accent/90 transition-all duration-300 hover:scale-105 dark:hover:shadow-lg dark:hover:shadow-white/10 hover:shadow-lg hover:shadow-accent/30"
-        >
-          {{ t('home.hero_cta_secondary') }}
-        </NuxtLink>
+        <p class="font-body dark:text-white/90 text-fg-muted mb-10">{{ t('contact.sub') }}</p>
+        <ClientOnly>
+          <UiOptInForm />
+        </ClientOnly>
       </div>
     </div>
   </section>

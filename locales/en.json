@@ -69,7 +69,7 @@
     "headline": "Interested in working together?",
     "subline": "Enter your email and I'll get back to you.",
     "emailLabel": "Email address",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "your{'@'}email.com",
     "checkboxLabel": "I have read and agree to the privacy policy.",
     "submit": "Send request",
     "submitting": "Sending...",

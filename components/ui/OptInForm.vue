@@ -2,16 +2,16 @@
   <div class="w-full max-w-md mx-auto">
     <div v-if="state === 'success'" class="rounded-xl border border-green-500/20 bg-green-500/5 p-8 text-center">
       <div class="mb-4 text-4xl">✓</div>
-      <p class="text-surface-light dark:text-surface-dark leading-relaxed">{{ t('optin.success') }}</p>
+      <p class="text-white/80 leading-relaxed">{{ t('optin.success') }}</p>
     </div>
 
     <form v-else @submit.prevent="handleSubmit" class="space-y-5" novalidate>
       <div>
-        <label :for="emailId" class="mb-2 block text-sm font-medium text-surface-light dark:text-surface-dark">
+        <label for="optin-email" class="mb-2 block text-sm font-medium text-white/80">
           {{ t('optin.emailLabel') }}
         </label>
         <input
-          :id="emailId"
+          id="optin-email"
           v-model="email"
           type="email"
           autocomplete="email"
@@ -25,13 +25,13 @@
 
       <div class="flex items-start gap-3">
         <input
-          id="gdpr-checkbox"
+          id="optin-gdpr"
           v-model="gdprConsent"
           type="checkbox"
           :disabled="state === 'loading'"
           class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-white/20 accent-accent disabled:opacity-50"
         />
-        <label for="gdpr-checkbox" class="cursor-pointer text-sm text-white/60 leading-relaxed">
+        <label for="optin-gdpr" class="cursor-pointer text-sm text-white/60 leading-relaxed">
           {{ t('optin.checkboxLabel') }}
           <NuxtLink :to="localePath('/privacy')" class="underline hover:text-white transition-colors" target="_blank">
             {{ t('footer.privacy') }}
@@ -59,7 +59,6 @@
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-const emailId = useId()
 const email = ref('')
 const gdprConsent = ref(false)
 const state = ref<'idle' | 'loading' | 'success'>('idle')

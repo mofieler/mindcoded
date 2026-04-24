@@ -21,7 +21,9 @@
           {{ t('optin.headline') }}
         </h1>
         <p class="mb-12 text-lg text-white/50 leading-relaxed">{{ t('optin.subline') }}</p>
-        <OptInForm />
+        <ClientOnly>
+          <OptInForm />
+        </ClientOnly>
       </div>
     </div>
   </div>

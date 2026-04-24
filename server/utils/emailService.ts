@@ -10,7 +10,7 @@ export async function sendConfirmationEmail(email: string, confirmUrl: string, l
   const resend = getResend()
   const subject = locale === 'de' ? 'Bitte bestätige deine Email – mindcoded' : 'Please confirm your email – mindcoded'
   await resend.emails.send({
-    from: 'mindcoded <noreply@mindcoded.de>',
+    from: 'mindcoded <noreply@mindcoded.studio>',
     to: email,
     subject,
     html: confirmationEmailHtml(confirmUrl, locale),
@@ -22,13 +22,13 @@ export async function sendSuccessEmail(email: string, locale: 'de' | 'en') {
   const config = useRuntimeConfig()
   const subject = locale === 'de' ? 'Anfrage erhalten – mindcoded' : 'Request received – mindcoded'
   await resend.emails.send({
-    from: 'mindcoded <noreply@mindcoded.de>',
+    from: 'mindcoded <noreply@mindcoded.studio>',
     to: email,
     subject,
     html: successEmailHtml(email, locale),
   })
   await resend.emails.send({
-    from: 'mindcoded <noreply@mindcoded.de>',
+    from: 'mindcoded <noreply@mindcoded.studio>',
     to: config.adminEmail as string,
     subject: `Neue Kontaktanfrage: ${email}`,
     html: adminNotificationHtml(email, locale),

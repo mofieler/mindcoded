@@ -64,6 +64,19 @@
     "imprint": "Impressum",
     "privacy": "Datenschutz"
   },
+  "optin": {
+    "pageTitle": "Kontakt anfragen",
+    "headline": "Interesse an einer Zusammenarbeit?",
+    "subline": "Trag deine Email ein – ich melde mich bei dir.",
+    "emailLabel": "Email-Adresse",
+    "emailPlaceholder": "deine@email.de",
+    "checkboxLabel": "Ich habe die Datenschutzerklärung gelesen und stimme ihr zu.",
+    "submit": "Anfrage senden",
+    "submitting": "Wird gesendet...",
+    "success": "Bestätigungslink wurde an deine Email gesendet. Bitte prüfe dein Postfach.",
+    "confirmed": "Danke! Deine Anfrage wurde bestätigt. Ich melde mich bald bei dir.",
+    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+  },
   "meta": {
     "home_title": "Mindcoded – Web Design & Entwicklung Stuttgart",
     "home_desc": "Professionelle Websites für kleine Unternehmen und Freelancer. UX Design, Frontend-Entwicklung und SEO aus Stuttgart.",

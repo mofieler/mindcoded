@@ -229,7 +229,7 @@ const services = [
           </h2>
           <p class="font-body dark:text-white/95 text-fg-muted mb-8">{{ t('contact.sub') }}</p>
           <NuxtLink
-            :to="localePath('/contact')"
+            :to="localePath('/optin')"
             class="inline-block px-8 py-3 rounded-lg dark:bg-white/10 dark:backdrop-blur-sm dark:border dark:border-white/20 bg-accent text-white font-display font-bold text-sm dark:hover:bg-white/20 hover:bg-accent/95 transition-all duration-300 hover:scale-105 dark:hover:shadow-lg dark:hover:shadow-white/10 hover:shadow-lg hover:shadow-accent/30"
           >
             {{ t('home.hero_cta_secondary') }}

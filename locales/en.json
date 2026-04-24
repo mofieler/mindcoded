@@ -64,6 +64,19 @@
     "imprint": "Imprint",
     "privacy": "Privacy"
   },
+  "optin": {
+    "pageTitle": "Request Contact",
+    "headline": "Interested in working together?",
+    "subline": "Enter your email and I'll get back to you.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "checkboxLabel": "I have read and agree to the privacy policy.",
+    "submit": "Send request",
+    "submitting": "Sending...",
+    "success": "A confirmation link has been sent to your email. Please check your inbox.",
+    "confirmed": "Thank you! Your request has been confirmed. I'll be in touch soon.",
+    "error": "Something went wrong. Please try again."
+  },
   "meta": {
     "home_title": "Mindcoded – Web Design & Development Stuttgart",
     "home_desc": "Professional websites for small businesses and freelancers. UX Design, frontend development and SEO from Stuttgart.",

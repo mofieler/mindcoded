@@ -72,7 +72,7 @@ useSeo({
           {{ t('home.hero_cta_primary') }}
         </NuxtLink>
         <NuxtLink
-          :to="localePath('/contact')"
+          :to="localePath('/optin')"
           class="px-8 py-4 rounded-xl border-2 border-accent/40 bg-accent/20 text-fg font-display font-bold text-base shadow-lg hover:shadow-xl hover:border-accent hover:text-accent hover:bg-accent/30 transition-all hover:scale-110 dark:border-accent/60 dark:bg-accent/30 dark:hover:bg-accent/40"
         >
           {{ t('home.hero_cta_secondary') }}
@@ -147,7 +147,7 @@ useSeo({
         </h2>
         <p class="font-body dark:text-white/90 text-fg-muted mb-8">{{ t('contact.sub') }}</p>
         <NuxtLink
-          :to="localePath('/contact')"
+          :to="localePath('/optin')"
           class="inline-block px-8 py-3 rounded-lg dark:bg-white/10 dark:backdrop-blur-sm dark:border dark:border-white/20 bg-accent text-white font-display font-bold text-sm dark:hover:bg-white/20 hover:bg-accent/90 transition-all duration-300 hover:scale-105 dark:hover:shadow-lg dark:hover:shadow-white/10 hover:shadow-lg hover:shadow-accent/30"
         >
           {{ t('home.hero_cta_secondary') }}

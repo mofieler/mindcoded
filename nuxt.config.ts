@@ -87,4 +87,12 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2025-01-01',
+
+  // ─── Runtime Config ───────────────────────────────────────────
+  runtimeConfig: {
+    resendApiKey: process.env.RESEND_API_KEY,
+    databaseUrl: process.env.DATABASE_URL,
+    adminEmail: process.env.ADMIN_EMAIL || 'moritzfieler@icloud.com',
+    siteUrl: process.env.SITE_URL || 'https://mindcoded.de',
+  },
 })

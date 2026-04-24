@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const { token } = getQuery(event)
 
   if (!token || typeof token !== 'string') {
-    throw createError({ statusCode: 400, message: 'Missing token.' })
+    return sendRedirect(event, '/confirm?status=invalid&locale=de', 302)
   }
 
   await initDb()
@@ -17,17 +17,19 @@ export default defineEventHandler(async (event) => {
   )
 
   if (!rows.length) {
-    throw createError({ statusCode: 404, message: 'Invalid or expired confirmation link.' })
+    return sendRedirect(event, '/confirm?status=invalid&locale=de', 302)
   }
 
   const row = rows[0]
 
+  const locale = row.locale || 'de'
+
   if (row.confirmed) {
-    return sendRedirect(event, '/?confirmed=already', 302)
+    return sendRedirect(event, `/confirm?status=already&locale=${locale}`, 302)
   }
 
   if (new Date(row.expires_at) < new Date()) {
-    throw createError({ statusCode: 410, message: 'Confirmation link has expired.' })
+    return sendRedirect(event, `/confirm?status=expired&locale=${locale}`, 302)
   }
 
   await db.query(
@@ -37,5 +39,5 @@ export default defineEventHandler(async (event) => {
 
   await sendSuccessEmail(row.email, row.locale as 'de' | 'en')
 
-  return sendRedirect(event, '/?confirmed=true', 302)
+  return sendRedirect(event, `/confirm?status=success&locale=${locale}`, 302)
 })

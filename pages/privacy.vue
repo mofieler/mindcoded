@@ -2,7 +2,7 @@
 const { t, locale } = useI18n()
 
 useSeo({
-  title: locale.value === 'de' ? 'Datenschutz – Studio Name' : 'Privacy Policy – Studio Name',
+  title: locale.value === 'de' ? 'Datenschutz – Mindcoded' : 'Privacy Policy – Mindcoded',
   description: locale.value === 'de' ? 'Datenschutzerklärung / Privacy Policy' : 'Privacy Policy / Datenschutzerklärung',
 })
 </script>
@@ -71,8 +71,37 @@ useSeo({
         <div class="space-y-4 font-body text-fg-muted">
           <p>
             {{ locale === 'de'
-              ? 'Diese Website wird bei Vercel, Inc. gehostet. Beim Aufruf der Website werden durch Vercel automatisch Server-Logfiles erstellt, die technische Daten wie IP-Adresse, Browsertyp und Zugriffszeit enthalten. Diese Daten sind nicht einer bestimmten Person zuordenbar.'
-              : 'This website is hosted by Vercel, Inc. When accessing the website, Vercel automatically creates server log files containing technical data such as IP address, browser type and access time. This data cannot be attributed to a specific person.' }}
+              ? 'Diese Website wird auf einem eigenen Server (VPS) betrieben. Beim Aufruf der Website werden automatisch Server-Logfiles erstellt, die technische Daten wie IP-Adresse, Browsertyp und Zugriffszeit enthalten. Diese Daten werden nicht mit anderen Datenquellen zusammengeführt.'
+              : 'This website is operated on a private server (VPS). When accessing the website, server log files are automatically created containing technical data such as IP address, browser type and access time. This data is not merged with other data sources.' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Contact Opt-In Section -->
+      <div class="border-t border-border pt-8">
+        <h2 class="font-display font-bold text-2xl text-fg mb-6">
+          {{ locale === 'de' ? '5. Kontaktanfragen & Double Opt-In' : '5. Contact Requests & Double Opt-In' }}
+        </h2>
+        <div class="space-y-4 font-body text-fg-muted">
+          <p>
+            {{ locale === 'de'
+              ? 'Über das Kontaktformular können Sie eine Anfrage senden. Dabei wird Ihre E-Mail-Adresse erfasst und in einem Double Opt-In Verfahren bestätigt. Das bedeutet: Nach der Eingabe erhalten Sie eine Bestätigungs-E-Mail. Erst nach Klick auf den Bestätigungslink wird Ihre Anfrage verarbeitet.'
+              : 'You can submit a contact request via the contact form. Your email address is collected and confirmed via a double opt-in process. This means: after entering your email, you will receive a confirmation email. Your request is only processed after clicking the confirmation link.' }}
+          </p>
+          <p>
+            {{ locale === 'de'
+              ? 'Gespeicherte Daten: E-Mail-Adresse, Zeitstempel der Anfrage und Bestätigung, IP-Adresse (zur Missbrauchsvermeidung). Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).'
+              : 'Data stored: email address, timestamp of request and confirmation, IP address (for abuse prevention). Legal basis: Art. 6 para. 1 lit. a GDPR (consent).' }}
+          </p>
+          <p>
+            {{ locale === 'de'
+              ? 'Für den E-Mail-Versand nutzen wir den Dienst Resend (Resend Inc., 2261 Market Street, San Francisco, CA 94114, USA). Ihre E-Mail-Adresse wird zum Zweck der Zustellung der Bestätigungs- und Benachrichtigungs-E-Mails an Resend übermittelt. Weitere Informationen: resend.com/privacy-policy'
+              : 'For email delivery we use the service Resend (Resend Inc., 2261 Market Street, San Francisco, CA 94114, USA). Your email address is transmitted to Resend for the purpose of delivering confirmation and notification emails. More information: resend.com/privacy-policy' }}
+          </p>
+          <p>
+            {{ locale === 'de'
+              ? 'Die gespeicherten Daten werden nach Abschluss der Kontaktaufnahme gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten bestehen. Sie können Ihre Einwilligung jederzeit widerrufen (moritzfieler@icloud.com).'
+              : 'Stored data will be deleted after the contact has been established, unless legal retention obligations apply. You can withdraw your consent at any time (moritzfieler@icloud.com).' }}
           </p>
         </div>
       </div>
@@ -80,7 +109,7 @@ useSeo({
       <!-- Rights Section -->
       <div class="border-t border-border pt-8">
         <h2 class="font-display font-bold text-2xl text-fg mb-6">
-          {{ locale === 'de' ? '5. Ihre Rechte' : '5. Your Rights' }}
+          {{ locale === 'de' ? '6. Ihre Rechte' : '6. Your Rights' }}
         </h2>
         <div class="space-y-4 font-body text-fg-muted">
           <p>

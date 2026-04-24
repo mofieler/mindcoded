@@ -2,7 +2,7 @@
 const { t, locale } = useI18n()
 
 useSeo({
-  title: locale.value === 'de' ? 'Impressum – Studio Name' : 'Imprint – Studio Name',
+  title: locale.value === 'de' ? 'Impressum – Mindcoded' : 'Imprint – Mindcoded',
   description: locale.value === 'de' ? 'Impressum und rechtliche Angaben gemäß § 5 TMG.' : 'Imprint and legal information according to § 5 TMG.',
 })
 </script>
@@ -24,25 +24,20 @@ useSeo({
       <!-- Contact Info -->
       <div class="mb-12">
         <h2 class="font-display font-bold text-2xl text-fg mb-6">
-          {{ locale === 'de' ? 'Kontakt' : 'Contact' }}
+          {{ locale === 'de' ? 'Angaben gemäß § 5 TMG' : 'Information according to § 5 TMG' }}
         </h2>
-        <div class="space-y-4 font-body text-fg-muted">
-          <p>
-            <strong>{{ locale === 'de' ? 'E-Mail:' : 'Email:' }}</strong> 
-            <a 
-              href="mailto:moritzfieler@icloud.com" 
-              class="text-accent hover:text-accent/80 transition-colors"
-            >
+        <div class="space-y-2 font-body text-fg-muted">
+          <p><strong>Moritz Fieler</strong></p>
+          <p>Sautterweg 30<br>70565 Stuttgart<br>Deutschland</p>
+          <p class="pt-2">
+            <strong>{{ locale === 'de' ? 'E-Mail:' : 'Email:' }}</strong>
+            <a href="mailto:moritzfieler@icloud.com" class="text-accent hover:text-accent/80 transition-colors ml-1">
               moritzfieler@icloud.com
             </a>
           </p>
           <p>
-            <strong>{{ locale === 'de' ? 'Berufsbezeichnung:' : 'Professional Title:' }}</strong> 
+            <strong>{{ locale === 'de' ? 'Berufsbezeichnung:' : 'Professional Title:' }}</strong>
             {{ locale === 'de' ? 'Freiberuflicher UX Designer & Frontend Entwickler' : 'Freelance UX Designer & Frontend Developer' }}
-          </p>
-          <p>
-            <strong>{{ locale === 'de' ? 'Verliehen in:' : 'Based in:' }}</strong> 
-            {{ locale === 'de' ? 'Deutschland' : 'Germany' }}
           </p>
         </div>
       </div>

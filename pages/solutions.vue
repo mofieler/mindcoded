@@ -178,35 +178,35 @@ const services = [
         >
           <div class="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 class="font-display font-semibold text-lg text-fg mb-4 flex items-center gap-2">
-                <CheckCircleIcon class="w-5 h-5 text-green-500" />
+              <h3 class="font-display font-semibold text-base text-fg mb-3 flex items-center gap-2">
+                <CheckCircleIcon class="w-5 h-5 text-green-500 shrink-0" />
                 {{ locale === 'de' ? 'Vorteile' : 'Advantages' }}
               </h3>
               <ul class="space-y-2">
-                <li 
-                  v-for="(pro, index) in (locale === 'de' ? service.prosDe : service.prosEn)" 
+                <li
+                  v-for="(pro, index) in (locale === 'de' ? service.prosDe : service.prosEn)"
                   :key="index"
-                  class="flex items-start gap-3 text-fg-muted"
+                  class="flex items-center gap-3 rounded-lg bg-green-500/5 border border-green-500/10 px-3 py-2.5"
                 >
-                  <CheckIcon class="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                  <span class="font-body text-sm">{{ pro }}</span>
+                  <CheckIcon class="w-4 h-4 text-green-500 shrink-0" />
+                  <span class="font-body text-sm text-fg">{{ pro }}</span>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 class="font-display font-semibold text-lg text-fg mb-4 flex items-center gap-2">
-                <XCircleIcon class="w-5 h-5 text-orange-500" />
-                {{ locale === 'de' ? 'Nachteile' : 'Considerations' }}
+              <h3 class="font-display font-semibold text-base text-fg mb-3 flex items-center gap-2">
+                <XCircleIcon class="w-5 h-5 text-orange-500 shrink-0" />
+                {{ locale === 'de' ? 'Zu beachten' : 'Considerations' }}
               </h3>
               <ul class="space-y-2">
-                <li 
-                  v-for="(con, index) in (locale === 'de' ? service.consDe : service.consEn)" 
+                <li
+                  v-for="(con, index) in (locale === 'de' ? service.consDe : service.consEn)"
                   :key="index"
-                  class="flex items-start gap-3 text-fg-muted"
+                  class="flex items-center gap-3 rounded-lg bg-orange-500/5 border border-orange-500/10 px-3 py-2.5"
                 >
-                  <XMarkIcon class="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />
-                  <span class="font-body text-sm">{{ con }}</span>
+                  <XMarkIcon class="w-4 h-4 text-orange-400 shrink-0" />
+                  <span class="font-body text-sm text-fg">{{ con }}</span>
                 </li>
               </ul>
             </div>

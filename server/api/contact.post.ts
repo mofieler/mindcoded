@@ -1,6 +1,5 @@
 import { getDb, initDb, cleanupExpired } from '../utils/db'
-import { directContactAdminHtml, directContactReceiptHtml } from '../utils/emailTemplates'
-import { Resend } from 'resend'
+import { sendDirectContactEmail } from '../utils/emailService'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const EMAIL_MAX_LEN = 254
@@ -96,28 +95,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 429, message: 'Too many requests. Please try again later.' })
   }
 
-  const config = useRuntimeConfig()
-  const resend = new Resend(config.resendApiKey as string)
-
-  const [receiptResult, adminResult] = await Promise.all([
-    resend.emails.send({
-      from: 'mindcoded <noreply@mindcoded.studio>',
-      to: email,
-      subject: locale === 'de' ? 'Nachricht erhalten – mindcoded' : 'Message received – mindcoded',
-      html: directContactReceiptHtml(name, locale as 'de' | 'en'),
-    }),
-    resend.emails.send({
-      from: 'mindcoded <noreply@mindcoded.studio>',
-      to: config.adminEmail as string,
-      subject: `[mindcoded] ${subject}`,
-      html: directContactAdminHtml(name, email, subject, message),
-      replyTo: email,
-    }),
-  ])
-
-  if (receiptResult.error || adminResult.error) {
-    throw createError({ statusCode: 502, message: 'Failed to send email. Please try again.' })
-  }
+  await sendDirectContactEmail(name, email, subject, message, locale as 'de' | 'en')
 
   cleanupExpired().catch(() => {})
 

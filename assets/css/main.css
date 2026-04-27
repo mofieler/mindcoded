@@ -15,19 +15,19 @@
   --color-fg-muted: 88  94 112;       /* #585E70  kühles Grau       */
 
   /* Grid-Linienstärke für Hero-Hintergrund */
-  --grid-color: rgba(0, 0, 0, 0.09);
+  --grid-color: rgba(0, 0, 0, 0.11);
 }
 
-/* Dark Mode */
+/* Dark Mode — Layered Zinc System */
 .dark {
-  --color-base:     10  10  10;       /* #0A0A0A  */
-  --color-surface:  20  20  20;       /* #141414  */
-  --color-muted:    28  28  28;       /* #1C1C1C  */
-  --color-border:   38  38  38;       /* #262626  */
+  --color-base:     9   9   11;       /* #09090B  zinc-950  */
+  --color-surface:  24  24  27;       /* #18181B  zinc-900  */
+  --color-muted:    39  39  42;       /* #27272A  zinc-800  */
+  --color-border:   63  63  70;       /* #3F3F46  zinc-700  */
   --color-fg:       248 248 248;      /* #F8F8F8  */
-  --color-fg-muted: 161 161 170;      /* #A1A1AA  */
+  --color-fg-muted: 161 161 170;      /* #A1A1AA  zinc-400  */
 
-  --grid-color: rgba(255, 255, 255, 0.04);
+  --grid-color: rgba(255, 255, 255, 0.035);
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -72,6 +72,29 @@ h1, h2, h3, h4, h5, h6 {
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   BUTTON GRID MICRO-INTERACTION
+   ───────────────────────────────────────────────────────────────── */
+.btn-grid-hover {
+  position: relative;
+  overflow: hidden;
+}
+.btn-grid-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.btn-grid-hover:hover::after {
+  opacity: 1;
 }
 
 /* ─────────────────────────────────────────────────────────────────

@@ -95,7 +95,7 @@ onMounted(() => {
           <NuxtLink
             :to="link.to"
             class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all inline-flex items-center justify-center"
-            active-class="text-fg bg-muted"
+            active-class="text-accent bg-accent/10 font-semibold"
           >
             {{ t(link.key) }}
           </NuxtLink>
@@ -109,7 +109,7 @@ onMounted(() => {
         >
           <button
             class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all flex items-center justify-center gap-1"
-            :class="{ 'text-fg bg-muted': $route.path.startsWith('/solutions') }"
+            :class="{ 'text-accent bg-accent/10 font-semibold': $route.path.startsWith('/solutions') }"
           >
             {{ t('nav.solutions') }}
             <svg 
@@ -189,7 +189,7 @@ onMounted(() => {
           <NuxtLink
             :to="link.to"
             class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all inline-flex items-center justify-center"
-            active-class="text-fg bg-muted"
+            active-class="text-accent bg-accent/10 font-semibold"
           >
             {{ t(link.key) }}
           </NuxtLink>
@@ -261,7 +261,8 @@ onMounted(() => {
             v-for="link in linksBeforeSolutions"
             :key="link.key"
             :to="link.to"
-            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg"
+            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg transition-colors"
+            active-class="text-accent font-semibold"
             @click="mobileOpen = false"
           >
             {{ t(link.key) }}
@@ -320,7 +321,8 @@ onMounted(() => {
             v-for="link in linksAfterSolutions"
             :key="link.key"
             :to="link.to"
-            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg"
+            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg transition-colors"
+            active-class="text-accent font-semibold"
             @click="mobileOpen = false"
           >
             {{ t(link.key) }}

@@ -11,7 +11,7 @@ const localePath = useLocalePath()
 <template>
   <NuxtLink
     :to="localePath(`/projects/${project.slug}`)"
-    class="group block rounded-xl overflow-hidden border border-border bg-surface hover:border-accent transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/15 dark:hover:shadow-black/40"
+    class="group block rounded-xl overflow-hidden border border-border bg-surface shadow-sm dark:shadow-none hover:border-accent transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/15 dark:hover:shadow-black/40"
   >
     <!-- Cover Image -->
     <div class="relative aspect-[16/9] overflow-hidden bg-muted">

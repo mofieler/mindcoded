@@ -15,7 +15,8 @@
       "WebSearch",
       "Bash(npm uninstall *)",
       "Bash(git reset *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Read(//c/Users/morit/MyCode/harmony-pilates/**)"
     ]
   }
 }

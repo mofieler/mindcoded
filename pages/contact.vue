@@ -2,10 +2,12 @@
 import {
   EnvelopeIcon,
   PhoneIcon,
-  MapPinIcon
+  MapPinIcon,
+  ChatBubbleLeftEllipsisIcon,
+  BellAlertIcon,
 } from '@heroicons/vue/24/outline'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
 useSeo({
@@ -14,10 +16,26 @@ useSeo({
 })
 
 const contact = {
-  email: 'moritzfieler@icloud.com',
+  email: 'moritz@mindcoded.studio',
   phone: '+49 151 68456178',
   address: 'Sautterweg 30, 70565 Stuttgart',
 }
+
+type InquiryType = 'message' | 'newsletter'
+const activeInquiry = ref<InquiryType>('message')
+
+const inquiryOptions = computed(() => [
+  {
+    key: 'message' as InquiryType,
+    icon: ChatBubbleLeftEllipsisIcon,
+    label: locale.value === 'de' ? 'Nachricht senden' : 'Send a message',
+  },
+  {
+    key: 'newsletter' as InquiryType,
+    icon: BellAlertIcon,
+    label: locale.value === 'de' ? 'Auf dem Laufenden bleiben' : 'Stay updated',
+  },
+])
 </script>
 
 <template>
@@ -79,11 +97,29 @@ const contact = {
       </div>
     </div>
 
-    <!-- Two-column layout: form + secondary -->
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-16">
+    <!-- Consolidated Form with Inquiry Toggle -->
+    <div class="max-w-2xl">
 
-      <!-- Primary: Direct contact form (3/5) -->
-      <div class="lg:col-span-3">
+      <!-- Segmented Control -->
+      <div class="inline-flex rounded-xl border border-border bg-muted p-1 mb-10 gap-1" role="tablist">
+        <button
+          v-for="option in inquiryOptions"
+          :key="option.key"
+          role="tab"
+          :aria-selected="activeInquiry === option.key"
+          @click="activeInquiry = option.key"
+          class="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-display font-semibold transition-all duration-200"
+          :class="activeInquiry === option.key
+            ? 'bg-surface text-fg shadow-sm border border-border/60'
+            : 'text-fg-muted hover:text-fg'"
+        >
+          <component :is="option.icon" class="w-4 h-4 shrink-0" />
+          {{ option.label }}
+        </button>
+      </div>
+
+      <!-- Form Panel: Message -->
+      <div v-if="activeInquiry === 'message'" role="tabpanel">
         <div class="w-8 h-px bg-accent mb-6" />
         <h2 class="font-display font-bold text-2xl text-fg mb-2">
           {{ t('contact.form_title') }}
@@ -94,20 +130,18 @@ const contact = {
         </ClientOnly>
       </div>
 
-      <!-- Secondary: Quick opt-in (2/5) -->
-      <div class="lg:col-span-2">
-        <div class="sticky top-32">
-          <div class="rounded-xl border border-border bg-surface p-8 relative overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
-            <div class="w-6 h-px bg-accent mb-5" />
-            <h3 class="font-display font-bold text-lg text-fg mb-2">
-              {{ t('contact.optin_title') }}
-            </h3>
-            <p class="font-body text-sm text-fg-muted mb-6">{{ t('contact.optin_sub') }}</p>
-            <ClientOnly>
-              <UiOptInForm />
-            </ClientOnly>
-          </div>
+      <!-- Form Panel: Newsletter -->
+      <div v-else role="tabpanel">
+        <div class="rounded-xl border border-border bg-surface p-8 relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
+          <div class="w-6 h-px bg-accent mb-5" />
+          <h2 class="font-display font-bold text-2xl text-fg mb-2">
+            {{ t('contact.optin_title') }}
+          </h2>
+          <p class="font-body text-sm text-fg-muted mb-6">{{ t('contact.optin_sub') }}</p>
+          <ClientOnly>
+            <UiOptInForm />
+          </ClientOnly>
         </div>
       </div>
 

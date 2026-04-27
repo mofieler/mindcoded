@@ -12,31 +12,31 @@ useSeo({
 
 <template>
   <!-- ─── HERO ──────────────────────────────────────────────────── -->
-  <section
-    class="relative min-h-[85vh] flex flex-col items-center justify-center hero-grid overflow-hidden"
-  >
-    <!-- Vignette -->
-    <div class="absolute inset-0 bg-gradient-to-b from-base/0 via-base/0 to-base pointer-events-none z-20" />
+  <section class="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
+    <!-- Grid Background — edge-fade mask so grid bleeds naturally into page -->
+    <div
+      class="absolute inset-0 hero-grid z-0"
+      style="-webkit-mask-image: radial-gradient(ellipse 90% 90% at center, black 40%, transparent 85%); mask-image: radial-gradient(ellipse 90% 90% at center, black 40%, transparent 85%);"
+    />
+
+    <!-- Bottom fade to page -->
+    <div class="absolute inset-0 bg-gradient-to-b from-base/0 via-base/0 to-base pointer-events-none z-[2]" />
 
     <!-- Electric Lines - Light Mode -->
-    <div class="dark:hidden absolute inset-0 overflow-hidden pointer-events-none z-0">
-      <!-- Horizontal electric lines -->
+    <div class="dark:hidden absolute inset-0 overflow-hidden pointer-events-none z-[1]">
       <div class="absolute top-[120px] left-0 w-full h-px electric-line-h" />
       <div class="absolute top-[240px] left-0 w-full h-px electric-line-h" style="animation-delay: 2s;" />
       <div class="absolute top-[360px] left-0 w-full h-px electric-line-h" style="animation-delay: 4s;" />
-      <!-- Vertical electric lines -->
       <div class="absolute top-0 left-[180px] w-px h-full electric-line-v" style="animation-delay: 1s;" />
       <div class="absolute top-0 left-[480px] w-px h-full electric-line-v" style="animation-delay: 3s;" />
       <div class="absolute top-0 left-[720px] w-px h-full electric-line-v" style="animation-delay: 5s;" />
     </div>
 
     <!-- Electric Lines - Dark Mode -->
-    <div class="hidden dark:block absolute inset-0 overflow-hidden pointer-events-none z-0">
-      <!-- Horizontal electric lines -->
+    <div class="hidden dark:block absolute inset-0 overflow-hidden pointer-events-none z-[1]">
       <div class="absolute top-[120px] left-0 w-full h-px electric-line-h-dark" />
       <div class="absolute top-[240px] left-0 w-full h-px electric-line-h-dark" style="animation-delay: 2s;" />
       <div class="absolute top-[360px] left-0 w-full h-px electric-line-h-dark" style="animation-delay: 4s;" />
-      <!-- Vertical electric lines -->
       <div class="absolute top-0 left-[180px] w-px h-full electric-line-v-dark" style="animation-delay: 1s;" />
       <div class="absolute top-0 left-[480px] w-px h-full electric-line-v-dark" style="animation-delay: 3s;" />
       <div class="absolute top-0 left-[720px] w-px h-full electric-line-v-dark" style="animation-delay: 5s;" />
@@ -67,23 +67,54 @@ useSeo({
       <div class="animate-fade-up [animation-delay:300ms] opacity-0 flex flex-wrap gap-4 justify-center">
         <NuxtLink
           :to="localePath('/#projects')"
-          class="px-8 py-4 rounded-xl bg-accent text-white font-display font-bold text-base shadow-lg hover:shadow-xl hover:shadow-accent/30 transition-all hover:scale-110 hover:bg-accent/95"
+          class="btn-grid-hover px-8 py-4 rounded-xl bg-accent text-white font-display font-bold text-base shadow-lg hover:shadow-xl hover:shadow-accent/30 transition-all hover:scale-105"
         >
           {{ t('home.hero_cta_primary') }}
         </NuxtLink>
         <NuxtLink
           :to="localePath('/optin')"
-          class="px-8 py-4 rounded-xl border-2 border-accent text-accent font-display font-bold text-base shadow-lg hover:shadow-xl hover:bg-accent hover:text-white transition-all hover:scale-110 dark:border-accent/60 dark:text-fg dark:bg-accent/20 dark:hover:bg-accent/40 dark:hover:border-accent dark:hover:text-fg"
+          class="px-8 py-4 rounded-xl border-2 border-accent text-accent font-display font-bold text-base shadow-lg hover:shadow-xl hover:bg-accent hover:text-white transition-all hover:scale-105 dark:border-accent/60 dark:text-fg dark:bg-accent/20 dark:hover:bg-accent/40 dark:hover:border-accent dark:hover:text-fg"
         >
           {{ t('home.hero_cta_secondary') }}
         </NuxtLink>
       </div>
+
+      <!-- Status + Tech Stack -->
+      <div class="animate-fade-up [animation-delay:450ms] opacity-0 mt-16 flex flex-col items-center gap-5">
+
+        <!-- Availability indicator + meta -->
+        <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-body text-fg-muted">
+          <span class="flex items-center gap-2">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+            </span>
+            {{ locale === 'de' ? 'Offen für neue Projekte' : 'Available for new projects' }}
+          </span>
+          <span class="hidden sm:block w-px h-3.5 bg-border" />
+          <span>Stuttgart, DE</span>
+          <span class="hidden sm:block w-px h-3.5 bg-border" />
+          <span>{{ locale === 'de' ? '2+ Jahre Erfahrung' : '2+ years experience' }}</span>
+        </div>
+
+        <!-- Tech stack badges -->
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <span
+            v-for="tech in ['Vue.js', 'Nuxt 3', 'TypeScript', 'TailwindCSS', 'Figma', 'Node.js']"
+            :key="tech"
+            class="px-3 py-1.5 rounded-full text-xs font-body bg-surface/70 border border-border text-fg-muted backdrop-blur-sm"
+          >{{ tech }}</span>
+        </div>
+
+      </div>
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 z-20">
-      <span class="text-xs font-body text-fg-muted tracking-widest uppercase">{{ locale === 'de' ? 'Scollen' : 'Scroll' }}</span>
-      <div class="w-px h-8 bg-fg-muted animate-pulse" />
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-60 z-20 animate-bounce">
+      <span class="text-xs font-body text-fg-muted tracking-widest uppercase">{{ locale === 'de' ? 'Scrollen' : 'Scroll' }}</span>
+      <svg class="w-4 h-4 text-fg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6,9 12,15 18,9" />
+      </svg>
     </div>
   </section>
 
@@ -99,8 +130,13 @@ useSeo({
       </span>
     </div>
 
-    <!-- Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+    <!-- Grid — 1 project: centered single card; 2+: 2-col grid -->
+    <div
+      class="mx-auto"
+      :class="projects.length === 1
+        ? 'max-w-md'
+        : 'grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl'"
+    >
       <ProjectCard
         v-for="project in projects"
         :key="project.slug"

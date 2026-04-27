@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { 
+import {
   EnvelopeIcon,
   PhoneIcon,
   MapPinIcon
 } from '@heroicons/vue/24/outline'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 useSeo({
   title: t('meta.contact_title'),
   description: t('contact.sub'),
 })
 
-// ── Kontaktdaten global hier anpassen ────────────────────────────
 const contact = {
   email: 'moritzfieler@icloud.com',
   phone: '+49 151 68456178',
-  location: 'Stuttgart, Germany',
   address: 'Sautterweg 30, 70565 Stuttgart',
 }
 </script>
@@ -37,9 +36,9 @@ const contact = {
       </p>
     </div>
 
-    <!-- Contact Items -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border">
-      <div class="bg-base p-8 group hover:bg-muted transition-colors">
+    <!-- Contact Info Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border mb-20">
+      <div class="bg-base p-8 hover:bg-muted transition-colors">
         <p class="text-fg-muted text-xs font-display font-semibold tracking-widest uppercase mb-3">
           {{ t('contact.email_label') }}
         </p>
@@ -52,7 +51,7 @@ const contact = {
         </a>
       </div>
 
-      <div class="bg-base p-8 group hover:bg-muted transition-colors">
+      <div class="bg-base p-8 hover:bg-muted transition-colors">
         <p class="text-fg-muted text-xs font-display font-semibold tracking-widest uppercase mb-3">
           {{ t('contact.phone_label') }}
         </p>
@@ -65,7 +64,7 @@ const contact = {
         </a>
       </div>
 
-      <div class="bg-base p-8 group hover:bg-muted transition-colors">
+      <div class="bg-base p-8 hover:bg-muted transition-colors">
         <p class="text-fg-muted text-xs font-display font-semibold tracking-widest uppercase mb-3">
           {{ t('contact.location_label') }}
         </p>
@@ -80,16 +79,38 @@ const contact = {
       </div>
     </div>
 
-    <!-- Opt-In Form -->
-    <div class="mt-20 max-w-md">
-      <h2 class="font-display font-bold text-2xl text-fg mb-2">
-        {{ t('optin.headline') }}
-      </h2>
-      <p class="font-body text-fg-muted mb-8">{{ t('optin.subline') }}</p>
-      <ClientOnly>
-        <UiOptInForm />
-      </ClientOnly>
-    </div>
+    <!-- Two-column layout: form + secondary -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-16">
 
+      <!-- Primary: Direct contact form (3/5) -->
+      <div class="lg:col-span-3">
+        <div class="w-8 h-px bg-accent mb-6" />
+        <h2 class="font-display font-bold text-2xl text-fg mb-2">
+          {{ t('contact.form_title') }}
+        </h2>
+        <p class="font-body text-sm text-fg-muted mb-8">{{ t('contact.form_sub') }}</p>
+        <ClientOnly>
+          <UiContactForm />
+        </ClientOnly>
+      </div>
+
+      <!-- Secondary: Quick opt-in (2/5) -->
+      <div class="lg:col-span-2">
+        <div class="sticky top-32">
+          <div class="rounded-xl border border-border bg-surface p-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
+            <div class="w-6 h-px bg-accent mb-5" />
+            <h3 class="font-display font-bold text-lg text-fg mb-2">
+              {{ t('contact.optin_title') }}
+            </h3>
+            <p class="font-body text-sm text-fg-muted mb-6">{{ t('contact.optin_sub') }}</p>
+            <ClientOnly>
+              <UiOptInForm />
+            </ClientOnly>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>

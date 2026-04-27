@@ -136,22 +136,27 @@ useSeo({
   <!-- ─── CONTACT CTA ──────────────────────────────────────────── -->
   <section class="max-w-7xl mx-auto px-6 py-24">
     <div class="rounded-2xl bg-surface border border-border relative overflow-hidden">
-      <!-- Accent top line — consistent with services section -->
       <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent pointer-events-none" />
-      <!-- Subtle grid texture from hero -->
       <div class="absolute inset-0 hero-grid opacity-40 pointer-events-none" />
 
-      <div class="relative z-10 px-12 sm:px-16 py-16 text-center">
-        <!-- Eyebrow -->
-        <div class="w-8 h-px bg-accent mx-auto mb-6" />
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-fg mb-4">
-          {{ t('contact.title') }}
-        </h2>
-        <p class="font-body text-fg-muted mb-10 max-w-sm mx-auto">{{ t('contact.sub') }}</p>
-        <div class="max-w-md mx-auto">
-          <ClientOnly>
-            <UiOptInForm />
-          </ClientOnly>
+      <div class="relative z-10 px-12 sm:px-16 py-16 flex flex-col sm:flex-row items-center justify-between gap-10">
+        <div class="text-center sm:text-left">
+          <div class="w-8 h-px bg-accent mb-6 mx-auto sm:mx-0" />
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-fg mb-3">
+            {{ t('contact.title') }}
+          </h2>
+          <p class="font-body text-fg-muted max-w-sm">{{ t('contact.cta_sub') }}</p>
+        </div>
+        <div class="shrink-0">
+          <NuxtLink
+            :to="localePath('/contact')"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-accent text-white font-display font-bold text-base shadow-lg hover:shadow-xl hover:shadow-accent/30 transition-all hover:scale-105 hover:bg-accent/95 whitespace-nowrap"
+          >
+            {{ t('contact.cta_button') }}
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </NuxtLink>
         </div>
       </div>
     </div>

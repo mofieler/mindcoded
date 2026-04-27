@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Mindcoded — Flyer Vorderseite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .fit-flyer{ transform: scale(var(--s, 0.58)); }
+</style>
+</head>
+<body>
+
+
+
+<div class="export-bar">
+  <a href="index.html">← Übersicht</a>
+  <button onclick="window.print()">Drucken / PDF</button>
+</div>
+
+<div class="stage">
+  <div class="fit fit-flyer">
+    <div class="flyer">
+      <span class="reg tl turq"></span>
+      <span class="reg tr"></span>
+      <span class="reg bl"></span>
+      <span class="reg br turq"></span>
+
+      <div class="front-main">
+        <div class="label">
+          <span class="dot"></span>
+          <span>Digitale Agentur</span>
+          <span class="rule"></span>
+        </div>
+        <h1 class="headline">
+          <em>Digitale<br/>Maßarbeit</em><br/>für Ihr Business.
+        </h1>
+        <p class="subhead">
+          Moderne <b>Webseiten und Web-Apps</b>, die Ihre Kunden begeistern — individuell konzipiert, handwerklich umgesetzt, zuverlässig im Betrieb.
+        </p>
+
+        <div class="hero-visual">
+          <div class="ring"></div>
+          <div class="ring inner"></div>
+          <div class="glow"></div>
+
+          <div class="desktop">
+            <div class="desktop-bar">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="url">
+                <span class="lock">▲</span>
+                <span class="path">ihre-marke.de</span>
+                <span class="caret"></span>
+              </div>
+            </div>
+            <div class="desktop-body">
+              <div class="db-left">
+                <div class="db-kicker">// Ihre Marke</div>
+                <div class="db-title">Klar.<br/>Schnell. <span>Konvertiert.</span></div>
+                <div class="db-lines">
+                  <div class="ln"></div>
+                  <div class="ln s"></div>
+                  <div class="ln m"></div>
+                </div>
+                <div class="db-btn">Jetzt anfragen →</div>
+              </div>
+              <div class="db-right">
+                <div class="db-card">
+                  <div class="ttl">Ladezeit</div>
+                  <div class="big"><b>0.8</b>s</div>
+                  <div class="trend"></div>
+                </div>
+                <div class="db-card">
+                  <div class="ttl">PageSpeed</div>
+                  <div class="big">98<b>/100</b></div>
+                  <div class="trend"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="resp-badge">
+            <span class="ic">⇄</span>
+            <span>Responsive</span>
+          </div>
+
+          <div class="mobile">
+            <div class="mobile-body">
+              <div class="mb-kick">// mobil</div>
+              <div class="mb-title">Klar.<br/><span>Konvertiert.</span></div>
+              <div class="mb-ln"></div>
+              <div class="mb-ln s"></div>
+              <div class="mb-card">
+                <div class="t">Buchung</div>
+                <div class="b">1-Klick</div>
+              </div>
+              <div class="mb-btn">Anfragen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="front-foot">
+        <div class="industries">
+          <span class="sm">Für wen wir bauen</span>
+          Industrie <span class="bul">•</span> Sport &amp; Fitness <span class="bul">•</span> Handwerk <span class="bul">•</span> Und mehr.
+        </div>
+        <div class="loc">
+          <b>mindcoded.studio</b><br/>
+          Stuttgart · Deutschland<br/>
+          <span class="on">● Projekte verfügbar</span>
+        </div>
+      </div>
+
+      <div class="paper-foot">
+        <span>01 — Vorderseite</span>
+        <span>© 2026 Mindcoded</span>
+        <span>A5 · 148 × 210 mm</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Scale-to-fit: A5 @ 2x = 296mm × 420mm. Pick scale to fit viewport minus margin.
+  function fit(){
+    var el = document.querySelector('.fit-flyer');
+    if(!el) return;
+    var w = 296 * 3.7795275591; // mm → px
+    var h = 420 * 3.7795275591;
+    var sx = (window.innerWidth  - 80) / w;
+    var sy = (window.innerHeight - 80) / h;
+    var s = Math.min(sx, sy);
+    el.style.setProperty('--s', s);
+  }
+  fit();
+  window.addEventListener('resize', fit);
+</script>
+
+</body>
+</html>

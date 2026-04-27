@@ -84,6 +84,81 @@ export function successEmailHtml(email: string, locale: 'de' | 'en'): string {
 </html>`
 }
 
+export function directContactAdminHtml(name: string, email: string, subject: string, message: string): string {
+  const safeMessage = message.replace(/\n/g, '<br>')
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Neue Kontaktanfrage</title></head>
+<body style="margin:0;padding:0;background:#0d0d0d;font-family:'Inter',sans-serif;color:#e5e5e5;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0d0d0d;padding:48px 24px;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:12px;padding:48px;border:1px solid #262626;">
+        <tr><td>
+          <p style="margin:0 0 8px;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#6b7280;">mindcoded — Neue Anfrage</p>
+          <h1 style="margin:0 0 32px;font-size:24px;font-weight:700;color:#f5f5f5;">📬 ${subject}</h1>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+            <tr><td style="padding:12px 0;border-bottom:1px solid #262626;">
+              <p style="margin:0;font-size:13px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Von</p>
+              <p style="margin:4px 0 0;font-size:16px;color:#f5f5f5;font-weight:600;">${name}</p>
+            </td></tr>
+            <tr><td style="padding:12px 0;border-bottom:1px solid #262626;">
+              <p style="margin:0;font-size:13px;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;">Email</p>
+              <a href="mailto:${email}" style="margin:4px 0 0;font-size:16px;color:#2563eb;display:block;">${email}</a>
+            </td></tr>
+          </table>
+          <div style="background:#1a1a1a;border-radius:8px;padding:20px;border:1px solid #262626;">
+            <p style="margin:0;font-size:14px;color:#9ca3af;line-height:1.7;">${safeMessage}</p>
+          </div>
+          <p style="margin:24px 0 0;font-size:12px;color:#4b5563;">${new Date().toLocaleString('de-DE')}</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`
+}
+
+export function directContactReceiptHtml(name: string, locale: 'de' | 'en'): string {
+  if (locale === 'de') {
+    return `<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="UTF-8"><title>Nachricht erhalten</title></head>
+<body style="margin:0;padding:0;background:#0d0d0d;font-family:'Inter',sans-serif;color:#e5e5e5;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0d0d0d;padding:48px 24px;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:12px;padding:48px;border:1px solid #262626;">
+        <tr><td>
+          <p style="margin:0 0 8px;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#6b7280;">mindcoded</p>
+          <h1 style="margin:0 0 24px;font-size:28px;font-weight:700;color:#f5f5f5;line-height:1.2;">Hey ${name}, danke für deine Nachricht! 👋</h1>
+          <p style="margin:0 0 32px;font-size:16px;color:#9ca3af;line-height:1.6;">Deine Anfrage ist bei mir angekommen. Ich melde mich in der Regel innerhalb von 24 Stunden bei dir.</p>
+          <p style="margin:0;font-size:14px;color:#6b7280;">Bis bald,<br><strong style="color:#e5e5e5;">Moritz — mindcoded</strong></p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`
+  }
+  return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Message received</title></head>
+<body style="margin:0;padding:0;background:#0d0d0d;font-family:'Inter',sans-serif;color:#e5e5e5;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0d0d0d;padding:48px 24px;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#161616;border-radius:12px;padding:48px;border:1px solid #262626;">
+        <tr><td>
+          <p style="margin:0 0 8px;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#6b7280;">mindcoded</p>
+          <h1 style="margin:0 0 24px;font-size:28px;font-weight:700;color:#f5f5f5;line-height:1.2;">Hey ${name}, thanks for your message! 👋</h1>
+          <p style="margin:0 0 32px;font-size:16px;color:#9ca3af;line-height:1.6;">Your message has been received. I usually get back within 24 hours.</p>
+          <p style="margin:0;font-size:14px;color:#6b7280;">Talk soon,<br><strong style="color:#e5e5e5;">Moritz — mindcoded</strong></p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`
+}
+
 export function adminNotificationHtml(email: string, locale: 'de' | 'en'): string {
   return `<!DOCTYPE html>
 <html>

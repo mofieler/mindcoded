@@ -30,3 +30,14 @@ export async function initDb() {
     );
   `)
 }
+
+// Removes expired confirmations and stale rate-limit entries.
+// Called fire-and-forget after each successful submission.
+export async function cleanupExpired() {
+  const db = getDb()
+  const rateLimitCutoff = Date.now() - 2 * 60 * 60 * 1000 // 2 hours ago
+  await Promise.all([
+    db.query(`DELETE FROM pending_confirmations WHERE expires_at < NOW()`),
+    db.query(`DELETE FROM rate_limits WHERE last_request < $1`, [rateLimitCutoff]),
+  ])
+}

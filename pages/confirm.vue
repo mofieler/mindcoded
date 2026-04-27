@@ -107,4 +107,6 @@ const route = useRoute()
 
 const status = computed(() => route.query.status as string || 'invalid')
 const de = computed(() => (route.query.locale as string) !== 'en')
+
+useSeoMeta({ robots: 'noindex, nofollow' })
 </script>

@@ -4,3 +4,8 @@ node_modules
 .output/
 dist/
 package-lock.json
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.*.local

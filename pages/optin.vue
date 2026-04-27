@@ -41,4 +41,5 @@ useSeo({
   description: t('optin.subline'),
   locale: locale.value,
 })
+useSeoMeta({ robots: 'noindex, nofollow' })
 </script>

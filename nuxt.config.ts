@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
+    '@nuxtjs/seo',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
@@ -51,11 +52,22 @@ export default defineNuxtConfig({
 
   // ─── SEO ──────────────────────────────────────────────────────
   site: {
-    url: 'https://www.yoursite.de',
-    name: 'Studio Name',
+    url: 'https://mindcoded.studio',
+    name: 'mindcoded',
     description: 'Web Design & Development Studio',
     defaultLocale: 'de',
   },
+
+  sitemap: {
+    exclude: ['/optin', '/en/optin', '/confirm', '/en/confirm'],
+  },
+
+  robots: {
+    disallow: ['/optin', '/confirm'],
+  },
+
+  // nuxt-og-image causes unenv path errors — disabled since we don't use it
+  ogImage: { enabled: false },
 
   // ─── CSS ──────────────────────────────────────────────────────
   css: ['~/assets/css/main.css'],
@@ -93,6 +105,10 @@ export default defineNuxtConfig({
     resendApiKey: process.env.RESEND_API_KEY,
     databaseUrl: process.env.DATABASE_URL,
     adminEmail: process.env.ADMIN_EMAIL || 'moritzfieler@icloud.com',
-    siteUrl: process.env.SITE_URL || 'https://mindcoded.de',
+    siteUrl: process.env.SITE_URL || 'https://mindcoded.studio',
+    recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
+    public: {
+      recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
+    },
   },
 })

@@ -135,17 +135,19 @@ useSeo({
 
   <!-- ─── CONTACT CTA ──────────────────────────────────────────── -->
   <section class="max-w-7xl mx-auto px-6 py-24">
-    <div class="rounded-2xl dark:bg-gradient-to-br dark:from-blue-600 dark:via-blue-800 dark:to-black bg-gradient-to-br from-accent/8 via-surface to-accent/5 border border-border p-12 sm:p-16 text-center relative overflow-hidden shadow-xl dark:shadow-2xl transform transition-all duration-300 hover:scale-[1.02] dark:hover:shadow-blue-900/20 hover:shadow-accent/10">
-      <!-- Accent top border line -->
-      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent rounded-t-2xl pointer-events-none"></div>
-      <!-- Inner shadow for depth -->
-      <div class="absolute inset-0 rounded-2xl shadow-inner pointer-events-none"></div>
+    <div class="rounded-2xl bg-surface border border-border relative overflow-hidden">
+      <!-- Accent top line — consistent with services section -->
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent pointer-events-none" />
+      <!-- Subtle grid texture from hero -->
+      <div class="absolute inset-0 hero-grid opacity-40 pointer-events-none" />
 
-      <div class="relative z-10 w-full">
-        <h2 class="font-display font-extrabold text-3xl sm:text-4xl dark:text-white text-fg mb-4">
+      <div class="relative z-10 px-12 sm:px-16 py-16 text-center">
+        <!-- Eyebrow -->
+        <div class="w-8 h-px bg-accent mx-auto mb-6" />
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-fg mb-4">
           {{ t('contact.title') }}
         </h2>
-        <p class="font-body dark:text-white/90 text-fg-muted mb-10">{{ t('contact.sub') }}</p>
+        <p class="font-body text-fg-muted mb-10 max-w-sm mx-auto">{{ t('contact.sub') }}</p>
         <div class="max-w-md mx-auto">
           <ClientOnly>
             <UiOptInForm />

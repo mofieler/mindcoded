@@ -64,7 +64,7 @@
     "form_sub": "I usually respond within 24 hours.",
     "name_label": "Name",
     "name_placeholder": "Your name",
-    "email_placeholder": "your@email.com",
+    "email_placeholder": "your{'@'}email.com",
     "subject_label": "Subject",
     "subject_placeholder": "What's it about?",
     "message_label": "Message",

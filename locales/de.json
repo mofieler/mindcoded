@@ -64,7 +64,7 @@
     "form_sub": "Ich melde mich in der Regel innerhalb von 24 Stunden.",
     "name_label": "Name",
     "name_placeholder": "Dein Name",
-    "email_placeholder": "deine@email.de",
+    "email_placeholder": "deine{'@'}email.de",
     "subject_label": "Betreff",
     "subject_placeholder": "Worum geht es?",
     "message_label": "Nachricht",

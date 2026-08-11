@@ -12,7 +12,10 @@ useSeo({
 
 <template>
   <!-- ─── HERO ──────────────────────────────────────────────────── -->
-  <section class="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
+  <!-- svh (not vh) so a collapsing mobile URL bar doesn't resize the hero;
+       the py keeps the eyebrow clear of the nav once the content outgrows the
+       min-height on small screens and justify-center stops having any slack. -->
+  <section class="relative min-h-[85svh] flex flex-col items-center justify-center overflow-hidden py-14 sm:py-20">
     <!-- Grid Background — edge-fade mask so grid bleeds naturally into page -->
     <div
       class="absolute inset-0 hero-grid z-0"
@@ -80,7 +83,7 @@ useSeo({
       </div>
 
       <!-- Status + Tech Stack -->
-      <div class="animate-fade-up [animation-delay:450ms] opacity-0 mt-16 flex flex-col items-center gap-5">
+      <div class="animate-fade-up [animation-delay:450ms] opacity-0 mt-10 sm:mt-16 flex flex-col items-center gap-5">
 
         <!-- Availability indicator + meta -->
         <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-body text-fg-muted">
@@ -110,7 +113,9 @@ useSeo({
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-60 z-20 animate-bounce">
+    <!-- Hidden on mobile: the hero grows past the fold there, so the hint sits
+         far below the viewport and collides with the tech badges. -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-1.5 opacity-60 z-20 animate-bounce">
       <span class="text-xs font-body text-fg-muted tracking-widest uppercase">{{ locale === 'de' ? 'Scrollen' : 'Scroll' }}</span>
       <svg class="w-4 h-4 text-fg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="6,9 12,15 18,9" />

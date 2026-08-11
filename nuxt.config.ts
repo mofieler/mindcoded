@@ -105,7 +105,7 @@ export default defineNuxtConfig({
     resendApiKey: process.env.RESEND_API_KEY,
     resendFromEmail: process.env.RESEND_FROM_EMAIL || 'noreply@mindcoded.studio',
     databaseUrl: process.env.DATABASE_URL,
-    adminEmail: process.env.ADMIN_EMAIL || 'moritz@mindcoded.studio',
+    adminEmail: process.env.ADMIN_EMAIL || 'moritzfieler@icloud.com',
     siteUrl: process.env.SITE_URL || 'https://mindcoded.studio',
     recaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
     public: {

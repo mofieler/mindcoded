@@ -10,6 +10,16 @@ function getClients() {
   }
 }
 
+/**
+ * Resend reports delivery problems in the `error` field rather than throwing, so
+ * without logging it here a rejected send is completely invisible — which is
+ * exactly why "no mail arrives" was undiagnosable before.
+ */
+function logSendError(label: string, error: unknown) {
+  if (!error) return
+  console.error(`[email] ${label} failed:`, error)
+}
+
 export async function sendConfirmationEmail(email: string, confirmUrl: string, locale: 'de' | 'en') {
   const { resend, from } = getClients()
   const subject = locale === 'de'
@@ -24,6 +34,7 @@ export async function sendConfirmationEmail(email: string, confirmUrl: string, l
   })
 
   if (error) {
+    logSendError('confirmation email', error)
     throw createError({ statusCode: 502, message: 'Failed to send confirmation email.' })
   }
 }
@@ -47,6 +58,9 @@ export async function sendSuccessEmail(email: string, locale: 'de' | 'en') {
     }),
   ])
 
+  logSendError('opt-in receipt', userResult.error)
+  logSendError('opt-in admin notification', adminResult.error)
+
   if (userResult.error || adminResult.error) {
     throw createError({ statusCode: 502, message: 'Failed to send email notification.' })
   }
@@ -55,13 +69,11 @@ export async function sendSuccessEmail(email: string, locale: 'de' | 'en') {
 export async function sendDirectContactEmail(name: string, email: string, subject: string, message: string, locale: 'de' | 'en') {
   const { resend, from, adminEmail } = getClients()
 
-  const [receiptResult, adminResult] = await Promise.all([
-    resend.emails.send({
-      from,
-      to: email,
-      subject: locale === 'de' ? 'Nachricht erhalten – mindcoded' : 'Message received – mindcoded',
-      html: directContactReceiptHtml(name, locale),
-    }),
+  // The admin notification is the one that must not get lost — it carries the
+  // visitor's actual message. The receipt back to the visitor is a courtesy, so
+  // a bounce there (typo'd address, full mailbox) must not throw away a message
+  // that already reached the inbox.
+  const [adminResult, receiptResult] = await Promise.all([
     resend.emails.send({
       from,
       to: adminEmail,
@@ -69,9 +81,18 @@ export async function sendDirectContactEmail(name: string, email: string, subjec
       html: directContactAdminHtml(name, email, subject, message),
       replyTo: email,
     }),
+    resend.emails.send({
+      from,
+      to: email,
+      subject: locale === 'de' ? 'Nachricht erhalten – mindcoded' : 'Message received – mindcoded',
+      html: directContactReceiptHtml(name, locale),
+    }),
   ])
 
-  if (receiptResult.error || adminResult.error) {
+  logSendError('contact admin notification', adminResult.error)
+  logSendError('contact receipt', receiptResult.error)
+
+  if (adminResult.error) {
     throw createError({ statusCode: 502, message: 'Failed to send email. Please try again.' })
   }
 }

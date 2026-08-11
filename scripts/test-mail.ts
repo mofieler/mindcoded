@@ -11,7 +11,7 @@ loadEnv()
 
 const apiKey = process.env.RESEND_API_KEY ?? ''
 const fromEmail = process.env.RESEND_FROM_EMAIL ?? 'noreply@mindcoded.studio'
-const adminEmail = process.env.ADMIN_EMAIL ?? 'moritz@mindcoded.studio'
+const adminEmail = process.env.ADMIN_EMAIL ?? 'moritzfieler@icloud.com'
 
 if (!apiKey || apiKey === 're_xxxxxxxxxxxxxxxxxxxxxx') {
   console.error('Error: Set a valid RESEND_API_KEY in your .env file.')

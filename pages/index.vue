@@ -122,12 +122,15 @@ useSeo({
   <section id="projects" class="max-w-7xl mx-auto px-6 py-24">
     <!-- Section Header -->
     <div class="text-center mb-12">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-fg">
+      <p class="text-accent text-xs font-display font-semibold tracking-[0.3em] uppercase mb-4">
+        {{ locale === 'de' ? 'Portfolio' : 'Portfolio' }}
+      </p>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-fg mb-3">
         {{ t('home.projects_title') }}
       </h2>
-      <span class="text-fg-muted font-body text-sm block">
-        {{ projects.length }} {{ locale === 'de' ? 'Projekte' : 'Projects' }}
-      </span>
+      <p class="text-fg-muted font-body text-sm max-w-md mx-auto">
+        {{ t('home.projects_sub') }}
+      </p>
     </div>
 
     <!-- Grid — 1 project: centered single card; 2+: 2-col grid -->
@@ -144,6 +147,9 @@ useSeo({
       />
     </div>
   </section>
+
+  <!-- ─── DESIGN STUDIOS ───────────────────────────────────────── -->
+  <BranchShowcase />
 
   <!-- ─── SERVICES ─────────────────────────────────────────────── -->
   <section class="border-t border-border">

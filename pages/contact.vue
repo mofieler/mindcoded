@@ -16,7 +16,7 @@ useSeo({
 })
 
 const contact = {
-  email: 'moritz@mindcoded.studio',
+  email: 'moritzfieler@icloud.com',
   phone: '+49 151 68456178',
   address: 'Sautterweg 30, 70565 Stuttgart',
 }

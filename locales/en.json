@@ -11,6 +11,13 @@
     "hero_cta_primary": "Explore Projects",
     "hero_cta_secondary": "Get in Touch",
     "projects_title": "Selected Projects",
+    "projects_sub": "Real reference — not a template, but built for an actual client.",
+    "design_studios_eyebrow": "Examples",
+    "design_studios_title": "What your website could look like",
+    "design_studios_sub": "Example style directions for different industries. Every website starts from a blank sheet — these examples show the direction we could take together.",
+    "design_studios_cta": "Request a project",
+    "design_studios_view": "View example",
+    "design_studios_disclaimer": "These projects are fictional design examples, not ready-made templates. They show possible style directions — the real reference is above.",
     "services_title": "Services",
     "services": {
       "ux_title": "UX & Design",
@@ -50,7 +57,13 @@
     "category": "Category",
     "tech": "Technologies",
     "back": "Back to Portfolio",
-    "next_project": "Next Project"
+    "next_project": "Next Project",
+    "real_reference": "Real Reference",
+    "example_project": "Example"
+  },
+  "branch": {
+    "back": "Back",
+    "design_studio": "Example"
   },
   "contact": {
     "title": "Let's talk.",

@@ -15,9 +15,10 @@ export interface Project {
   coverImage: string
   sections: ProjectSection[]
   nextSlug?: string
+  type?: 'real' | 'example'
 }
 
-const projectMeta: Pick<Project, 'slug' | 'client' | 'year' | 'heroImage' | 'coverImage' | 'nextSlug'>[] = [
+const projectMeta: Pick<Project, 'slug' | 'client' | 'year' | 'heroImage' | 'coverImage' | 'nextSlug' | 'type'>[] = [
   {
     slug: 'paquita-pilates',
     client: 'Paquita Pilates Stuttgart',
@@ -25,6 +26,7 @@ const projectMeta: Pick<Project, 'slug' | 'client' | 'year' | 'heroImage' | 'cov
     heroImage: '/paquitabanner.png',
     coverImage: '/paquitabanner.png',
     nextSlug: undefined,
+    type: 'real',
   },
 ]
 

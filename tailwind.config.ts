@@ -51,4 +51,14 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    // Branch accent colors (used dynamically in components/branch/*)
+    { pattern: /^(bg|text|border|hover:border|hover:shadow)-(lime-400|sky-500|rose-500|amber-500|amber-600|indigo-600)(\/\d+)?$/ },
+    'bg-lime-400/10', 'bg-lime-400/20', 'hover:shadow-lime-400/15',
+    'bg-sky-500/10', 'bg-sky-500/20', 'hover:shadow-sky-500/15',
+    'bg-rose-500/10', 'bg-rose-500/20', 'hover:shadow-rose-500/15',
+    'bg-amber-500/10', 'bg-amber-500/20', 'hover:shadow-amber-500/15',
+    'bg-amber-600/10', 'bg-amber-600/20', 'hover:shadow-amber-600/15',
+    'bg-indigo-600/10', 'bg-indigo-600/20', 'hover:shadow-indigo-600/15',
+  ],
 } satisfies Config

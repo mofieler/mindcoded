@@ -217,22 +217,29 @@ const services = [
 
     <!-- ─── CONTACT CTA ──────────────────────────────────────────── -->
     <section class="max-w-7xl mx-auto px-6 py-24">
-      <div class="rounded-2xl dark:bg-gradient-to-br dark:from-blue-600 dark:via-blue-800 dark:to-black bg-gradient-to-br from-accent/8 via-surface to-accent/5 border border-border p-12 sm:p-16 text-center relative overflow-hidden shadow-xl dark:shadow-2xl transform transition-all duration-300 hover:scale-[1.02] dark:hover:shadow-blue-900/20 hover:shadow-accent/10">
-        <!-- Accent top border line -->
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent rounded-t-2xl pointer-events-none"></div>
-        <!-- Inner shadow for depth -->
-        <div class="absolute inset-0 rounded-2xl shadow-inner pointer-events-none"></div>
+      <div class="relative overflow-hidden rounded-2xl bg-accent text-white shadow-xl shadow-accent/20">
+        <!-- Soft light glows -->
+        <div class="absolute -top-20 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div class="relative z-10">
-          <h2 class="font-display font-extrabold text-3xl sm:text-4xl dark:text-white text-fg mb-4">
+        <div class="relative z-10 px-8 sm:px-16 py-16 text-center">
+          <p class="text-white/80 text-xs font-display font-semibold tracking-[0.25em] uppercase mb-4">
+            {{ locale === 'de' ? 'Kontakt' : 'Contact' }}
+          </p>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mb-4">
             {{ t('contact.title') }}
           </h2>
-          <p class="font-body dark:text-white/95 text-fg-muted mb-8">{{ t('contact.sub') }}</p>
+          <p class="font-body text-white/90 max-w-xl mx-auto mb-8">
+            {{ t('contact.sub') }}
+          </p>
           <NuxtLink
-            :to="localePath('/optin')"
-            class="inline-block px-8 py-3 rounded-lg dark:bg-white/10 dark:backdrop-blur-sm dark:border dark:border-white/20 bg-accent text-white font-display font-bold text-sm dark:hover:bg-white/20 hover:bg-accent/90 transition-all duration-300 hover:scale-105 dark:hover:shadow-lg dark:hover:shadow-white/10 hover:shadow-lg hover:shadow-accent/30"
+            :to="localePath('/contact')"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-accent font-display font-bold text-base hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-lg"
           >
-            {{ t('home.hero_cta_secondary') }}
+            {{ t('contact.cta_button') }}
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </NuxtLink>
         </div>
       </div>

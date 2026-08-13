@@ -1,6 +1,8 @@
 export interface BranchExample {
   id: string
   name: string
+  /** When false, hidden from showcase and 404 on direct route. Keep data for later reactivation. */
+  active: boolean
   categoryDe: string
   categoryEn: string
   descriptionDe: string
@@ -32,6 +34,7 @@ export interface BranchPageContent {
     brand: string
     links: { label: string; href: string }[]
     cta: string
+    ctaHref?: string
   }
   hero: {
     badge: string
@@ -39,6 +42,8 @@ export interface BranchPageContent {
     sub: string
     ctas: { text: string; href?: string; primary?: boolean }[]
     image: string
+    gallery?: string[]
+    video?: string
   }
   stats?: { value: string; label: string }[]
   services: {
@@ -59,13 +64,14 @@ export interface BranchPageContent {
     eyebrow: string
     title: string
     subtitle: string
-    members: { name: string; role: string; focus?: string; image: string }[]
+    members: { name: string; role: string; focus?: string; image: string; availableToday?: boolean; phone?: string }[]
   }
   reviews?: {
     eyebrow: string
     title: string
     subtitle: string
     items: { name: string; info?: string; text: string }[]
+    columns?: number
   }
   contact: {
     eyebrow: string
@@ -99,13 +105,14 @@ const makeTheme = (opts: Partial<BranchTheme> & { accent: string; accentText?: s
 const branchExamples: BranchExample[] = [
   {
     id: 'fitnessstudio',
+    active: true,
     name: 'Ironpulse Fitness',
     categoryDe: 'Sport & Fitness',
     categoryEn: 'Sports & Fitness',
-    descriptionDe: 'Dunkles Design mit Neon-Akzenten. Kraftvolle Typografie, Mitglieder-Bereich und Kursplan-Integration.',
-    descriptionEn: 'Dark design with neon accents. Powerful typography, member area and class schedule integration.',
-    featuresDe: ['Dunkles Neon-Design', 'Kursplan-Integration', 'Mitglieder-Bereich'],
-    featuresEn: ['Dark neon design', 'Class schedule integration', 'Member area'],
+    descriptionDe: 'Pulsierendes Dark-Mode-Studio mit Neon-Akzenten, Kursfinder und spielerischem Mitgliedschafts-Konfigurator.',
+    descriptionEn: 'Pulsing dark-mode studio with neon accents, a class finder and a playful membership configurator.',
+    featuresDe: ['Interaktiver Kursfinder', 'Mitgliedschafts-Konfigurator', 'Digital Hub Teaser'],
+    featuresEn: ['Interactive class finder', 'Membership configurator', 'Digital Hub teaser'],
     tags: ['Vue.js', 'Nuxt 3', 'TailwindCSS'],
     image: '/branchen/fitnessstudio-hero.png',
     accentClass: 'text-lime-400 bg-lime-400/10 border-lime-400/20',
@@ -120,33 +127,34 @@ const branchExamples: BranchExample[] = [
       cardHover: 'hover:shadow-[0_0_30px_rgba(163,230,53,0.15)]',
     }),
     de: {
-      nav: { brand: 'IRONPULSE', links: [{ label: 'Training', href: '#services' }, { label: 'Preise', href: '#pricing' }, { label: 'Team', href: '#team' }], cta: 'Probetraining' },
-      hero: { badge: '24/7 · Dresden Neustadt', headline: ['BEWEGUNG.', 'KRAFT.', 'DU.'], sub: 'Modernstes Equipment. 50+ Kurse. 24/7 Zugang. Werde Mitglied und starte durch.', ctas: [{ text: 'Probetraining', primary: true }, { text: 'Preise' }], image: '/images/fitness/3_Futuristic_Gym_Interior_Neon_Lighting.png' },
+      nav: { brand: 'IRONPULSE', links: [{ label: 'Kurse', href: '#classes' }, { label: 'Mitgliedschaft', href: '#membership' }, { label: 'Hub', href: '#hub' }, { label: 'Team', href: '#team' }], cta: 'Probetraining', ctaHref: '#trial' },
+      hero: { badge: '24/7 · Dresden Neustadt', headline: ['BEWEGUNG.', 'KRAFT.', 'DU.'], sub: 'Modernstes Equipment. 50+ Kurse. 24/7 Zugang. Werde Mitglied und starte durch.', ctas: [{ text: 'Starte dein Probetraining in 60 Sekunden', href: '#trial', primary: true }, { text: 'Preise ansehen', href: '#membership' }], image: '/images/fitness/3_Futuristic_Gym_Interior_Neon_Lighting.png', gallery: ['/images/fitness/3_Futuristic_Gym_Interior_Neon_Lighting.png', '/images/fitness/7_455_Gym_Neon_Interior_Royalty_Free.png', '/images/fitness/1_Modern_Gym_Interior_with_Purple_Neon.png'] },
       services: { eyebrow: 'Vorteile', title: 'Deine Vorteile', subtitle: 'Alles, was du fuer dein Training brauchst.', items: [{ icon: 'Clock', title: '24/7 Zugang', description: 'Trainiere wann immer du willst, rund um die Uhr.' }, { icon: 'Dumbbell', title: 'Modernste Geraete', description: 'Neueste Kraft- und Cardio-Geraete fuer effektives Training.' }, { icon: 'Users', title: '50+ Kurse/Woche', description: 'Von Yoga bis HIIT - fuer jeden Level das Richtige.' }, { icon: 'Heart', title: 'Wellness-Bereich', description: 'Sauna, Duschen und Ruhezonen fuer deine Regeneration.' }, { icon: 'Smartphone', title: 'App-Steuerung', description: 'Kurse buchen, Fortschritte tracken, Community treffen.' }, { icon: 'Zap', title: 'Personal Training', description: 'Individuelle Betreuung durch zertifizierte Trainer.' }] },
       special: { type: 'pricing', data: { eyebrow: 'Mitgliedschaften', title: 'Waehle deinen Plan', subtitle: 'Flexible Tarife ohne versteckte Kosten.', plans: [{ name: 'Basic', price: '29,90', period: '/Monat', features: ['24/7 Zugang', 'Kraft- & Cardiobereich', 'Umkleide & Duschen'], highlighted: false }, { name: 'Premium', price: '49,90', period: '/Monat', features: ['Alles aus Basic', 'Alle Kurse inklusive', 'Wellness-Bereich', 'App-Mitgliedschaft'], highlighted: true }, { name: 'Student', price: '24,90', period: '/Monat', features: ['24/7 Zugang', 'Kraft- & Cardiobereich', 'Gueltig mit Studentenausweis'], highlighted: false }] } },
-      team: { eyebrow: 'Team', title: 'Deine Trainer', subtitle: 'Erfahren, motiviert und immer an deiner Seite.', members: [{ name: 'Tom Brenner', role: 'Head Coach', focus: 'Functional Training', image: '/images/people/6_49_900_Fitness_Instructor_Portrait.png' }, { name: 'Nico Brandt', role: 'Krafttrainer', focus: 'Bodybuilding', image: '/images/people/3_238_400_Personal_Trainer_Stock_Photos.png' }] },
+      team: { eyebrow: 'Team', title: 'Deine Trainer', subtitle: 'Erfahren, motiviert und immer an deiner Seite.', members: [{ name: 'Tom Brenner', role: 'Head Coach', focus: 'Functional Training', image: '/images/people/6_49_900_Fitness_Instructor_Portrait.png', availableToday: true, phone: '0351 847630' }, { name: 'Nico Brandt', role: 'Krafttrainer', focus: 'Bodybuilding', image: '/images/people/3_238_400_Personal_Trainer_Stock_Photos.png', availableToday: true, phone: '0351 847631' }] },
       reviews: { eyebrow: 'Feedback', title: 'Community Stimmen', subtitle: 'Das sagen unsere Mitglieder.', items: [{ name: 'Jan K.', info: 'Mitglied seit 2023', text: 'Bestes Studio in Dresden. Die Ausstattung ist top und die Trainer wissen, wovon sie reden.' }, { name: 'Melanie S.', info: 'Mitglied seit 2022', text: 'Endlich ein Studio, das wirklich 24/7 geoeffnet ist. Perfekt fuer Schichtarbeiter.' }, { name: 'Felix R.', info: 'Probetraining', text: 'Das Probetraining hat mich ueberzeugt. Professionell und unkompliziert.' }] },
-      contact: { eyebrow: 'Kontakt', title: 'STARTE JETZT', subtitle: 'Kostenloses Probetraining. Keine Verpflichtung.', info: [{ icon: 'MapPin', label: 'Adresse', value: 'Goerlitzer Strasse 23, 01099 Dresden' }, { icon: 'Phone', label: 'Telefon', value: '0351 847630' }, { icon: 'Mail', label: 'E-Mail', value: 'team@kraftwerk-dresden.de' }], form: { fields: [{ name: 'firstName', label: 'Vorname', type: 'text', placeholder: 'Max' }, { name: 'lastName', label: 'Nachname', type: 'text', placeholder: 'Mustermann' }, { name: 'email', label: 'E-Mail', type: 'email', placeholder: 'max@beispiel.de' }, { name: 'phone', label: 'Telefon', type: 'tel', placeholder: '0176 12345678' }], submit: 'Probetraining anfordern' } },
+      contact: { eyebrow: 'Probetraining', title: 'STARTE JETZT', subtitle: '60 Sekunden. Keine Kreditkarte. Keine Verpflichtung.', info: [{ icon: 'MapPin', label: 'Adresse', value: 'Goerlitzer Strasse 23, 01099 Dresden' }, { icon: 'Phone', label: 'Telefon', value: '0351 847630' }, { icon: 'Mail', label: 'E-Mail', value: 'team@kraftwerk-dresden.de' }], form: { fields: [{ name: 'firstName', label: 'Vorname', type: 'text', placeholder: 'Max' }, { name: 'lastName', label: 'Nachname', type: 'text', placeholder: 'Mustermann' }, { name: 'email', label: 'E-Mail', type: 'email', placeholder: 'max@beispiel.de' }, { name: 'phone', label: 'Telefon', type: 'tel', placeholder: '0176 12345678' }], submit: 'Probetraining in 60 Sekunden' } },
     },
     en: {
-      nav: { brand: 'IRONPULSE', links: [{ label: 'Training', href: '#services' }, { label: 'Pricing', href: '#pricing' }, { label: 'Team', href: '#team' }], cta: 'Free Trial' },
-      hero: { badge: '24/7 · Dresden Neustadt', headline: ['MOVEMENT.', 'STRENGTH.', 'YOU.'], sub: 'Modern equipment. 50+ classes. 24/7 access. Become a member and get started.', ctas: [{ text: 'Free Trial', primary: true }, { text: 'Pricing' }], image: '/images/fitness/3_Futuristic_Gym_Interior_Neon_Lighting.png' },
+      nav: { brand: 'IRONPULSE', links: [{ label: 'Classes', href: '#classes' }, { label: 'Membership', href: '#membership' }, { label: 'Hub', href: '#hub' }, { label: 'Team', href: '#team' }], cta: 'Free Trial', ctaHref: '#trial' },
+      hero: { badge: '24/7 · Dresden Neustadt', headline: ['MOVEMENT.', 'STRENGTH.', 'YOU.'], sub: 'Modern equipment. 50+ classes. 24/7 access. Become a member and get started.', ctas: [{ text: 'Start your trial in 60 seconds', href: '#trial', primary: true }, { text: 'See pricing', href: '#membership' }], image: '/images/fitness/3_Futuristic_Gym_Interior_Neon_Lighting.png', gallery: ['/images/fitness/3_Futuristic_Gym_Interior_Neon_Lighting.png', '/images/fitness/7_455_Gym_Neon_Interior_Royalty_Free.png', '/images/fitness/1_Modern_Gym_Interior_with_Purple_Neon.png'] },
       services: { eyebrow: 'Benefits', title: 'Your Benefits', subtitle: 'Everything you need for your training.', items: [{ icon: 'Clock', title: '24/7 Access', description: 'Train whenever you want, around the clock.' }, { icon: 'Dumbbell', title: 'Modern Equipment', description: 'Latest strength and cardio equipment.' }, { icon: 'Users', title: '50+ Classes/Week', description: 'From yoga to HIIT - something for every level.' }, { icon: 'Heart', title: 'Wellness Area', description: 'Sauna, showers and relaxation zones.' }, { icon: 'Smartphone', title: 'App Control', description: 'Book classes, track progress, meet the community.' }, { icon: 'Zap', title: 'Personal Training', description: 'Individual coaching by certified trainers.' }] },
       special: { type: 'pricing', data: { eyebrow: 'Memberships', title: 'Choose Your Plan', subtitle: 'Flexible rates with no hidden costs.', plans: [{ name: 'Basic', price: '29.90', period: '/month', features: ['24/7 access', 'Strength & cardio area', 'Locker rooms & showers'], highlighted: false }, { name: 'Premium', price: '49.90', period: '/month', features: ['Everything in Basic', 'All classes included', 'Wellness area', 'App membership'], highlighted: true }, { name: 'Student', price: '24.90', period: '/month', features: ['24/7 access', 'Strength & cardio area', 'Valid with student ID'], highlighted: false }] } },
-      team: { eyebrow: 'Team', title: 'Your Trainers', subtitle: 'Experienced, motivated, and always by your side.', members: [{ name: 'Tom Brenner', role: 'Head Coach', focus: 'Functional Training', image: '/images/people/6_49_900_Fitness_Instructor_Portrait.png' }, { name: 'Nico Brandt', role: 'Strength Coach', focus: 'Bodybuilding', image: '/images/people/3_238_400_Personal_Trainer_Stock_Photos.png' }] },
+      team: { eyebrow: 'Team', title: 'Your Trainers', subtitle: 'Experienced, motivated, and always by your side.', members: [{ name: 'Tom Brenner', role: 'Head Coach', focus: 'Functional Training', image: '/images/people/6_49_900_Fitness_Instructor_Portrait.png', availableToday: true, phone: '0351 847630' }, { name: 'Nico Brandt', role: 'Strength Coach', focus: 'Bodybuilding', image: '/images/people/3_238_400_Personal_Trainer_Stock_Photos.png', availableToday: true, phone: '0351 847631' }] },
       reviews: { eyebrow: 'Feedback', title: 'Community Voices', subtitle: 'What our members say.', items: [{ name: 'Jan K.', info: 'Member since 2023', text: 'Best studio in Dresden. The equipment is top-notch and the trainers know their stuff.' }, { name: 'Melanie S.', info: 'Member since 2022', text: 'Finally a studio that is truly open 24/7. Perfect for shift workers.' }, { name: 'Felix R.', info: 'Trial training', text: 'The trial training convinced me. Professional and uncomplicated.' }] },
-      contact: { eyebrow: 'Contact', title: 'START NOW', subtitle: 'Free trial training. No obligation.', info: [{ icon: 'MapPin', label: 'Address', value: 'Goerlitzer Strasse 23, 01099 Dresden' }, { icon: 'Phone', label: 'Phone', value: '0351 847630' }, { icon: 'Mail', label: 'Email', value: 'team@kraftwerk-dresden.de' }], form: { fields: [{ name: 'firstName', label: 'First name', type: 'text', placeholder: 'Max' }, { name: 'lastName', label: 'Last name', type: 'text', placeholder: 'Mustermann' }, { name: 'email', label: 'Email', type: 'email', placeholder: 'max@example.com' }, { name: 'phone', label: 'Phone', type: 'tel', placeholder: '+49 176 12345678' }], submit: 'Request trial training' } },
+      contact: { eyebrow: 'Free trial', title: 'START NOW', subtitle: '60 seconds. No credit card. No obligation.', info: [{ icon: 'MapPin', label: 'Address', value: 'Goerlitzer Strasse 23, 01099 Dresden' }, { icon: 'Phone', label: 'Phone', value: '0351 847630' }, { icon: 'Mail', label: 'Email', value: 'team@kraftwerk-dresden.de' }], form: { fields: [{ name: 'firstName', label: 'First name', type: 'text', placeholder: 'Max' }, { name: 'lastName', label: 'Last name', type: 'text', placeholder: 'Mustermann' }, { name: 'email', label: 'Email', type: 'email', placeholder: 'max@example.com' }, { name: 'phone', label: 'Phone', type: 'tel', placeholder: '+49 176 12345678' }], submit: 'Start trial in 60 seconds' } },
     },
   },
   {
     id: 'immobilien',
+    active: true,
     name: 'Boeckler Immobilien',
     categoryDe: 'Immobilien',
     categoryEn: 'Real Estate',
-    descriptionDe: 'Editoriale Understated-Eleganz. Filter-Animationen, Expose-Darstellung und Makler-Portrait.',
-    descriptionEn: 'Editorial understated elegance. Filter animations, property exposes and agent portraits.',
-    featuresDe: ['Filter-Animationen', 'Expose-Darstellung', 'Makler-Portrait'],
-    featuresEn: ['Filter animations', 'Property expose', 'Agent portrait'],
+    descriptionDe: 'High-End-Immobilienplattform mit Smart Search, Live-Karte und Exposé-Vorschau — warm, schnell, vertrauensvoll.',
+    descriptionEn: 'High-end real-estate platform with smart search, live map and expose preview — warm, fast, trustworthy.',
+    featuresDe: ['Smart Search & Echtzeit-Filter', 'Split-View mit interaktiver Karte', 'Exposé Quick-View'],
+    featuresEn: ['Smart search & live filters', 'Split view with interactive map', 'Expose quick view'],
     tags: ['Vue.js', 'Animations', 'Performance'],
     image: '/branchen/immobilien-hero.png',
     accentClass: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
@@ -161,28 +169,29 @@ const branchExamples: BranchExample[] = [
       reviewsBg: 'bg-stone-900',
     }),
     de: {
-      nav: { brand: 'BOECKLER', links: [{ label: 'Angebote', href: '#properties' }, { label: 'Team', href: '#team' }, { label: 'Kontakt', href: '#contact' }], cta: 'Bewertung' },
-      hero: { badge: 'Seit 2010 in Berlin-Kreuzberg', headline: ['Raeume mit', 'Geschichte.'], sub: 'Wir vermitteln aussergewoehnliche Immobilien - von denkmalgeschuetztem Altbau bis zum modernen Loft.', ctas: [{ text: 'Angebote entdecken', primary: true }, { text: 'Kontakt' }], image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png' },
+      nav: { brand: 'BOECKLER', links: [{ label: 'Angebote', href: '#properties' }, { label: 'Makler', href: '#team' }, { label: 'Kontakt', href: '#contact' }], cta: 'Beratung', ctaHref: '#contact' },
+      hero: { badge: 'Seit 2010 in Berlin-Kreuzberg', headline: ['Raeume mit', 'Geschichte.'], sub: 'Wir vermitteln aussergewoehnliche Immobilien - von denkmalgeschuetztem Altbau bis zum modernen Loft.', ctas: [{ text: 'Angebote entdecken', href: '#properties', primary: true }, { text: 'Kontakt', href: '#contact' }], image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png', gallery: ['/images/immobilien/3_Before_After_Combined_Modern_Luxury.png', '/images/immobilien/8_10_Trends_of_Luxury_Home_Interior.png', '/images/immobilien/4_Luxury_Penthouse_Terrace_Overlooking.png', '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png'], video: '/videos/boeckler-hero.mp4' },
       stats: [{ value: '480+', label: 'Immobilien vermittelt' }, { value: '16', label: 'Jahre Erfahrung' }, { value: '98%', label: 'Kundenzufriedenheit' }, { value: '48h', label: 'Erstkontakt-Garantie' }],
       services: { eyebrow: 'Aktuelle Angebote', title: 'Exklusive Immobilien', subtitle: 'Entdecken Sie unsere aktuellen Highlights.', items: [] },
-      special: { type: 'properties', data: { filters: ['Alle', 'Kauf', 'Miete', 'Gewerbe'], properties: [{ title: 'Kreuzberger Altbauwohnung', location: 'Kreuzberg', price: '1.180.000 EUR', type: 'Kauf', rooms: '4 Zimmer', area: '138 m2', image: '/images/immobilien/3_Before_After_Combined_Modern_Luxury.png', tag: 'Denkmalschutz' }, { title: 'Loft im Gewerbehof', location: 'Neukoelln', price: '2.850 EUR/Monat', type: 'Miete', rooms: '3 Zimmer', area: '105 m2', image: '/images/immobilien/8_10_Trends_of_Luxury_Home_Interior.png', tag: 'Neu' }, { title: 'Stadtvilla Charlottenburg', location: 'Charlottenburg', price: '2.650.000 EUR', type: 'Kauf', rooms: '7 Zimmer', area: '295 m2', image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png', tag: 'Exklusiv' }, { title: 'Penthouse Friedrichshain', location: 'Friedrichshain', price: '3.900 EUR/Monat', type: 'Miete', rooms: '4 Zimmer', area: '165 m2', image: '/images/immobilien/4_Luxury_Penthouse_Terrace_Overlooking.png', tag: 'Dachterrasse' }, { title: 'Gewerbeeinheit Schoeneberg', location: 'Schoeneberg', price: '7.500 EUR/Monat', type: 'Gewerbe', rooms: 'Open Space', area: '220 m2', image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png', tag: 'Gewerbe' }, { title: 'Gartengeschoss Prenzlauer Berg', location: 'Prenzlauer Berg', price: '985.000 EUR', type: 'Kauf', rooms: '5 Zimmer', area: '158 m2', image: '/images/immobilien/2_Modern_Penthouse_Terrace_Overlooking.png', tag: 'Garten' }] } },
-      team: { eyebrow: 'Das Team', title: 'Ihre Ansprechpartner', subtitle: 'Persoenliche Beratung auf Augenhoehe.', members: [{ name: 'Clara Boeckler', role: 'Geschaeftsfuehrerin · Inhaberin', focus: 'Denkmalimmobilien & Altbau', image: '/images/people/5_72_700_Accountant_Portrait_Stock.png' }, { name: 'Jonas Richter', role: 'Senior Immobilienmakler', focus: 'Gewerbeimmobilien', image: '/images/immobilien/10_Professional_real_estate_agent_Images.png' }] },
-      reviews: { eyebrow: 'Mandantenstimmen', title: 'Vertrauen durch Kompetenz', subtitle: 'Was unsere Kunden ueber uns sagen.', items: [{ name: 'Familie Bauer', info: 'Altbaukauf', text: 'Frau Boeckler hat uns durch den kompletten Kaufprozess begleitet. Souveraen und empathisch.' }, { name: 'Lena M.', info: 'Gewerbemiete', text: 'Schnell, unkompliziert und mit echtem Markt-Know-how.' }, { name: 'Thomas K.', info: 'Verkaeufer', text: 'Transparente Kommunikation und ein hervorragendes Ergebnis.' }] },
+      special: { type: 'properties', data: {} },
+      team: { eyebrow: 'Das Team', title: 'Ihre Ansprechpartner', subtitle: 'Persoenliche Beratung auf Augenhoehe.', members: [{ name: 'Clara Boeckler', role: 'Geschaeftsfuehrerin · Inhaberin', focus: 'Denkmalimmobilien & Altbau', image: '/images/people/5_72_700_Accountant_Portrait_Stock.png', availableToday: true, phone: '030 61408921' }, { name: 'Jonas Richter', role: 'Senior Immobilienmakler', focus: 'Gewerbeimmobilien', image: '/images/immobilien/10_Professional_real_estate_agent_Images.png', availableToday: false, phone: '030 61408922' }] },
+      reviews: { eyebrow: 'Mandantenstimmen', title: 'Vertrauen durch Kompetenz', subtitle: 'Was unsere Kunden ueber uns sagen.', items: [{ name: 'Familie Bauer', info: 'Altbaukauf', text: 'Frau Boeckler hat uns durch den kompletten Kaufprozess begleitet. Souveraen und empathisch.' }, { name: 'Lena M.', info: 'Gewerbemiete', text: 'Schnell, unkompliziert und mit echtem Markt-Know-how.' }, { name: 'Thomas K.', info: 'Verkaeufer', text: 'Transparente Kommunikation und ein hervorragendes Ergebnis.' }, { name: 'Mira S.', info: 'Erstkauf', text: 'Die Suche fuehlte sich an wie ein privater Concierge. In drei Tagen standen wir im Altbau.' }] },
       contact: { eyebrow: 'Kontakt', title: 'Kontaktieren Sie uns', subtitle: 'Ob Kauf, Verkauf oder Miete - wir beraten Sie gerne persoenlich.', info: [{ icon: 'MapPin', label: 'Adresse', value: 'Oranienstrasse 45, 10969 Berlin' }, { icon: 'Phone', label: 'Telefon', value: '030 61408920' }, { icon: 'Mail', label: 'E-Mail', value: 'info@boeckler-immobilien.de' }], form: { fields: [{ name: 'name', label: 'Name', type: 'text', placeholder: 'Name' }, { name: 'email', label: 'E-Mail', type: 'email', placeholder: 'email@beispiel.de' }, { name: 'interest', label: 'Interesse', type: 'select', options: ['Kauf', 'Verkauf', 'Miete', 'Gewerbe', 'Sonstiges'] }, { name: 'message', label: 'Nachricht', type: 'textarea', placeholder: 'Ihre Nachricht' }], submit: 'Anfrage senden' } },
     },
     en: {
-      nav: { brand: 'BOECKLER', links: [{ label: 'Listings', href: '#properties' }, { label: 'Team', href: '#team' }, { label: 'Contact', href: '#contact' }], cta: 'Valuation' },
-      hero: { badge: 'Since 2010 in Berlin-Kreuzberg', headline: ['Spaces with', 'History.'], sub: 'We broker exceptional properties - from listed old buildings to modern lofts.', ctas: [{ text: 'Discover listings', primary: true }, { text: 'Contact' }], image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png' },
+      nav: { brand: 'BOECKLER', links: [{ label: 'Listings', href: '#properties' }, { label: 'Agents', href: '#team' }, { label: 'Contact', href: '#contact' }], cta: 'Consult', ctaHref: '#contact' },
+      hero: { badge: 'Since 2010 in Berlin-Kreuzberg', headline: ['Spaces with', 'History.'], sub: 'We broker exceptional properties - from listed old buildings to modern lofts.', ctas: [{ text: 'Discover listings', href: '#properties', primary: true }, { text: 'Contact', href: '#contact' }], image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png', gallery: ['/images/immobilien/3_Before_After_Combined_Modern_Luxury.png', '/images/immobilien/8_10_Trends_of_Luxury_Home_Interior.png', '/images/immobilien/4_Luxury_Penthouse_Terrace_Overlooking.png', '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png'], video: '/videos/boeckler-hero.mp4' },
       stats: [{ value: '480+', label: 'Properties sold' }, { value: '16', label: 'Years experience' }, { value: '98%', label: 'Customer satisfaction' }, { value: '48h', label: 'First contact guarantee' }],
       services: { eyebrow: 'Current Listings', title: 'Exclusive Properties', subtitle: 'Discover our current highlights.', items: [] },
-      special: { type: 'properties', data: { filters: ['All', 'Buy', 'Rent', 'Commercial'], properties: [{ title: 'Kreuzberg Old Building Apartment', location: 'Kreuzberg', price: 'EUR 1,180,000', type: 'Buy', rooms: '4 rooms', area: '138 m2', image: '/images/immobilien/3_Before_After_Combined_Modern_Luxury.png', tag: 'Heritage' }, { title: 'Loft in Commercial Courtyard', location: 'Neukoelln', price: 'EUR 2,850/month', type: 'Rent', rooms: '3 rooms', area: '105 m2', image: '/images/immobilien/8_10_Trends_of_Luxury_Home_Interior.png', tag: 'New' }, { title: 'Charlottenburg Townhouse', location: 'Charlottenburg', price: 'EUR 2,650,000', type: 'Buy', rooms: '7 rooms', area: '295 m2', image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png', tag: 'Exclusive' }, { title: 'Friedrichshain Penthouse', location: 'Friedrichshain', price: 'EUR 3,900/month', type: 'Rent', rooms: '4 rooms', area: '165 m2', image: '/images/immobilien/4_Luxury_Penthouse_Terrace_Overlooking.png', tag: 'Rooftop' }, { title: 'Schoeneberg Commercial Unit', location: 'Schoeneberg', price: 'EUR 7,500/month', type: 'Commercial', rooms: 'Open Space', area: '220 m2', image: '/images/immobilien/1_The_Role_of_Living_Room_Furniture.png', tag: 'Commercial' }, { title: 'Prenzlauer Berg Garden Floor', location: 'Prenzlauer Berg', price: 'EUR 985,000', type: 'Buy', rooms: '5 rooms', area: '158 m2', image: '/images/immobilien/2_Modern_Penthouse_Terrace_Overlooking.png', tag: 'Garden' }] } },
-      team: { eyebrow: 'Team', title: 'Your Contacts', subtitle: 'Personal advice at eye level.', members: [{ name: 'Clara Boeckler', role: 'Managing Director · Owner', focus: 'Heritage properties & old buildings', image: '/images/people/5_72_700_Accountant_Portrait_Stock.png' }, { name: 'Jonas Richter', role: 'Senior Real Estate Agent', focus: 'Commercial properties', image: '/images/immobilien/10_Professional_real_estate_agent_Images.png' }] },
-      reviews: { eyebrow: 'Client Voices', title: 'Trust Through Competence', subtitle: 'What our clients say about us.', items: [{ name: 'Bauer Family', info: 'Old building purchase', text: 'Ms. Boeckler guided us through the entire purchase process. Sovereign and empathetic.' }, { name: 'Lena M.', info: 'Commercial lease', text: 'Fast, uncomplicated and with real market know-how.' }, { name: 'Thomas K.', info: 'Seller', text: 'Transparent communication and an outstanding result.' }] },
+      special: { type: 'properties', data: {} },
+      team: { eyebrow: 'Team', title: 'Your Contacts', subtitle: 'Personal advice at eye level.', members: [{ name: 'Clara Boeckler', role: 'Managing Director · Owner', focus: 'Heritage properties & old buildings', image: '/images/people/5_72_700_Accountant_Portrait_Stock.png', availableToday: true, phone: '030 61408921' }, { name: 'Jonas Richter', role: 'Senior Real Estate Agent', focus: 'Commercial properties', image: '/images/immobilien/10_Professional_real_estate_agent_Images.png', availableToday: false, phone: '030 61408922' }] },
+      reviews: { eyebrow: 'Client Voices', title: 'Trust Through Competence', subtitle: 'What our clients say about us.', items: [{ name: 'Bauer Family', info: 'Old building purchase', text: 'Ms. Boeckler guided us through the entire purchase process. Sovereign and empathetic.' }, { name: 'Lena M.', info: 'Commercial lease', text: 'Fast, uncomplicated and with real market know-how.' }, { name: 'Thomas K.', info: 'Seller', text: 'Transparent communication and an outstanding result.' }, { name: 'Mira S.', info: 'First purchase', text: 'The search felt like a private concierge. Three days later we were standing in the apartment.' }] },
       contact: { eyebrow: 'Contact', title: 'Contact Us', subtitle: 'Whether buying, selling or renting - we are happy to advise you personally.', info: [{ icon: 'MapPin', label: 'Address', value: 'Oranienstrasse 45, 10969 Berlin' }, { icon: 'Phone', label: 'Phone', value: '030 61408920' }, { icon: 'Mail', label: 'Email', value: 'info@boeckler-immobilien.de' }], form: { fields: [{ name: 'name', label: 'Name', type: 'text', placeholder: 'Name' }, { name: 'email', label: 'Email', type: 'email', placeholder: 'email@example.com' }, { name: 'interest', label: 'Interest', type: 'select', options: ['Buy', 'Sell', 'Rent', 'Commercial', 'Other'] }, { name: 'message', label: 'Message', type: 'textarea', placeholder: 'Your message' }], submit: 'Send request' } },
     },
   },
   {
     id: 'zahnarzt',
+    active: false,
     name: 'Dr. Hartmann',
     categoryDe: 'Zahnarztpraxis',
     categoryEn: 'Dental Practice',
@@ -225,6 +234,7 @@ const branchExamples: BranchExample[] = [
   },
   {
     id: 'restaurant',
+    active: false,
     name: 'Tre Pini',
     categoryDe: 'Restaurant',
     categoryEn: 'Restaurant',
@@ -270,21 +280,23 @@ export const useBranchExamples = () => {
   const { locale } = useI18n()
 
   const branches = computed(() =>
-    branchExamples.map((b) => ({
-      id: b.id,
-      name: b.name,
-      category: locale.value === 'de' ? b.categoryDe : b.categoryEn,
-      description: locale.value === 'de' ? b.descriptionDe : b.descriptionEn,
-      features: locale.value === 'de' ? b.featuresDe : b.featuresEn,
-      tags: b.tags,
-      image: b.image,
-      accentClass: b.accentClass,
-      theme: b.theme,
-    })),
+    branchExamples
+      .filter((b) => b.active)
+      .map((b) => ({
+        id: b.id,
+        name: b.name,
+        category: locale.value === 'de' ? b.categoryDe : b.categoryEn,
+        description: locale.value === 'de' ? b.descriptionDe : b.descriptionEn,
+        features: locale.value === 'de' ? b.featuresDe : b.featuresEn,
+        tags: b.tags,
+        image: b.image,
+        accentClass: b.accentClass,
+        theme: b.theme,
+      })),
   )
 
   const getById = (id: string) => {
-    const branch = branchExamples.find((b) => b.id === id)
+    const branch = branchExamples.find((b) => b.id === id && b.active)
     if (!branch) return undefined
     const content = locale.value === 'de' ? branch.de : branch.en
     return {

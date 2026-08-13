@@ -202,3 +202,47 @@ a, button {
     opacity: 1;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────
+   BRANCH DEMOS
+   ───────────────────────────────────────────────────────────────── */
+.glass-search {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 18px 50px rgba(28, 18, 8, 0.28);
+}
+
+.boeckler-pin {
+  background: transparent;
+  border: none;
+}
+.boeckler-pin .pin {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #d97706;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.boeckler-pin.is-hovered .pin,
+.boeckler-pin.is-active .pin {
+  transform: scale(1.35);
+  background: #b45309;
+  box-shadow: 0 0 0 6px rgba(217, 119, 6, 0.28);
+}
+
+.leaflet-container {
+  font-family: 'DM Sans', sans-serif;
+  background: #e7e5e4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-pulse-glow,
+  .animate-heart-pop {
+    animation: none !important;
+  }
+}

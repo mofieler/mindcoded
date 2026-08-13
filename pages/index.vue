@@ -12,10 +12,7 @@ useSeo({
 
 <template>
   <!-- ─── HERO ──────────────────────────────────────────────────── -->
-  <!-- svh (not vh) so a collapsing mobile URL bar doesn't resize the hero;
-       the py keeps the eyebrow clear of the nav once the content outgrows the
-       min-height on small screens and justify-center stops having any slack. -->
-  <section class="relative min-h-[85svh] flex flex-col items-center justify-center overflow-hidden py-14 sm:py-20">
+  <section class="hero relative flex flex-col items-center justify-center overflow-hidden">
     <!-- Grid Background — edge-fade mask so grid bleeds naturally into page -->
     <div
       class="absolute inset-0 hero-grid z-0"
@@ -113,9 +110,9 @@ useSeo({
     </div>
 
     <!-- Scroll Indicator -->
-    <!-- Hidden on mobile: the hero grows past the fold there, so the hint sits
-         far below the viewport and collides with the tech badges. -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-1.5 opacity-60 z-20 animate-bounce">
+    <!-- Hidden on mobile and on short viewports, where the hero already spills
+         past the fold and the hint would land on top of the tech badges. -->
+    <div class="hero-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-1.5 opacity-60 z-20 animate-bounce">
       <span class="text-xs font-body text-fg-muted tracking-widest uppercase">{{ locale === 'de' ? 'Scrollen' : 'Scroll' }}</span>
       <svg class="w-4 h-4 text-fg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="6,9 12,15 18,9" />
@@ -209,3 +206,40 @@ useSeo({
     </div>
   </section>
 </template>
+
+<style scoped>
+/*
+ * The hero content is taller than 85vh on phones and on short laptop windows.
+ * Once it outgrows the min-height, justify-center has no slack left and the
+ * eyebrow ends up flush against the fixed nav — hence explicit padding rather
+ * than relying on centering. svh (not vh) keeps a collapsing mobile URL bar
+ * from resizing the hero mid-scroll.
+ */
+.hero {
+  min-height: 85vh; /* fallback for browsers without svh */
+  min-height: 85svh;
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding-top: 6rem;
+    /* Clears the absolutely positioned scroll hint (bottom: 2rem, ~2.5rem tall)
+       so it can never sit on top of the tech badges. */
+    padding-bottom: 8rem;
+  }
+}
+
+/* Short or landscape viewports: the hero cannot fill the screen anyway, so stop
+   stretching it and give the content room instead. */
+@media (max-height: 760px) {
+  .hero {
+    min-height: 0;
+  }
+
+  .hero-scroll-hint {
+    display: none;
+  }
+}
+</style>

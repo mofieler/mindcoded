@@ -11,6 +11,8 @@ if (!branch.value) {
 }
 
 const isDark = computed(() => branch.value?.theme.pageBg.includes('neutral-950') ?? false)
+const isImmobilien = computed(() => branchId.value === 'immobilien')
+const isFitness = computed(() => branchId.value === 'fitnessstudio')
 
 useSeoMeta({
   title: `${branch.value?.name} — ${t('branch.design_studio')} — Mindcoded`,
@@ -26,31 +28,50 @@ definePageMeta({
   <div v-if="branch" :class="[branch.theme.pageBg, branch.theme.pageText]">
     <BranchNav :nav="branch.content.nav" :theme="branch.theme" />
 
-    <BranchHero :hero="branch.content.hero" :theme="branch.theme" />
+    <!-- Immobilen experience -->
+    <template v-if="isImmobilien">
+      <BranchImmobilienHero :hero="branch.content.hero" :theme="branch.theme" />
 
-    <!-- Stats -->
-    <section v-if="branch.content.stats" class="py-10 px-6 border-y" :class="isDark ? 'border-neutral-800 bg-neutral-900/50' : 'border-slate-200 bg-white/50'">
-      <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div v-for="stat in branch.content.stats" :key="stat.label" class="text-center">
-          <p class="font-display font-extrabold text-3xl" :class="`text-${branch.theme.accent}`">{{ stat.value }}</p>
-          <p class="text-xs font-body opacity-70 mt-1" :class="isDark ? 'text-neutral-400' : 'text-slate-600'">{{ stat.label }}</p>
+      <section v-if="branch.content.stats" class="py-10 px-6 border-y border-stone-200 bg-white/70">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div v-for="stat in branch.content.stats" :key="stat.label" class="text-center">
+            <p class="font-display font-extrabold text-3xl text-amber-700">{{ stat.value }}</p>
+            <p class="text-xs font-body text-stone-500 mt-1">{{ stat.label }}</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Zahnarzt: trust banner -->
-    <section v-if="branchId === 'zahnarzt'" class="py-6 px-6 text-center" :class="isDark ? 'bg-neutral-900' : 'bg-sky-50'">
-      <p class="font-body text-sm" :class="isDark ? 'text-neutral-300' : 'text-sky-800'">
-        <span class="font-semibold">Angstfreie Behandlung:</span> Wir nehmen uns Zeit und erklaeren jeden Schritt.
-      </p>
-    </section>
+      <BranchImmobilienSplitView />
+      <BranchImmobilienAgents v-if="branch.content.team" :team="branch.content.team" :theme="branch.theme" />
+    </template>
 
-    <!-- Branch-specific special sections (appear before generic services where it makes sense) -->
-    <BranchRestaurantMenu v-if="branch.content.special?.type === 'menu'" :data="branch.content.special.data" :theme="branch.theme" />
-    <BranchImmobilienFilter v-if="branch.content.special?.type === 'properties'" :data="branch.content.special.data" :theme="branch.theme" />
-    <BranchFitnessPricing v-if="branchId === 'fitnessstudio' && branch.content.special?.type === 'pricing'" :data="branch.content.special.data" :theme="branch.theme" />
+    <!-- IronPulse experience -->
+    <template v-else-if="isFitness">
+      <BranchFitnessHero :hero="branch.content.hero" :theme="branch.theme" />
+      <BranchFitnessClassFinder />
+      <BranchFitnessConfigurator v-if="branch.content.special?.type === 'pricing'" :plans="branch.content.special.data.plans" />
+      <BranchFitnessDigitalHub />
+    </template>
 
-    <!-- Services -->
+    <!-- Generic fallback (kept for later reactivation of other branches) -->
+    <template v-else>
+      <BranchHero :hero="branch.content.hero" :theme="branch.theme" />
+
+      <section v-if="branch.content.stats" class="py-10 px-6 border-y" :class="isDark ? 'border-neutral-800 bg-neutral-900/50' : 'border-slate-200 bg-white/50'">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div v-for="stat in branch.content.stats" :key="stat.label" class="text-center">
+            <p class="font-display font-extrabold text-3xl" :class="`text-${branch.theme.accent}`">{{ stat.value }}</p>
+            <p class="text-xs font-body opacity-70 mt-1" :class="isDark ? 'text-neutral-400' : 'text-slate-600'">{{ stat.label }}</p>
+          </div>
+        </div>
+      </section>
+
+      <BranchRestaurantMenu v-if="branch.content.special?.type === 'menu'" :data="branch.content.special.data" :theme="branch.theme" />
+      <BranchImmobilienFilter v-if="branch.content.special?.type === 'properties'" :data="branch.content.special.data" :theme="branch.theme" />
+      <BranchFitnessPricing v-if="branch.content.special?.type === 'pricing'" :data="branch.content.special.data" :theme="branch.theme" />
+    </template>
+
+    <!-- Services (skip empty immobilien grid) -->
     <section v-if="branch.content.services?.items?.length" id="services" class="py-24 px-6" :class="isDark ? 'bg-neutral-900/30' : ''">
       <div class="max-w-7xl mx-auto">
         <BranchSectionHeader :light="isDark" :eyebrow="branch.content.services.eyebrow" :title="branch.content.services.title" :subtitle="branch.content.services.subtitle" />
@@ -67,10 +88,7 @@ definePageMeta({
       </div>
     </section>
 
-    <!-- Fitness: pricing after services on non-fitness pages (not applicable) -->
-    <BranchFitnessPricing v-if="branchId !== 'fitnessstudio' && branch.content.special?.type === 'pricing'" :data="branch.content.special.data" :theme="branch.theme" />
-
-    <!-- Process / Projects / Target groups -->
+    <!-- Process -->
     <section v-if="branch.content.process" id="process" class="py-24 px-6" :class="isDark ? 'bg-neutral-950' : 'bg-slate-50/50'">
       <div class="max-w-6xl mx-auto">
         <BranchSectionHeader :light="isDark" :eyebrow="branch.content.process.eyebrow" :title="branch.content.process.title" :subtitle="branch.content.process.subtitle" />
@@ -98,8 +116,8 @@ definePageMeta({
       </div>
     </section>
 
-    <!-- Team -->
-    <section v-if="branch.content.team" id="team" class="py-24 px-6">
+    <!-- Team (immobilien uses dedicated agent cards) -->
+    <section v-if="branch.content.team && !isImmobilien" id="team" class="py-24 px-6">
       <div class="max-w-5xl mx-auto">
         <BranchSectionHeader :light="isDark" :eyebrow="branch.content.team.eyebrow" :title="branch.content.team.title" :subtitle="branch.content.team.subtitle" />
         <div class="flex flex-wrap justify-center gap-8">
@@ -114,6 +132,7 @@ definePageMeta({
             <h4 class="font-display font-bold text-lg" :class="isDark ? 'text-white' : 'text-slate-900'">{{ member.name }}</h4>
             <p class="text-sm font-body opacity-80" :class="isDark ? 'text-neutral-300' : 'text-slate-700'">{{ member.role }}</p>
             <p v-if="member.focus" class="text-xs font-body opacity-60 mt-1" :class="isDark ? 'text-neutral-400' : 'text-slate-500'">{{ member.focus }}</p>
+            <p v-if="member.availableToday" class="mt-2 text-xs font-display font-semibold text-lime-400">● {{ locale === 'de' ? 'heute erreichbar' : 'available today' }}</p>
           </div>
         </div>
       </div>
@@ -123,7 +142,7 @@ definePageMeta({
     <section v-if="branch.content.reviews" class="py-24 px-6" :class="branch.theme.reviewsBg ?? branch.theme.heroGradient">
       <div class="max-w-6xl mx-auto">
         <BranchSectionHeader light :eyebrow="branch.content.reviews.eyebrow" :title="branch.content.reviews.title" :subtitle="branch.content.reviews.subtitle" />
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <BranchReviewCard
             v-for="review in branch.content.reviews.items"
             :key="review.name"
@@ -137,10 +156,13 @@ definePageMeta({
       </div>
     </section>
 
-    <!-- Contact -->
-    <BranchContact :contact="branch.content.contact" :theme="branch.theme" :dark="isDark" />
+    <BranchContact
+      :contact="branch.content.contact"
+      :theme="branch.theme"
+      :dark="isDark"
+      :section-id="isFitness ? 'trial' : 'contact'"
+    />
 
-    <!-- Footer -->
     <BranchFooter :brand="branch.content.nav.brand" :theme="branch.theme" />
   </div>
 </template>

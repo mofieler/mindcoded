@@ -54,8 +54,8 @@ const scrolledText = computed(() => isDarkPage.value ? 'text-white' : props.them
       </div>
 
       <a
-        href="#contact"
-        class="px-4 py-2 rounded-lg text-sm font-display font-semibold transition-all hover:scale-105 shadow-sm"
+        :href="nav.ctaHref ?? '#contact'"
+        class="px-4 py-2 rounded-lg text-sm font-display font-semibold transition-all hover:scale-105 shadow-sm min-h-[40px] inline-flex items-center"
         :class="`bg-${theme.accent} ${theme.accentText}`"
       >
         {{ nav.cta }}

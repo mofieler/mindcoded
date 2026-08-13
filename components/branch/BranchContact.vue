@@ -5,7 +5,10 @@ const props = defineProps<{
   contact: BranchPageContent['contact']
   theme: BranchTheme
   dark?: boolean
+  sectionId?: string
 }>()
+
+const prefill = useTrialPrefill()
 
 const iconMap: Record<string, string> = {
   MapPin: 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z',
@@ -22,7 +25,8 @@ const borderClass = computed(() => isDark.value ? 'border-neutral-800' : 'border
 </script>
 
 <template>
-  <section id="contact" class="py-24 px-6">
+  <section :id="sectionId ?? 'contact'" class="py-24 px-6">
+    <div v-if="sectionId === 'trial'" id="contact" class="sr-only" aria-hidden="true" />
     <div class="max-w-6xl mx-auto">
       <BranchSectionHeader :light="isDark" :eyebrow="contact.eyebrow" :title="contact.title" :subtitle="contact.subtitle" />
 
@@ -63,6 +67,14 @@ const borderClass = computed(() => isDark.value ? 'border-neutral-800' : 'border
 
         <!-- Form -->
         <form class="rounded-2xl p-8 border" :class="[sectionBg, borderClass]" @submit.prevent>
+          <div
+            v-if="prefill.course || prefill.plan"
+            class="mb-5 rounded-xl border px-4 py-3 text-sm font-body"
+            :class="isDark ? 'border-lime-400/30 bg-lime-400/10 text-lime-200' : 'border-amber-200 bg-amber-50 text-amber-900'"
+          >
+            <p v-if="prefill.course">{{ prefill.course }}</p>
+            <p v-if="prefill.plan">{{ prefill.plan }}</p>
+          </div>
           <div class="grid sm:grid-cols-2 gap-4 mb-4">
             <div v-for="field in contact.form.fields.filter(f => f.type !== 'textarea')" :key="field.name" :class="field.type === 'select' || field.type === 'date' ? 'sm:col-span-2' : ''">
               <label class="block text-xs font-body font-medium mb-1.5" :class="mutedClass">{{ field.label }}</label>

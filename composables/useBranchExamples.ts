@@ -1,5 +1,7 @@
 export interface BranchExample {
   id: string
+  /** false = hidden from showcase, nav and routes. Data stays for later reactivation. */
+  active: boolean
   name: string
   categoryDe: string
   categoryEn: string
@@ -99,6 +101,7 @@ const makeTheme = (opts: Partial<BranchTheme> & { accent: string; accentText?: s
 const branchExamples: BranchExample[] = [
   {
     id: 'fitnessstudio',
+    active: true,
     name: 'Ironpulse Fitness',
     categoryDe: 'Sport & Fitness',
     categoryEn: 'Sports & Fitness',
@@ -140,6 +143,7 @@ const branchExamples: BranchExample[] = [
   },
   {
     id: 'immobilien',
+    active: true,
     name: 'Boeckler Immobilien',
     categoryDe: 'Immobilien',
     categoryEn: 'Real Estate',
@@ -183,6 +187,7 @@ const branchExamples: BranchExample[] = [
   },
   {
     id: 'zahnarzt',
+    active: false,
     name: 'Dr. Hartmann',
     categoryDe: 'Zahnarztpraxis',
     categoryEn: 'Dental Practice',
@@ -225,6 +230,7 @@ const branchExamples: BranchExample[] = [
   },
   {
     id: 'restaurant',
+    active: false,
     name: 'Tre Pini',
     categoryDe: 'Restaurant',
     categoryEn: 'Restaurant',
@@ -270,7 +276,7 @@ export const useBranchExamples = () => {
   const { locale } = useI18n()
 
   const branches = computed(() =>
-    branchExamples.map((b) => ({
+    branchExamples.filter((b) => b.active).map((b) => ({
       id: b.id,
       name: b.name,
       category: locale.value === 'de' ? b.categoryDe : b.categoryEn,
@@ -284,7 +290,7 @@ export const useBranchExamples = () => {
   )
 
   const getById = (id: string) => {
-    const branch = branchExamples.find((b) => b.id === id)
+    const branch = branchExamples.find((b) => b.id === id && b.active)
     if (!branch) return undefined
     const content = locale.value === 'de' ? branch.de : branch.en
     return {

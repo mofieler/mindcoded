@@ -209,22 +209,24 @@ useSeo({
 
 <style scoped>
 /*
- * The hero content is taller than 85vh on phones and on short laptop windows.
- * Once it outgrows the min-height, justify-center has no slack left and the
- * eyebrow ends up flush against the fixed nav — hence explicit padding rather
- * than relying on centering. svh (not vh) keeps a collapsing mobile URL bar
- * from resizing the hero mid-scroll.
+ * <main> already has pt-nav (4.5rem), so the hero starts below the fixed bar.
+ * Extra padding here is only breathing room under the nav — not another nav
+ * height. 5rem on top of pt-nav pushed the eyebrow too far down on phones.
+ *
+ * min-height fills the remaining viewport (100dvh minus the nav), not 85svh
+ * which would overflow because the nav offset is already applied.
  */
 .hero {
-  min-height: 85vh; /* fallback for browsers without svh */
-  min-height: 85svh;
-  padding-top: 5rem;
-  padding-bottom: 6rem;
+  min-height: calc(100vh - 4.5rem);
+  min-height: calc(100svh - 4.5rem);
+  min-height: calc(100dvh - 4.5rem);
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
 }
 
 @media (min-width: 640px) {
   .hero {
-    padding-top: 6rem;
+    padding-top: 3rem;
     /* Clears the absolutely positioned scroll hint (bottom: 2rem, ~2.5rem tall)
        so it can never sit on top of the tech badges. */
     padding-bottom: 8rem;
@@ -236,6 +238,8 @@ useSeo({
 @media (max-height: 760px) {
   .hero {
     min-height: 0;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
   }
 
   .hero-scroll-hint {

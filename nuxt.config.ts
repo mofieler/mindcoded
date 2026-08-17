@@ -59,11 +59,15 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    exclude: ['/optin', '/en/optin', '/confirm', '/en/confirm'],
+    exclude: [
+      '/optin', '/en/optin', '/confirm', '/en/confirm',
+      '/beispiele/zahnarzt', '/en/beispiele/zahnarzt',
+      '/beispiele/restaurant', '/en/beispiele/restaurant',
+    ],
   },
 
   robots: {
-    disallow: ['/optin', '/confirm'],
+    disallow: ['/optin', '/confirm', '/beispiele/zahnarzt', '/beispiele/restaurant'],
   },
 
   // nuxt-og-image causes unenv path errors — disabled since we don't use it

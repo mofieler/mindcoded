@@ -1,0 +1,3 @@
+scripts/coolify-install.sh text eol=lf
+Dockerfile text eol=lf
+nixpacks.toml text eol=lf

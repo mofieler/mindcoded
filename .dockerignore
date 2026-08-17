@@ -1,0 +1,13 @@
+node_modules
+.nuxt
+.output
+.dist
+dist
+.git
+.claude
+.env
+.env.*
+*.md
+hero.tmp
+flyer-front.html
+scripts/test-mail.ts

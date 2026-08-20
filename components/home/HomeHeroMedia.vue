@@ -1,53 +1,87 @@
 <script setup lang="ts">
 const videoEl = ref<HTMLVideoElement | null>(null)
-const useVideo = ref(false)
-const failed = ref(false)
-const playing = ref(false)
+const reduced = ref(false)
+const on = ref(false)
 
-const base = useRuntimeConfig().app.baseURL
-const mp4Src = `${base}media/hero.mp4`
-const posterJpg = `${base}media/hero-poster.jpg`
+const src = '/media/hero.mp4'
+const poster = '/media/hero-poster.jpg'
 
-const canPlayVideo = () => {
-  if (typeof window === 'undefined') return false
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
-  // Real phones only — a narrow desktop pane still gets the clip
-  if (window.matchMedia('(max-width: 767px) and (pointer: coarse)').matches) return false
-  const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
-  if (conn?.saveData) return false
-  if (conn?.effectiveType === 'slow-2g' || conn?.effectiveType === '2g') return false
-  return true
+let retry = 0
+let cap = 0
+
+const arm = (el: HTMLVideoElement) => {
+  el.muted = true
+  el.defaultMuted = true
+  el.loop = true
+  el.autoplay = true
+  el.playsInline = true
+  el.setAttribute('playsinline', '')
+  el.setAttribute('webkit-playsinline', '')
+  el.setAttribute('muted', '')
 }
 
-const tryPlay = async () => {
+const kick = async () => {
   const el = videoEl.value
-  if (!el || !useVideo.value || failed.value) return
+  if (!el || reduced.value) return
+  arm(el)
+  if (el.ended) el.currentTime = 0
   try {
     await el.play()
-    playing.value = true
+    on.value = true
   } catch {
-    playing.value = false
+    on.value = !el.paused
   }
 }
 
+const onReady = () => kick()
+const onEnded = () => {
+  const el = videoEl.value
+  if (!el) return
+  el.currentTime = 0
+  kick()
+}
+const onVisible = () => {
+  if (!document.hidden) kick()
+}
+const onPointer = () => kick()
+
 onMounted(() => {
-  if (!canPlayVideo()) return
-  useVideo.value = true
+  reduced.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const el = videoEl.value
+  if (!el) return
 
-  nextTick(() => {
-    const el = videoEl.value
-    if (!el) return
+  if (reduced.value) {
+    el.pause()
+    return
+  }
 
-    const io = new IntersectionObserver(([entry]) => {
-      if (!entry || !videoEl.value) return
-      if (entry.isIntersecting) tryPlay()
-      else videoEl.value.pause()
-    }, { threshold: 0.08 })
+  kick()
+  el.addEventListener('canplay', onReady)
+  el.addEventListener('loadeddata', onReady)
+  el.addEventListener('ended', onEnded)
+  document.addEventListener('visibilitychange', onVisible)
+  window.addEventListener('pointerdown', onPointer, { once: true })
 
-    io.observe(el)
-    tryPlay()
-    onBeforeUnmount(() => io.disconnect())
-  })
+  retry = window.setInterval(() => {
+    if (!videoEl.value?.paused) {
+      window.clearInterval(retry)
+      return
+    }
+    kick()
+  }, 500)
+  cap = window.setTimeout(() => window.clearInterval(retry), 10000)
+})
+
+onActivated(() => kick())
+
+onBeforeUnmount(() => {
+  const el = videoEl.value
+  el?.removeEventListener('canplay', onReady)
+  el?.removeEventListener('loadeddata', onReady)
+  el?.removeEventListener('ended', onEnded)
+  document.removeEventListener('visibilitychange', onVisible)
+  window.clearInterval(retry)
+  window.clearTimeout(cap)
 })
 </script>
 
@@ -55,7 +89,7 @@ onMounted(() => {
   <div class="hero-media pointer-events-none" aria-hidden="true">
     <img
       class="hero-media-poster"
-      :src="posterJpg"
+      :src="poster"
       alt=""
       width="960"
       height="540"
@@ -63,21 +97,19 @@ onMounted(() => {
     >
 
     <video
-      v-if="useVideo"
       ref="videoEl"
       class="hero-media-video"
-      :class="{ 'is-on': playing }"
+      :class="{ 'is-on': on && !reduced }"
       muted
       loop
-      playsinline
       autoplay
+      playsinline
       preload="auto"
-      :poster="posterJpg"
-      @error="failed = true; useVideo = false"
-      @playing="playing = true"
-    >
-      <source :src="mp4Src" type="video/mp4">
-    </video>
+      :src="src"
+      :poster="poster"
+      @playing="on = true"
+      @play="on = true"
+    />
 
     <div class="hero-media-tint" />
     <div class="hero-media-fade" />
@@ -105,14 +137,13 @@ onMounted(() => {
 
 .hero-media-video {
   opacity: 0;
-  transition: opacity 0.7s ease;
+  transition: opacity 0.45s ease;
 }
 
 .hero-media-video.is-on {
   opacity: 1;
 }
 
-/* Dark clip: lift so cyan lines read on cream and on charcoal */
 .hero-media-poster,
 .hero-media-video {
   filter: brightness(1.22) contrast(1.1) saturate(1.15);

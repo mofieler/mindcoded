@@ -2,6 +2,7 @@
 const { t } = useI18n()
 const steps = useI18nEntries<{ num: string; title: string; time: string; desc: string }>('home.process.steps')
 const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFocusSet(() => steps.value.length)
+const { el, isVisible } = useIntersect({ threshold: 0.12 })
 </script>
 
 <template>
@@ -14,17 +15,17 @@ const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFoc
       />
 
       <div
-        class="process-board ui-focus-group mt-12"
+        ref="el"
+        class="process-board ui-focus-group ui-enter mt-12"
+        :class="{ 'is-in': isVisible }"
         :style="{ '--focus-i': active, '--focus-n': steps.length }"
       >
-        <div class="process-spotlight-track" aria-hidden="true">
-          <span class="ui-spotlight" />
-        </div>
         <ol class="process-track">
           <li
             v-for="(step, i) in steps"
             :key="step.num"
-            class="process-item"
+            class="process-item ui-enter-item"
+            :style="{ '--i': i }"
           >
             <button
               type="button"
@@ -40,6 +41,11 @@ const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFoc
                 <span class="ui-mark" :class="{ 'is-active': active === i }">
                   {{ step.num }}
                 </span>
+                <span
+                  v-if="i < steps.length - 1"
+                  class="process-link"
+                  :class="{ 'is-lit': i < active }"
+                />
               </span>
               <span
                 class="ui-card-interactive process-card"
@@ -75,10 +81,6 @@ const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFoc
   overflow: visible;
 }
 
-.process-spotlight-track {
-  display: none;
-}
-
 @media (min-width: 900px) {
   .process-board {
     padding-bottom: 0.35rem;
@@ -87,17 +89,6 @@ const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFoc
   .process-track {
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-  }
-
-  .process-spotlight-track {
-    display: block;
-    position: absolute;
-    top: 2.75rem;
-    left: 0;
-    right: 0;
-    height: 2px;
-    pointer-events: none;
-    z-index: 2;
   }
 }
 
@@ -145,18 +136,34 @@ const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFoc
   min-height: 100%;
 }
 
-.process-rail::after {
-  content: '';
+.process-link {
   position: absolute;
   top: 2.75rem;
   bottom: -1rem;
   left: 50%;
-  width: 1px;
+  width: 2px;
+  margin-left: -1px;
   background: rgb(var(--color-border));
+  transform-origin: top center;
+  transition: background-color var(--duration-card) var(--ease-brand);
 }
 
-.process-item:last-child .process-rail::after {
-  display: none;
+.process-link.is-lit {
+  background: rgb(var(--color-accent));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .process-link {
+    transform: scaleY(0);
+    transition:
+      transform 560ms var(--ease-brand),
+      background-color var(--duration-card) var(--ease-brand);
+    transition-delay: calc(var(--i, 0) * 80ms + 140ms), 0ms;
+  }
+
+  .process-board.is-in .process-link {
+    transform: scaleY(1);
+  }
 }
 
 @media (min-width: 900px) {
@@ -167,22 +174,25 @@ const { selected, active, onEnter, onLeave, onFocus, onBlur, onSelect } = useFoc
     margin-bottom: 1.25rem;
   }
 
-  .process-rail::before {
-    content: '';
-    position: absolute;
+  .process-link {
     top: 1.35rem;
+    bottom: auto;
     left: 2.7rem;
     right: -0.75rem;
-    height: 1px;
-    background: rgb(var(--color-border));
+    width: auto;
+    height: 2px;
+    margin-left: 0;
+    transform-origin: left center;
   }
 
-  .process-rail::after {
-    display: none;
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    .process-link {
+      transform: scaleX(0);
+    }
 
-  .process-item:last-child .process-rail::before {
-    display: none;
+    .process-board.is-in .process-link {
+      transform: scaleX(1);
+    }
   }
 }
 

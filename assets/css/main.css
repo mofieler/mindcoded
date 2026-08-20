@@ -259,6 +259,25 @@ details[open] > summary .ui-mark {
   transition: background-color var(--duration-card) var(--ease-brand);
 }
 
+.ui-enter .ui-enter-item {
+  transition:
+    opacity 560ms var(--ease-brand),
+    transform 560ms var(--ease-brand);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ui-enter .ui-enter-item {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  .ui-enter.is-in .ui-enter-item {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .ui-card-interactive:focus-visible,
 .process-step:focus-visible {
   outline: 2px solid rgb(var(--color-accent));
@@ -300,7 +319,8 @@ details[open] > summary .ui-mark {
   .ui-spotlight,
   .ui-reveal,
   .ui-media-zoom,
-  .ui-hover-veil {
+  .ui-hover-veil,
+  .ui-enter .ui-enter-item {
     transition: none;
     transform: none;
   }

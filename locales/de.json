@@ -64,7 +64,7 @@
         { "q": "Was kostet eine Website?", "a": "Der Preis richtet sich nach dem Umfang, etwa Auftritt, Buchung und Inhalte. Ich sage dir vor dem Start, ob das Vorhaben in deinem Rahmen umsetzbar ist." },
         { "q": "Wie lange dauert ein Projekt?", "a": "In der Regel dauert ein Projekt vier bis acht Wochen, vom ersten Gespräch bis zur Veröffentlichung. Kleinere Websites sind oft schneller fertig. Mit einem Buchungssystem fällt etwas mehr Zeit an." },
         { "q": "Muss ich die Texte selbst schreiben?", "a": "Das kannst du, musst du aber nicht. Wir können die Inhalte gemeinsam strukturieren und den Ton abstimmen. Die Formulierungen bleiben bei dir." },
-        { "q": "Arbeitest du mit Baukastensystemen?", "a": "Nein. Die Entwürfe für Fitness, Handwerk und Gastronomie dienen der Orientierung. Jede Website wird neu gestaltet und entwickelt." },
+        { "q": "Arbeitest du mit Baukastensystemen?", "a": "Nein. Die Entwürfe für Fitness und Immobilien dienen der Orientierung. Jede Website wird neu gestaltet und entwickelt." },
         { "q": "Was passiert nach der Veröffentlichung?", "a": "Du erhältst eine Einweisung und Hinweise zum Hosting. In den ersten Wochen passe ich kleine Dinge an. Danach bleibe ich erreichbar, ohne dass ein laufender Vertrag nötig ist." }
       ]
     },
@@ -72,7 +72,7 @@
     "projects_sub": "Paquita Pilates in Stuttgart-Ost.",
     "design_studios_eyebrow": "Branchen",
     "design_studios_title": "Welche Richtung passt zu dir?",
-    "design_studios_sub": "Für Fitness, Handwerk und Gastronomie zeige ich jeweils einen möglichen Auftritt. Die eigentliche Website entsteht danach gemeinsam mit dir.",
+    "design_studios_sub": "Für Fitness und Immobilien zeige ich jeweils einen möglichen Auftritt. Die eigentliche Website entsteht danach gemeinsam mit dir.",
     "design_studios_cta": "Projekt anfragen",
     "design_studios_view": "Richtung ansehen",
     "design_studios_disclaimer": "Die folgenden Auftritte sind Entwürfe zur Orientierung. Die Gestaltung deiner Website entsteht im Projekt."

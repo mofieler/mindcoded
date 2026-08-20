@@ -64,7 +64,7 @@
         { "q": "What does a website cost?", "a": "The price depends on the scope, for example the public site, booking and content. I will tell you before we start whether the work is feasible within your range." },
         { "q": "How long does a project take?", "a": "A project usually takes four to eight weeks, from the first conversation to publication. Smaller websites are often finished sooner. A booking system takes a little longer." },
         { "q": "Do I have to write the copy myself?", "a": "You can, but you do not have to. We can structure the content together and agree the tone. The wording stays yours." },
-        { "q": "Do you use website builders?", "a": "No. The designs for fitness, trades and hospitality are there for orientation. Each website is designed and built from scratch." },
+        { "q": "Do you use website builders?", "a": "No. The designs for fitness and real estate are there for orientation. Each website is designed and built from scratch." },
         { "q": "What happens after launch?", "a": "You receive a handover and notes on hosting. In the first weeks I adjust small details. After that I remain available, without a retainer unless you ask for one." }
       ]
     },
@@ -72,7 +72,7 @@
     "projects_sub": "Paquita Pilates in Stuttgart-Ost.",
     "design_studios_eyebrow": "Industries",
     "design_studios_title": "Which direction fits you?",
-    "design_studios_sub": "I show one possible look for fitness, trades and hospitality. The actual website is then created together with you.",
+    "design_studios_sub": "I show one possible look for fitness and real estate. The actual website is then created together with you.",
     "design_studios_cta": "Enquire about a project",
     "design_studios_view": "View this direction",
     "design_studios_disclaimer": "The following sites are design studies for orientation. Your own website is created during the project."

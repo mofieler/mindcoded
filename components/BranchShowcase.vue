@@ -142,7 +142,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="sectionEl" class="border-t border-border">
+  <section id="examples" ref="sectionEl" class="border-t border-border">
     <div class="max-w-7xl mx-auto px-6 pt-24 pb-12">
       <!-- Section header -->
       <div class="text-center max-w-2xl mx-auto">
@@ -176,7 +176,7 @@ onMounted(() => {
             <NuxtImg
               :src="branch.image"
               :alt="branch.name"
-              class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              class="ui-media-zoom absolute inset-0 w-full h-full object-cover object-top"
               loading="lazy"
               format="webp"
               width="900"
@@ -222,7 +222,7 @@ onMounted(() => {
               <span
                 v-for="tag in branch.tags"
                 :key="tag"
-                class="px-2.5 py-0.5 rounded-full text-[10px] font-body bg-muted text-fg-muted border border-border"
+                class="tag tag-muted"
               >
                 {{ tag }}
               </span>
@@ -241,20 +241,20 @@ onMounted(() => {
 
     <!-- Footer / disclaimer -->
     <div class="max-w-7xl mx-auto px-6 pt-16 pb-24">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl border border-border bg-surface p-6 sm:p-8">
+      <UiCard padding class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <p class="text-sm font-body text-fg-muted max-w-xl text-center sm:text-left">
           {{ t('home.design_studios_disclaimer') }}
         </p>
         <NuxtLink
           :to="localePath('/contact')"
-          class="inline-flex items-center gap-2 shrink-0 px-6 py-3 rounded-xl bg-accent text-white font-display font-bold text-sm shadow-lg hover:shadow-xl hover:shadow-accent/30 transition-all hover:scale-105"
+          class="btn-primary btn-sm shrink-0"
         >
           {{ t('home.design_studios_cta') }}
           <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </NuxtLink>
-      </div>
+      </UiCard>
     </div>
   </section>
 </template>

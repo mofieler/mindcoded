@@ -49,11 +49,11 @@ const filtered = computed(() => {
         <div
           v-for="property in filtered"
           :key="property.title"
-          class="group rounded-2xl overflow-hidden border transition-all hover:-translate-y-1 hover:shadow-xl"
+          class="group rounded-2xl overflow-hidden border card-hover"
           :class="isDark ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-slate-200'"
         >
           <div class="relative aspect-[4/3] overflow-hidden">
-            <NuxtImg :src="property.image" :alt="property.title" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" format="webp" width="600" height="450" />
+            <NuxtImg :src="property.image" :alt="property.title" class="ui-media-zoom w-full h-full object-cover" format="webp" width="600" height="450" />
             <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-xs font-body font-semibold bg-white/90 text-slate-900">{{ property.tag }}</span>
           </div>
           <div class="p-5">

@@ -2,7 +2,7 @@
 const { t, locale } = useI18n()
 
 useSeo({
-  title: locale.value === 'de' ? 'Datenschutz – Mindcoded' : 'Privacy Policy – Mindcoded',
+  title: locale.value === 'de' ? 'Datenschutz, Mindcoded' : 'Privacy, Mindcoded',
   description: locale.value === 'de' ? 'Datenschutzerklärung / Privacy Policy' : 'Privacy Policy / Datenschutzerklärung',
 })
 </script>

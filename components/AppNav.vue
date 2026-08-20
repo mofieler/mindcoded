@@ -1,20 +1,30 @@
 <script setup lang="ts">
-import { 
-  LightBulbIcon, 
-  CodeBracketIcon, 
-  ChartBarIcon, 
-  CalendarDaysIcon
-} from '@heroicons/vue/24/outline'
-
 const { locale, locales, setLocale, t } = useI18n()
 const colorMode = useColorMode()
 const localePath = useLocalePath()
+const { items: services } = useServices()
+
+const route = useRoute()
 
 const navLinks = computed(() => [
-  { key: 'nav.portfolio', to: localePath('/') + '#projects' },
+  { key: 'nav.portfolio', to: localePath('/') + '#case' },
   { key: 'nav.solutions', to: localePath('/solutions') },
+  { key: 'nav.process', to: localePath('/') + '#process' },
   { key: 'nav.contact', to: localePath('/contact') },
 ])
+
+const ctaTo = computed(() => {
+  const home = localePath('/')
+  return route.path === home ? `${home}#contact` : localePath('/contact')
+})
+
+const isActive = (to: string) => {
+  const hashAt = to.indexOf('#')
+  if (hashAt !== -1) {
+    return route.path === localePath('/') && route.hash === to.slice(hashAt)
+  }
+  return route.path === to
+}
 
 const linksBeforeSolutions = computed(() =>
   navLinks.value.slice(0, navLinks.value.findIndex(l => l.key === 'nav.solutions'))
@@ -33,57 +43,26 @@ const toggleColorMode = () => {
 }
 
 const mobileOpen = ref(false)
-const isMounted = ref(false)
 const servicesDropdownOpen = ref(false)
-
-const services = computed(() => [
-  {
-    key: 'ux',
-    icon: LightBulbIcon,
-    title: t('home.services.ux_title'),
-    description: t('home.services.ux_desc')
-  },
-  {
-    key: 'dev',
-    icon: CodeBracketIcon,
-    title: t('home.services.dev_title'),
-    description: t('home.services.dev_desc')
-  },
-  {
-    key: 'seo',
-    icon: ChartBarIcon,
-    title: t('home.services.seo_title'),
-    description: t('home.services.seo_desc')
-  },
-  {
-    key: 'booking',
-    icon: CalendarDaysIcon,
-    title: t('home.services.booking_title'),
-    description: t('home.services.booking_desc')
-  }
-])
-
-onMounted(() => {
-  isMounted.value = true
-})
 </script>
 
 <template>
-  <header
-    class="fixed top-0 left-0 right-0 z-50 h-nav backdrop-blur-md border-b border-border bg-surface/80 transition-colors duration-300"
-  >
-    <nav class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between gap-8">
+  <header class="app-nav-header fixed top-0 inset-x-0 z-[9999] pt-4 px-4">
+    <div class="max-w-5xl mx-auto">
+    <nav
+      class="app-nav-bar h-[3.35rem] px-2 sm:px-3 flex items-center justify-between gap-3 rounded-full border border-black/[0.08] shadow-[0_10px_40px_rgb(22_20_18/0.12)] dark:border-white/12 dark:shadow-[0_10px_40px_rgb(0_0_0/0.45)]"
+    >
 
       <!-- Logo -->
       <NuxtLink :to="localePath('/')" class="flex items-center gap-2.5 shrink-0">
         <NuxtImg
           src="/logo-transparent.png"
           alt="Mindcoded Logo"
-          class="w-8 h-8 rounded-md"
+          class="w-8 h-8 rounded-full"
           width="32"
           height="32"
         />
-        <span class="font-display font-semibold text-fg text-sm tracking-tight hidden sm:block">
+        <span class="font-display font-bold text-fg text-[0.9375rem] tracking-tight hidden sm:block">
           Mindcoded
         </span>
       </NuxtLink>
@@ -94,8 +73,8 @@ onMounted(() => {
         <li v-for="link in linksBeforeSolutions" :key="link.key">
           <NuxtLink
             :to="link.to"
-            class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all inline-flex items-center justify-center"
-            active-class="text-accent bg-accent/10 font-semibold"
+            class="px-3.5 py-1.5 h-8 rounded-full text-sm font-body text-fg hover:bg-muted/80 transition-all inline-flex items-center justify-center"
+            :class="isActive(link.to) ? 'text-accent bg-accent/10 font-semibold' : ''"
           >
             {{ t(link.key) }}
           </NuxtLink>
@@ -108,7 +87,7 @@ onMounted(() => {
           @mouseleave="servicesDropdownOpen = false"
         >
           <button
-            class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all flex items-center justify-center gap-1"
+            class="px-3.5 py-1.5 h-8 rounded-full text-sm font-body text-fg hover:bg-muted/80 transition-all flex items-center justify-center gap-1"
             :class="{ 'text-accent bg-accent/10 font-semibold': $route.path.startsWith('/solutions') }"
           >
             {{ t('nav.solutions') }}
@@ -129,42 +108,30 @@ onMounted(() => {
           <Transition name="dropdown">
             <div
               v-if="servicesDropdownOpen"
-              class="absolute top-full left-0 mt-2 w-80 bg-surface border border-border rounded-lg shadow-lg overflow-hidden"
+              class="absolute top-full left-0 mt-3 w-96 bg-surface/90 backdrop-blur-2xl border border-border/80 rounded-3xl shadow-[0_16px_50px_rgb(22_20_18/0.14)] overflow-hidden"
             >
               <div class="p-2">
-                <div
+                <NuxtLink
                   v-for="service in services"
-                  :key="service.key"
-                  class="group p-3 rounded-md hover:bg-muted transition-colors cursor-pointer"
-                  @click="$router.push(localePath('/solutions'))"
+                  :key="service.id"
+                  :to="`${localePath('/solutions')}#${service.id}`"
+                  class="block p-3 rounded-2xl hover:bg-muted transition-colors"
+                  @click="servicesDropdownOpen = false"
                 >
-                  <div class="flex items-start gap-3">
-                    <!-- Service Icon -->
-                    <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                      <component 
-                        :is="service.icon" 
-                        class="w-5 h-5 text-accent"
-                      />
-                    </div>
-                    
-                    <!-- Service Content -->
-                    <div class="flex-1 min-w-0">
-                      <h4 class="font-display font-semibold text-sm text-fg mb-1">
-                        {{ service.title }}
-                      </h4>
-                      <p class="font-body text-xs text-fg-muted leading-relaxed line-clamp-2">
-                        {{ service.description }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  <p class="font-display font-semibold text-sm text-fg">
+                    {{ service.title }}
+                  </p>
+                  <p class="font-body text-xs text-fg-muted leading-relaxed mt-1">
+                    {{ service.teaser }}
+                  </p>
+                </NuxtLink>
               </div>
               
               <!-- All Solutions Button -->
               <div class="border-t border-border p-2">
                 <NuxtLink
                   :to="localePath('/solutions')"
-                  class="w-full px-3 py-2 rounded-md bg-accent text-white font-display font-semibold text-sm flex items-center justify-center gap-2 hover:bg-accent/90 transition-colors"
+                  class="btn-primary btn-sm w-full"
                   @click="servicesDropdownOpen = false"
                 >
                   {{ t('nav.solutions') }}
@@ -188,8 +155,8 @@ onMounted(() => {
         <li v-for="link in linksAfterSolutions" :key="link.key">
           <NuxtLink
             :to="link.to"
-            class="px-3 py-1.5 h-8 rounded-md text-sm font-body text-fg-muted hover:text-fg hover:bg-muted transition-all inline-flex items-center justify-center"
-            active-class="text-accent bg-accent/10 font-semibold"
+            class="px-3.5 py-1.5 h-8 rounded-full text-sm font-body text-fg hover:bg-muted/80 transition-all inline-flex items-center justify-center"
+            :class="isActive(link.to) ? 'text-accent bg-accent/10 font-semibold' : ''"
           >
             {{ t(link.key) }}
           </NuxtLink>
@@ -202,7 +169,7 @@ onMounted(() => {
         <ClientOnly>
           <button
             @click="toggleColorMode"
-            class="w-9 h-9 rounded-full flex items-center justify-center border border-border hover:border-accent hover:text-accent text-fg-muted transition-all"
+            class="w-9 h-9 rounded-full flex items-center justify-center text-fg hover:bg-muted transition-all"
             :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
           >
             <svg v-if="colorMode.value === 'dark'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
@@ -219,11 +186,18 @@ onMounted(() => {
           <button
             v-if="otherLocale"
             @click="setLocale(otherLocale.code)"
-            class="px-3 py-1.5 rounded-md border border-border text-xs font-display font-semibold text-fg-muted hover:text-fg hover:border-accent transition-all tracking-widest"
+            class="px-3 py-1.5 rounded-full text-xs font-display font-semibold text-fg hover:bg-muted transition-all tracking-widest"
           >
             {{ otherLocale.code.toUpperCase() }}
           </button>
         </ClientOnly>
+
+        <NuxtLink
+          :to="ctaTo"
+          class="btn-primary btn-sm hidden md:inline-flex"
+        >
+          {{ t('nav.cta') }}
+        </NuxtLink>
 
         <!-- Mobile Burger -->
         <ClientOnly>
@@ -254,15 +228,15 @@ onMounted(() => {
       <Transition name="slide-down">
         <div
           v-if="mobileOpen"
-          class="md:hidden border-t border-border bg-surface px-6 py-4 flex flex-col gap-1"
+          class="md:hidden mt-2 rounded-3xl border border-border/80 bg-surface/90 backdrop-blur-2xl px-5 py-4 flex flex-col gap-1 shadow-[0_16px_40px_rgb(22_20_18/0.12)]"
         >
           <!-- Links before Services -->
           <NuxtLink
             v-for="link in linksBeforeSolutions"
             :key="link.key"
             :to="link.to"
-            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg transition-colors"
-            active-class="text-accent font-semibold"
+            class="py-2.5 text-sm font-body hover:text-fg transition-colors"
+            :class="isActive(link.to) ? 'text-accent font-semibold' : 'text-fg-muted'"
             @click="mobileOpen = false"
           >
             {{ t(link.key) }}
@@ -289,29 +263,21 @@ onMounted(() => {
             </button>
             
             <Transition name="slide-down">
-              <div v-if="servicesDropdownOpen" class="mt-2 space-y-2 pl-4">
-                <div
+              <div v-if="servicesDropdownOpen" class="mt-2 space-y-1 pl-3">
+                <NuxtLink
                   v-for="service in services"
-                  :key="service.key"
-                  class="p-3 rounded-md bg-muted/50"
+                  :key="service.id"
+                  :to="`${localePath('/solutions')}#${service.id}`"
+                  class="block py-2"
+                  @click="mobileOpen = false; servicesDropdownOpen = false"
                 >
-                  <div class="flex items-start gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <component 
-                        :is="service.icon" 
-                        class="w-4 h-4 text-accent"
-                      />
-                    </div>
-                    <div class="flex-1">
-                      <h4 class="font-display font-semibold text-sm text-fg mb-1">
-                        {{ service.title }}
-                      </h4>
-                      <p class="font-body text-xs text-fg-muted leading-relaxed">
-                        {{ service.description }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  <p class="font-display font-semibold text-sm text-fg">
+                    {{ service.title }}
+                  </p>
+                  <p class="font-body text-xs text-fg-muted leading-relaxed mt-0.5">
+                    {{ service.teaser }}
+                  </p>
+                </NuxtLink>
               </div>
             </Transition>
           </div>
@@ -321,19 +287,42 @@ onMounted(() => {
             v-for="link in linksAfterSolutions"
             :key="link.key"
             :to="link.to"
-            class="py-2.5 text-sm font-body text-fg-muted hover:text-fg transition-colors"
-            active-class="text-accent font-semibold"
+            class="py-2.5 text-sm font-body hover:text-fg transition-colors"
+            :class="isActive(link.to) ? 'text-accent font-semibold' : 'text-fg-muted'"
             @click="mobileOpen = false"
           >
             {{ t(link.key) }}
           </NuxtLink>
+
+          <NuxtLink
+            :to="ctaTo"
+            class="btn-primary btn-sm mt-3 self-start"
+            @click="mobileOpen = false"
+          >
+            {{ t('nav.cta') }}
+          </NuxtLink>
         </div>
       </Transition>
     </ClientOnly>
+    </div>
   </header>
 </template>
 
 <style scoped>
+.app-nav-header {
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.app-nav-bar {
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  background-color: rgb(var(--color-surface));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 .slide-down-enter-active,
 .slide-down-leave-active {
   transition: all 0.25s ease;

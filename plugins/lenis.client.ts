@@ -15,7 +15,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const lenis = new Lenis({
     autoRaf: true,
-    lerp: 0.1,
+    lerp: 0.08,
     smoothWheel: true,
     syncTouch: false,
     touchMultiplier: 1.5,

@@ -13,7 +13,7 @@ if (!branch.value) {
 const isDark = computed(() => branch.value?.theme.pageBg.includes('neutral-950') ?? false)
 
 useSeoMeta({
-  title: `${branch.value?.name} — ${t('branch.design_studio')} — Mindcoded`,
+  title: `${branch.value?.name}, ${t('branch.design_studio')}, Mindcoded`,
   description: branch.value?.descriptionDe ?? '',
 })
 

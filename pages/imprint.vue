@@ -2,7 +2,7 @@
 const { t, locale } = useI18n()
 
 useSeo({
-  title: locale.value === 'de' ? 'Impressum – Mindcoded' : 'Imprint – Mindcoded',
+  title: locale.value === 'de' ? 'Impressum, Mindcoded' : 'Imprint, Mindcoded',
   description: locale.value === 'de' ? 'Impressum und rechtliche Angaben gemäß § 5 TMG.' : 'Imprint and legal information according to § 5 TMG.',
 })
 </script>

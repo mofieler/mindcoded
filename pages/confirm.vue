@@ -11,7 +11,7 @@
         </div>
         <p class="mb-3 text-sm font-medium uppercase tracking-widest text-accent">mindcoded</p>
         <h1 class="mb-4 text-4xl font-bold text-white">
-          {{ de ? 'E-Mail bestätigt!' : 'Email confirmed!' }}
+          {{ de ? 'E-Mail-Adresse bestätigt' : 'Email address confirmed' }}
         </h1>
         <p class="mb-10 text-lg text-white/50 leading-relaxed">
           {{ de

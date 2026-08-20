@@ -1,37 +1,38 @@
 /* ─────────────────────────────────────────────────────────────────
-   DESIGN TOKENS  –  alle globalen Werte hier anpassen
+   DESIGN TOKENS  –  Mindcoded, Light first
+   Cream + Signal Blue. Dark ist dieselbe Familie, nicht Void Black.
    ───────────────────────────────────────────────────────────────── */
 :root {
-  /* Accent (Blau) – nur diesen Wert ändern für neue Brandfarbe */
-  --color-accent: 37 99 235;          /* #2563EB  Tailwind blue-600 */
-  --color-accent-hover: 29 78 216;    /* #1D4ED8  Tailwind blue-700 */
-
-  /* Light Mode */
-  --color-base:     246 246 249;      /* #F6F6F9  leicht kühl       */
-  --color-surface:  255 255 255;      /* #FFFFFF  Karten / Nav      */
-  --color-muted:    232 233 238;      /* #E8E9EE  deutlich sichtbar */
-  --color-border:   208 210 218;      /* #D0D2DA  klar definiert    */
-  --color-fg:       11  12  17;       /* #0B0C11  fast schwarz      */
-  --color-fg-muted: 88  94 112;       /* #585E70  kühles Grau       */
-
-  /* Grid-Linienstärke für Hero-Hintergrund */
-  --grid-color: rgba(0, 0, 0, 0.045);
+  color-scheme: light;
+  --color-accent:     0 87 255;       /* Electric Blue #0057FF */
+  --color-on-accent:  255 255 255;
+  --color-base:       245 240 232;    /* warm cream */
+  --color-surface:    255 252 247;
+  --color-muted:      236 230 220;
+  --color-border:     214 206 194;
+  --color-fg:         22 20 18;
+  --color-fg-muted:   88 82 74;
+  --grid-color: rgba(22, 20, 18, 0.06);
+  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-micro: 400ms;
+  --duration-card: 420ms;
 }
 
-/* Dark Mode — Layered Zinc System */
 .dark {
-  --color-base:     9   9   11;       /* #09090B  zinc-950  */
-  --color-surface:  24  24  27;       /* #18181B  zinc-900  */
-  --color-muted:    39  39  42;       /* #27272A  zinc-800  */
-  --color-border:   63  63  70;       /* #3F3F46  zinc-700  */
-  --color-fg:       248 248 248;      /* #F8F8F8  */
-  --color-fg-muted: 161 161 170;      /* #A1A1AA  zinc-400  */
-
-  --grid-color: rgba(255, 255, 255, 0.035);
+  color-scheme: dark;
+  --color-accent:     37 99 255;      /* Electric Blue, same family */
+  --color-on-accent:  255 255 255;
+  --color-base:       16 15 14;       /* warm charcoal */
+  --color-surface:    32 30 28;
+  --color-muted:      44 41 38;
+  --color-border:     82 76 70;
+  --color-fg:         244 241 234;
+  --color-fg-muted:   168 162 152;
+  --grid-color: rgba(244, 241, 234, 0.045);
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   BASE STYLES
+   BASE
    ───────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -46,26 +47,28 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   background-color: rgb(var(--color-base));
   color: rgb(var(--color-fg));
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s var(--ease-brand), color 0.3s var(--ease-brand);
   font-size: 1rem;
   line-height: 1.6;
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   TYPOGRAPHY SCALE
-   ───────────────────────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 700;
   line-height: 1.1;
+  letter-spacing: -0.025em;
   color: rgb(var(--color-fg));
 }
 
+  [id] {
+    scroll-margin-top: 6.5rem;
+  }
+
 /* ─────────────────────────────────────────────────────────────────
-   HERO GRID BACKGROUND  (wiederverwendbar als Klasse)
+   SURFACES
    ───────────────────────────────────────────────────────────────── */
 .hero-grid {
   background-image:
@@ -74,131 +77,375 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 60px 60px;
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   BUTTON GRID MICRO-INTERACTION
-   ───────────────────────────────────────────────────────────────── */
-.btn-grid-hover {
+.grain {
   position: relative;
-  overflow: hidden;
 }
-.btn-grid-hover::after {
+.grain::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
-  background-size: 10px 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+  z-index: 1;
+}
+
+.glow-accent {
+  background:
+    radial-gradient(ellipse 58% 50% at 72% 42%, rgb(var(--color-accent) / 0.22), transparent 64%),
+    radial-gradient(ellipse 40% 32% at 18% 82%, rgb(var(--color-accent) / 0.06), transparent 55%);
+}
+
+.dark .glow-accent {
+  background:
+    radial-gradient(ellipse 58% 50% at 72% 42%, rgb(var(--color-accent) / 0.28), transparent 64%),
+    radial-gradient(ellipse 40% 32% at 18% 82%, rgb(var(--color-accent) / 0.08), transparent 55%);
+}
+
+.band-cream {
+  --color-accent:    0 87 255;
+  --color-on-accent: 255 255 255;
+  --color-base:      245 240 232;
+  --color-surface:   255 252 247;
+  --color-muted:     236 230 220;
+  --color-border:    214 206 194;
+  --color-fg:        22 20 18;
+  --color-fg-muted:  88 82 74;
+  background-color: rgb(var(--color-base));
+  color: rgb(var(--color-fg));
+}
+
+.page-narrow {
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section-y {
+  padding-block: 4rem;
+}
+@media (min-width: 640px) {
+  .section-y {
+    padding-block: 5rem;
+  }
+}
+
+.card {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(var(--color-border) / 0.75);
+  background-color: rgb(var(--color-surface));
+}
+.card-lg {
+  border-radius: 1.75rem;
+}
+.card-hover {
+  transform: translateZ(0);
+  transition:
+    border-color var(--duration-card) var(--ease-brand),
+    transform var(--duration-card) var(--ease-brand),
+    opacity var(--duration-card) var(--ease-brand);
+}
+
+/* ── Interactive cards (process, services, case) ─────────────── */
+.ui-focus-group {
+  --focus-i: 0;
+  --focus-n: 4;
+  isolation: isolate;
+}
+
+.ui-card-interactive {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(var(--color-border) / 0.75);
+  background: rgb(var(--color-surface));
+  color: inherit;
+  text-decoration: none;
+  transform: translateZ(0);
+  transition:
+    transform var(--duration-card) var(--ease-brand),
+    border-color var(--duration-card) var(--ease-brand),
+    opacity var(--duration-card) var(--ease-brand);
+}
+
+.ui-focus-group .ui-card-interactive:not(.is-active) {
+  opacity: 0.72;
+}
+
+.ui-card-interactive.is-active {
+  z-index: 1;
+  opacity: 1;
+  border-color: rgb(var(--color-accent) / 0.55);
+  transform: translateY(-3px) scale(1.025);
+}
+
+.ui-mark {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--color-border));
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-accent));
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  transform: translateZ(0);
+  transition:
+    transform var(--duration-card) var(--ease-brand),
+    background-color var(--duration-card) var(--ease-brand),
+    color var(--duration-card) var(--ease-brand),
+    border-color var(--duration-card) var(--ease-brand);
+}
+
+.ui-mark-sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.625rem;
+}
+
+.ui-mark.is-active,
+details[open] > summary .ui-mark {
+  background: rgb(var(--color-accent));
+  border-color: rgb(var(--color-accent));
+  color: rgb(var(--color-on-accent));
+  transform: scale(1.08);
+}
+
+.ui-spotlight {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: calc(100% / var(--focus-n, 4));
+  background: rgb(var(--color-accent));
+  transform: translateX(calc(var(--focus-i) * 100%));
+  transition: transform var(--duration-card) var(--ease-brand);
   pointer-events: none;
 }
-.btn-grid-hover:hover::after {
-  opacity: 1;
+
+.ui-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-card) var(--ease-brand);
+}
+.ui-reveal.is-open {
+  grid-template-rows: 1fr;
+}
+.ui-reveal > * {
+  overflow: hidden;
+}
+
+.ui-media-zoom {
+  transform: translateZ(0);
+  transition: transform var(--duration-card) var(--ease-brand);
+}
+
+.ui-hover-veil {
+  background-color: transparent;
+  transition: background-color var(--duration-card) var(--ease-brand);
+}
+
+.ui-card-interactive:focus-visible,
+.process-step:focus-visible {
+  outline: 2px solid rgb(var(--color-accent));
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card-hover:hover {
+    border-color: rgb(var(--color-accent) / 0.45);
+    transform: translateY(-3px) scale(1.015);
+  }
+
+  .ui-card-interactive:hover:not(.is-active) {
+    opacity: 0.92;
+    border-color: rgb(var(--color-accent) / 0.3);
+    transform: translateY(-2px) scale(1.015);
+  }
+
+  .group:hover .ui-media-zoom,
+  .card-hover:hover .ui-media-zoom {
+    transform: scale(1.035);
+  }
+
+  .group:hover .ui-hover-veil,
+  .card-hover:hover .ui-hover-veil {
+    background-color: rgb(var(--color-accent) / 0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover,
+  .card-hover:hover,
+  .ui-card-interactive,
+  .ui-card-interactive.is-active,
+  .ui-card-interactive:hover,
+  .ui-mark,
+  .ui-mark.is-active,
+  details[open] > summary .ui-mark,
+  .ui-spotlight,
+  .ui-reveal,
+  .ui-media-zoom,
+  .ui-hover-veil {
+    transition: none;
+    transform: none;
+  }
+}
+
+.list-rule {
+  border-top: 1px solid rgb(var(--color-border));
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+.list-rule > * + * {
+  border-top: 1px solid rgb(var(--color-border));
+}
+
+.disclosure-mark::before {
+  content: '+';
+}
+details[open] > summary .disclosure-mark::before,
+.disclosure-mark.is-minus::before {
+  content: '–';
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   ACCENT UTILITIES
+   BUTTONS
    ───────────────────────────────────────────────────────────────── */
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.7rem;
+  border-radius: 999px;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    filter var(--duration-micro) var(--ease-brand),
+    background-color var(--duration-micro) var(--ease-brand),
+    border-color var(--duration-micro) var(--ease-brand),
+    color var(--duration-micro) var(--ease-brand),
+    transform var(--duration-micro) var(--ease-brand);
+}
+
+.btn-primary {
+  background-color: rgb(var(--color-accent));
+  color: rgb(var(--color-on-accent));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+}
+.btn-primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: rgb(var(--color-surface) / 0.62);
+  backdrop-filter: blur(16px);
+  color: rgb(var(--color-fg));
+  border-color: rgb(var(--color-border) / 0.75);
+}
+.btn-ghost:hover {
+  border-color: rgb(var(--color-accent));
+  color: rgb(var(--color-accent));
+}
+
+.btn-sm {
+  padding: 0.5rem 0.95rem;
+  font-size: 0.8125rem;
+}
+
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 2px solid rgb(var(--color-accent));
+  outline-offset: 3px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TAGS  –  Marken, keine Pills
+   ───────────────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+.tag-muted {
+  background: rgb(var(--color-muted));
+  border: 1px solid rgb(var(--color-border));
+  color: rgb(var(--color-fg-muted));
+}
+.tag-accent {
+  background: rgb(var(--color-accent) / 0.1);
+  border: 1px solid rgb(var(--color-accent) / 0.28);
+  color: rgb(var(--color-accent));
+}
+.tag-outline {
+  background: transparent;
+  border: 1px solid rgb(var(--color-border));
+  color: rgb(var(--color-fg-muted));
+}
+.tag-on-media {
+  background: rgb(9 9 11 / 0.45);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  color: rgb(255 255 255 / 0.82);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-ghost {
+    transition: none;
+  }
+  .btn-primary:hover {
+    transform: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   BELOW-FOLD
+   ───────────────────────────────────────────────────────────────── */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 .text-accent   { color: rgb(var(--color-accent)); }
 .bg-accent     { background-color: rgb(var(--color-accent)); }
 .border-accent { border-color: rgb(var(--color-accent)); }
 
-/* ─────────────────────────────────────────────────────────────────
-   TRANSITIONS
-   ───────────────────────────────────────────────────────────────── */
 a, button {
-  transition: color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+  transition: color var(--duration-micro) var(--ease-brand), background-color var(--duration-micro) var(--ease-brand), opacity var(--duration-micro) var(--ease-brand);
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   SCROLLBAR  (dezent, passt zum Theme)
-   ───────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar        { width: 6px; }
 ::-webkit-scrollbar-track  { background: rgb(var(--color-base)); }
-::-webkit-scrollbar-thumb  { background: rgb(var(--color-border)); border-radius: 3px; }
+::-webkit-scrollbar-thumb  { background: rgb(var(--color-border)); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: rgb(var(--color-fg-muted)); }
-
-/* ─────────────────────────────────────────────────────────────────
-   ELECTRIC LINE ANIMATIONS  (Hero Grid Background)
-   ───────────────────────────────────────────────────────────────── */
-
-/* Light Mode - Subtle blue electric lines */
-.electric-line-h {
-  background: linear-gradient(90deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(37, 99, 235, 0.4) 45%,
-    rgba(37, 99, 235, 0.8) 50%,
-    rgba(37, 99, 235, 0.4) 55%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: electric-pulse-h 6s ease-in-out infinite;
-}
-
-.electric-line-v {
-  background: linear-gradient(180deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(37, 99, 235, 0.4) 45%,
-    rgba(37, 99, 235, 0.8) 50%,
-    rgba(37, 99, 235, 0.4) 55%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 100% 200%;
-  animation: electric-pulse-v 6s ease-in-out infinite;
-}
-
-/* Dark Mode - Brighter cyan/blue electric lines */
-.electric-line-h-dark {
-  background: linear-gradient(90deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(6, 182, 212, 0.3) 45%,
-    rgba(6, 182, 212, 0.7) 50%,
-    rgba(6, 182, 212, 0.3) 55%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: electric-pulse-h 6s ease-in-out infinite;
-}
-
-.electric-line-v-dark {
-  background: linear-gradient(180deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(6, 182, 212, 0.3) 45%,
-    rgba(6, 182, 212, 0.7) 50%,
-    rgba(6, 182, 212, 0.3) 55%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 100% 200%;
-  animation: electric-pulse-v 6s ease-in-out infinite;
-}
-
-@keyframes electric-pulse-h {
-  0%, 100% {
-    background-position: 150% 0;
-    opacity: 0.3;
-  }
-  50% {
-    background-position: -50% 0;
-    opacity: 1;
-  }
-}
-
-@keyframes electric-pulse-v {
-  0%, 100% {
-    background-position: 0 150%;
-    opacity: 0.3;
-  }
-  50% {
-    background-position: 0 -50%;
-    opacity: 1;
-  }
-}

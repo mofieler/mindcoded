@@ -13,13 +13,15 @@ export default {
     extend: {
       // ── Fonts ───────────────────────────────────────────────
       fontFamily: {
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         body: ['DM Sans', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
 
       // ── Colors (mirror CSS variables for Tailwind utilities) ─
       colors: {
         accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        'on-accent': 'rgb(var(--color-on-accent) / <alpha-value>)',
         surface: 'rgb(var(--color-surface) / <alpha-value>)',
         base: 'rgb(var(--color-base) / <alpha-value>)',
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
@@ -36,7 +38,7 @@ export default {
       // ── Animation ───────────────────────────────────────────
       keyframes: {
         fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(24px)' },
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         fadeIn: {
@@ -45,8 +47,8 @@ export default {
         },
       },
       animation: {
-        'fade-up': 'fadeUp 0.6s ease forwards',
-        'fade-in': 'fadeIn 0.4s ease forwards',
+        'fade-up': 'fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'fade-in': 'fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
       },
     },
   },

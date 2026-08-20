@@ -20,13 +20,15 @@ const slug = computed(() => route.params.slug as string)
 const project = computed(() => getBySlug(slug.value))
 const nextProject = computed(() => project.value ? getNext(project.value.slug) : undefined)
 
+const withPublicPath = (src: string) => src.startsWith('/') ? src : `/${src}`
+
 // 404 if not found
 if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found' })
 }
 
 useSeo({
-  title: `${project.value.title} – Studio Name`,
+  title: `${project.value.title}, Mindcoded`,
   description: project.value.tagline,
   image: project.value.heroImage,
   type: 'article',
@@ -40,14 +42,14 @@ const parseSectionBody = (body: string) => {
     return {
       type: 'image',
       text: body.replace(imageMatch[0], '').trim(),
-      image: imageMatch[1].trim()
+      image: withPublicPath(imageMatch[1].trim())
     }
   }
 
   // [[GALLERY:path1~~path2~~...]] - gallery of images
   const galleryMatch = body.match(/\[\[GALLERY:([^\]]+)\]\]/)
   if (galleryMatch) {
-    const images = galleryMatch[1].split('~~').map(i => i.trim())
+    const images = galleryMatch[1].split('~~').map(i => withPublicPath(i.trim()))
     return {
       type: 'gallery',
       text: body.replace(galleryMatch[0], '').trim(),
@@ -136,14 +138,12 @@ const getHeroIcon = (iconName: string | null) => {
     <!-- ─── HERO BANNER ─────────────────────────────────────────── -->
     <section class="relative h-[75vh] min-h-[480px] flex items-end overflow-hidden">
       <!-- Background Image -->
-      <NuxtImg
+      <img
         :src="project.heroImage"
         :alt="project.title"
-        class="absolute inset-0 w-full h-full object-cover"
-        format="webp"
+        class="absolute inset-0 w-full h-full object-cover object-center"
         width="1600"
         height="900"
-        loading="eager"
         fetchpriority="high"
       />
 
@@ -172,7 +172,7 @@ const getHeroIcon = (iconName: string | null) => {
           <span
             v-for="tag in project.tags"
             :key="tag"
-            class="px-3 py-1 rounded-full text-xs font-body bg-white/10 text-white/80 border border-white/20 backdrop-blur-sm"
+            class="tag tag-on-media"
           >
             {{ tag }}
           </span>
@@ -254,11 +254,10 @@ const getHeroIcon = (iconName: string | null) => {
                 class="group block w-full max-w-4xl cursor-zoom-in overflow-hidden rounded-md"
                 @click="openLightbox([parseSectionBody(section.body).image], 0)"
               >
-                <NuxtImg
+                <img
                   :src="parseSectionBody(section.body).image"
                   alt="Screenshot"
-                  class="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-                  format="webp"
+                  class="ui-media-zoom w-full h-auto object-contain"
                   width="900"
                   height="600"
                   loading="lazy"
@@ -277,11 +276,10 @@ const getHeroIcon = (iconName: string | null) => {
                 class="group block w-full cursor-zoom-in overflow-hidden rounded-md"
                 @click="openLightbox(parseSectionBody(section.body).images, idx)"
               >
-                <NuxtImg
+                <img
                   :src="img"
                   :alt="`Screenshot ${idx + 1}`"
-                  class="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-                  format="webp"
+                  class="ui-media-zoom w-full h-auto object-contain"
                   width="600"
                   height="450"
                   loading="lazy"

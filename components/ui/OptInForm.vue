@@ -100,7 +100,7 @@ function validate(): boolean {
   errors.value = {}
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!email.value || !emailRe.test(email.value)) {
-    errors.value.email = locale.value === 'de' ? 'Bitte gib eine gültige Email-Adresse ein.' : 'Please enter a valid email address.'
+    errors.value.email = locale.value === 'de' ? 'Bitte gib eine gültige E-Mail-Adresse ein.' : 'Please enter a valid email address.'
   }
   if (!gdprConsent.value) {
     errors.value.gdpr = locale.value === 'de' ? 'Bitte stimme der Datenschutzerklärung zu.' : 'Please agree to the privacy policy.'

@@ -13,8 +13,8 @@ export default defineNuxtConfig({
   // ─── Color Mode ───────────────────────────────────────────────
   colorMode: {
     classSuffix: '',          // uses .dark / .light on <html>
-    preference: 'system',
-    fallback: 'dark',
+    preference: 'light',
+    fallback: 'light',
   },
 
   // ─── i18n ─────────────────────────────────────────────────────
@@ -54,15 +54,23 @@ export default defineNuxtConfig({
   site: {
     url: 'https://mindcoded.studio',
     name: 'mindcoded',
-    description: 'Web Design & Development Studio',
+    description: 'Digitale Maßarbeit für Studios, Betriebe und Marken',
     defaultLocale: 'de',
   },
 
   sitemap: {
+    sitemaps: false,
+    xsl: false,
     exclude: [
       '/optin', '/en/optin', '/confirm', '/en/confirm',
       '/beispiele/zahnarzt', '/en/beispiele/zahnarzt',
       '/beispiele/restaurant', '/en/beispiele/restaurant',
+    ],
+    urls: [
+      {
+        loc: '/projects/paquita-pilates',
+        _i18nTransform: true,
+      },
     ],
   },
 
@@ -91,7 +99,7 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap',
         },
         {
           rel: 'icon',

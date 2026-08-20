@@ -1,96 +1,168 @@
 {
   "nav": {
-    "solutions": "Solutions",
-    "portfolio": "Portfolio",
-    "contact": "Contact"
+    "solutions": "Services",
+    "portfolio": "Work",
+    "process": "Process",
+    "contact": "Contact",
+    "cta": "Enquire about a project"
   },
   "home": {
-    "hero_eyebrow": "Web Design & Development",
-    "hero_title": "Digital experiences\nthat last.",
-    "hero_sub": "We build modular, user-centered websites for small businesses and freelancers – based in Stuttgart, working everywhere.",
-    "hero_cta_primary": "Explore Projects",
-    "hero_cta_secondary": "Get in Touch",
-    "projects_title": "Selected Projects",
-    "projects_sub": "Real reference — not a template, but built for an actual client.",
-    "design_studios_eyebrow": "Examples",
-    "design_studios_title": "What your website could look like",
-    "design_studios_sub": "Example style directions for different industries. Every website starts from a blank sheet — these examples show the direction we could take together.",
-    "design_studios_cta": "Request a project",
-    "design_studios_view": "View example",
-    "design_studios_disclaimer": "These projects are fictional design examples, not ready-made templates. They show possible style directions — the real reference is above.",
-    "services_title": "Services",
-    "services": {
-      "ux_title": "UX & Design",
-      "ux_desc": "User-centered design with Figma – from concept to final prototype.",
-      "dev_title": "Web Development",
-      "dev_desc": "Modern frontend development with Vue.js, Nuxt 3 and TypeScript.",
-      "seo_title": "SEO & Performance",
-      "seo_desc": "Core Web Vitals optimized, fast-loading, top-ranked by Google.",
-      "booking_title": "Booking Systems",
-      "booking_desc": "Custom booking solutions for appointments, services and resources.",
-      "services_list": [
-        {
-          "name": "UX & Design",
-          "description": "User-centered design with Figma – from concept to final prototype.",
-          "tags": ["Figma", "Prototyping", "UX Research", "Usability Testing", "Design System"]
-        },
-        {
-          "name": "Web Development",
-          "description": "Modern frontend development with Vue.js, Nuxt 3 and TypeScript. Performance-optimized.",
-          "tags": ["Vue.js", "Nuxt 3", "TypeScript", "TailwindCSS", "Node.js"]
-        },
-        {
-          "name": "SEO & Performance",
-          "description": "Core Web Vitals optimized, structured data, technical SEO.",
-          "tags": ["Core Web Vitals", "Structured Data", "Nuxt Image", "Lighthouse"]
-        },
-        {
-          "name": "Booking Systems",
-          "description": "Custom booking solutions for appointments, services and resources.",
-          "tags": ["Calendar", "Appointment Management", "Payment Integration", "Automation"]
-        }
+    "hero_eyebrow": "Studio Stuttgart",
+    "hero_title": "A website that\nfits how you work.",
+    "hero_sub": "I design and build websites and booking systems for studios, practices and local businesses in Stuttgart.",
+    "hero_cta_primary": "Enquire about a project",
+    "hero_cta_secondary": "See how a site could look",
+    "hero_preview_url": "your-brand.com",
+    "hero_preview_alt": "Abstract view of a digital presence",
+    "hero_preview_line": "Your work,\nshown clearly.",
+    "offers_eyebrow": "Services",
+    "offers_title": "What I deliver",
+    "offers_sub": "Design, development, booking and hosting from one studio.",
+    "offers_more": "All services",
+    "offers": [
+      {
+        "title": "UX & UI Design",
+        "desc": "Structure, interface and brand. From sketch to prototype in Figma."
+      },
+      {
+        "title": "Full-stack development",
+        "desc": "Site and logic with Vue, Nuxt and Node. No website builder."
+      },
+      {
+        "title": "Booking systems",
+        "desc": "Appointments run digitally. Calendar and admin, fitted to how you work."
+      },
+      {
+        "title": "SEO & Performance",
+        "desc": "Loads quickly, easy to find, clear on a phone."
+      },
+      {
+        "title": "Hosting",
+        "desc": "The site goes live and stays reachable. Including a short handover."
+      }
+    ],
+    "process": {
+      "eyebrow": "Process",
+      "title": "How a project proceeds",
+      "sub": "The process is straightforward. You can see what we are working on at every stage.",
+      "steps": [
+        { "num": "01", "title": "Clarify aims", "time": "Week 1", "desc": "Aims, audience and budget are agreed. After that the scope is clear." },
+        { "num": "02", "title": "Set the direction", "time": "Weeks 2 to 3", "desc": "Structure, copy and visual system, before development begins." },
+        { "num": "03", "title": "Build the site", "time": "Weeks 3 to 6", "desc": "The website is developed, reviewed and refined." },
+        { "num": "04", "title": "Go live", "time": "From week 6", "desc": "The site is published. You receive a short handover." }
       ]
-    }
+    },
+    "case_eyebrow": "Selected work",
+    "case_body": "For Paquita Pilates in Stuttgart-Ost I developed the brand, the website and the booking.",
+    "case_cta": "View the project",
+    "case_live": "Open the website",
+    "faq": {
+      "eyebrow": "Questions",
+      "title": "Common questions",
+      "sub": "Answers on cost, timeline, copy and what happens afterwards.",
+      "items": [
+        { "q": "What does a website cost?", "a": "The price depends on the scope, for example the public site, booking and content. I will tell you before we start whether the work is feasible within your range." },
+        { "q": "How long does a project take?", "a": "A project usually takes four to eight weeks, from the first conversation to publication. Smaller websites are often finished sooner. A booking system takes a little longer." },
+        { "q": "Do I have to write the copy myself?", "a": "You can, but you do not have to. We can structure the content together and agree the tone. The wording stays yours." },
+        { "q": "Do you use website builders?", "a": "No. The designs for fitness, trades and hospitality are there for orientation. Each website is designed and built from scratch." },
+        { "q": "What happens after launch?", "a": "You receive a handover and notes on hosting. In the first weeks I adjust small details. After that I remain available, without a retainer unless you ask for one." }
+      ]
+    },
+    "projects_title": "Selected work",
+    "projects_sub": "Paquita Pilates in Stuttgart-Ost.",
+    "design_studios_eyebrow": "Industries",
+    "design_studios_title": "Which direction fits you?",
+    "design_studios_sub": "I show one possible look for fitness, trades and hospitality. The actual website is then created together with you.",
+    "design_studios_cta": "Enquire about a project",
+    "design_studios_view": "View this direction",
+    "design_studios_disclaimer": "The following sites are design studies for orientation. Your own website is created during the project."
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "What I deliver",
+    "sub": "Design, development, booking and hosting from one studio.",
+    "more": "All services",
+    "cta_title": "What are you working on?",
+    "cta_sub": "Write a short note about the project. I will tell you whether and how we can start.",
+    "items": [
+      {
+        "id": "design",
+        "title": "UX & UI Design",
+        "teaser": "Structure, interface and brand. From sketch to prototype in Figma.",
+        "body": "The flow is settled before code. Wireframes, a visual system and a prototype you can click through.",
+        "includes": ["Structure and wireframes", "Visual system", "Prototype in Figma"],
+        "tags": ["Figma", "UX", "UI", "Design System"]
+      },
+      {
+        "id": "development",
+        "title": "Full-stack development",
+        "teaser": "Site and logic with Vue, Nuxt and Node. No website builder.",
+        "body": "Front end and server belong together. The site is built from scratch, not assembled from a template.",
+        "includes": ["Nuxt, Vue and TypeScript", "API and Node.js", "Tied into how you work"],
+        "tags": ["Vue.js", "Nuxt", "TypeScript", "Node.js"]
+      },
+      {
+        "id": "booking",
+        "title": "Booking systems",
+        "teaser": "Appointments run digitally. Calendar and admin, fitted to how you work.",
+        "body": "Clients book themselves, you keep the schedule. The system follows your capacity, not a generic tool.",
+        "includes": ["Calendar and capacity", "Admin for the team", "Tied into the website"],
+        "tags": ["Calendar", "Appointments", "MongoDB", "Node.js"]
+      },
+      {
+        "id": "seo",
+        "title": "SEO & Performance",
+        "teaser": "Loads quickly, easy to find, clear on a phone.",
+        "body": "Speed and findability are built into the site, not added as a package afterwards.",
+        "includes": ["Short load time", "Structure for search", "Layout for phones"],
+        "tags": ["Core Web Vitals", "SEO", "Mobile"]
+      },
+      {
+        "id": "hosting",
+        "title": "Hosting",
+        "teaser": "The site goes live and stays reachable. Including a short handover.",
+        "body": "Domain, hosting and launch are part of the project. After that you know where everything lives.",
+        "includes": ["Hosting and domain", "Publication", "Short handover"],
+        "tags": ["Hosting", "Domain", "Handover"]
+      }
+    ]
   },
   "project": {
     "client": "Client",
     "category": "Category",
     "tech": "Technologies",
-    "back": "Back to Portfolio",
-    "next_project": "Next Project",
-    "real_reference": "Real Reference",
-    "example_project": "Example"
+    "back": "Back",
+    "next_project": "Next project"
   },
   "branch": {
     "back": "Back",
-    "design_studio": "Example"
+    "design_studio": "Sketch"
   },
   "contact": {
-    "title": "Let's talk.",
-    "sub": "Open for projects, collaborations and new ideas.",
-    "cta_sub": "Project, question or just saying hi — I'd love to hear from you.",
-    "cta_button": "Get in touch",
+    "title": "Send a message",
+    "sub": "Write to me about your project or a question.",
+    "cta_sub": "I usually reply within one working day.",
+    "cta_button": "Send a message",
     "email_label": "Email",
     "phone_label": "Phone",
     "location_label": "Location",
-    "form_title": "Write to me directly",
-    "form_sub": "I usually respond within 24 hours.",
+    "form_title": "Message",
+    "form_sub": "I usually reply within one working day.",
     "name_label": "Name",
     "name_placeholder": "Your name",
     "email_placeholder": "your{'@'}email.com",
-    "subject_label": "Subject",
-    "subject_placeholder": "What's it about?",
+    "mail_subject": "Project enquiry",
     "message_label": "Message",
-    "message_placeholder": "Tell me about your project or idea...",
+    "message_placeholder": "Briefly describe your project and what the website should do.",
     "gdpr_label": "I have read and agree to the privacy policy.",
     "submit": "Send message",
     "submitting": "Sending...",
-    "success_title": "Message received!",
-    "success_sub": "Thanks for reaching out. I'll get back to you as soon as possible.",
+    "success_title": "Thank you.",
+    "success_sub": "I have received your message and will get back to you shortly.",
     "error": "Something went wrong. Please try again.",
     "error_required": "Please fill in all fields.",
-    "optin_title": "Just a quick hello?",
-    "optin_sub": "Leave your email and I'll get back to you."
+    "optin_title": "Leave your email address?",
+    "optin_sub": "Leave your email address. I will get back to you."
   },
   "footer": {
     "rights": "All rights reserved.",
@@ -99,55 +171,57 @@
   },
   "optin": {
     "pageTitle": "Request Contact",
-    "headline": "Interested in working together?",
-    "subline": "Enter your email and I'll get back to you.",
+    "headline": "Would you like to get in touch?",
+    "subline": "Leave your email address. I will get back to you.",
     "emailLabel": "Email address",
     "emailPlaceholder": "your{'@'}email.com",
     "checkboxLabel": "I have read and agree to the privacy policy.",
     "submit": "Send request",
     "submitting": "Sending...",
     "success": "A confirmation link has been sent to your email. Please check your inbox.",
-    "confirmed": "Thank you! Your request has been confirmed. I'll be in touch soon.",
+    "confirmed": "Thank you. Your request has been confirmed. I will be in touch soon.",
     "error": "Something went wrong. Please try again."
   },
   "meta": {
-    "home_title": "Mindcoded – Web Design & Development Stuttgart",
-    "home_desc": "Professional websites for small businesses and freelancers. UX Design, frontend development and SEO from Stuttgart.",
-    "projects_title": "Portfolio – Mindcoded",
-    "contact_title": "Contact – Mindcoded",
-    "privacy_title": "Privacy Policy – Mindcoded",
+    "home_title": "Mindcoded, websites from Stuttgart",
+    "home_desc": "I design and build websites and booking systems for studios, practices and local businesses in Stuttgart.",
+    "solutions_title": "Services, Mindcoded",
+    "solutions_desc": "UX and UI design, full-stack development, booking, SEO and hosting for studios, practices and local businesses in Stuttgart.",
+    "projects_title": "Work, Mindcoded",
+    "contact_title": "Contact, Mindcoded",
+    "privacy_title": "Privacy, Mindcoded",
     "privacy_desc": "Privacy Policy / Datenschutzerklärung"
   },
   "projects": {
     "paquita-pilates": {
-      "category": "Web Development",
-      "title": "Paquita Pilates Stuttgart",
-      "tagline": "Website & Booking System for a Pilates Studio in Stuttgart",
+      "category": "Pilates studio",
+      "title": "Paquita Pilates",
+      "tagline": "Website and booking for a studio in Stuttgart-Ost",
       "tags": ["Vue.js", "Nuxt", "UX Design", "Booking System", "Node.js", "MongoDB", "Ionic", "Figma"],
       "sections": [
         {
-          "heading": "The Challenge",
-          "body": "Paquita Pilates is a boutique studio in Stuttgart-East specialising in Reformer and Classical Pilates — offering private, duo and small-group sessions. Despite delivering a premium experience, the studio lacked a coherent brand identity, a professional website, and booking was handled manually. Friction for clients and trainers alike.\n\nThe core question: how do you translate the calm, body-aware spirit of a boutique Pilates studio into a complete brand and digital experience — one that attracts the right clients and makes studio management effortless?"
+          "heading": "The starting point",
+          "body": "Paquita Pilates is a boutique studio in Stuttgart-Ost for Reformer and Classical Pilates. The offering includes private sessions, duo training and small groups. The studio work was of a high standard. What was missing was a coherent brand, a professional website and a digital booking system. Appointments were managed by hand, which created extra work for clients and trainers.\n\nThe task was to translate the calm, body-aware character of the studio into brand and website. The aim was to reach the right people and to simplify how the studio is run."
         },
         {
-          "heading": "Goals",
-          "body": "Building identity and digital infrastructure from scratch:\n\n• Brand development: logo, colour system, visual language — consistent across all touchpoints\n• Website: a digital presence that communicates philosophy, class offering and team\n• Booking system: an integrated platform with self-service for clients and admin tools for trainers\n• Live at: paquitapilatesreformer.com"
+          "heading": "Aims",
+          "body": "Brand and digital infrastructure were built from the ground up.\n\n• Brand: logo, colour world and visual language, used consistently on the website and other materials.\n• Website: a presence that makes the studio's approach, class offering and team easy to understand.\n• Booking system: a platform through which clients can book sessions themselves and trainers can manage the schedule.\n• The website is available at paquitapilatesreformer.com."
         },
         {
-          "heading": "Scope & Services",
-          "body": "Three interconnected pillars:\n\n• Brand Identity & Design System: complete branding from scratch — logo, typography, colour palette. Flexible application across digital (website, Instagram) and physical (print materials) touchpoints.\n• Website Design & Development: custom website as the primary digital presence — calm layouts, intentional whitespace, clear calls-to-action. Mobile-first responsive design: navigation collapses elegantly, content flows seamlessly from smartphone to desktop.\n• Digital Booking System: dual architecture with a client interface (self-service booking, schedule) and an admin/trainer interface (class management, capacity).\n\n[[IMAGE:paquita/paquita-mac.png]]"
+          "heading": "Scope of work",
+          "body": "The work was organised in three parts.\n\n• Brand and design system: logo, type and colour palette. The elements can be used digitally on the website and Instagram, and in print.\n• Website: a custom-built site as the main public presence. Calm layouts, clear spacing and unambiguous calls to action. The layout is designed for phone and desktop.\n• Booking system: an interface for clients to book and view the class schedule, and an administration area for trainers, classes and capacity.\n\n[[IMAGE:paquita/paquita-mac.png]]"
         },
         {
-          "heading": "Design System",
-          "body": "The visual system captures the dual nature of the studio: grounded and physical on one side, mindful and spiritual on the other.\n\nLogo: a central eye — symbol of awareness and inner vision — with wings and ornamental detail, set in soft forms. The wordmark motto \"RETURN TO LIFE\" (Joseph Pilates' original method name) completes the timeless, contemporary emblem.\n\nTypography:\n• Metanoia (Display): a high-contrast editorial serif. The name means \"transformative change of heart\" — a direct mirror of the studio's philosophy. Elegance for headlines.\n• Poppins (UI): geometric sans-serif for body text and interface elements — modern and legible\n\nColour Palette (7 colours):\n• Olive Gold (#86703f): earthy depth, accent for structure\n• Warm Taupe (#937955): neutral midtone\n• Terracotta Copper (#b27d55): warmest tone, logo and key brand moments\n• Cream White (#f0f1ed): primary background — soft, breathing\n• Soft Teal (#97cbcc): the only cool tone — clarity and calm, highlight\n• Muted Rose Taupe (#968173): resting tone for secondary text\n• Warm Grey (#bbbbaf): versatile neutral for surfaces\n\nThe result: a colour world that communicates the sensory studio experience — natural materials, soft light, stillness."
+          "heading": "Design",
+          "body": "The visual system connects two sides of the studio: the physical and grounded with calm and attention.\n\nThe logo shows a central eye as a sign of awareness, with wings and ornamental detail in soft forms. The line \"RETURN TO LIFE\" refers to the original name of Joseph Pilates' method.\n\nType:\n• Metanoia for headlines: a high-contrast serif. The name refers to a profound inner change and matches the studio's approach.\n• Poppins for body text and the interface: a geometric sans-serif with good readability.\n\nColour palette of seven colours:\n• Olive Gold (#86703f): earthy depth, accent for structure\n• Warm Taupe (#937955): neutral midtone\n• Terracotta Copper (#b27d55): warmest tone, used in the logo and key brand moments\n• Cream White (#f0f1ed): primary background, soft\n• Soft Teal (#97cbcc): the only cool tone, for clarity and calm\n• Muted Rose Taupe (#968173): quiet tone for secondary text\n• Warm Grey (#bbbbaf): neutral for surfaces\n\nThe colours take up the materials, light and stillness of the studio."
         },
         {
-          "heading": "Technology & Implementation",
-          "body": "• Frontend: Vue.js + Ionic for cross-platform experience\n• Backend: Node.js + MongoDB API, custom built\n• Real-time schedule: instant availability and confirmation\n• Credit system: flexible prepaid model for clients"
+          "heading": "Technology",
+          "body": "• Interface: Vue.js and Ionic, usable across devices\n• Server: a custom interface with Node.js and MongoDB\n• Live class schedule: availability and confirmation without delay\n• Credits: a flexible prepaid model for clients"
         },
         {
-          "heading": "Results & Outlook",
-          "body": "Branding and website are live. The booking system is in active development and being rolled out incrementally.\n\nPlanned extensions:\n• Automated Waitlist Management\n• Credit / Package Systems\n• Push notifications for class reminders\n\nMy contribution: complete branding, UX architecture, UI design and full-stack implementation. A booking platform that does not feel like off-the-shelf software — but like a conversation outside the studio."
+          "heading": "Outcome and next steps",
+          "body": "Brand and website have been published. The booking system is currently being finished and introduced in stages.\n\nPlanned additions:\n• Automatic waiting list\n• Credit and package systems\n• Class reminders\n\nMy work covers brand, user flow, interface and the technical implementation. The booking should feel like the studio, not like generic software."
         },
         {
           "heading": "Screens",
@@ -155,7 +229,7 @@
         },
         {
           "heading": "Highlights",
-          "body": "[[CARDS:Mobile-first Design;heroIcon:device-mobile~~Intuitive Navigation;heroIcon:cursor-arrow-rays~~Seamless Booking;heroIcon:calendar~~Modern Tech Stack;heroIcon:layers]]"
+          "body": "[[CARDS:Designed for phones;heroIcon:device-mobile~~Clear navigation;heroIcon:cursor-arrow-rays~~Straightforward booking;heroIcon:calendar~~Own technology;heroIcon:layers]]"
         }
       ]
     }

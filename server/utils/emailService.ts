@@ -23,8 +23,8 @@ function logSendError(label: string, error: unknown) {
 export async function sendConfirmationEmail(email: string, confirmUrl: string, locale: 'de' | 'en') {
   const { resend, from } = getClients()
   const subject = locale === 'de'
-    ? 'Bitte bestätige deine Email – mindcoded'
-    : 'Please confirm your email – mindcoded'
+    ? 'Bitte bestätige deine E-Mail-Adresse'
+    : 'Please confirm your email address'
 
   const { error } = await resend.emails.send({
     from,
@@ -41,7 +41,7 @@ export async function sendConfirmationEmail(email: string, confirmUrl: string, l
 
 export async function sendSuccessEmail(email: string, locale: 'de' | 'en') {
   const { resend, from, adminEmail } = getClients()
-  const subject = locale === 'de' ? 'Anfrage erhalten – mindcoded' : 'Request received – mindcoded'
+  const subject = locale === 'de' ? 'Anfrage erhalten' : 'Request received'
 
   const [userResult, adminResult] = await Promise.all([
     resend.emails.send({
@@ -84,7 +84,7 @@ export async function sendDirectContactEmail(name: string, email: string, subjec
     resend.emails.send({
       from,
       to: email,
-      subject: locale === 'de' ? 'Nachricht erhalten – mindcoded' : 'Message received – mindcoded',
+      subject: locale === 'de' ? 'Nachricht erhalten' : 'Message received',
       html: directContactReceiptHtml(name, locale),
     }),
   ])

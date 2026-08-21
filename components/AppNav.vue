@@ -52,8 +52,11 @@ const servicesDropdownOpen = ref(false)
 </script>
 
 <template>
-  <header class="app-nav-header fixed top-0 inset-x-0 z-[9999] pt-4 px-4">
-    <div class="max-w-5xl mx-auto">
+  <header class="app-nav-header fixed top-0 inset-x-0 z-[9999]">
+    <!-- Full-bleed soft fade so scrolled content vanishes under/around the capsule -->
+    <div class="app-nav-fade" aria-hidden="true" />
+
+    <div class="app-nav-shell relative z-10 max-w-5xl mx-auto pt-4 px-4">
     <nav
       class="app-nav-bar h-[3.35rem] px-2 sm:px-3 flex items-center justify-between gap-3 rounded-full border border-black/[0.08] shadow-[0_10px_40px_rgb(22_20_18/0.12)] dark:border-white/12 dark:shadow-[0_10px_40px_rgb(0_0_0/0.45)]"
     >
@@ -316,6 +319,30 @@ const servicesDropdownOpen = ref(false)
 .app-nav-header {
   isolation: isolate;
   transform: translateZ(0);
+  /* Let the fade extend below the capsule; header itself stays non-blocking */
+  pointer-events: none;
+}
+
+.app-nav-fade {
+  position: absolute;
+  inset: 0 0 auto 0;
+  /* Covers padding + capsule (~4.35rem) plus a soft dissolve below */
+  height: 7.5rem;
+  pointer-events: none;
+  z-index: 0;
+  /* Near-solid through the pill band so text can't peek in side gaps */
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--color-base)) 0%,
+    rgb(var(--color-base) / 0.98) 46%,
+    rgb(var(--color-base) / 0.82) 62%,
+    rgb(var(--color-base) / 0.42) 80%,
+    rgb(var(--color-base) / 0) 100%
+  );
+}
+
+.app-nav-shell {
+  pointer-events: auto;
 }
 
 .app-nav-bar {
@@ -325,6 +352,12 @@ const servicesDropdownOpen = ref(false)
   background-color: rgb(var(--color-surface));
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+}
+
+@media (max-width: 639px) {
+  .app-nav-fade {
+    height: 7rem;
+  }
 }
 
 .slide-down-enter-active,

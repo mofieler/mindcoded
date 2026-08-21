@@ -325,18 +325,26 @@ const servicesDropdownOpen = ref(false)
 
 .app-nav-fade {
   position: absolute;
-  inset: 0 0 auto 0;
-  /* Covers padding + capsule (~4.35rem) plus a soft dissolve below */
-  height: 7.5rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  /*
+   * Full-bleed veil: opaque through the top gap (pt-4) + capsule band,
+   * then a long soft dissolve so content vanishes under/around the pill.
+   * Safe zone ≈ 1rem + 3.35rem; solid plateau held past that (~5.1rem).
+   */
+  height: 10.5rem;
   pointer-events: none;
   z-index: 0;
-  /* Near-solid through the pill band so text can't peek in side gaps */
   background: linear-gradient(
     to bottom,
     rgb(var(--color-base)) 0%,
-    rgb(var(--color-base) / 0.98) 46%,
-    rgb(var(--color-base) / 0.82) 62%,
-    rgb(var(--color-base) / 0.42) 80%,
+    rgb(var(--color-base)) 48%,
+    rgb(var(--color-base) / 0.97) 56%,
+    rgb(var(--color-base) / 0.78) 68%,
+    rgb(var(--color-base) / 0.42) 82%,
+    rgb(var(--color-base) / 0.12) 93%,
     rgb(var(--color-base) / 0) 100%
   );
 }
@@ -356,7 +364,7 @@ const servicesDropdownOpen = ref(false)
 
 @media (max-width: 639px) {
   .app-nav-fade {
-    height: 7rem;
+    height: 9.75rem;
   }
 }
 

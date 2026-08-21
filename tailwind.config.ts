@@ -13,8 +13,8 @@ export default {
     extend: {
       // ── Fonts ───────────────────────────────────────────────
       fontFamily: {
-        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        body: ['DM Sans', 'sans-serif'],
+        display: ['Instrument Sans', 'system-ui', 'sans-serif'],
+        body: ['Source Sans 3', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
 

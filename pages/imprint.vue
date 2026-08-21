@@ -14,7 +14,7 @@ useSeo({
       <p class="text-accent text-xs font-display font-semibold tracking-[0.3em] uppercase mb-4">
         {{ locale === 'de' ? 'Impressum' : 'Imprint' }}
       </p>
-      <h1 class="font-display font-extrabold text-5xl sm:text-6xl text-fg mb-6">
+      <h1 class="font-display font-bold text-5xl sm:text-6xl text-fg mb-6">
         {{ locale === 'de' ? 'Angaben gemäß § 5 TMG' : 'Information according to § 5 TMG' }}
       </h1>
     </div>

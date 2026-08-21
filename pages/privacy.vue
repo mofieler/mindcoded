@@ -14,7 +14,7 @@ useSeo({
       <p class="text-accent text-xs font-display font-semibold tracking-[0.3em] uppercase mb-4">
         {{ locale === 'de' ? 'Datenschutz' : 'Privacy Policy' }}
       </p>
-      <h1 class="font-display font-extrabold text-5xl sm:text-6xl text-fg mb-6">
+      <h1 class="font-display font-bold text-5xl sm:text-6xl text-fg mb-6">
         {{ locale === 'de' ? 'Schutz Ihrer Daten' : 'Protection of Your Data' }}
       </h1>
     </div>

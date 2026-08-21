@@ -7,17 +7,17 @@
     "cta": "Enquire about a project"
   },
   "home": {
-    "hero_eyebrow": "Studio Stuttgart",
-    "hero_title": "A website that\nfits how you work.",
-    "hero_sub": "I design and build websites and booking systems for studios, practices and local businesses in Stuttgart.",
+    "hero_eyebrow": "Design and development",
+    "hero_title": "Websites and web apps\nfor owner-managed businesses.",
+    "hero_sub": "Studios, practices, hospitality and other independent businesses. Brand and technology as one. Website, booking and online shop, fitted to how you work.",
     "hero_cta_primary": "Enquire about a project",
-    "hero_cta_secondary": "See how a site could look",
+    "hero_cta_secondary": "See examples",
     "hero_preview_url": "your-brand.com",
     "hero_preview_alt": "Abstract view of a digital presence",
     "hero_preview_line": "Your work,\nshown clearly.",
     "offers_eyebrow": "Services",
-    "offers_title": "What I deliver",
-    "offers_sub": "Design, development, booking and hosting from one studio.",
+    "offers_title": "What we deliver",
+    "offers_sub": "Design and development from one studio. Website, web app, booking and hosting.",
     "offers_more": "All services",
     "offers": [
       {
@@ -26,7 +26,7 @@
       },
       {
         "title": "Full-stack development",
-        "desc": "Site and logic with Vue, Nuxt and Node. No website builder."
+        "desc": "Site and logic with Vue, Nuxt and Node. Built for your project."
       },
       {
         "title": "Booking systems",
@@ -53,7 +53,7 @@
       ]
     },
     "case_eyebrow": "Selected work",
-    "case_body": "For Paquita Pilates in Stuttgart-Ost I developed the brand, the website and the booking.",
+    "case_body": "For Paquita Pilates in Stuttgart-Ost we developed the brand, the website and the booking.",
     "case_cta": "View the project",
     "case_live": "Open the website",
     "faq": {
@@ -61,26 +61,26 @@
       "title": "Common questions",
       "sub": "Answers on cost, timeline, copy and what happens afterwards.",
       "items": [
-        { "q": "What does a website cost?", "a": "The price depends on the scope, for example the public site, booking and content. I will tell you before we start whether the work is feasible within your range." },
-        { "q": "How long does a project take?", "a": "A project usually takes four to eight weeks, from the first conversation to publication. Smaller websites are often finished sooner. A booking system takes a little longer." },
+        { "q": "What does a website cost?", "a": "The price depends on the scope, for example the public site, booking, shop and content. I will tell you before we start whether the work is feasible within your range." },
+        { "q": "How long does a project take?", "a": "A project usually takes four to eight weeks, from the first conversation to publication. Smaller websites are often finished sooner. Booking or a shop takes a little longer." },
         { "q": "Do I have to write the copy myself?", "a": "You can, but you do not have to. We can structure the content together and agree the tone. The wording stays yours." },
-        { "q": "Do you use website builders?", "a": "No. The designs for fitness and real estate are there for orientation. Each website is designed and built from scratch." },
+        { "q": "How is the website built?", "a": "Each website is designed and developed for the project. The designs for fitness and real estate are there for orientation." },
         { "q": "What happens after launch?", "a": "You receive a handover and notes on hosting. In the first weeks I adjust small details. After that I remain available, without a retainer unless you ask for one." }
       ]
     },
     "projects_title": "Selected work",
     "projects_sub": "Paquita Pilates in Stuttgart-Ost.",
     "design_studios_eyebrow": "Industries",
-    "design_studios_title": "Which direction fits you?",
-    "design_studios_sub": "I show one possible look for fitness and real estate. The actual website is then created together with you.",
+    "design_studios_title": "Which direction fits?",
+    "design_studios_sub": "We show one possible look for fitness and real estate. The actual website is then created together with you, regardless of industry.",
     "design_studios_cta": "Enquire about a project",
     "design_studios_view": "View this direction",
     "design_studios_disclaimer": "The following sites are design studies for orientation. Your own website is created during the project."
   },
   "services": {
     "eyebrow": "Services",
-    "title": "What I deliver",
-    "sub": "Design, development, booking and hosting from one studio.",
+    "title": "What we deliver",
+    "sub": "Design and development from one studio. Website, web app, booking and hosting.",
     "more": "All services",
     "cta_title": "What are you working on?",
     "cta_sub": "Write a short note about the project. I will tell you whether and how we can start.",
@@ -96,8 +96,8 @@
       {
         "id": "development",
         "title": "Full-stack development",
-        "teaser": "Site and logic with Vue, Nuxt and Node. No website builder.",
-        "body": "Front end and server belong together. The site is built from scratch, not assembled from a template.",
+        "teaser": "Site and logic with Vue, Nuxt and Node. Built for your project.",
+        "body": "Front end and server belong together. The site is built for your project and tied into how you work.",
         "includes": ["Nuxt, Vue and TypeScript", "API and Node.js", "Tied into how you work"],
         "tags": ["Vue.js", "Nuxt", "TypeScript", "Node.js"]
       },
@@ -105,7 +105,7 @@
         "id": "booking",
         "title": "Booking systems",
         "teaser": "Appointments run digitally. Calendar and admin, fitted to how you work.",
-        "body": "Clients book themselves, you keep the schedule. The system follows your capacity, not a generic tool.",
+        "body": "Clients book themselves, you keep the schedule. The system follows your capacity and how you work.",
         "includes": ["Calendar and capacity", "Admin for the team", "Tied into the website"],
         "tags": ["Calendar", "Appointments", "MongoDB", "Node.js"]
       },
@@ -140,7 +140,7 @@
   },
   "contact": {
     "title": "Send a message",
-    "sub": "Write to me about your project or a question.",
+    "sub": "Write to us about your project or a question.",
     "cta_sub": "I usually reply within one working day.",
     "cta_button": "Send a message",
     "email_label": "Email",
@@ -183,10 +183,10 @@
     "error": "Something went wrong. Please try again."
   },
   "meta": {
-    "home_title": "Mindcoded, websites from Stuttgart",
-    "home_desc": "I design and build websites and booking systems for studios, practices and local businesses in Stuttgart.",
+    "home_title": "Mindcoded, websites and web apps",
+    "home_desc": "We design and build websites, web apps, booking systems and online shops for studios, practices, hospitality and owner-managed businesses.",
     "solutions_title": "Services, Mindcoded",
-    "solutions_desc": "UX and UI design, full-stack development, booking, SEO and hosting for studios, practices and local businesses in Stuttgart.",
+    "solutions_desc": "Design and development: website, web app, booking, SEO and hosting for studios, practices, hospitality and businesses.",
     "projects_title": "Work, Mindcoded",
     "contact_title": "Contact, Mindcoded",
     "privacy_title": "Privacy, Mindcoded",
@@ -221,7 +221,7 @@
         },
         {
           "heading": "Outcome and next steps",
-          "body": "Brand and website have been published. The booking system is currently being finished and introduced in stages.\n\nPlanned additions:\n• Automatic waiting list\n• Credit and package systems\n• Class reminders\n\nMy work covers brand, user flow, interface and the technical implementation. The booking should feel like the studio, not like generic software."
+          "body": "Brand and website have been published. The booking system is currently being finished and introduced in stages.\n\nPlanned additions:\n• Automatic waiting list\n• Credit and package systems\n• Class reminders\n\nOur work covers brand, user flow, interface and the technical implementation. The booking should feel like the studio, not like generic software."
         },
         {
           "heading": "Screens",

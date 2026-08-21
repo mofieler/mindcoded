@@ -3,10 +3,10 @@ export default defineNuxtConfig({
   devtools: { enabled: process.env.NODE_ENV !== 'production' },
 
   modules: [
+    '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    '@nuxtjs/i18n',
     '@nuxt/image',
   ],
 
@@ -22,15 +22,19 @@ export default defineNuxtConfig({
     locales: [
       {
         code: 'de',
-        name: 'Deutsch'
+        language: 'de-DE',
+        name: 'Deutsch',
       },
       {
         code: 'en',
-        name: 'English'
-      }
+        language: 'en-GB',
+        name: 'English',
+      },
     ],
     defaultLocale: 'de',
     strategy: 'prefix_except_default',
+    baseUrl: 'https://mindcoded.studio',
+    detectBrowserLanguage: false,
     bundle: {
       optimizeTranslationDirective: false,
     },
@@ -54,7 +58,7 @@ export default defineNuxtConfig({
   site: {
     url: 'https://mindcoded.studio',
     name: 'mindcoded',
-    description: 'Digitale Maßarbeit für Studios, Betriebe und Marken',
+    description: 'Wir gestalten und entwickeln Websites, Web-Apps, Buchungssysteme und Online-Shops für Studios, Praxen, Gastronomie und inhabergeführte Betriebe.',
     defaultLocale: 'de',
   },
 
@@ -69,6 +73,14 @@ export default defineNuxtConfig({
     urls: [
       {
         loc: '/projects/paquita-pilates',
+        _i18nTransform: true,
+      },
+      {
+        loc: '/beispiele/fitnessstudio',
+        _i18nTransform: true,
+      },
+      {
+        loc: '/beispiele/immobilien',
         _i18nTransform: true,
       },
     ],
@@ -99,7 +111,7 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap',
         },
         {
           rel: 'icon',

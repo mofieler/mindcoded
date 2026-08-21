@@ -47,7 +47,7 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   background-color: rgb(var(--color-base));
   color: rgb(var(--color-fg));
   transition: background-color 0.3s var(--ease-brand), color 0.3s var(--ease-brand);
@@ -56,10 +56,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Instrument Sans', system-ui, sans-serif;
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   color: rgb(var(--color-fg));
 }
 
@@ -353,7 +353,7 @@ details[open] > summary .disclosure-mark::before,
   gap: 0.5rem;
   padding: 0.85rem 1.7rem;
   border-radius: 999px;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Instrument Sans', system-ui, sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
   line-height: 1.2;

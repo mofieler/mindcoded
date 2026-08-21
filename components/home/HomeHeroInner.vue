@@ -9,7 +9,7 @@ const localePath = useLocalePath()
       <p class="text-accent text-xs font-display font-semibold tracking-[0.28em] uppercase mb-5">
         {{ t('home.hero_eyebrow') }}
       </p>
-      <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.35rem] text-fg leading-[1.08] whitespace-pre-line mb-5">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-[3.35rem] text-fg leading-[1.08] whitespace-pre-line mb-5">
         {{ t('home.hero_title') }}
       </h1>
       <p class="font-body text-lg text-fg-muted max-w-lg mx-auto mb-9">

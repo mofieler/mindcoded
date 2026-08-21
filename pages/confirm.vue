@@ -63,7 +63,7 @@
         </h1>
         <p class="mb-10 text-lg text-white/50 leading-relaxed">
           {{ de
-            ? 'Der Bestätigungslink ist abgelaufen (gültig für 24 Stunden). Bitte sende deine Anfrage erneut.'
+            ? 'Der Bestätigungslink ist abgelaufen (gültig für 24 Stunden). Bitte senden Sie Ihre Anfrage erneut.'
             : 'The confirmation link has expired (valid for 24 hours). Please submit your request again.' }}
         </p>
         <NuxtLink

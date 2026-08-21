@@ -158,7 +158,7 @@ const getHeroIcon = (iconName: string | null) => {
         </p>
 
         <!-- Title -->
-        <h1 class="animate-fade-up [animation-delay:80ms] opacity-0 font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white mb-4 max-w-3xl leading-tight">
+        <h1 class="animate-fade-up [animation-delay:80ms] opacity-0 font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white mb-4 max-w-3xl leading-tight">
           {{ project.title }}
         </h1>
 

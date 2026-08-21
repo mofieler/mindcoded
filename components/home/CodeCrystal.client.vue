@@ -106,7 +106,7 @@ onMounted(() => {
   if (ctx) {
     ctx.clearRect(0, 0, atlas.width, atlas.height)
     ctx.fillStyle = '#ffffff'
-    ctx.font = '700 58px "Space Grotesk", ui-monospace, monospace'
+    ctx.font = '700 58px "Instrument Sans", ui-monospace, monospace'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     glyphs.forEach((g, i) => {

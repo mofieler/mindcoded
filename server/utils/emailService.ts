@@ -23,7 +23,7 @@ function logSendError(label: string, error: unknown) {
 export async function sendConfirmationEmail(email: string, confirmUrl: string, locale: 'de' | 'en') {
   const { resend, from } = getClients()
   const subject = locale === 'de'
-    ? 'Bitte bestätige deine E-Mail-Adresse'
+    ? 'Bitte bestätigen Sie Ihre E-Mail-Adresse'
     : 'Please confirm your email address'
 
   const { error } = await resend.emails.send({

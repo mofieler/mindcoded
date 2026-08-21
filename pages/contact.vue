@@ -20,7 +20,7 @@ useSeo({
       <p class="text-accent text-xs font-display font-semibold tracking-[0.28em] uppercase mb-4">
         {{ t('nav.contact') }}
       </p>
-      <h1 class="font-display font-extrabold text-4xl sm:text-5xl text-fg mb-4 leading-tight">
+      <h1 class="font-display font-bold text-4xl sm:text-5xl text-fg mb-4 leading-tight">
         {{ t('contact.title') }}
       </h1>
       <p class="font-body text-fg-muted mb-10">

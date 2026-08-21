@@ -20,10 +20,10 @@ const emailValid = computed(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
 function validate(): boolean {
   errors.value = {}
   const de = locale.value === 'de'
-  if (!form.name.trim()) errors.value.name = de ? 'Bitte gib deinen Namen ein.' : 'Please enter your name.'
-  if (!form.email || !emailValid.value) errors.value.email = de ? 'Bitte gib eine gültige E-Mail-Adresse ein.' : 'Please enter a valid email address.'
-  if (!form.message.trim()) errors.value.message = de ? 'Bitte schreib eine Nachricht.' : 'Please write a message.'
-  if (!form.gdpr) errors.value.gdpr = de ? 'Bitte stimme der Datenschutzerklärung zu.' : 'Please agree to the privacy policy.'
+  if (!form.name.trim()) errors.value.name = de ? 'Bitte geben Sie Ihren Namen ein.' : 'Please enter your name.'
+  if (!form.email || !emailValid.value) errors.value.email = de ? 'Bitte geben Sie eine gültige E-Mail-Adresse ein.' : 'Please enter a valid email address.'
+  if (!form.message.trim()) errors.value.message = de ? 'Bitte schreiben Sie eine Nachricht.' : 'Please write a message.'
+  if (!form.gdpr) errors.value.gdpr = de ? 'Bitte stimmen Sie der Datenschutzerklärung zu.' : 'Please agree to the privacy policy.'
   return Object.keys(errors.value).length === 0
 }
 
@@ -56,7 +56,7 @@ async function handleSubmit() {
     const msg = err?.data?.message || err?.message || ''
     if (msg.includes('Too many')) {
       errors.value.general = locale.value === 'de'
-        ? 'Zu viele Anfragen. Bitte versuche es später erneut.'
+        ? 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.'
         : 'Too many requests. Please try again later.'
     } else {
       errors.value.general = t('contact.error')

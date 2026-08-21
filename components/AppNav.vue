@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { locale, locales, setLocale, t } = useI18n()
+const { locale, locales, t } = useI18n()
 const colorMode = useColorMode()
 const localePath = useLocalePath()
+const switchLocalePath = useSwitchLocalePath()
 const { items: services } = useServices()
 
 const route = useRoute()
@@ -35,6 +36,10 @@ const linksAfterSolutions = computed(() =>
 
 const otherLocale = computed(() =>
   locales.value.find((l) => l.code !== locale.value)
+)
+
+const otherLocalePath = computed(() =>
+  otherLocale.value ? switchLocalePath(otherLocale.value.code) : ''
 )
 
 const toggleColorMode = () => {
@@ -181,16 +186,15 @@ const servicesDropdownOpen = ref(false)
           </button>
         </ClientOnly>
 
-        <!-- Language Toggle -->
-        <ClientOnly>
-          <button
-            v-if="otherLocale"
-            @click="setLocale(otherLocale.code)"
-            class="px-3 py-1.5 rounded-full text-xs font-display font-semibold text-fg hover:bg-muted transition-all tracking-widest"
-          >
-            {{ otherLocale.code.toUpperCase() }}
-          </button>
-        </ClientOnly>
+        <!-- Language Toggle — crawlable link for Google -->
+        <NuxtLink
+          v-if="otherLocale && otherLocalePath"
+          :to="otherLocalePath"
+          class="px-3 py-1.5 rounded-full text-xs font-display font-semibold text-fg hover:bg-muted transition-all tracking-widest"
+          :aria-label="otherLocale.code === 'en' ? 'Switch to English' : 'Zu Deutsch wechseln'"
+        >
+          {{ otherLocale.code.toUpperCase() }}
+        </NuxtLink>
 
         <NuxtLink
           :to="ctaTo"

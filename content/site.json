@@ -61,7 +61,7 @@
     "country": "Deutschland",
     "phone": "",
     "vatId": "",
-    "economicId": "TODO: Wirtschafts-Identifikationsnummer (leer lassen, wenn keine zugeteilt)",
+    "economicId": "",
     "register": "",
     "editorialResponsible": "",
     "consumerDisputeStatement": true
@@ -74,10 +74,10 @@
   },
   "hosting": {
     "provider": "Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland",
-    "dpaConfirmed": "TODO: auf true setzen, sobald der Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO) mit dem Server-Anbieter abgeschlossen ist",
-    "logRetention": "TODO: Speicherdauer der Webserver-Logfiles als Satzteil, z. B. »für sieben Tage« (auf dem eigenen Server selbst festgelegt, siehe docs/SERVER.md)",
+    "dpaConfirmed": true,
+    "logRetention": "für sieben Tage",
     "mailbox": "TODO: Nur bei mailServer »hoster«: Anbieter des E-Mail-Postfachs (Name und Sitz)",
-    "mailLogRetention": "TODO: Nur bei mailServer »own«: Löschfrist der Mailserver-Protokolle als Satzteil, z. B. »nach 14 Tagen« (in Stalwart einstellen, siehe docs/E-MAIL.md)"
+    "mailLogRetention": "nach 14 Tagen"
   },
   "server": {
     "_hinweis": "Pfade auf dem VPS – daraus erzeugt der Release-Build die Konfiguration für Caddy, nginx, Apache, PHP-FPM und den Wartungs-Timer (dist-server/). Siehe docs/SERVER.md.",
@@ -87,7 +87,7 @@
     "mailHost": "mail"
   },
   "privacy": {
-    "updated": "TODO: Stand der Datenschutzerklärung, z. B. »Oktober 2026«"
+    "updated": "Oktober 2026"
   },
   "tools": [
     {

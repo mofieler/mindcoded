@@ -1,0 +1,6 @@
+{
+  "json.schemas": [
+    { "fileMatch": ["/content/projects.json"], "url": "./content/schema/projects.schema.json" },
+    { "fileMatch": ["/content/templates/case-study.json"], "url": "./content/schema/case-study.schema.json" }
+  ]
+}

@@ -1,0 +1,42 @@
+/**
+ * Kennzeichnungen an Projekten.
+ *
+ *   .project-kind           Art des Projekts (Kunde, Eigenprojekt, Konzeptstudie) – Umriss-Pille
+ *   .project-preview-badge  Hinweis »Illustration« auf Vorschauflächen ohne echtes Bild
+ *   .project-tags           Schlagworte eines Projekts (Technik, Themen) – Liste flacher Pillen
+ */
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.project-tag {
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-2-5);
+}
+
+.project-kind {
+  font-size: var(--text-2xs);
+  color: var(--color-accent-text);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-pill);
+  padding: 3px var(--space-2);
+}
+
+.project-preview-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+  background: var(--color-card);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+}

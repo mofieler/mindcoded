@@ -1,0 +1,99 @@
+/**
+ * Leiste »Werkzeuge & Technik« unter dem Hero: einfarbige Logos (Schriftfarbe, folgt dem
+ * Farbschema) mit Namen, die ruhig durchlaufen. Zwei gleiche Listen bilden die Endlosschleife.
+ * Läuft nur mit JavaScript, denn nur dann gibt es »Animationen anhalten« im Footer (WCAG 2.2.2,
+ * motion.js) – der Schalter hält auch dieses Band an. Steht außerdem still unter dem Mauszeiger und
+ * mit Tastaturfokus; ohne JavaScript und bei reduzierter Bewegung umbrechend statt laufend.
+ *
+ *   .tools-strip > .tools-label + .tools-viewport > .tools-track > .tools-list × 2
+ */
+
+.tools-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-fluid-m);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--pad-x);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.tools-label {
+  color: var(--color-dim);
+  white-space: nowrap;
+}
+
+.tools-viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, var(--color-ink) 8%, var(--color-ink) 92%, transparent);
+}
+
+.tools-track {
+  display: flex;
+  width: max-content;
+}
+
+.js .tools-track {
+  animation: tools-scroll 45s linear infinite;
+}
+
+.no-js .tools-track {
+  width: auto;
+}
+
+.no-js .tools-list {
+  flex-wrap: wrap;
+  row-gap: var(--space-3-5);
+}
+
+.no-js .tools-list[aria-hidden] {
+  display: none;
+}
+
+.tools-viewport:hover .tools-track,
+.tools-viewport:focus-within .tools-track,
+.motion-paused .tools-track {
+  animation-play-state: paused;
+}
+
+.tools-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-fluid-l);
+  padding-right: var(--space-fluid-l);
+}
+
+.tools-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-muted);
+}
+
+.tools-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+@keyframes tools-scroll {
+  to { transform: translateX(-50%); }
+}
+
+@media (--mobile) {
+  .tools-strip { grid-template-columns: minmax(0, 1fr); gap: var(--space-3-5); }
+}
+
+@media (--motion-reduced) {
+  .js .tools-track { width: auto; animation: none; }
+  .tools-list { flex-wrap: wrap; row-gap: var(--space-3-5); }
+  .tools-list[aria-hidden] { display: none; }
+  .tools-viewport { mask-image: none; }
+}

@@ -1,0 +1,53 @@
+/**
+ * Ablauf – vier Schritte (Textspalten: col-block.css) und die Karte »Was den Aufwand bestimmt«.
+ */
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-fluid-m);
+}
+
+/* Links Titel und Hinweis, rechts die Liste – so steht der Titel nicht allein */
+.effort-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  grid-template-areas: "title list" "note list";
+  align-content: start;
+  gap: var(--space-5) var(--space-fluid-xl);
+  padding: var(--space-fluid-m);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-line);
+  background-color: var(--color-card);
+  transition: background-color var(--dur-theme) ease, border-color var(--dur-theme) ease;
+}
+
+.effort-title {
+  grid-area: title;
+  font-size: var(--text-title-sm);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.effort-card .check-list {
+  grid-area: list;
+}
+
+.effort-note {
+  grid-area: note;
+  align-self: end;
+  font-size: var(--text-base);
+  color: var(--color-muted);
+}
+
+@media (--narrow) {
+  .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (--mobile) {
+  .effort-card { grid-template-columns: 1fr; grid-template-areas: "title" "list" "note"; }
+}
+
+@media (--small) {
+  .process-steps { grid-template-columns: 1fr; }
+}

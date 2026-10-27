@@ -1,0 +1,29 @@
+/**
+ * Reduzierte Bewegung (Systemeinstellung): keine Animationen, kein weiches Scrollen, Inhalte
+ * sofort sichtbar. Unabhängig davon hält der Schalter »Animationen anhalten« (.motion-paused)
+ * die Punktwolken an.
+ */
+
+@media (--motion-reduced) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .js [data-rv]:not(.is-revealed) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-title .cursor {
+    opacity: 0;
+  }
+}

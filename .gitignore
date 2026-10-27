@@ -1,0 +1,19 @@
+# Build-Ergebnisse – werden aus den Quellen erzeugt
+dist/
+dist-dev/
+dist-server/
+.css-diff/
+
+# Private Formular-Konfiguration – gehört nie ins Repository
+mindcoded-private/
+contact-config.php
+.env
+.env.*
+
+# Quellfotos für tools/make_images.py – groß, separat sichern (ausgeliefert werden nur die WebP-Dateien)
+bildquellen/
+
+# Python
+__pycache__/
+*.pyc
+.ruff_cache/

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Vor jedem Commit: schnelle Prüfungen (Tests ohne Browser, Stand des Releases).
+# Aktivieren (einmalig): git config core.hooksPath .githooks
+# Im Notfall überspringen: git commit --no-verify – danach python tools/check.py nachholen.
+exec python tools/check.py --fast

@@ -1,0 +1,78 @@
+/**
+ * Entwicklungs-Hinweise – erscheinen nur im Entwicklungs-Build (dist-dev):
+ *
+ *   .draft-badge  »Entwurf« an Projekten und Leistungsseiten
+ *   mark.todo     fehlende Betreiberangabe im Text
+ *   .dev-badge    Hinweisleiste unten links
+ *   .todo-table   Liste offener Angaben (BETREIBER-TODO.html)
+ */
+
+.draft-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: 0.04em;
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-todo);
+  color: var(--color-todo-ink);
+  border: 1px dashed var(--color-todo-line);
+}
+
+.draft-badge--inline {
+  position: static;
+  align-self: flex-start;
+  width: fit-content;
+}
+
+mark.todo {
+  background: var(--color-todo);
+  color: var(--color-todo-ink);
+  padding: 0.05em 0.3em;
+  border-radius: 4px;
+  outline: 1px dashed var(--color-todo-line);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.dev-badge {
+  position: fixed;
+  z-index: var(--z-dev);
+  left: 8px;
+  bottom: 8px;
+  white-space: nowrap;
+  max-width: calc(100vw - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-todo);
+  color: var(--color-todo-ink);
+  border: 1px dashed var(--color-todo-line);
+  font-size: var(--text-2xs);
+}
+
+.dev-badge a {
+  text-decoration: underline;
+}
+
+.todo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-md);
+}
+
+.todo-table th,
+.todo-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--space-2-5) var(--space-2);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.todo-table code {
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "case-study.schema.json",
+  "title": "mindcoded.studio – Vorlage einer Case Study",
+  "description": "Ein einzelnes Projekt (content/templates/case-study.json).",
+  "$ref": "projects.schema.json#/$defs/project"
+}

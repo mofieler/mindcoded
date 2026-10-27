@@ -1,0 +1,71 @@
+/**
+ * Abschnittsrahmen der Startseite und Abschnittsköpfe.
+ *
+ *   <section class="section …">        Grund, Abstände, Farbschema-Übergang
+ *     <div class="section-container">  Inhaltsbreite, vertikaler Rhythmus
+ *       .section-header-grid           Eyebrow + Titel links, Einleitung rechts
+ *
+ * .section-eyebrow steht auch auf Unterseiten über der Überschrift.
+ */
+
+.section {
+  position: relative;
+  padding: 0 var(--pad-x) var(--space-section);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  transition: var(--trans-theme);
+}
+
+.section-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-xl);
+}
+
+.section-header-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: end;
+}
+
+.section-eyebrow {
+  color: var(--color-dim);
+  margin-bottom: var(--space-4);
+}
+
+.section-eyebrow--navy {
+  color: var(--color-navy-dim);
+}
+
+.section-title {
+  font-size: var(--text-title-lg);
+  text-wrap: balance;
+}
+
+.section-title em {
+  color: var(--color-accent);
+}
+
+.section-lead {
+  font-size: var(--text-lead-sm);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: 480px;
+  text-wrap: pretty;
+}
+
+.section-note {
+  margin-top: var(--space-3-5);
+  color: var(--color-dim);
+}
+
+.no-js .section-note {
+  display: none;
+}
+
+@media (--mobile) {
+  .section-header-grid { grid-template-columns: 1fr; }
+}

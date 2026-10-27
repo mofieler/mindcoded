@@ -1,0 +1,38 @@
+/**
+ * Hilfsklassen – stehen in einer späten Ebene und gelten deshalb gegenüber allen Bausteinen.
+ *
+ *   .visually-hidden  nur für Screenreader (sichtbar bleibt nichts)
+ *   [data-rv]         erscheint beim Hineinscrollen (.is-revealed setzt app.js)
+ *   .img-contain      ganzes Bild mit Rand zeigen statt zuschneiden (Hochformate, Mockups)
+ */
+
+.img-contain {
+  object-fit: contain;
+  padding: var(--space-inset-media);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Nur mit JavaScript verstecken – sonst bliebe Inhalt unsichtbar.
+   Kein clip-path auf dem beobachteten Element: Chromium wertet die weggeschnittene Fläche
+   als unsichtbar, der IntersectionObserver würde nie auslösen. */
+.js [data-rv] {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 900ms ease, transform 1100ms var(--ease-out);
+}
+
+.js [data-rv].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

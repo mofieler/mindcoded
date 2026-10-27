@@ -1,0 +1,28 @@
+/**
+ * Breakpoints und Nutzereinstellungen – die einzige Stelle für Media-Abfragen.
+ *
+ * Verwendung in allen Modulen: @media (--mobile) { … }
+ * Der Build setzt die Abfragen ein (Browser kennen @custom-media noch nicht) und gibt sie an
+ * JavaScript weiter (tokens.js › createMedia). Zahlen in @media sind außerhalb dieser Datei
+ * nicht erlaubt; ein Test prüft das.
+ */
+
+/* Breite */
+@custom-media --mobile (max-width: 819px);
+@custom-media --desktop (min-width: 820px);
+@custom-media --narrow (max-width: 1023px);
+@custom-media --small (max-width: 560px);
+@custom-media --tablet (min-width: 820px) and (max-width: 1180px);
+@custom-media --tablet-portrait (min-width: 820px) and (max-width: 1180px) and (orientation: portrait);
+@custom-media --header-compact (max-width: 1099px);
+@custom-media --header-full (min-width: 1100px);
+
+/* Eingabe */
+@custom-media --fine (hover: hover) and (pointer: fine);
+@custom-media --coarse (pointer: coarse);
+
+/* Nutzereinstellungen */
+@custom-media --motion-ok (prefers-reduced-motion: no-preference);
+@custom-media --motion-reduced (prefers-reduced-motion: reduce);
+@custom-media --contrast-more (prefers-contrast: more);
+@custom-media --forced-colors (forced-colors: active);

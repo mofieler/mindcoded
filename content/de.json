@@ -1,0 +1,396 @@
+{
+  "lang": "de",
+  "locale": "de_DE",
+  "langName": "Deutsch",
+
+  "meta": {
+    "title": "Webdesign in Stuttgart: Websites & Online-Buchung – {brand.full}",
+    "description": "Webdesign aus Stuttgart: Websites, Online-Buchung und Web-Apps, die aus Besuchern Kunden machen – mit Betreuung und Hosting in Deutschland.",
+    "socialAlt": "{brand.full} – Webdesign und Webentwicklung in Stuttgart"
+  },
+
+  "ui": {
+    "skipLink": "Zum Inhalt springen",
+    "homeLabel": "{brand.full} – zur Startseite",
+    "breadcrumb": "Seitenpfad",
+    "mainNav": "Hauptnavigation",
+    "headerCta": "Erstgespräch anfragen",
+    "menuOpen": "Menü öffnen",
+    "menuClose": "Menü schließen",
+    "menuLabel": "Menü",
+    "themeLabel": "Dunkles Farbschema",
+    "langNav": "Sprache wählen",
+    "motionPause": "Animationen anhalten",
+    "todoBadge": "Offene Betreiberangabe",
+    "draftBadge": "Platzhalter – wird nicht veröffentlicht"
+  },
+
+  "nav": [
+    { "label": "Leistungen", "href": "#leistungen" },
+    { "label": "Projekte", "href": "#projekte", "requires": "projects" },
+    { "label": "Ablauf", "href": "#ablauf" },
+    { "label": "Über mich", "href": "#studio" },
+    { "label": "Kontakt", "href": "#kontakt" }
+  ],
+
+  "hero": {
+    "eyebrow": "Webdesign & Webentwicklung in Stuttgart",
+    "h1a": "Websites,",
+    "h1b": "gemacht für",
+    "words": ["Ihre Kunden.", "Ihre Mitglieder.", "Ihre Gäste.", "Ihre Patienten."],
+    "lead": "Ich gestalte und entwickle Websites und Online-Buchung für Unternehmen in Stuttgart und der Region – damit Ihre Qualität online sichtbar wird, Anfragen leichter kommen und Routinearbeit wegfällt.",
+    "cta": "Erstgespräch anfragen",
+    "ctaProjects": "Projekte ansehen",
+    "ctaProcess": "So arbeite ich",
+    "stages": ["Identität", "Architektur", "Code"],
+    "toolsLabel": "Werkzeuge & Technik"
+  },
+
+  "services": {
+    "eyebrow": "Leistungen",
+    "h": "Was Ihr Unternehmen",
+    "em": "voranbringt.",
+    "lead": "Vom ersten Auftritt bis zur Online-Buchung und Betreuung danach: Gestaltung und Technik aus einer Hand – immer mit Blick darauf, wer Ihre Website nutzt und was diese Menschen erreichen wollen.",
+    "extra": "Darüber hinaus: interaktive Prototypen sowie 3D- und Unity-Anwendungen – sprechen Sie mich gern an.",
+    "swipeHint": "↔ Wischen zum Wechseln",
+    "slugBase": "leistungen",
+    "pageLabels": {
+      "more": "Mehr zu dieser Leistung",
+      "ask": "Dazu anfragen",
+      "intro": "Worum es geht",
+      "includes": "Was dazugehört",
+      "approach": "So gehe ich vor",
+      "forWhom": "Für wen",
+      "faq": "Häufige Fragen",
+      "projects": "Passende Projekte",
+      "others": "Weitere Leistungen",
+      "ctaTitle": "Passt das zu Ihrem Vorhaben?",
+      "ctaText": "Erzählen Sie mir kurz, worum es geht – ich melde mich per E-Mail mit ersten Fragen.",
+      "ctaButton": "Erstgespräch anfragen",
+      "breadcrumbHome": "Start",
+      "breadcrumbServices": "Leistungen"
+    }
+  },
+
+  "process": {
+    "eyebrow": "Ablauf",
+    "h": "So läuft",
+    "em": "ein Projekt.",
+    "lead": "Vier Schritte von der ersten Nachricht bis zum Start – mit klaren Abstimmungen zwischen den Etappen und einem Ansprechpartner von Anfang bis Ende.",
+    "steps": [
+      { "title": "Kennenlernen", "text": "Sie schildern kurz Ihr Vorhaben. Ich melde mich per E-Mail und kläre mit Ihnen im Erstgespräch Ziele, Zielgruppe und Rahmen." },
+      { "title": "Konzept & Angebot", "text": "Ich skizziere Aufbau und Inhalte und schlage den passenden Umfang vor. Auf dieser Grundlage erhalten Sie ein Angebot." },
+      { "title": "Gestaltung & Umsetzung", "text": "Ich gestalte und entwickle in Etappen und stimme Zwischenstände mit Ihnen ab, bevor es weitergeht." },
+      { "title": "Start & Übergabe", "text": "Nach gemeinsamen Tests geht alles online. Sie erhalten alle Zugänge, die Website gehört vollständig Ihnen – und auf Wunsch kümmere ich mich danach um Hosting und Updates." }
+    ],
+    "effortTitle": "Was den Aufwand bestimmt",
+    "effortItems": [
+      "Umfang: Anzahl der Seiten und Inhalte",
+      "Ob Texte und Bilder schon vorhanden sind",
+      "Funktionen wie Online-Buchung, Formulare oder Kundenbereich",
+      "Anbindung an bestehende Systeme",
+      "Ihr gewünschter Zeitrahmen"
+    ],
+    "effortNote": "Nach dem Kennenlernen erhalten Sie ein Angebot, das auf Ihr Vorhaben zugeschnitten ist."
+  },
+
+  "about": {
+    "eyebrow": "Über mich",
+    "h": "Ihr Ansprechpartner",
+    "em": "von Anfang an.",
+    "lead": "Hinter {brand.full} stehe ich, Moritz Fieler – UX-Designer und Frontend-Entwickler aus Stuttgart. Sie sprechen vom ersten Gespräch bis nach dem Start mit mir, persönlich vor Ort oder per Video.",
+    "personRole": "Freiberuflicher UX-Designer & Frontend-Entwickler",
+    "personBio": "Mehrere Jahre UX-Design bei Mercedes-Benz – vom Infotainment-System MBUX bis zur vernetzten E-Mobilität –, davor das Studium Mobile Medien an der Hochschule der Medien Stuttgart. Diese Erfahrung bringe ich heute in Projekte für Unternehmen aus der Region: Menschen verstehen, Komplexität reduzieren, Ergebnisse mit Nutzern prüfen.",
+    "photoAlt": "Porträt von Moritz Fieler",
+    "cta": "Erstgespräch anfragen",
+    "reasons": {"title": "Warum mit mir", "items": [{"title": "Ein Ansprechpartner", "text": "Sie sprechen vom ersten Gespräch bis nach dem Start mit mir – ohne Weiterreichen und ohne stille Post."}, {"title": "Design und Technik aus einer Hand", "text": "Was ich gestalte, setze ich selbst um. Nichts geht zwischen Agentur und Entwicklung verloren."}, {"title": "Geprüft statt geschätzt", "text": "Entwürfe teste ich mit Menschen aus Ihrer Zielgruppe, bevor viel Geld in die Umsetzung fließt."}, {"title": "Barrierefrei und datensparsam", "text": "Websites nach WCAG, gehostet in Deutschland – und ohne Cookie-Banner, wo keiner nötig ist."}]}
+  },
+
+  "projects": {
+    "eyebrow": "Projekte",
+    "h": "Ausgewählte",
+    "em": "Projekte.",
+    "lead": "Woran Sie sehen, wie ich arbeite – vom Pilates-Studio in Stuttgart bis zu Konzepten mit Mercedes-AMG.",
+    "note": "Zum Aufklappen auswählen",
+    "cols": { "nr": "Nr.", "name": "Projekt", "industry": "Branche", "services": "Leistungen", "year": "Jahr" },
+    "kinds": { "client": "Kundenprojekt", "own": "Eigenprojekt", "concept": "Konzeptstudie", "study": "Studienprojekt" },
+    "moreTitle": "Weitere Projekte",
+    "illustration": "Illustration",
+    "cta": "Case Study ansehen",
+    "liveLink": "Website ansehen",
+    "takeawayKicker": "Was Sie davon haben",
+    "ctaKicker": "Ähnliches Vorhaben?",
+    "ctaTitle": "Lassen Sie uns darüber sprechen.",
+    "factLabels": { "industry": "Branche", "services": "Leistungen", "year": "Jahr", "kind": "Art", "tech": "Technik" },
+    "glanceTitle": "Auf einen Blick",
+    "more": "Mehr dazu",
+    "states": { "done": "Umgesetzt", "active": "In Arbeit", "planned": "Geplant" },
+    "galleryPrev": "Vorheriges Bild",
+    "galleryNext": "Nächstes Bild",
+    "tagsLabel": "Schlagworte",
+    "back": "Zurück zu den Projekten",
+    "caseLabel": "Case",
+    "next": "Nächstes Projekt",
+    "galleryTitle": "Einblicke",
+    "slugBase": "projekte"
+  },
+
+  "contact": {
+    "eyebrow": "Kontakt",
+    "h": "Bereit für Ihr",
+    "em": "nächstes Projekt?",
+    "lead": "Schreiben Sie mir ein paar Zeilen zu Ihrem Vorhaben – auch wenn noch nicht alles feststeht.",
+    "nextTitle": "So geht es weiter",
+    "nextSteps": ["Sie schildern kurz Ihr Vorhaben – ein paar Sätze genügen.", "Ich antworte in der Regel innerhalb eines Werktags mit ersten Fragen.", "Im unverbindlichen Erstgespräch klären wir gemeinsam Ziele, Umfang und Zeitrahmen – per Video oder vor Ort."],
+    "direct": "Direktkontakt",
+    "loc": "Stuttgart · Remote und vor Ort",
+    "formTitle": "Kontaktformular",
+    "requiredNote": "Felder ohne den Zusatz »optional« sind Pflichtfelder.",
+    "optional": "optional",
+    "topicLegend": "Worum geht es?",
+    "topics": [{"key": "website", "label": "Neue Website"}, {"key": "webapp", "label": "Web-Anwendung"}, {"key": "redesign", "label": "Redesign"}, {"key": "audit", "label": "Prüfung & Modernisierung"}, {"key": "care", "label": "Betreuung & Hosting"}, {"key": "other", "label": "Sonstiges"}],
+    "nameLabel": "Name oder Unternehmen",
+    "emailLabel": "E-Mail-Adresse",
+    "emailHint": "Dorthin schicke ich meine Antwort.",
+    "messageLabel": "Ihre Nachricht",
+    "messageHint": "Ein paar Sätze genügen: Was haben Sie vor, und bis wann?",
+    "timelineLabel": "Zeitrahmen",
+    "timelineOptions": [
+      { "value": "", "label": "Bitte wählen" },
+      { "value": "asap", "label": "So bald wie möglich" },
+      { "value": "1-3-months", "label": "In ein bis drei Monaten" },
+      { "value": "later", "label": "Später oder noch offen" }
+    ],
+    "honeypotLabel": "Dieses Feld bitte leer lassen",
+    "privacyNotice": "Ich verwende Ihre Angaben ausschließlich, um Ihre Anfrage zu beantworten. Details finden Sie in der [Datenschutzerklärung]({privacyUrl}).",
+    "consentLabel": "Ich habe die [Datenschutzerklärung]({privacyUrl}) gelesen und bin einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage verarbeitet werden.",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet …",
+    "mailFallback": "Nachricht stattdessen mit Ihrem E-Mail-Programm senden",
+    "mailFallbackSubject": "Anfrage über {brand.full}",
+    "errors": {
+      "required": "Bitte füllen Sie dieses Feld aus.",
+      "nameTooLong": "Bitte kürzen Sie den Namen auf höchstens {contact.limits.nameMax} Zeichen.",
+      "email": "Bitte geben Sie eine vollständige E-Mail-Adresse ein (mit @ und Domain).",
+      "messageTooShort": "Bitte schreiben Sie mindestens {contact.limits.messageMin} Zeichen.",
+      "messageTooLong": "Bitte kürzen Sie Ihre Nachricht auf höchstens {contact.limits.messageMax} Zeichen.",
+      "consent": "Bitte bestätigen Sie den Datenschutzhinweis.",
+      "summary": "Bitte prüfen Sie die markierten Felder.",
+      "server": "Ihre Nachricht konnte gerade nicht gesendet werden. Ihre Eingaben bleiben erhalten – bitte versuchen Sie es erneut oder schreiben Sie mir direkt an {brand.email}.",
+      "rate": "Es wurden in kurzer Zeit zu viele Nachrichten gesendet. Bitte versuchen Sie es in einigen Minuten erneut oder schreiben Sie mir direkt an {brand.email}."
+    },
+    "thanks": "Danke für Ihre Nachricht.",
+    "thanksText": "Ihre Anfrage ist bei mir eingegangen. Ich melde mich per E-Mail bei Ihnen.",
+    "again": "Weitere Nachricht senden"
+  },
+
+  "footer": {
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "accessibility": "Barrierefreiheit",
+    "top": "Nach oben",
+    "copyright": "© {year} {brand.full}"
+  },
+
+  "pages": {
+    "thanks": {
+      "slug": "kontakt/danke",
+      "title": "Nachricht gesendet",
+      "h1": "Danke für Ihre Nachricht.",
+      "text": "Ihre Anfrage ist bei mir eingegangen. Ich melde mich per E-Mail bei Ihnen.",
+      "back": "Zurück zur Startseite"
+    },
+    "error": {
+      "slug": "kontakt/fehler",
+      "title": "Nachricht nicht gesendet",
+      "h1": "Ihre Nachricht wurde nicht gesendet.",
+      "text": "Mögliche Gründe sind unvollständige Angaben, zu viele Nachrichten in kurzer Zeit oder ein technisches Problem. Bitte versuchen Sie es erneut oder schreiben Sie mir direkt an [{brand.email}](mailto:{brand.email}).",
+      "back": "Zurück zum Formular"
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden",
+      "h1": "Diese Seite gibt es nicht.",
+      "text": "Vielleicht hat sich die Adresse geändert, oder sie wurde falsch eingegeben.",
+      "back": "Zur Startseite"
+    }
+  },
+
+  "legal": {
+    "imprint": {
+      "slug": "impressum",
+      "title": "Impressum",
+      "description": "Anbieterkennzeichnung von {brand.full} nach § 5 Digitale-Dienste-Gesetz.",
+      "h1": "Impressum",
+      "intro": "Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)",
+      "sections": [
+        {
+          "heading": "Anbieter",
+          "lines": ["{operator.name}", "{operator.legalForm}", "{operator.street}", "{operator.postalCode} {operator.city}", "{operator.country}"]
+        },
+        {
+          "heading": "Kontakt",
+          "lines": ["E-Mail: [{brand.email}](mailto:{brand.email})", "Telefon: {operator.phone}", "Kontaktformular: [zum Formular]({home}#kontakt)"]
+        },
+        {
+          "heading": "Umsatzsteuer-Identifikationsnummer",
+          "if": "operator.vatId",
+          "paragraphs": ["Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: {operator.vatId}"]
+        },
+        {
+          "heading": "Wirtschafts-Identifikationsnummer",
+          "if": "operator.economicId",
+          "paragraphs": ["{operator.economicId}"]
+        },
+        {
+          "heading": "Registereintrag",
+          "if": "operator.register",
+          "paragraphs": ["{operator.register}"]
+        },
+        {
+          "heading": "Verantwortlich nach § 18 Abs. 2 MStV",
+          "if": "operator.editorialResponsible",
+          "paragraphs": ["{operator.editorialResponsible}"]
+        },
+        {
+          "heading": "Verbraucherstreitbeilegung",
+          "if": "operator.consumerDisputeStatement",
+          "paragraphs": ["Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."]
+        }
+      ]
+    },
+
+    "privacy": {
+      "slug": "datenschutz",
+      "title": "Datenschutzerklärung",
+      "description": "Wie {brand.full} personenbezogene Daten auf dieser Website verarbeitet: Hosting, Kontaktformular, Speicherung im Browser und Ihre Rechte.",
+      "h1": "Datenschutzerklärung",
+      "intro": "Hier erfahren Sie, welche personenbezogenen Daten beim Besuch dieser Website verarbeitet werden, zu welchem Zweck und welche Rechte Sie haben.",
+      "sections": [
+        {
+          "heading": "Verantwortlicher",
+          "paragraphs": ["Verantwortlich für die Datenverarbeitung auf dieser Website ist:"],
+          "lines": ["{operator.name}", "{operator.street}", "{operator.postalCode} {operator.city}", "{operator.country}", "E-Mail: [{brand.email}](mailto:{brand.email})"]
+        },
+        {
+          "heading": "Das Wichtigste in Kürze",
+          "list": [
+            "Diese Website setzt keine Cookies und keine Analyse-, Tracking- oder Werbedienste ein.",
+            "Schriften, Skripte und Grafiken werden ausschließlich von meinem eigenen Server geladen. Es werden keine Inhalte fremder Anbieter eingebunden, etwa Google Fonts, Videos oder Karten.",
+            "Personenbezogene Daten verarbeite ich in den technisch notwendigen Server-Logfiles und wenn Sie mir schreiben – über das Kontaktformular oder per E-Mail."
+          ]
+        },
+        {
+          "heading": "Hosting und Server-Logfiles",
+          "paragraphs": [
+            "Diese Website wird auf einem Server bei folgendem Anbieter betrieben: {hosting.provider}.",
+            "{hosting.dpaSentence}",
+            "Bei jedem Seitenaufruf verarbeitet der Webserver automatisch Daten, die Ihr Browser übermittelt, insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Adresse, übertragene Datenmenge, die zuvor besuchte Seite (Referrer) sowie Browser und Betriebssystem. Diese Daten sind erforderlich, um die Website auszuliefern und ihre Sicherheit und Stabilität zu gewährleisten. Rechtsgrundlage ist mein berechtigtes Interesse daran (Art. 6 Abs. 1 lit. f DSGVO).",
+            "Die Logfiles werden {hosting.logRetention} gespeichert und danach gelöscht, sofern sie nicht zur Aufklärung eines konkreten Sicherheitsvorfalls benötigt werden."
+          ]
+        },
+        {
+          "heading": "Kontaktformular und E-Mail",
+          "paragraphs": [
+            "Wenn Sie mir über das Kontaktformular schreiben, verarbeite ich Ihren Namen beziehungsweise Ihr Unternehmen, Ihre E-Mail-Adresse und Ihre Nachricht sowie – falls angegeben – die gewählten Themen und den Zeitrahmen. Schreiben Sie mir per E-Mail, verarbeite ich Ihre E-Mail-Adresse und den Inhalt Ihrer Nachricht.",
+            "Zweck ist die Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn Ihre Anfrage auf einen Vertrag abzielt, im Übrigen mein berechtigtes Interesse an der Beantwortung von Anfragen (Art. 6 Abs. 1 lit. f DSGVO). Ihre Angaben sind freiwillig; ohne Name, E-Mail-Adresse und Nachricht kann ich Ihre Anfrage jedoch nicht beantworten.",
+            "{contact.transportSentence}",
+            "{contact.mailboxSentence}",
+            "Ich lösche Ihre Anfrage, sobald sie abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Entsteht aus Ihrer Anfrage ein Auftrag, bewahre ich die Korrespondenz im Rahmen der gesetzlichen Aufbewahrungsfristen auf."
+          ]
+        },
+        {
+          "heading": "Schutz des Formulars vor Missbrauch",
+          "paragraphs": [
+            "Das Formular enthält ein für Menschen unsichtbares Feld, das automatisierte Programme häufig ausfüllen; so erkenne ich Spam, ohne Sie mit Rätselaufgaben zu belasten.",
+            "Außerdem begrenze ich, wie viele Nachrichten in kurzer Zeit vom selben Internetanschluss gesendet werden können (höchstens {contact.rateLimit.maxRequests} in {contact.rateLimit.windowMinutes} Minuten). Dazu speichere ich auf meinem Webserver kurzzeitig einen Prüfwert (Hash), der aus Ihrer IP-Adresse – bei IPv6 aus dem Netzbereich Ihres Anschlusses – und einem geheimen Zufallsschlüssel gebildet wird. Der Schlüssel wird täglich neu erzeugt und der des Vortags gelöscht; die IP-Adresse selbst speichere ich dafür nicht. Die Prüfwerte werden spätestens nach 24 Stunden gelöscht. Rechtsgrundlage ist mein berechtigtes Interesse an einem funktionsfähigen und vor Missbrauch geschützten Kontaktweg (Art. 6 Abs. 1 lit. f DSGVO)."
+          ]
+        },
+        {
+          "heading": "Speicherung im Browser",
+          "paragraphs": [
+            "Wenn Sie das Farbschema umschalten, speichere ich Ihre Wahl im lokalen Speicher Ihres Browsers (localStorage, Eintrag »mc-theme«), damit sie beim nächsten Besuch erhalten bleibt. Schalten Sie auf die Darstellung Ihrer Systemeinstellung zurück, wird der Eintrag wieder gelöscht.",
+            "Der Eintrag enthält keine personenbezogenen Daten, wird nicht an mich übertragen und dient ausschließlich der von Ihnen genutzten Darstellung der Website (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können ihn jederzeit über die Einstellungen Ihres Browsers löschen."
+          ]
+        },
+        {
+          "heading": "Ihre Rechte",
+          "paragraphs": ["Sie haben mir gegenüber folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:"],
+          "list": [
+            "Auskunft über die gespeicherten Daten (Art. 15 DSGVO)",
+            "Berichtigung unrichtiger Daten (Art. 16 DSGVO)",
+            "Löschung (Art. 17 DSGVO)",
+            "Einschränkung der Verarbeitung (Art. 18 DSGVO)",
+            "Datenübertragbarkeit (Art. 20 DSGVO)",
+            "Widerspruch gegen Verarbeitungen, die auf meinem berechtigten Interesse beruhen, aus Gründen, die sich aus Ihrer besonderen Situation ergeben (Art. 21 DSGVO)"
+          ],
+          "after": [
+            "Um Ihre Rechte auszuüben, genügt eine formlose Nachricht an [{brand.email}](mailto:{brand.email}).",
+            "Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), zum Beispiel beim [Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg](https://www.baden-wuerttemberg.datenschutz.de)."
+          ]
+        },
+        {
+          "heading": "Automatisierte Entscheidungen",
+          "paragraphs": ["Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt."]
+        }
+      ],
+      "updatedLabel": "Stand: {privacy.updated}"
+    },
+
+    "accessibility": {
+      "slug": "barrierefreiheit",
+      "draft": true,
+      "title": "Erklärung zur Barrierefreiheit",
+      "description": "Wie barrierefrei die Website von {brand.full} ist, was ich dafür tue und wie Sie mir eine Barriere melden.",
+      "h1": "Barrierefreiheit",
+      "intro": "Diese Website soll für alle Menschen gut nutzbar sein – mit Tastatur, Screenreader und Vergrößerung, auf dem Handy und mit eigenen Einstellungen für Farben und Bewegung. Ich orientiere mich an den Web Content Accessibility Guidelines (WCAG) 2.2, Konformitätsstufe AA.",
+      "sections": [
+        {
+          "heading": "Stand der Vereinbarkeit",
+          "paragraphs": ["TODO: Ergebnis der Prüfung eintragen, z. B. »Diese Website ist mit WCAG 2.2, Stufe AA, weitgehend vereinbar.« – erst nach der Prüfung mit Screenreader und auf echten Geräten (docs/MANUELLE-PRUEFUNG.md)."]
+        },
+        {
+          "heading": "Was ich dafür tue",
+          "list": [
+            "Alle Inhalte stehen im HTML und sind auch ohne JavaScript vollständig nutzbar.",
+            "Die Website lässt sich vollständig mit der Tastatur bedienen. Der Fokus ist immer sichtbar, ein Sprunglink führt direkt zum Inhalt.",
+            "Überschriften, Seitenbereiche, Listen und die Sprache jeder Seite sind im Code ausgezeichnet.",
+            "Die Farbkontraste von Texten und Bedienelementen sind nach WCAG 2.2 AA gemessen – im hellen und im dunklen Farbschema. Bei jeder Farbänderung prüft ein automatischer Test sie neu.",
+            "Die Systemeinstellungen »Mehr Kontrast«, Windows-Kontrastmodus und »Bewegung reduzieren« werden unterstützt.",
+            "Animationen lassen sich auf jeder Seite über »Animationen anhalten« im Fußbereich stoppen.",
+            "Bedienelemente auf Touch-Geräten sind mindestens 44 Pixel groß. Die Darstellung ist für Bildschirmbreiten ab 360 Pixel geprüft.",
+            "Das Kontaktformular hat sichtbare Beschriftungen, Fehlermeldungen direkt am Feld und kommt ohne Rätselaufgaben (CAPTCHA) aus.",
+            "Links im Fließtext sind unterstrichen und damit nicht nur an der Farbe erkennbar."
+          ]
+        },
+        {
+          "heading": "Bekannte Einschränkungen",
+          "list": [
+            "Impressum, Datenschutzerklärung und diese Erklärung gibt es nur auf Deutsch.",
+            "Die Punktwolken-Animationen sind Schmuck und für Screenreader ausgeblendet. Was sie zeigen, steht zusätzlich als Text auf der Seite.",
+            "TODO: Ergebnisse der eigenen Prüfung ergänzen oder diesen Punkt löschen."
+          ]
+        },
+        {
+          "heading": "Barriere melden",
+          "paragraphs": ["Ist Ihnen eine Barriere aufgefallen, oder brauchen Sie einen Inhalt in anderer Form? Schreiben Sie mir an [{brand.email}](mailto:{brand.email}) oder über das [Kontaktformular]({home}#kontakt). Bitte nennen Sie die Seite und beschreiben Sie kurz, was nicht funktioniert hat."]
+        },
+        {
+          "heading": "Wie diese Erklärung entstanden ist",
+          "paragraphs": [
+            "Die Angaben beruhen auf automatischen Prüfungen, die bei jeder Änderung der Website laufen – unter anderem Kontraste, Überschriften, Beschriftungen und die Darstellung in sieben Bildschirmbreiten von 360 bis 1920 Pixel –, sowie auf einer eigenen Prüfung.",
+            "TODO: Art und Datum der eigenen Prüfung ergänzen, z. B. »Prüfung mit NVDA, VoiceOver und Tastatur im November 2026«."
+          ]
+        }
+      ],
+      "updatedLabel": "Stand: TODO: Datum der Erklärung, z. B. »November 2026«"
+    },
+
+    "sentences": {
+      "dpa": "Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.",
+      "mailOwn": "Das Formular wird verschlüsselt (HTTPS) an meinen Server übertragen. Dort übergibt es ein Skript über eine verschlüsselte Verbindung meinem eigenen Mailserver, der Ihre Anfrage als E-Mail in mein Postfach zustellt. Weitere Dienstleister sind am Versand nicht beteiligt; außerhalb des Postfachs werden die Formulareingaben nicht gespeichert. Der Mailserver protokolliert zur Sicherheit und Fehlersuche Verbindungsdaten ein- und ausgehender E-Mails (beteiligte Server und deren IP-Adressen, Absender- und Empfängeradresse, Zeitpunkt, Ergebnis der Spam-Prüfung) und löscht diese Protokolle {hosting.mailLogRetention}.",
+      "mailHoster": "Das Formular wird verschlüsselt (HTTPS) an meinen Webserver übertragen und von dort über den Mailserver meines Hosters als E-Mail an mein Postfach weitergeleitet. Auf dem Webserver selbst werden die Formulareingaben nicht gespeichert. Weitere Dienstleister sind am Versand nicht beteiligt.",
+      "mailboxOwn": "Das Postfach, in dem Ihre Anfrage eingeht, betreibe ich selbst auf diesem Server.",
+      "mailboxHoster": "Mein E-Mail-Postfach, in dem Ihre Anfrage eingeht, wird bereitgestellt von: {hosting.mailbox}."
+    }
+  }
+}

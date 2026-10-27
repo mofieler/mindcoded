@@ -1,0 +1,46 @@
+/**
+ * Liste mit Akzentpunkten (Ablauf »Was den Aufwand bestimmt«, Leistungsseiten, Case Study).
+ *
+ *   .check-list--muted  zurückgenommen: grauer Text, Punkt als Umriss (z. B. »Bewusst weggelassen«)
+ */
+
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--color-ink);
+}
+
+.check-list li {
+  position: relative;
+  padding-left: var(--space-6);
+}
+
+.check-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.check-list--muted {
+  color: var(--color-muted);
+}
+
+.check-list--muted li::before {
+  background: transparent;
+  border: 1.5px solid var(--color-dim);
+}
+
+@media (--forced-colors) {
+  .check-list li::before {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}

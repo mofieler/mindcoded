@@ -1,0 +1,50 @@
+/**
+ * Druck – nur Inhalt: keine Bedienelemente und Animationen, alle Panels offen,
+ * schwarz auf weiß.
+ */
+
+@media print {
+  canvas,
+  .skip-link,
+  .progress-bar,
+  .desktop-nav,
+  .header-controls,
+  .mobile-controls,
+  .hero-footer-bar,
+  .services-stage-container,
+  .contact-form-col,
+  .mobile-fab-btn,
+  .mobile-overlay-menu,
+  .service-visual,
+  .dev-badge {
+    display: none !important;
+  }
+
+  body,
+  .contact-section,
+  .site-footer,
+  .service-cta-card {
+    background: white !important;
+    color: black !important;
+  }
+
+  .site-header {
+    position: static !important;
+    transform: none !important;
+  }
+
+  .hero-section {
+    min-height: 0;
+  }
+
+  [data-rv],
+  .accordion-panel {
+    opacity: 1 !important;
+    transform: none !important;
+    grid-template-rows: 1fr !important;
+  }
+
+  .accordion-panel-inner {
+    visibility: visible !important;
+  }
+}

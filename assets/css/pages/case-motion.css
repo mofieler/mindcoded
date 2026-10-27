@@ -1,0 +1,58 @@
+/**
+ * Case Study – Bewegung, die über das Einblenden hinausgeht. Alles ist Zusatz: Ohne Unterstützung,
+ * ohne JavaScript oder bei »Bewegung reduzieren« steht der Inhalt ruhig und vollständig da.
+ *
+ *   gestaffelt     Boxen einer Reihe (Kurzüberblick, Karten, Kennzahlen, Gruppen, Legende)
+ *                  erscheinen kurz nacheinander statt alle zugleich
+ *   scrollgekoppelt (CSS animation-timeline, Chromium und Safari; sonst ohne Effekt):
+ *                  Hauptbild setzt sich beim Hineinscrollen, Bilder im Streifen gleiten beim
+ *                  Wischen herein
+ */
+
+.case-glance-item,
+.case-block .card,
+.case-stat,
+.case-group,
+.case-split-item,
+.case-swatch {
+  transition: opacity 700ms ease, transform 900ms var(--ease-out);
+}
+
+:is(.case-glance-item, .case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch):nth-child(2) { transition-delay: 90ms; }
+:is(.case-glance-item, .case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch):nth-child(3) { transition-delay: 180ms; }
+:is(.case-glance-item, .case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch):nth-child(4) { transition-delay: 270ms; }
+:is(.case-glance-item, .case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch):nth-child(5) { transition-delay: 360ms; }
+:is(.case-glance-item, .case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch):nth-child(6) { transition-delay: 450ms; }
+:is(.case-glance-item, .case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch):nth-child(7) { transition-delay: 540ms; }
+
+.js .case-glance:not(.is-revealed) .case-glance-item,
+.js .case-block:not(.is-revealed) :is(.case-block .card, .case-stat, .case-group, .case-split-item, .case-swatch) {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+@keyframes case-settle {
+  from { transform: scale(1.06); }
+  to { transform: none; }
+}
+
+@keyframes case-shot-in {
+  from { opacity: 0.4; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (--motion-ok) {
+    .case-hero-figure img {
+      animation: case-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+
+    .case-shot {
+      animation: case-shot-in linear both;
+      animation-timeline: view(inline);
+      animation-range: entry 0% entry 90%;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+/**
+ * Windows-Kontrastmodus – seitenweite Regeln. Bausteine mit eigenen Anpassungen (Rahmen für
+ * Buttons, Punkte als Systemfarbe) regeln das in ihrer eigenen Datei.
+ */
+
+@media (--forced-colors) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+
+  /* Punktwolken tragen keine Information und wären in Systemfarben nur Rauschen */
+  canvas {
+    display: none;
+  }
+}

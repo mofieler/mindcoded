@@ -1,0 +1,42 @@
+/**
+ * Reset – gleicht Browser-Vorgaben an. Steht in der ersten Ebene: Jede andere Regel gewinnt,
+ * außer [hidden] (ausgeblendet bleibt ausgeblendet).
+ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}

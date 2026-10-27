@@ -1,0 +1,66 @@
+/**
+ * Über mich – Einleitung mit Anfrage-Button, Personenkarte (nur mit echten Angaben) und Gründe
+ * für die Zusammenarbeit als Karten (components/card.css, auf Handy/Tablet wischbar).
+ */
+
+.about-cta {
+  margin-top: var(--space-7);
+}
+
+.person-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-fluid-m);
+  align-items: center;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-line);
+}
+
+.person-photo {
+  width: clamp(128px, 15vw, 200px); /* Quelle 320 px – größer erst mit hochauflösendem Porträt */
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.person-name {
+  font-size: var(--text-title-sm);
+  letter-spacing: -0.015em;
+}
+
+.person-role {
+  margin-top: var(--space-1-5);
+  color: var(--color-dim);
+}
+
+.person-bio {
+  margin-top: var(--space-3-5);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--color-muted);
+  max-width: 62ch;
+}
+
+@media (--small) {
+  .person-card { grid-template-columns: 1fr; }
+}
+
+.about-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-fluid-l);
+}
+
+.about-reasons-title {
+  font-size: var(--text-title-xs);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.about-reasons-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}

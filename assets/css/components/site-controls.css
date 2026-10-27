@@ -1,0 +1,78 @@
+/**
+ * Seitenweite Bedienelemente – im Header und im Mobilmenü:
+ *
+ *   .theme-toggle-btn  Farbschema hell/dunkel (ohne JavaScript ausgeblendet)
+ *   .lang-switcher     Sprachwahl (DE/EN)
+ *
+ * »Animationen anhalten« steht im Footer (footer.css).
+ */
+
+.theme-toggle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  background: var(--color-chip);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--color-card);
+  border-color: var(--color-ink);
+}
+
+.theme-dial {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-ink);
+  background: linear-gradient(90deg, var(--color-ink) 50%, transparent 50%);
+  transition: transform 600ms var(--ease-in-out);
+}
+
+.lang-switcher {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-chip);
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-pill);
+  color: var(--color-muted);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.lang-btn:hover {
+  color: var(--color-accent-text);
+}
+
+.lang-btn.is-active,
+.lang-btn.is-active:hover {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.no-js .theme-toggle-btn {
+  display: none;
+}
+
+/* Fingerbedienung: Ziele mindestens 44 px hoch */
+@media (--coarse) {
+  .lang-btn { min-height: 40px; padding: 0 var(--space-3-5); }
+  .theme-toggle-btn { width: 44px; height: 44px; }
+}
+
+@media (--forced-colors) {
+  .lang-btn {
+    border: 1px solid ButtonText;
+  }
+}

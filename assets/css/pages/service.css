@@ -1,0 +1,192 @@
+/**
+ * Leistungsseite – Brotkrumen, Kopf mit Punktwolke, Inhaltsblöcke (Titel links, Text rechts),
+ * passende Projekte, Abschluss-Karte auf dunklem Grund, weitere Leistungen.
+ */
+
+.service-page {
+  padding: var(--space-fluid-m) var(--pad-x) var(--space-section);
+}
+
+.service-page-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-xl);
+}
+
+/* Brotkrumen und Kopf rücken näher zusammen als die übrigen Blöcke */
+.service-page-inner > .breadcrumb + .service-hero {
+  margin-top: calc(-1 * var(--space-fluid-m));
+}
+
+.service-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-fluid-xl);
+  align-items: center;
+}
+
+.service-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.service-hero-text .section-eyebrow {
+  margin-bottom: 0;
+}
+
+.service-page-title {
+  font-size: var(--text-display);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.service-page-lead {
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: 560px;
+  text-wrap: pretty;
+}
+
+.service-visual {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: 560px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-line);
+  background-color: var(--color-card);
+  overflow: hidden;
+}
+
+.no-js .service-visual {
+  display: none;
+}
+
+.service-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Inhaltsblöcke */
+.service-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-5) var(--space-fluid-xl);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--color-line);
+}
+
+.service-block-title {
+  font-size: var(--text-title-sm);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.service-block-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: var(--text-xl);
+  line-height: 1.65;
+  max-width: 72ch;
+}
+
+.service-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-7);
+  counter-reset: none;
+}
+
+.service-steps li {
+  display: flex;
+  gap: var(--space-3-5);
+  align-items: baseline;
+  padding-top: var(--space-3-5);
+  border-top: 1px solid var(--color-line);
+}
+
+/* Passende Projekte */
+.related-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2-5);
+  height: 100%;
+  padding: var(--space-5);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-line);
+  background: var(--color-card);
+  transition: border-color 200ms ease;
+}
+
+.related-card:hover {
+  color: inherit;
+  border-color: var(--color-ink);
+}
+
+.related-name {
+  font-size: var(--text-3xl);
+}
+
+.related-meta {
+  font-size: var(--text-md);
+  color: var(--color-muted);
+}
+
+/* Abschluss-Karte */
+.service-cta-card {
+  --color-focus: var(--color-accent-light);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: var(--space-fluid-l);
+  border-radius: var(--radius-card-lg);
+  background-color: var(--color-navy);
+  color: var(--color-navy-fg);
+  color-scheme: dark;
+}
+
+.service-cta-title {
+  font-size: var(--text-title);
+  text-wrap: balance;
+}
+
+.service-cta-text {
+  font-size: var(--text-xl);
+  line-height: 1.55;
+  color: var(--color-navy-muted);
+  max-width: 560px;
+}
+
+/* Weitere Leistungen */
+.service-others ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2-5);
+  margin-top: var(--space-5);
+}
+
+@media (--narrow) {
+  .service-hero,
+  .service-block { grid-template-columns: 1fr; }
+  .service-visual { aspect-ratio: 16 / 10; max-height: 420px; }
+}
+
+@media (--small) {
+  .service-steps { grid-template-columns: 1fr; }
+}

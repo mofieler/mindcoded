@@ -1,0 +1,14 @@
+# Ruff: Linter für den Python-Generator und die Werkzeuge (python tools/check.py, CI).
+# Installation lokal: uv tool install ruff  (oder pip install --user ruff)
+target-version = "py313"
+line-length = 140
+extend-exclude = ["dist", "dist-dev", "dist-server"]
+
+[lint]
+# Fehler (E/F/W), Importe sortiert (I), typische Fallen (B), moderne Syntax (UP), Vereinfachungen (SIM)
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+# E501: HTML-Vorlagen als f-Strings sind bewusst lang (eine Zeile = ein Element) – Länge prüft das Review.
+ignore = ["E501"]
+
+[lint.isort]
+known-first-party = ["mcsite", "tests"]

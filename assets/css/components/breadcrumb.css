@@ -1,0 +1,41 @@
+/**
+ * Brotkrumen – sichtbarer Seitenpfad auf Unterseiten; letzter Eintrag ohne Link.
+ */
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1-5) var(--space-2-5);
+  color: var(--color-dim);
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb li + li::before {
+  content: "/";
+  margin-right: var(--space-2-5);
+  color: var(--color-dim);
+}
+
+.breadcrumb a {
+  display: inline-block;
+  padding: var(--space-1) 0;
+  color: var(--color-muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-ink);
+}
+
+.breadcrumb [aria-current="page"] {
+  padding: var(--space-1) 0;
+  color: var(--color-ink);
+}
+
+@media (--coarse) {
+  .breadcrumb a { padding: var(--space-3) 0; }
+}

@@ -1,0 +1,284 @@
+/**
+ * Leistungen – Akkordeon links, animierte Bühne rechts (mobil: Bühne oben).
+ *
+ * .service-accordion-item.is-active markiert die Leistung, die die Bühne gerade zeigt;
+ * .is-open das aufgeklappte Panel (beides setzt app.js). Mechanik: accordion.css.
+ */
+
+.services-section {
+  padding-top: var(--space-section-top);
+}
+
+.services-extra {
+  margin-top: var(--space-fluid-l);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+  max-width: 46em;
+  font-size: var(--text-base);
+  color: var(--color-muted);
+}
+
+.services-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-fluid-xl);
+  align-items: start;
+}
+
+/* Akkordeon */
+.services-accordion-list {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.service-accordion-item {
+  border-top: 1px solid var(--color-line);
+}
+
+.service-toggle-btn {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-fluid-s) 0;
+  text-align: left;
+  border-radius: 0;
+}
+
+.service-num {
+  color: var(--color-dim);
+  transition: color 300ms ease;
+}
+
+.service-accordion-item.is-active .service-num {
+  color: var(--color-accent-text);
+}
+
+.service-item-title {
+  font-weight: 700;
+  font-size: var(--text-title-xs);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--color-dim);
+  transition: color 300ms ease, transform 500ms var(--ease-out);
+}
+
+.service-accordion-item.is-active .service-item-title,
+.service-toggle-btn:hover .service-item-title,
+.no-js .service-item-title {
+  color: var(--color-ink);
+}
+
+.service-accordion-item.is-active .service-item-title {
+  transform: translateX(10px);
+}
+
+.service-content-body {
+  padding: 0 0 var(--space-8) var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.service-accordion-item.is-open .service-content-body,
+.no-js .service-content-body {
+  opacity: 1;
+}
+
+.service-desc {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--color-muted);
+  max-width: 520px;
+  text-wrap: pretty;
+}
+
+.service-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.service-tag-pill {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+}
+
+.service-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  align-items: center;
+}
+
+.service-more-link,
+.service-ask-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  min-height: 36px;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.service-more-link {
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-muted);
+}
+
+.service-ask-link {
+  color: var(--color-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.service-more-link:hover,
+.service-ask-link:hover {
+  color: var(--color-accent-text);
+}
+
+/* Bühne mit Punktwolke und Geschichte in vier Szenen */
+.services-stage-container {
+  position: sticky;
+  top: calc(var(--header-float-h) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+  align-items: flex-start;
+}
+
+.no-js .services-stage-container {
+  display: none;
+}
+
+.no-js .services-main-grid {
+  grid-template-columns: minmax(0, 760px);
+}
+
+.services-stage-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 76vh;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-line);
+  background-color: var(--color-card);
+  overflow: hidden;
+  transition: background-color var(--dur-theme) ease, border-color var(--dur-theme) ease;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.services-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.services-card-top {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+.mobile-swipe-hint {
+  display: none;
+  position: absolute;
+  top: 46px;
+  right: 20px;
+  font-size: var(--text-2xs);
+  letter-spacing: 0.05em;
+  color: var(--color-accent-text);
+  background: var(--color-card);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line);
+  pointer-events: none;
+  animation: pulseHint 2.4s ease-in-out infinite;
+}
+
+.motion-paused .mobile-swipe-hint {
+  animation: none;
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+.services-card-bottom {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+
+.story-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.story-scene-title {
+  font-weight: 700;
+  font-size: var(--text-lead);
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.story-scene-counter {
+  color: var(--color-muted);
+}
+
+.story-bars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1-5);
+}
+
+.story-bar-track {
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--color-line);
+  overflow: hidden;
+}
+
+.story-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-accent);
+}
+
+@media (--mobile) {
+  .services-main-grid { grid-template-columns: 1fr; }
+  .services-stage-container { position: relative; top: 0; order: -1; }
+  .mobile-swipe-hint { display: inline-block; }
+  .service-content-body { padding: 0 0 var(--space-6) var(--space-5); }
+  .services-stage-card { max-height: 64vh; }
+}
+
+@media (--coarse) {
+  .service-more-link,
+  .service-ask-link { min-height: 44px; }
+}
+
+@media (--contrast-more) {
+  .service-item-title { color: var(--color-ink); }
+}

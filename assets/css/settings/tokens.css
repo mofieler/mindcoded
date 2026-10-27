@@ -1,0 +1,226 @@
+/**
+ * Design-Tokens – die einzige Stelle für Farben, Maße, Ebenen und Bewegung.
+ *
+ * Farben in zwei Stufen:
+ *   1. Palette – rohe Werte, werden nur hier verwendet.
+ *   2. Rollen  – was eine Farbe bedeutet (Grund, Text, Linie …). Module nutzen nur Rollen.
+ * Das dunkle Schema und »Mehr Kontrast« weisen den Rollen andere Palettenwerte zu.
+ *
+ * Außerdem gelesen von: Build (Manifest, theme-color), tools/make_icons.py,
+ * tools/make_social.py, JavaScript (tokens.js) und dem Kontrast-Test (tests/test_build.py).
+ * Farbwerte (#…, rgb()) außerhalb dieser Datei lehnt ein Test ab.
+ */
+
+:root {
+  /* 1. Palette ------------------------------------------------------------ */
+  --sand-50: #F8F6F1;
+  --sand-100: #F3F1EC;
+  --sand-200: #ECE8E0;
+  --sand-300: #D9D5CC;
+
+  --navy-950: #0A101F;
+  --navy-900: #0F1729;
+  --navy-850: #141E35;
+  --navy-800: #1A2540;
+  --navy-750: #263456;
+  --navy-700: #2C3853;
+
+  --slate-600: #5A6178;
+  --slate-550: #636B85;
+  --slate-500: #64708E;
+  --slate-450: #7F88A0;
+  --slate-400: #8A8F9C;
+  --slate-350: #8C95AC;
+  --slate-300: #A7AEC0;
+
+  --blue-700: #3D5BA9;
+  --blue-500: #5B7FD6;
+  --blue-300: #8CA5E2;
+  --blue-250: #9DB2EA;
+  --blue-200: #A0B5E7;
+  --blue-150: #A5B9E8;
+
+  --coral-200: #FFB4A8;
+  --amber-200: #FFE08A;
+  --amber-800: #8A6A00;
+  --white: #FFFFFF;
+
+  /* 2. Rollen – helles Schema (Standard), Kontraste gegen --color-bg gemessen */
+  color-scheme: light;
+  --color-bg: var(--sand-100);
+  --color-ink: var(--navy-800);            /* 13,5:1 */
+  --color-muted: var(--slate-600);         /* 5,5:1 */
+  --color-dim: var(--slate-550);           /* 4,7:1 – kleine Labels */
+  --color-line: var(--sand-300);           /* nur dekorative Linien */
+  --color-card: var(--sand-50);
+  --color-chip: rgba(26, 37, 64, 0.05);
+  --color-btn: var(--navy-800);
+  --color-btn-fg: var(--sand-100);
+  --color-btn-hover: var(--navy-750);
+  --color-track: rgba(26, 37, 64, 0.15);
+  --color-overlay: var(--sand-200);
+  --color-nav-bar: rgba(243, 241, 236, 0.9);
+
+  --color-accent: var(--blue-500);         /* Flächen, große Schrift, Grafik (3,4:1) */
+  --color-accent-light: var(--blue-250);   /* Akzent auf dunklem Grund */
+  --color-accent-soft: var(--blue-300);    /* dritte Punktfarbe der Punktwolken */
+  --color-accent-soft-navy: var(--blue-150);
+  --color-accent-text: var(--blue-700);    /* kleiner Text in Akzentfarbe (5,7:1) */
+  --color-focus: var(--blue-700);          /* Fokusrahmen (5,7:1) */
+  --color-on-accent: var(--white);         /* Pfeile auf Akzentflächen */
+
+  /* Dunkle Bereiche (Kontakt, Footer, Abschluss-Karte) – in beiden Schemata dunkel */
+  --color-navy: var(--navy-900);
+  --color-navy-card: var(--navy-850);
+  --color-navy-panel: rgba(22, 32, 56, 0.55);
+  --color-navy-line: var(--navy-700);      /* dekorativ */
+  --color-navy-field: var(--slate-500);    /* Feldgrenzen, ≥ 3:1 */
+  --color-navy-muted: var(--slate-300);    /* 8:1 */
+  --color-navy-dim: var(--slate-450);      /* 5:1 */
+  --color-navy-fg: var(--sand-200);
+  --color-navy-inverse: var(--sand-200);   /* helle Fläche im dunklen Bereich (Button, Auswahl) */
+  --color-navy-inverse-fg: var(--navy-900);
+  --color-navy-inverse-hover: var(--white);
+  --color-navy-status: rgba(236, 232, 224, 0.06);
+  --color-error-navy: var(--coral-200);
+  --color-error-navy-soft: rgba(255, 180, 168, 0.08);
+
+  /* Entwicklungs-Hinweise (nur im Entwicklungs-Build sichtbar) */
+  --color-todo: var(--amber-200);
+  --color-todo-ink: var(--navy-800);
+  --color-todo-line: var(--amber-800);
+
+  /* Schrift ---------------------------------------------------------------- */
+  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Arial Narrow', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --text-label: var(--text-xs);
+  --text-mono: var(--text-xs);
+
+  /* Schriftgrößen – feste Stufen (Bedienung, Beschriftung, Fließtext) */
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 14px;
+  --text-base: 15px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 20px;
+  --text-3xl: 24px;
+  /* Schriftgrößen – fließende Rollen (wachsen mit der Breite) */
+  --text-lead-sm: clamp(16px, 1.2vw, 18px);
+  --text-lead: clamp(17px, 1.6vw, 22px);
+  --text-title-xs: clamp(20px, 2vw, 30px);
+  --text-title-sm: clamp(24px, 2.6vw, 38px);
+  --text-title: clamp(30px, 3.6vw, 52px);
+  --text-title-lg: clamp(34px, 4.8vw, 72px);
+  --text-title-xl: clamp(40px, 5vw, 76px);       /* Hero, große Menüpunkte */
+  --text-display: clamp(42px, 7vw, 112px);
+  --text-display-xl: clamp(46px, 9vw, 136px);
+
+  /* Maße ------------------------------------------------------------------- */
+  --content-max: 1440px;                    /* Inhaltsbreite aller Abschnitte */
+  --pad-x: clamp(20px, 5vw, 72px);          /* seitlicher Rand */
+  --space-section: clamp(88px, 10vw, 152px);
+  --space-section-top: var(--space-fluid-2xl);
+
+  /* Abstände – Raster in 4-px-Schritten (Halbschritte für kleine Bedienelemente) */
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-3-5: 14px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  /* Abstände – fließend (mit der Breite) */
+  --space-fluid-xs: clamp(12px, 1.5vw, 20px);
+  --space-fluid-s: clamp(20px, 2.5vw, 32px);
+  --space-fluid-m: clamp(24px, 3vw, 48px);
+  --space-fluid-l: clamp(32px, 4vw, 56px);
+  --space-fluid-xl: clamp(40px, 5vw, 88px);
+  --space-fluid-2xl: clamp(56px, 7vw, 104px);
+  --space-fluid-3xl: clamp(80px, 10vw, 140px);
+  /* Abstände – an der Höhe des Bildschirms (Hero, Vorhang) und Sonderfälle */
+  --space-vh-xs: clamp(10px, 2vh, 18px);
+  --space-vh-s: clamp(18px, 2.6vh, 28px);
+  --space-vh-m: clamp(56px, 7vh, 96px);
+  --space-vh-l: clamp(48px, 10vh, 120px);
+  --space-vh-xl: clamp(96px, 10vh, 120px);
+  --space-inset-media: clamp(12px, 3%, 32px);
+  --space-hero-footer: 150px;
+  --header-h: 82px;                         /* Header über dem Inhalt (oben auf der Seite) */
+  --header-float-h: 64px;                   /* mitlaufender Header beim Scrollen */
+  --case-topbar-h: 65px;                   /* mitlaufende Leiste der Case Study */
+  --case-sticky-top: 104px;                 /* Kapitelüberschrift der Case Study unter der Leiste */
+  --radius-pill: 999px;
+  --radius-card: 20px;
+  --radius-card-lg: 24px;
+
+  /* Ebenen (z-index) – seitenweit; innerhalb eines Bausteins genügen 0–9 ------ */
+  --z-sticky: 10;
+  --z-header: 60;
+  --z-fab: 65;
+  --z-menu: 95;
+  --z-dev: 200;
+  --z-progress: 999;
+  --z-skip: 1000;
+  --z-curtain: 1100;                        /* Vorhang beim Projektwechsel, über allem */
+
+  /* Bewegung --------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.2, 1);
+  --ease-menu: cubic-bezier(0.76, 0, 0.24, 1);
+  --dur-theme: 700ms;
+  --trans-theme: background-color var(--dur-theme) ease, color var(--dur-theme) ease, border-color var(--dur-theme) ease;
+  --shadow-float: 0 10px 30px rgba(15, 23, 41, 0.22);
+}
+
+/* Dunkles Schema – nur Rollen, die sich ändern */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: var(--navy-900);
+  --color-ink: var(--sand-200);
+  --color-muted: var(--slate-300);
+  --color-dim: var(--slate-350);
+  --color-line: var(--navy-700);
+  --color-card: var(--navy-850);
+  --color-chip: rgba(236, 232, 224, 0.07);
+  --color-btn: var(--sand-200);
+  --color-btn-fg: var(--navy-900);
+  --color-btn-hover: var(--white);
+  --color-track: rgba(236, 232, 224, 0.15);
+  --color-overlay: var(--navy-950);
+  --color-nav-bar: rgba(15, 23, 41, 0.9);
+  --color-accent-soft: var(--blue-200);
+  --color-accent-text: var(--blue-250);
+  --color-focus: var(--blue-250);
+  --color-navy: var(--navy-950);
+}
+
+@media (--header-compact) {
+  :root {
+    --header-h: 92px;
+  }
+}
+
+/* Systemeinstellung »Mehr Kontrast«: Zweit- und Labeltexte wie Fließtext, Linien sichtbar */
+@media (--contrast-more) {
+  :root {
+    --color-dim: var(--color-muted);
+    --color-line: var(--slate-400);
+    --color-navy-line: var(--color-navy-field);
+    --color-navy-dim: var(--color-navy-muted);
+  }
+
+  [data-theme="dark"] {
+    --color-line: var(--slate-500);
+  }
+}

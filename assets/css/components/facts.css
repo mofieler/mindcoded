@@ -1,0 +1,28 @@
+/**
+ * Projekt-Steckbrief (Art, Branche, Leistungen, Jahr) – im Projekt-Akkordeon und in der
+ * Case Study.
+ */
+
+.project-facts-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-6);
+}
+
+.fact-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.fact-label {
+  color: var(--color-dim);
+}
+
+.fact-value {
+  font-size: var(--text-base);
+  color: var(--color-ink);
+}

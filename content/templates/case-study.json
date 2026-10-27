@@ -1,0 +1,327 @@
+{
+  "_hinweis": "Vorlage für eine Case Study mit jedem Baustein. Quelle für die Komponenten-Seite (/komponenten/, nur Entwicklungs-Build) und für »python tools/new_project.py <slug>«. Nicht veröffentlicht. Felder und Regeln: docs/CASE-STUDIES.md.",
+  "slug": "neues-projekt",
+  "draft": true,
+  "kind": "client",
+  "shape": 0,
+  "serviceKeys": [
+    "websites"
+  ],
+  "year": "2026",
+  "url": "",
+  "images": [],
+  "de": {
+    "name": "Projektname",
+    "industry": "Branche",
+    "services": "Leistung & Leistung",
+    "tech": "",
+    "summary": "Ein Satz, der das Projekt erklärt: für wen, was, mit welchem Ziel.",
+    "tags": [
+      "Schlagwort",
+      "Technik",
+      "Methode"
+    ],
+    "glance": [
+      {
+        "label": "Aufgabe",
+        "text": "Welches Problem gab es? Ein Satz."
+      },
+      {
+        "label": "Lösung",
+        "text": "Was haben wir gemacht? Ein Satz."
+      },
+      {
+        "label": "Ergebnis",
+        "text": "Was hat sich nachweislich verändert? Ein Satz."
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Ausgangslage",
+        "lead": "Kernsatz des Kapitels – die eine Aussage, die hängen bleiben soll.",
+        "blocks": [
+          {
+            "type": "compare",
+            "columns": [
+              {
+                "title": "Vorher",
+                "muted": true,
+                "items": [
+                  "Was fehlte oder störte",
+                  "Zweiter Punkt",
+                  "Dritter Punkt"
+                ]
+              },
+              {
+                "title": "Ziel",
+                "items": [
+                  "Was erreicht werden sollte",
+                  "Zweiter Punkt",
+                  "Dritter Punkt"
+                ]
+              }
+            ]
+          }
+        ],
+        "more": "Einzelheiten hinter »Mehr dazu«. Leerzeile trennt Absätze.\n\n• Zeilen mit Punkt werden zur Liste\n• zweiter Punkt"
+      },
+      {
+        "heading": "Lösung",
+        "lead": "Kernsatz zur Lösung.",
+        "blocks": [
+          {
+            "type": "cards",
+            "items": [
+              {
+                "title": "Merkmal",
+                "text": "Ein Satz, was es leistet."
+              },
+              {
+                "title": "Merkmal",
+                "text": "Ein Satz, was es leistet."
+              },
+              {
+                "title": "Merkmal",
+                "text": "Ein Satz, was es leistet."
+              }
+            ]
+          },
+          {
+            "type": "quote",
+            "text": "Eine Kernaussage oder Leitfrage.",
+            "source": "Name, Rolle"
+          }
+        ]
+      },
+      {
+        "heading": "Vorgehen",
+        "lead": "Kernsatz zum Vorgehen.",
+        "blocks": [
+          {
+            "type": "steps",
+            "items": [
+              {
+                "title": "Schritt",
+                "text": "kurz erklärt"
+              },
+              {
+                "title": "Schritt",
+                "text": "kurz erklärt"
+              },
+              {
+                "title": "Schritt",
+                "text": "kurz erklärt"
+              },
+              {
+                "title": "Schritt",
+                "text": "kurz erklärt"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Ergebnis",
+        "lead": "Kernsatz zum Ergebnis – nur Belegtes.",
+        "blocks": [
+          {
+            "type": "stats",
+            "items": [
+              {
+                "value": "12",
+                "label": "Beschriftung der Kennzahl"
+              },
+              {
+                "value": "4",
+                "label": "Beschriftung der Kennzahl"
+              }
+            ],
+            "note": "Quelle in Worten, z. B. »Online-Befragung mit 13 Testpersonen«"
+          },
+          {
+            "type": "groups",
+            "suffix": " %",
+            "note": "Online-Befragung mit 13 Testpersonen",
+            "items": [
+              {
+                "title": "Thema A",
+                "value": 92,
+                "label": "stärkste Aussage zu Thema A",
+                "rows": [
+                  {
+                    "label": "weitere Aussage",
+                    "value": 80
+                  }
+                ]
+              },
+              {
+                "title": "Thema B",
+                "value": 85,
+                "label": "stärkste Aussage zu Thema B",
+                "rows": [
+                  {
+                    "label": "weitere Aussage",
+                    "value": 70
+                  }
+                ]
+              },
+              {
+                "title": "Thema C",
+                "value": 77,
+                "label": "stärkste Aussage zu Thema C",
+                "rows": [
+                  {
+                    "label": "weitere Aussage",
+                    "value": 60
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "split",
+            "caption": "Anteile eines Ganzen",
+            "suffix": " %",
+            "items": [
+              {
+                "label": "erster Anteil",
+                "value": 60
+              },
+              {
+                "label": "zweiter Anteil",
+                "value": 40
+              }
+            ],
+            "note": "Summe höchstens 100"
+          },
+          {
+            "type": "scale",
+            "caption": "So bewerteten Testpersonen …",
+            "min": -3,
+            "max": 3,
+            "neutral": [
+              -0.8,
+              0.8
+            ],
+            "neutralLabel": "neutraler Bereich",
+            "items": [
+              {
+                "label": "Verständlich und einfach",
+                "value": 1.5,
+                "valueLabel": "deutlich positiv"
+              },
+              {
+                "label": "Spannend und emotional",
+                "value": 1.9,
+                "valueLabel": "deutlich positiv"
+              }
+            ],
+            "note": "Standardisierter Fragebogen (UEQ-S) · 15 Testpersonen",
+            "axis": [
+              "negativ",
+              "neutral",
+              "positiv"
+            ]
+          },
+          {
+            "type": "bars",
+            "suffix": " %",
+            "items": [
+              {
+                "label": "Aussage",
+                "value": 84
+              },
+              {
+                "label": "Aussage",
+                "value": 62
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Stand",
+        "lead": "Kernsatz zum Stand.",
+        "blocks": [
+          {
+            "type": "status",
+            "items": [
+              {
+                "title": "Umgesetzt",
+                "state": "done"
+              },
+              {
+                "title": "In Arbeit",
+                "state": "active"
+              },
+              {
+                "title": "Geplant",
+                "state": "planned"
+              }
+            ]
+          },
+          {
+            "type": "palette",
+            "caption": "Farbwelt",
+            "items": [
+              {
+                "hex": "#1a2540",
+                "name": "Name",
+                "role": "Rolle der Farbe"
+              },
+              {
+                "hex": "#5b7fd6",
+                "name": "Name",
+                "role": "Rolle der Farbe"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "text": "Freier Text, wenn kein Baustein passt.\n\n• Aufzählung\n• Aufzählung"
+          }
+        ]
+      }
+    ],
+    "takeaway": "Ein Satz: Was hat die Leserin oder der Leser davon? (erscheint über »Erstgespräch anfragen«)"
+  },
+  "en": {
+    "name": "Project name",
+    "industry": "Industry",
+    "services": "Service & service",
+    "tech": "",
+    "summary": "One sentence explaining the project: for whom, what, with which goal.",
+    "tags": [
+      "Keyword",
+      "Technology",
+      "Method"
+    ],
+    "glance": [
+      {
+        "label": "Task",
+        "text": "What was the problem? One sentence."
+      },
+      {
+        "label": "Solution",
+        "text": "What did we do? One sentence."
+      },
+      {
+        "label": "Outcome",
+        "text": "What demonstrably changed? One sentence."
+      }
+    ],
+    "sections": [
+      {
+        "heading": "Starting point",
+        "lead": "Key sentence of the chapter.",
+        "blocks": [
+          {
+            "type": "text",
+            "text": "Replace with the English version of the German blocks."
+          }
+        ]
+      }
+    ],
+    "takeaway": "One sentence: what is in it for the reader? (shown above the call to action)"
+  }
+}

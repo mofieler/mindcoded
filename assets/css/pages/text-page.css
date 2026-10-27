@@ -1,0 +1,89 @@
+/**
+ * Textseiten – Impressum, Datenschutz und Meldungen (Danke, Fehler, 404).
+ */
+
+.legal-page,
+.message-page {
+  padding: var(--space-fluid-xl) var(--pad-x) var(--space-fluid-3xl);
+}
+
+.legal-title,
+.message-title {
+  font-size: var(--text-display);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+/* Rechtsseiten */
+.legal-container {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.legal-container > .draft-badge {
+  margin-bottom: var(--space-5);
+}
+
+.legal-intro {
+  margin: var(--space-5) 0 var(--space-10);
+  font-size: var(--text-xl);
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.legal-section {
+  padding: var(--space-7) 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.legal-section h2 {
+  font-family: var(--font-display);
+  font-stretch: 84%;
+  font-weight: 700;
+  font-size: var(--text-3xl);
+  line-height: 1.2;
+  margin-bottom: var(--space-3-5);
+}
+
+.legal-section p,
+.legal-section li {
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+.legal-section p + p,
+.legal-section p + ul,
+.legal-section ul + p {
+  margin-top: var(--space-3);
+}
+
+.legal-section ul {
+  list-style: disc;
+  padding-left: 1.3em;
+}
+
+.legal-updated {
+  margin-top: var(--space-8);
+  color: var(--color-dim);
+}
+
+/* Meldungen */
+.message-container {
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.message-text {
+  font-size: var(--text-xl);
+  line-height: 1.6;
+  color: var(--color-muted);
+}

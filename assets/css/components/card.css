@@ -1,0 +1,30 @@
+/**
+ * Karte: kleine Box mit Titel und einem Satz (tools/mcsite/components.py › card).
+ * Genutzt für Bausteine der Case Study und die Gründe im Abschnitt »Über mich«.
+ *
+ *   .card > .card-title + .card-text
+ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background-color: var(--color-card);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.card-text {
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--color-muted);
+  text-wrap: pretty;
+}

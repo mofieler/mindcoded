@@ -1,0 +1,236 @@
+/**
+ * Case Study – Messwerte (Erzeugung: tools/mcsite/blocks.py). Werte stehen immer auch als Text
+ * daneben; die Grafik ist eine Lesehilfe. Balken füllen sich beim Hineinscrollen, Zahlen zählen
+ * hoch (projects.js › initCountUp).
+ *
+ *   .case-bars       Balken je Aussage (auch kompakt in .case-group)
+ *   .case-scale      Werte auf einer Skala mit Nullpunkt, neutrale Zone hinterlegt (z. B. UEQ)
+ *   .case-split      Anteile eines Ganzen: ein geteilter Balken, große Werte in der Legende
+ *   .case-groups     Aussagen nach Themen: je Box eine Leitzahl und Einzelwerte (Handy/Tablet wischbar)
+ */
+
+/* Balken */
+.case-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.case-bar,
+.case-scale-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+}
+
+.case-bar-label {
+  font-size: var(--text-base);
+  line-height: 1.4;
+}
+
+.case-bar-value {
+  font-size: var(--text-sm);
+}
+
+.case-bar-track,
+.case-scale-track {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-pill);
+}
+
+.case-bar-bg {
+  fill: var(--color-track);
+}
+
+.case-bar-fill,
+.case-scale-fill,
+.case-split-seg {
+  fill: var(--color-accent);
+  transform-box: fill-box;
+  transform-origin: left center;
+  transition: transform 1200ms var(--ease-out) 150ms;
+}
+
+.case-bar:nth-child(2) .case-bar-fill { transition-delay: 240ms; }
+.case-bar:nth-child(3) .case-bar-fill { transition-delay: 330ms; }
+.case-bar:nth-child(4) .case-bar-fill { transition-delay: 420ms; }
+
+.case-bars--compact {
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.case-bars--compact .case-bar-label {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.case-bars--compact .case-bar-track {
+  height: 4px;
+}
+
+/* Skala */
+.case-scale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.case-scale-track {
+  height: 10px;
+}
+
+.case-scale-track .case-bar-bg {
+  fill: var(--color-chip);
+}
+
+.case-scale-zone {
+  fill: var(--color-track);
+}
+
+.case-scale-fill.is-negative {
+  transform-origin: right center;
+}
+
+.case-scale-zero {
+  fill: var(--color-ink);
+}
+
+.case-scale-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc(var(--space-1-5) * -1);
+  font-size: var(--text-xs);
+  color: var(--color-dim);
+}
+
+.case-scale-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.case-scale-swatch {
+  width: 18px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--color-track);
+}
+
+/* Anteile */
+.case-split-bar {
+  width: 100%;
+  height: 14px;
+  border-radius: var(--radius-pill);
+}
+
+.case-split-seg--2 {
+  fill: var(--color-accent-soft);
+  transition-delay: 450ms;
+}
+
+.case-split-seg--3 {
+  fill: var(--color-dim);
+  transition-delay: 650ms;
+}
+
+.case-split-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-2);
+}
+
+.case-split-item {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  column-gap: var(--space-3);
+  row-gap: var(--space-1-5);
+}
+
+.case-split-dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 0.9em;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.case-split-dot--2 { background-color: var(--color-accent-soft); }
+.case-split-dot--3 { background-color: var(--color-dim); }
+
+.case-split-value {
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.case-split-label {
+  grid-column: 2;
+  font-size: var(--text-md);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+/* Themen-Gruppen */
+.case-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.case-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-6) var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background-color: var(--color-card);
+}
+
+.case-group-title {
+  color: var(--color-accent-text);
+}
+
+.case-group-figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.case-group-value {
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.case-group-label {
+  font-size: var(--text-base);
+  line-height: 1.45;
+  color: var(--color-muted);
+  text-wrap: pretty;
+}
+
+/* Aufbau beim Hineinscrollen */
+.js .case-block:not(.is-revealed) .case-bar-fill,
+.js .case-block:not(.is-revealed) .case-scale-fill,
+.js .case-block:not(.is-revealed) .case-split-seg {
+  transform: scaleX(0);
+}
+
+@media (--forced-colors) {
+  .case-bar-fill,
+  .case-scale-fill,
+  .case-split-seg { fill: CanvasText; }
+  .case-split-dot { forced-color-adjust: none; background-color: CanvasText; }
+}

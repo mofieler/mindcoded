@@ -1,0 +1,558 @@
+{
+  "_hinweis": "Leistungen für Startseite und Leistungsseiten – beide Sprachen nebeneinander. key: sprachneutraler Schlüssel (Projekte verweisen darauf über serviceKeys). topic: vorausgewählter Punkt im Kontaktformular. slug: Adresse der Leistungsseite je Sprache. page.draft: true = Leistungsseite nur im Entwicklungs-Build. stories: genau 4 Schritte (Animation). Schema: README.md › Leistungen pflegen.",
+  "items": [
+    {
+      "key": "design",
+      "topic": "redesign",
+      "slug": {
+        "de": "gestaltung-nutzerfuehrung",
+        "en": "design-usability"
+      },
+      "page": {
+        "draft": false
+      },
+      "de": {
+        "title": "Design & Nutzerführung",
+        "cap": "UX/UI-Design",
+        "desc": "Oberflächen, die sich von selbst erklären: Besucher finden schnell, was sie suchen, und Ihr Auftritt wirkt auf jedem Gerät wie aus einem Guss.",
+        "tags": [
+          "Klickbare Entwürfe vor dem Bau",
+          "Tests mit Ihrer Zielgruppe",
+          "Einheitliches Erscheinungsbild",
+          "Prüfung bestehender Oberflächen"
+        ],
+        "stories": [
+          "1. Verstehen, was Nutzer brauchen",
+          "2. Seitenstruktur skizzieren",
+          "3. Gestaltung festlegen",
+          "4. Klickbaren Entwurf testen"
+        ],
+        "page": {
+          "description": "UX- und UI-Design aus Stuttgart: klare Nutzerführung für Websites, Apps und Buchungssysteme – an echten Menschen getestet, bevor programmiert wird.",
+          "intro": [
+            "Gute Gestaltung erkennt man daran, dass niemand über sie nachdenken muss. Wer Ihre Website oder App öffnet, soll sofort verstehen, wo es langgeht – ob er einen Termin bucht, Angebote vergleicht oder Sie anrufen möchte.",
+            "Deshalb beginne ich nicht mit Farben, sondern mit den Menschen, die Ihr Angebot nutzen: Was wollen sie erledigen, wo zögern sie heute? Daraus entsteht ein klickbarer Entwurf, den Sie und ausgewählte Testpersonen ausprobieren, bevor eine Zeile Code geschrieben ist. Änderungen kosten in diesem Stadium Minuten statt Tage.",
+            "Am Ende steht ein Erscheinungsbild mit festen Regeln für Schrift, Farben und Bausteine – damit auch spätere Seiten aussehen, als wären sie von Anfang an dabei gewesen."
+          ],
+          "forWhom": [
+            "Unternehmen, deren Website zwar existiert, aber kaum Anfragen bringt",
+            "Teams, die eine App oder ein Kundenportal planen und vorher sicher sein wollen, dass es verstanden wird",
+            "Gründerinnen und Gründer, die einen professionellen ersten Eindruck brauchen",
+            "Agenturen und Entwicklerteams, die Unterstützung bei Konzept und Gestaltung suchen"
+          ],
+          "faq": [
+            {
+              "q": "Was ist ein klickbarer Entwurf?",
+              "a": "Eine Vorschau Ihrer Website oder App, die sich wie das fertige Produkt anklicken lässt – nur ohne Programmierung dahinter. Sie und Ihre Kundschaft probieren Abläufe aus und geben Rückmeldung, bevor Entwicklungskosten entstehen."
+            },
+            {
+              "q": "Lohnt sich das auch für eine kleine Website?",
+              "a": "Ja, im passenden Umfang. Bei einer kleinen Website genügt oft ein kompakter Entwurf der wichtigsten Seiten. Wie viel Konzeption sinnvoll ist, klären wir im Erstgespräch."
+            },
+            {
+              "q": "Wie testen Sie mit Nutzern?",
+              "a": "Personen aus Ihrer Zielgruppe lösen typische Aufgaben im Entwurf, etwa einen Termin buchen. Schon wenige Tests zeigen erfahrungsgemäß die meisten Stolpersteine."
+            },
+            {
+              "q": "Arbeiten Sie mit meinem bestehenden Logo und meinen Farben?",
+              "a": "Selbstverständlich. Gibt es noch keine Markenwelt, entwickle ich sie mit Ihnen – wie bei Paquita Pilates, vom Logo bis zur Website."
+            }
+          ]
+        }
+      },
+      "en": {
+        "title": "Design & user experience",
+        "cap": "UX/UI design",
+        "desc": "Interfaces that explain themselves: visitors quickly find what they are looking for, and your presence feels consistent on every device.",
+        "tags": [
+          "Clickable prototypes before building",
+          "Tests with your audience",
+          "Consistent visual identity",
+          "Review of existing interfaces"
+        ],
+        "stories": [
+          "1. Understand what users need",
+          "2. Sketch the page structure",
+          "3. Define the visual design",
+          "4. Test a clickable prototype"
+        ],
+        "page": {
+          "description": "UX and UI design from Stuttgart: clear user journeys for websites, apps and booking systems – tested with real people before any code is written.",
+          "intro": [
+            "Good design is design nobody has to think about. Anyone opening your website or app should instantly understand where to go – whether they want to book, compare offers or call you.",
+            "That is why I start with the people who use your offer, not with colours: what do they want to get done, where do they hesitate today? The result is a clickable prototype that you and selected test users try out before a single line of code exists. At this stage, changes take minutes instead of days.",
+            "You end up with a visual identity with clear rules for type, colour and components – so future pages look as if they had always been there."
+          ],
+          "forWhom": [
+            "Businesses whose website exists but rarely brings enquiries",
+            "Teams planning an app or customer portal who want to be sure it will be understood",
+            "Founders who need a professional first impression",
+            "Agencies and development teams looking for support with concept and design"
+          ],
+          "faq": [
+            {
+              "q": "What is a clickable prototype?",
+              "a": "A preview of your website or app that can be clicked through like the finished product – just without any programming behind it. You and your customers try out the flows and give feedback before development costs arise."
+            },
+            {
+              "q": "Is this worth it for a small website?",
+              "a": "Yes, at the right scale. For a small website, a compact draft of the key pages is often enough. We clarify how much concept work makes sense in the intro call."
+            },
+            {
+              "q": "How do you test with users?",
+              "a": "People from your target group complete typical tasks in the prototype, such as booking an appointment. In my experience, just a few tests reveal most stumbling blocks."
+            },
+            {
+              "q": "Can you work with my existing logo and colours?",
+              "a": "Of course. If there is no brand yet, I develop it with you – as for Paquita Pilates, from logo to website."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "websites",
+      "topic": "website",
+      "slug": {
+        "de": "websites",
+        "en": "websites"
+      },
+      "page": {
+        "draft": false
+      },
+      "de": {
+        "title": "Websites",
+        "cap": "Unternehmensauftritt",
+        "desc": "Eine Website, die zeigt, wofür Sie stehen, und aus Besuchern Anfragen macht – schnell, barrierefrei, bei Google gut auffindbar und einfach zu pflegen.",
+        "tags": [
+          "Unternehmenswebsites",
+          "Landingpages",
+          "Lokale Auffindbarkeit (SEO)",
+          "Barrierefreiheit nach WCAG"
+        ],
+        "stories": [
+          "1. Botschaften & Inhalte ordnen",
+          "2. Schrift & Bildsprache festlegen",
+          "3. Für jede Bildschirmgröße umsetzen",
+          "4. Ladezeit & Auffindbarkeit prüfen"
+        ],
+        "page": {
+          "description": "Website erstellen lassen in Stuttgart: individuelles Webdesign, schnell, barrierefrei und bei Google auffindbar – Konzept, Gestaltung und Technik aus einer Hand.",
+          "intro": [
+            "Ihre Website ist oft der erste Kontakt mit neuen Kundinnen und Kunden – lange bevor jemand anruft oder vorbeikommt. In Sekunden entscheidet sich, ob Ihr Angebot passend und vertrauenswürdig wirkt.",
+            "Ich baue Websites ohne Baukasten und ohne fertige Vorlage: Inhalte, Gestaltung und Technik entstehen für Ihr Unternehmen. Das Ergebnis lädt schnell, funktioniert auf jedem Gerät, folgt den Regeln für Barrierefreiheit (WCAG) und ist so aufgebaut, dass Google versteht, was Sie anbieten und wo – für Betriebe in Stuttgart und der Region ein echter Vorteil bei lokalen Suchen.",
+            "Nach dem Start pflegen Sie Inhalte selbst oder überlassen das mir. Die Website gehört in jedem Fall vollständig Ihnen."
+          ],
+          "forWhom": [
+            "Handwerk, Praxen, Studios und Dienstleister, die online so überzeugen wollen wie vor Ort",
+            "Unternehmen mit veralteter oder über Jahre zusammengewachsener Website",
+            "Gründerinnen und Gründer, die von Anfang an professionell auftreten möchten",
+            "Betriebe, die in Stuttgart und Umgebung bei Google besser gefunden werden wollen"
+          ],
+          "faq": [
+            {
+              "q": "Wie lange dauert es, bis meine Website online ist?",
+              "a": "Das hängt vor allem vom Umfang ab und davon, ob Texte und Bilder schon vorhanden sind. Im Erstgespräch nenne ich Ihnen einen realistischen Zeitrahmen und plane mit Ihnen feste Etappen."
+            },
+            {
+              "q": "Kann ich Inhalte später selbst ändern?",
+              "a": "Ja, auf Wunsch richte ich die Website so ein, dass Sie Texte und Bilder ohne Programmierkenntnisse anpassen. Alternativ übernehme ich Änderungen im Rahmen der Betreuung."
+            },
+            {
+              "q": "Wird meine Website bei Google gefunden?",
+              "a": "Die technischen Grundlagen sind von Anfang an dabei: kurze Ladezeit, klare Struktur und Angaben zu Ort und Leistungen für Suchmaschinen. Dazu gehört, Ihr Google-Unternehmensprofil einzurichten oder zu verbessern – für lokale Suchen der wichtigste Hebel."
+            },
+            {
+              "q": "Brauche ich einen Cookie-Banner?",
+              "a": "Nur, wenn Dienste eingebunden sind, die Daten sammeln oder Cookies setzen. Ich baue Websites so, dass das möglichst nicht nötig ist – ohne fremde Schriften, Tracker oder Einbettungen, die Besucher abschrecken."
+            },
+            {
+              "q": "Wem gehört die Website?",
+              "a": "Ihnen. Sie erhalten alle Zugänge, den Quellcode und eine kurze Dokumentation – auch wenn wir später nicht mehr zusammenarbeiten."
+            }
+          ]
+        }
+      },
+      "en": {
+        "title": "Websites",
+        "cap": "Company presence",
+        "desc": "A website that shows what you stand for and turns visitors into enquiries – fast, accessible, easy to find on Google and easy to maintain.",
+        "tags": [
+          "Company websites",
+          "Landing pages",
+          "Local search visibility (SEO)",
+          "Accessibility to WCAG"
+        ],
+        "stories": [
+          "1. Organise messages & content",
+          "2. Define type & imagery",
+          "3. Build for every screen size",
+          "4. Check speed & findability"
+        ],
+        "page": {
+          "description": "Website design in Stuttgart: custom, fast, accessible and easy to find on Google – concept, design and development from a single source.",
+          "intro": [
+            "Your website is often the first contact with new customers – long before anyone calls or visits. Within seconds it decides whether your offer seems right and trustworthy.",
+            "I build websites without site builders or ready-made templates: content, design and technology are created for your business. The result loads fast, works on every device, follows the accessibility guidelines (WCAG) and is structured so that Google understands what you offer and where – a real advantage in local searches for businesses in and around Stuttgart.",
+            "After launch, you maintain content yourself or leave it to me. Either way, the website belongs entirely to you."
+          ],
+          "forWhom": [
+            "Trades, practices, studios and service providers who want to impress online as much as in person",
+            "Businesses with an outdated or patchwork website",
+            "Founders who want to look professional from day one",
+            "Businesses that want to be found more easily on Google in the Stuttgart area"
+          ],
+          "faq": [
+            {
+              "q": "How long until my website is online?",
+              "a": "That mainly depends on the scope and on whether texts and images already exist. In the intro call I give you a realistic timeframe and plan clear milestones with you."
+            },
+            {
+              "q": "Can I change content myself later?",
+              "a": "Yes – on request I set the website up so you can edit texts and images without any coding. Alternatively, I take care of changes as part of ongoing care."
+            },
+            {
+              "q": "Will my website be found on Google?",
+              "a": "The technical basics are built in from the start: fast loading, clear structure and information about location and services for search engines. Setting up or improving your Google Business Profile is part of it – the most important lever for local searches."
+            },
+            {
+              "q": "Do I need a cookie banner?",
+              "a": "Only if services are embedded that collect data or set cookies. I build websites so that this is usually unnecessary – without third-party fonts, trackers or embeds that put visitors off."
+            },
+            {
+              "q": "Who owns the website?",
+              "a": "You do. You receive all logins, the source code and short documentation – even if we stop working together later."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "webapps",
+      "topic": "webapp",
+      "slug": {
+        "de": "web-anwendungen",
+        "en": "web-applications"
+      },
+      "page": {
+        "draft": false
+      },
+      "de": {
+        "title": "Online-Buchung & Web-Anwendungen",
+        "cap": "Buchung, Portale, Apps",
+        "desc": "Online-Buchung, Kundenbereiche und interne Werkzeuge, die Telefonate, Listen und Handarbeit ersetzen – zugeschnitten auf Ihre Abläufe statt umgekehrt.",
+        "tags": [
+          "Online-Buchung & Kursplanung",
+          "Kunden- und Mitgliederbereiche",
+          "Apps fürs Smartphone",
+          "Anbindung bestehender Systeme"
+        ],
+        "stories": [
+          "1. Abläufe & Schnittstellen aufnehmen",
+          "2. Daten & Nutzerwege planen",
+          "3. Schrittweise entwickeln",
+          "4. Testen & in Betrieb nehmen"
+        ],
+        "page": {
+          "description": "Online-Buchungssystem oder Web-App entwickeln lassen in Stuttgart: Kursbuchung, Kundenportale und Werkzeuge, die Ihren Alltag vereinfachen.",
+          "intro": [
+            "Termine am Telefon, Listen in Tabellen, Rückfragen per E-Mail: Vieles, was im Alltag Zeit kostet, lässt sich in eine Anwendung übertragen, die Ihre Kundschaft und Ihr Team selbst bedienen.",
+            "Ich entwickle Web-Anwendungen, die zu Ihren Abläufen passen – nicht umgekehrt. Besonders vertraut sind mir Studios und Kursbetriebe: Mit Pilateq ist ein eigenes Buchungssystem für Kurse, Mitglieder und Guthaben entstanden. Diese Erfahrung fließt in jedes Projekt, ob Terminbuchung, Kundenbereich oder internes Werkzeug.",
+            "Gebaut wird schrittweise: erst die wichtigsten Funktionen, geprüft mit den Menschen, die sie nutzen, dann der Ausbau. So arbeiten Sie früh mit einer laufenden Lösung, statt monatelang auf ein großes Paket zu warten."
+          ],
+          "forWhom": [
+            "Studios, Praxen und Kursanbieter, die Termine online vergeben wollen",
+            "Unternehmen, deren Abläufe in Tabellen, Zetteln und E-Mails stecken",
+            "Betriebe, die ihrer Kundschaft einen eigenen Bereich bieten möchten",
+            "Teams, die eine bestehende Software ergänzen oder ablösen wollen"
+          ],
+          "faq": [
+            {
+              "q": "Warum keine fertige Buchungssoftware?",
+              "a": "Fertige Lösungen sind ein guter Start – bis Ihre Abläufe nicht mehr hineinpassen oder die laufenden Gebühren steigen. Ich prüfe mit Ihnen ehrlich, ob eine Standardlösung reicht oder sich eine eigene Anwendung lohnt."
+            },
+            {
+              "q": "Funktioniert das auch auf dem Smartphone?",
+              "a": "Ja. Ich entwickle von Anfang an für das Smartphone – auf Wunsch so, dass sich die Anwendung wie eine installierte App verhält."
+            },
+            {
+              "q": "Lassen sich bestehende Systeme anbinden?",
+              "a": "In vielen Fällen ja, etwa Kalender, Zahlungsanbieter oder Ihre bisherige Kundenverwaltung. Was möglich ist, kläre ich vorab anhand der vorhandenen Schnittstellen."
+            },
+            {
+              "q": "Wie sicher sind die Daten meiner Kundschaft?",
+              "a": "Datenschutz plane ich von Anfang an mit: so wenige Daten wie nötig, verschlüsselte Übertragung und Hosting in Deutschland."
+            }
+          ]
+        }
+      },
+      "en": {
+        "title": "Online booking & web applications",
+        "cap": "Booking, portals, apps",
+        "desc": "Online booking, customer areas and internal tools that replace phone calls, spreadsheets and manual work – tailored to how you work, not the other way round.",
+        "tags": [
+          "Online booking & class scheduling",
+          "Customer and member areas",
+          "Apps for smartphones",
+          "Integration with existing systems"
+        ],
+        "stories": [
+          "1. Map workflows & interfaces",
+          "2. Plan data & user journeys",
+          "3. Build step by step",
+          "4. Test & go live"
+        ],
+        "page": {
+          "description": "Online booking systems and web apps from Stuttgart: class booking, customer portals and tools that make everyday work easier.",
+          "intro": [
+            "Appointments by phone, lists in spreadsheets, questions by email: much of what costs time every day can move into an application your customers and your team use themselves.",
+            "I build web applications that fit your processes – not the other way round. I know studios and class-based businesses particularly well: Pilateq, my own booking system for classes, members and credits, came out of that. This experience goes into every project, whether appointment booking, customer area or internal tool.",
+            "Development happens step by step: first the most important features, checked with the people who use them, then the next stage. You work with a running solution early instead of waiting months for one big package."
+          ],
+          "forWhom": [
+            "Studios, practices and class providers who want to take bookings online",
+            "Businesses whose processes live in spreadsheets, notes and emails",
+            "Companies that want to offer their customers a personal area",
+            "Teams that want to extend or replace existing software"
+          ],
+          "faq": [
+            {
+              "q": "Why not off-the-shelf booking software?",
+              "a": "Ready-made tools are a good start – until your processes no longer fit or the monthly fees rise. I honestly check with you whether a standard tool is enough or a custom application pays off."
+            },
+            {
+              "q": "Does it work on smartphones?",
+              "a": "Yes. I build for smartphones from the start – on request so the application behaves like an installed app."
+            },
+            {
+              "q": "Can existing systems be connected?",
+              "a": "In many cases, yes – calendars, payment providers or your current customer management, for example. I check what is possible upfront based on the available interfaces."
+            },
+            {
+              "q": "How safe is my customers' data?",
+              "a": "Privacy is planned in from the start: as little data as necessary, encrypted connections and hosting in Germany."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "modernization",
+      "topic": "audit",
+      "slug": {
+        "de": "modernisierung-pruefung",
+        "en": "modernisation-audits"
+      },
+      "page": {
+        "draft": false
+      },
+      "de": {
+        "title": "Relaunch & Modernisierung",
+        "cap": "Bestand verbessern",
+        "desc": "Ihre Website lädt langsam, ist schwer zu bedienen, technisch veraltet oder nicht barrierefrei? Ich prüfe den Bestand, zeige die wichtigsten Baustellen und behebe sie Schritt für Schritt – ohne zwingend alles neu zu bauen.",
+        "tags": [
+          "Ladezeit-Analyse",
+          "Barrierefreiheit & BFSG",
+          "Technische Überarbeitung",
+          "Auffindbarkeit (SEO)"
+        ],
+        "stories": [
+          "1. Ladezeit & Technik prüfen",
+          "2. Barrierefreiheit testen",
+          "3. Engpässe beheben",
+          "4. Vorher und nachher vergleichen"
+        ],
+        "page": {
+          "description": "Website modernisieren oder relaunchen in Stuttgart: Prüfung von Ladezeit, Barrierefreiheit (BFSG) und Auffindbarkeit – mit klaren Prioritäten statt Neubau um jeden Preis.",
+          "intro": [
+            "Nicht jede Website muss neu gebaut werden. Oft sind es wenige Baustellen, die Besucher vertreiben: lange Ladezeiten, eine verwirrende Navigation, Texte, die auf dem Handy kaum lesbar sind, oder Technik, die keine Updates mehr bekommt.",
+            "Ich prüfe Ihre Website auf Ladezeit, Bedienbarkeit, Barrierefreiheit und Auffindbarkeit und fasse das Ergebnis verständlich zusammen: Was ist dringend, was lohnt sich, was kann warten. Seit dem 28. Juni 2025 gilt für bestimmte Online-Angebote an Verbraucher – etwa Online-Shops und Buchungsstrecken – das Barrierefreiheitsstärkungsgesetz (BFSG). Ich zeige Ihnen, ob und wie es Sie betrifft.",
+            "Danach entscheiden Sie: gezielt verbessern oder neu aufsetzen. Beides setze ich um und vergleiche am Ende vorher und nachher."
+          ],
+          "forWhom": [
+            "Unternehmen, deren Website in die Jahre gekommen ist",
+            "Betriebe mit Online-Shop oder Online-Buchung, die das BFSG im Blick haben müssen",
+            "Websites, die bei Google an Sichtbarkeit verloren haben",
+            "Teams, die vor einem Relaunch wissen wollen, wo sie stehen"
+          ],
+          "faq": [
+            {
+              "q": "Muss meine Website barrierefrei sein?",
+              "a": "Das hängt von Ihrem Angebot ab: Das BFSG betrifft vor allem Leistungen an Verbraucher wie Online-Shops oder Buchungen; Kleinstunternehmen sind bei Dienstleistungen ausgenommen. Unabhängig von der Pflicht erreicht eine barrierefreie Website mehr Menschen. Ich zeige Ihnen, was für Ihre Website gilt – eine Rechtsberatung ersetzt das nicht."
+            },
+            {
+              "q": "Was bekomme ich bei einer Prüfung?",
+              "a": "Eine verständliche Übersicht der wichtigsten Baustellen mit Prioritäten – keine hundertseitige Liste. Auf Wunsch setze ich die Verbesserungen direkt um."
+            },
+            {
+              "q": "Neu bauen oder verbessern?",
+              "a": "Das entscheiden wir auf Grundlage der Prüfung. Ist die Technik solide, lohnt sich gezieltes Verbessern; ist sie veraltet, ist ein Neuaufbau oft günstiger als dauerhaftes Flicken."
+            },
+            {
+              "q": "Gehen bei einem Relaunch meine Google-Platzierungen verloren?",
+              "a": "Nicht, wenn er sorgfältig geplant wird: Bestehende Adressen werden weitergeleitet, Inhalte übernommen oder verbessert und die Umstellung in der Google Search Console begleitet."
+            }
+          ]
+        }
+      },
+      "en": {
+        "title": "Relaunch & modernisation",
+        "cap": "Improve what exists",
+        "desc": "Is your website slow, hard to use, technically outdated or not accessible? I review what you have, point out the most important issues and fix them step by step – without necessarily rebuilding everything.",
+        "tags": [
+          "Speed analysis",
+          "Accessibility & EAA",
+          "Technical overhaul",
+          "Search visibility (SEO)"
+        ],
+        "stories": [
+          "1. Check speed & technology",
+          "2. Test accessibility",
+          "3. Fix bottlenecks",
+          "4. Compare before and after"
+        ],
+        "page": {
+          "description": "Website modernisation and relaunch from Stuttgart: speed, accessibility (European Accessibility Act) and search visibility reviewed – with clear priorities instead of a rebuild at any cost.",
+          "intro": [
+            "Not every website needs a rebuild. Often a few issues drive visitors away: slow loading, confusing navigation, text that is hard to read on a phone, or technology that no longer receives updates.",
+            "I review your website for speed, usability, accessibility and search visibility and summarise the results clearly: what is urgent, what is worth it, what can wait. Since 28 June 2025, the European Accessibility Act – in Germany the BFSG – applies to certain online services for consumers, such as online shops and booking flows. I show you whether and how it affects you.",
+            "Then you decide: targeted improvements or a fresh start. I deliver both and compare before and after at the end."
+          ],
+          "forWhom": [
+            "Businesses whose website is showing its age",
+            "Companies with an online shop or booking that need to keep the accessibility act in mind",
+            "Websites that have lost visibility on Google",
+            "Teams that want to know where they stand before a relaunch"
+          ],
+          "faq": [
+            {
+              "q": "Does my website have to be accessible?",
+              "a": "That depends on your offer: the law mainly covers consumer services such as online shops or bookings; micro-enterprises are exempt for services. Regardless of the obligation, an accessible website reaches more people. I show you what applies to your website – this does not replace legal advice."
+            },
+            {
+              "q": "What do I get from a review?",
+              "a": "A clear overview of the most important issues with priorities – not a hundred-page list. On request, I implement the improvements right away."
+            },
+            {
+              "q": "Rebuild or improve?",
+              "a": "We decide based on the review. If the technology is solid, targeted improvements pay off; if it is outdated, a rebuild is often cheaper than constant patching."
+            },
+            {
+              "q": "Will a relaunch cost me my Google rankings?",
+              "a": "Not if it is planned carefully: existing addresses are redirected, content is carried over or improved, and the switch is monitored in Google Search Console."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "care",
+      "topic": "care",
+      "slug": {
+        "de": "betreuung-hosting",
+        "en": "care-hosting"
+      },
+      "page": {
+        "draft": false
+      },
+      "de": {
+        "title": "Betreuung & Hosting",
+        "cap": "Nach dem Start",
+        "desc": "Nach dem Start kümmere ich mich weiter: sicheres Hosting in Deutschland, Updates, Backups und kleine Änderungen – damit Ihre Website schnell, sicher und aktuell bleibt.",
+        "tags": [
+          "Hosting in Deutschland",
+          "Updates & Sicherheit",
+          "Backups",
+          "Änderungen auf Zuruf"
+        ],
+        "stories": [
+          "1. Sicher in Deutschland hosten",
+          "2. Vor Angriffen schützen",
+          "3. Aktuell halten",
+          "4. Ladezeit im Blick behalten"
+        ],
+        "page": {
+          "description": "Website-Betreuung und Hosting aus Stuttgart: Server in Deutschland, Updates, Backups und Änderungen – ein fester Ansprechpartner statt Ticketsystem.",
+          "intro": [
+            "Eine Website ist nach dem Start nicht fertig. Software braucht Updates, Inhalte ändern sich, und irgendwann fragt jemand, warum die Seite heute so langsam ist.",
+            "Das übernehme ich für Sie: Ihre Website läuft auf Servern in Deutschland, ich spiele Updates ein, sichere die Daten regelmäßig und behalte Erreichbarkeit und Ladezeit im Blick. Änderungen an Texten, Bildern oder Seiten schicken Sie mir einfach per E-Mail.",
+            "Sie haben einen festen Ansprechpartner, der Ihre Website kennt – statt Hotline und Ticketsystem. Und Sie bleiben unabhängig: Zugänge, Code und Dokumentation gehören Ihnen."
+          ],
+          "forWhom": [
+            "Unternehmen, die sich nicht selbst um Technik kümmern wollen",
+            "Kundinnen und Kunden nach einem gemeinsamen Website-Projekt",
+            "Betriebe mit bestehender Website, die einen verlässlichen Ansprechpartner suchen",
+            "Alle, die Wert auf Datenschutz und Hosting in Deutschland legen"
+          ],
+          "faq": [
+            {
+              "q": "Was passiert, wenn Sie einmal nicht erreichbar sind?",
+              "a": "Ihre Website läuft unabhängig davon weiter. Für den Notfall sind Zugänge und eine Dokumentation hinterlegt, mit der auch eine andere Fachperson sofort weiterarbeiten kann."
+            },
+            {
+              "q": "Muss meine Website von Ihnen stammen?",
+              "a": "Nein. Ich übernehme auch bestehende Websites, nachdem ich sie mir angesehen habe."
+            },
+            {
+              "q": "Wo liegen meine Daten?",
+              "a": "Auf Servern in Deutschland, ohne Weitergabe an Dienste in den USA. Das vereinfacht Ihre Datenschutzerklärung und schafft Vertrauen bei Ihrer Kundschaft."
+            },
+            {
+              "q": "Kann ich die Betreuung beenden?",
+              "a": "Ja. Sie erhalten dann alle Daten und Zugänge, und ich helfe beim Umzug zu einem anderen Anbieter."
+            }
+          ]
+        }
+      },
+      "en": {
+        "title": "Care & hosting",
+        "cap": "After launch",
+        "desc": "After launch, I keep looking after things: secure hosting in Germany, updates, backups and small changes – so your website stays fast, safe and up to date.",
+        "tags": [
+          "Hosting in Germany",
+          "Updates & security",
+          "Backups",
+          "Changes on request"
+        ],
+        "stories": [
+          "1. Host securely in Germany",
+          "2. Protect against attacks",
+          "3. Keep it up to date",
+          "4. Keep an eye on speed"
+        ],
+        "page": {
+          "description": "Website care and hosting from Stuttgart: servers in Germany, updates, backups and changes – one dedicated contact instead of a ticket system.",
+          "intro": [
+            "A website is not finished at launch. Software needs updates, content changes, and sooner or later someone asks why the site is so slow today.",
+            "I take care of that: your website runs on servers in Germany, I install updates, back up your data regularly and keep an eye on availability and speed. Changes to texts, images or pages – just send me an email.",
+            "You have one dedicated contact who knows your website – instead of a hotline and ticket system. And you stay independent: logins, code and documentation belong to you."
+          ],
+          "forWhom": [
+            "Businesses that do not want to deal with technology themselves",
+            "Clients after a joint website project",
+            "Companies with an existing website looking for a reliable contact",
+            "Anyone who values privacy and hosting in Germany"
+          ],
+          "faq": [
+            {
+              "q": "What happens if you are unavailable?",
+              "a": "Your website keeps running regardless. For emergencies, logins and documentation are stored so that another professional can take over immediately."
+            },
+            {
+              "q": "Does my website have to be built by you?",
+              "a": "No. I also take over existing websites after reviewing them."
+            },
+            {
+              "q": "Where is my data stored?",
+              "a": "On servers in Germany, without passing it to services in the US. That simplifies your privacy policy and builds trust with your customers."
+            },
+            {
+              "q": "Can I end the care plan?",
+              "a": "Yes. You then receive all data and logins, and I help with the move to another provider."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+/**
+ * Formular – steht auf dunklem Grund (Kontaktbereich).
+ *
+ * Zustände: aria-invalid an Feldern, .is-error an der Statusmeldung, aria-busy am Formular
+ * während des Sendens (contact-form.js). Der Absende-Button ist .btn-contact-submit
+ * (button.css).
+ */
+
+.form-required-note {
+  font-size: var(--text-sm);
+  color: var(--color-navy-muted);
+}
+
+.contact-label {
+  color: var(--color-navy-muted);
+}
+
+.field-optional {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-navy-dim);
+}
+
+/* Themen als Auswahl-Chips (Checkboxen) */
+.topic-group {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+}
+
+.topic-group legend {
+  margin-bottom: var(--space-3-5);
+}
+
+.topic-chips-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.topic-chip {
+  position: relative;
+  display: inline-flex;
+}
+
+.topic-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.topic-chip span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-size: var(--text-md);
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-navy-field);
+  color: var(--color-navy-fg);
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+
+.topic-chip input:checked + span {
+  background: var(--color-navy-inverse);
+  border-color: var(--color-navy-inverse);
+  color: var(--color-navy-inverse-fg);
+}
+
+.topic-chip input:checked + span::before {
+  content: "✓";
+  font-weight: 700;
+}
+
+.topic-chip input:focus-visible + span {
+  outline: 2px solid var(--color-accent-light);
+  outline-offset: 3px;
+}
+
+.topic-chip input:hover + span {
+  border-color: var(--color-navy-fg);
+}
+
+/* Felder */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-navy-field);
+  border-radius: 0;
+  color: var(--color-navy-fg);
+  font-size: var(--text-xl);
+  padding: var(--space-2-5) 0;
+  transition: border-color 200ms ease;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-bottom-color: var(--color-accent-light);
+}
+
+.form-input[aria-invalid="true"],
+.form-textarea[aria-invalid="true"] {
+  border-bottom-color: var(--color-error-navy);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 112px;
+  line-height: 1.5;
+}
+
+.form-select {
+  appearance: none;
+  padding-right: var(--space-8);
+  background-image: linear-gradient(45deg, transparent 50%, var(--color-navy-muted) 50%), linear-gradient(135deg, var(--color-navy-muted) 50%, transparent 50%);
+  background-position: calc(100% - 14px) 55%, calc(100% - 8px) 55%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.form-select option {
+  background: var(--color-navy-card);
+  color: var(--color-navy-fg);
+}
+
+.field-hint {
+  font-size: var(--text-sm);
+  color: var(--color-navy-muted);
+}
+
+.field-error {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-error-navy);
+}
+
+/* Checkbox mit Text (Einwilligung, falls aktiviert) */
+.form-field--check {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.form-field--check input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--color-accent-light);
+}
+
+.form-field--check .field-error {
+  grid-column: 2;
+}
+
+/* Honeypot gegen Spam – für Menschen unsichtbar */
+.hp-field {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-privacy {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--color-navy-muted);
+}
+
+/* Statusmeldung (Senden, Fehler) */
+.form-status:empty {
+  display: none;
+}
+
+.form-status {
+  font-size: var(--text-base);
+  line-height: 1.5;
+  padding: var(--space-3) var(--space-4);
+  border-radius: 10px;
+  background: var(--color-navy-status);
+  border-left: 3px solid var(--color-accent-light);
+}
+
+.form-status.is-error {
+  border-left-color: var(--color-error-navy);
+  background: var(--color-error-navy-soft);
+}
+
+/* Während des Sendens blinkt der Pfeil im Button */
+.contact-form-card[aria-busy="true"] .arrow-circle span {
+  animation: mcBlink 1s steps(1) infinite;
+}
+
+@media (--coarse) {
+  .topic-chip span { min-height: 44px; }
+}
+
+@media (--forced-colors) {
+  .topic-chip span {
+    border: 1px solid ButtonText;
+  }
+
+  .topic-chip input:checked + span {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}

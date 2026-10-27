@@ -1,0 +1,115 @@
+/**
+ * Hero – Stufenanzeige der Punktwolke (Identity, Architecture, Code).
+ *
+ * Desktop: Leiste am unteren Rand des Hero. Mobil: drei Spalten unter den Buttons.
+ * hero-canvas.js füllt die Balken (data-pbar) und markiert die Stufe im Bild mit .is-active.
+ * Ein- und Ausblenden beim Start-Intro: hero.css.
+ */
+
+.hero-footer-bar {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 var(--pad-x) var(--space-6);
+}
+
+.hero-footer-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-6);
+}
+
+.hero-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(90px, 150px));
+  gap: var(--space-5);
+}
+
+.hero-stage-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+}
+
+.hero-stage-label {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  color: var(--color-muted);
+  transition: color 400ms ease;
+}
+
+/* Stufe, die gerade im Bild ist */
+.hero-stage-item.is-active .hero-stage-label {
+  color: var(--color-ink);
+}
+
+.hero-stage-label .stage-name {
+  font-size: var(--text-base);
+}
+
+.hero-stage-bar {
+  height: 1px;
+  background-color: var(--color-track);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-stage-bar [data-pbar] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background-color: var(--color-ink);
+}
+
+/* Mobil: drei gleich breite Spalten mit festem Abstand – lange Namen wie »Architecture«
+   stoßen nicht an den Nachbarn */
+.hero-mobile-stages {
+  display: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-fluid-s);
+  width: min(100%, 400px);
+  padding-top: var(--space-2-5);
+}
+
+.hero-mobile-stages .hero-stage-item {
+  min-width: 0;
+  gap: var(--space-2);
+}
+
+.hero-mobile-stages .hero-stage-label {
+  justify-content: center;
+}
+
+.hero-mobile-stages .stage-num {
+  display: none;
+}
+
+.hero-mobile-stages .stage-name {
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.no-js .hero-stages-grid {
+  display: none;
+}
+
+@media (--mobile) {
+  .hero-mobile-stages { display: grid; }
+  .no-js .hero-mobile-stages { display: none; }
+  .hero-footer-bar { display: none; }
+}
+
+/* Auf dem Handy landet die Leiste genau an der Bildschirmkante und wirkt abgeschnitten; die
+   Punktwolke erzählt die Stufen auch ohne Beschriftung. */
+@media (--small) {
+  .hero-mobile-stages { display: none; }
+}

@@ -1,0 +1,32 @@
+/**
+ * Textspalte mit Nummer, Überschrift und Text und einer Linie darüber – Ablaufschritte,
+ * Schritte auf Leistungsseiten; .col-n auch als Kapitelnummer der Case Study.
+ *
+ *   .col-block  > .col-n (Nummer) + .col-h (Überschrift) + .col-t (Text)
+ */
+
+.col-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-ink);
+}
+
+.col-n {
+  color: var(--color-dim);
+}
+
+.col-h {
+  font-weight: 700;
+  font-size: var(--text-3xl);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.col-t {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--color-muted);
+  text-wrap: pretty;
+}

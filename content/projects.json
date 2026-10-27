@@ -1,0 +1,2329 @@
+{
+  "_hinweis": "Projekte für Startseite und Case-Study-Seiten. draft: true = nur im Entwicklungs-Build sichtbar, nie veröffentlicht. kind: client (Kundenprojekt, nur mit Freigabe), own (Eigenprojekt) oder concept (Konzeptstudie). Ergebnisse nur mit Beleg nennen. Bilder liegen unter assets/projects/<slug>/ und brauchen alt, width und height; optional srcset mit weiteren Breiten. serviceKeys verknüpft das Projekt mit Leistungen (siehe services.json › key). Schema: README.md › Projekte pflegen.",
+  "items": [
+    {
+      "slug": "paquita-pilates",
+      "featured": true,
+      "draft": false,
+      "kind": "client",
+      "shape": 0,
+      "serviceKeys": [
+        "design",
+        "websites"
+      ],
+      "year": "2025",
+      "url": "https://paquitapilatesreformer.com",
+      "images": [
+        {
+          "src": "projects/paquita-pilates/paquita-pilates-website-laptop-2048.webp",
+          "width": 2048,
+          "height": 1365,
+          "alt": {
+            "de": "Website von Paquita Pilates auf einem Laptop",
+            "en": "Paquita Pilates website on a laptop"
+          },
+          "srcset": [
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-laptop-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-laptop-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-laptop-800.webp",
+              "width": 800
+            }
+          ],
+          "fit": "contain"
+        },
+        {
+          "src": "projects/paquita-pilates/paquita-pilates-website-startseite-1400.webp",
+          "width": 1400,
+          "height": 950,
+          "alt": {
+            "de": "Startseite mit Studio-Atmosphäre",
+            "en": "Home page with studio atmosphere"
+          },
+          "srcset": [
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-startseite-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-startseite-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Startseite",
+            "en": "Home"
+          }
+        },
+        {
+          "src": "projects/paquita-pilates/paquita-pilates-website-leistungen-preise-1400.webp",
+          "width": 1400,
+          "height": 950,
+          "alt": {
+            "de": "Seite zu Leistungen und Preisen",
+            "en": "Services and prices page"
+          },
+          "srcset": [
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-leistungen-preise-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-leistungen-preise-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Leistungen & Preise",
+            "en": "Services & prices"
+          }
+        },
+        {
+          "src": "projects/paquita-pilates/paquita-pilates-website-kursuebersicht-1400.webp",
+          "width": 1400,
+          "height": 1300,
+          "alt": {
+            "de": "Übersicht der Kurse",
+            "en": "Class overview"
+          },
+          "srcset": [
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-kursuebersicht-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/paquita-pilates/paquita-pilates-website-kursuebersicht-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Kurse",
+            "en": "Classes"
+          }
+        },
+        {
+          "src": "projects/paquita-pilates/paquita-pilates-website-smartphone-375.webp",
+          "width": 375,
+          "height": 812,
+          "alt": {
+            "de": "Startseite auf dem Smartphone",
+            "en": "Home page on a phone"
+          },
+          "caption": {
+            "de": "Mobil",
+            "en": "Mobile"
+          }
+        }
+      ],
+      "de": {
+        "name": "Paquita Pilates",
+        "industry": "Pilates-Studio",
+        "services": "Marke & Website",
+        "tech": "",
+        "summary": "Marke und Website für ein Boutique-Studio für Reformer und Classical Pilates in Stuttgart-Ost – von der Positionierung bis zum responsiven Auftritt.",
+        "tags": [
+          "Brand Design",
+          "Corporate Identity",
+          "UX/UI",
+          "Vue.js",
+          "Figma"
+        ],
+        "glance": [
+          {
+            "label": "Aufgabe",
+            "text": "Ein Studio mit hohem Anspruch, aber ohne digitalen Auftritt: keine Marke, keine Website, Termine von Hand."
+          },
+          {
+            "label": "Lösung",
+            "text": "Eine eigene Markenwelt und eine ruhige, klare Website. Die Buchung entsteht als eigenes Produkt: Pilateq."
+          },
+          {
+            "label": "Ergebnis",
+            "text": "Marke und Website sind live. Die Online-Buchung wird schrittweise eingeführt."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Ausgangslage",
+            "lead": "Das Studio unterrichtet Classical Pilates auf Reformern in kleinen Gruppen. Vor Ort war die Qualität hoch, digital war es kaum sichtbar.",
+            "blocks": [
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Vorher",
+                    "muted": true,
+                    "items": [
+                      "Keine durchgängige Marke",
+                      "Keine eigene Website",
+                      "Termine von Hand verwaltet"
+                    ]
+                  },
+                  {
+                    "title": "Ziel",
+                    "items": [
+                      "Eine Marke für Web, Print und Studio",
+                      "Ein Auftritt, der Haltung und Angebot zeigt",
+                      "Buchen ohne Umweg"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "more": "Vor dem ersten Entwurf standen Gespräche mit Paquita und ihrem Team über Methode, Zielgruppe und Werte.\n\nDaraus entstand eine klare Positionierung: ein Studio für Menschen, die Pilates als therapeutische Praxis verstehen – nicht für Trendfolger."
+          },
+          {
+            "heading": "Marke",
+            "lead": "Das Logo zeigt ein Auge mit Flügeln – ein Zeichen für Aufmerksamkeit. Der Schriftzug »RETURN TO LIFE« greift den ursprünglichen Namen der Methode von Joseph Pilates auf.",
+            "blocks": [
+              {
+                "type": "palette",
+                "items": [
+                  {
+                    "hex": "#86703f",
+                    "name": "Olive Gold",
+                    "role": "Struktur und Tiefe"
+                  },
+                  {
+                    "hex": "#937955",
+                    "name": "Warm Taupe",
+                    "role": "Neutraler Mittelton"
+                  },
+                  {
+                    "hex": "#b27d55",
+                    "name": "Terracotta Copper",
+                    "role": "Logo und Markenmomente"
+                  },
+                  {
+                    "hex": "#f0f1ed",
+                    "name": "Cream White",
+                    "role": "Hintergrund"
+                  },
+                  {
+                    "hex": "#97cbcc",
+                    "name": "Soft Teal",
+                    "role": "Einziger kühler Ton"
+                  },
+                  {
+                    "hex": "#968173",
+                    "name": "Muted Rose Taupe",
+                    "role": "Sekundärer Text"
+                  },
+                  {
+                    "hex": "#bbbbaf",
+                    "name": "Warm Grey",
+                    "role": "Flächen"
+                  }
+                ],
+                "caption": "Farbwelt"
+              }
+            ],
+            "more": "Schrift:\n• Metanoia für Überschriften – eine kontrastreiche Serifenschrift. Der Name steht für eine tiefgreifende innere Veränderung.\n• Poppins für Fließtext und Bedienung – geometrisch und gut lesbar.\n\nDie Farben nehmen Materialien, Licht und Ruhe des Studios auf und funktionieren auf der Website, bei Instagram und im Druck."
+          },
+          {
+            "heading": "Website",
+            "lead": "Ruhige Layouts, viel Weißraum und eindeutige Handlungsaufforderungen – ohne Newsletter-Pop-ups oder aufdringliche Hinweise.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Startseite",
+                    "text": "Atmosphäre und Haltung des Studios auf den ersten Blick."
+                  },
+                  {
+                    "title": "Kurse & Preise",
+                    "text": "Reformer, Classical Pilates und Privatstunden verständlich erklärt."
+                  },
+                  {
+                    "title": "Erster Besuch",
+                    "text": "Willkommenspaket und Ablauf für neue Kundinnen und Kunden."
+                  },
+                  {
+                    "title": "Mobil",
+                    "text": "Gestaltet für Smartphone und Desktop."
+                  }
+                ]
+              }
+            ],
+            "more": "Umgesetzt mit Vue.js und Tailwind CSS – für kurze Ladezeiten und eine Struktur, die sich leicht pflegen lässt."
+          },
+          {
+            "heading": "Stand",
+            "lead": "Marke und Website sind veröffentlicht. Die Buchung entsteht als eigenes Produkt.",
+            "blocks": [
+              {
+                "type": "status",
+                "items": [
+                  {
+                    "title": "Marke",
+                    "state": "done"
+                  },
+                  {
+                    "title": "Website",
+                    "state": "done"
+                  },
+                  {
+                    "title": "Online-Buchung mit Pilateq",
+                    "state": "active"
+                  },
+                  {
+                    "title": "Automatische Warteliste",
+                    "state": "planned"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "takeaway": "Ein Auftritt, der Ihre Qualität sichtbar macht – und genau die Menschen anspricht, die zu Ihnen passen."
+      },
+      "en": {
+        "name": "Paquita Pilates",
+        "industry": "Pilates studio",
+        "services": "Brand & website",
+        "tech": "",
+        "summary": "Brand and website for a boutique Reformer and Classical Pilates studio in Stuttgart-Ost – from positioning to a responsive site.",
+        "tags": [
+          "Brand design",
+          "Corporate identity",
+          "UX/UI",
+          "Vue.js",
+          "Figma"
+        ],
+        "glance": [
+          {
+            "label": "Task",
+            "text": "A studio with high standards but no digital presence: no brand, no website, appointments managed by hand."
+          },
+          {
+            "label": "Solution",
+            "text": "A distinct brand and a calm, clear website. Booking is built as a separate product: Pilateq."
+          },
+          {
+            "label": "Outcome",
+            "text": "Brand and website are live. Online booking is being introduced in stages."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Starting point",
+            "lead": "The studio teaches Classical Pilates on Reformers in small groups. The work on site was excellent – online, the studio was barely visible.",
+            "blocks": [
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Before",
+                    "muted": true,
+                    "items": [
+                      "No consistent brand",
+                      "No website of its own",
+                      "Appointments managed by hand"
+                    ]
+                  },
+                  {
+                    "title": "Goal",
+                    "items": [
+                      "One brand for web, print and studio",
+                      "A site that shows approach and offering",
+                      "Booking without detours"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "more": "Before the first draft we talked to Paquita and her team about method, audience and values.\n\nThe result was a clear position: a studio for people who see Pilates as a therapeutic practice – not for trend followers."
+          },
+          {
+            "heading": "Brand",
+            "lead": "The logo shows an eye with wings – a sign of awareness. The line “RETURN TO LIFE” refers to the original name of Joseph Pilates’ method.",
+            "blocks": [
+              {
+                "type": "palette",
+                "items": [
+                  {
+                    "hex": "#86703f",
+                    "name": "Olive Gold",
+                    "role": "Structure and depth"
+                  },
+                  {
+                    "hex": "#937955",
+                    "name": "Warm Taupe",
+                    "role": "Neutral midtone"
+                  },
+                  {
+                    "hex": "#b27d55",
+                    "name": "Terracotta Copper",
+                    "role": "Logo and key brand moments"
+                  },
+                  {
+                    "hex": "#f0f1ed",
+                    "name": "Cream White",
+                    "role": "Background"
+                  },
+                  {
+                    "hex": "#97cbcc",
+                    "name": "Soft Teal",
+                    "role": "The only cool tone"
+                  },
+                  {
+                    "hex": "#968173",
+                    "name": "Muted Rose Taupe",
+                    "role": "Secondary text"
+                  },
+                  {
+                    "hex": "#bbbbaf",
+                    "name": "Warm Grey",
+                    "role": "Surfaces"
+                  }
+                ],
+                "caption": "Colour palette"
+              }
+            ],
+            "more": "Type:\n• Metanoia for headlines – a high-contrast serif. Its name stands for a profound inner change.\n• Poppins for body text and interface – geometric and easy to read.\n\nThe colours take up the materials, light and stillness of the studio and work on the website, on Instagram and in print."
+          },
+          {
+            "heading": "Website",
+            "lead": "Calm layouts, generous white space and clear calls to action – no newsletter pop-ups, nothing pushy.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Home",
+                    "text": "The studio’s atmosphere and approach at first glance."
+                  },
+                  {
+                    "title": "Classes & prices",
+                    "text": "Reformer, Classical Pilates and private sessions explained clearly."
+                  },
+                  {
+                    "title": "First visit",
+                    "text": "Welcome package and what to expect for new clients."
+                  },
+                  {
+                    "title": "Mobile",
+                    "text": "Designed for phone and desktop."
+                  }
+                ]
+              }
+            ],
+            "more": "Built with Vue.js and Tailwind CSS – for fast loading and a structure that is easy to maintain."
+          },
+          {
+            "heading": "Status",
+            "lead": "Brand and website are published. Booking is being built as a product of its own.",
+            "blocks": [
+              {
+                "type": "status",
+                "items": [
+                  {
+                    "title": "Brand",
+                    "state": "done"
+                  },
+                  {
+                    "title": "Website",
+                    "state": "done"
+                  },
+                  {
+                    "title": "Online booking with Pilateq",
+                    "state": "active"
+                  },
+                  {
+                    "title": "Automatic waiting list",
+                    "state": "planned"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "takeaway": "A presence that makes your quality visible – and speaks to exactly the people who are right for you."
+      }
+    },
+    {
+      "slug": "pilateq",
+      "featured": true,
+      "draft": false,
+      "kind": "own",
+      "shape": 1,
+      "serviceKeys": [
+        "webapps",
+        "design"
+      ],
+      "year": "2025",
+      "url": "",
+      "images": [
+        {
+          "src": "projects/pilateq/pilateq-buchungssystem-verwaltung-uebersicht-1600.webp",
+          "width": 1600,
+          "height": 1199,
+          "alt": {
+            "de": "Verwaltungsübersicht von Pilateq mit Kennzahlen und Schnellzugriffen",
+            "en": "Pilateq admin dashboard with key figures and shortcuts"
+          },
+          "srcset": [
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-verwaltung-uebersicht-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-verwaltung-uebersicht-800.webp",
+              "width": 800
+            }
+          ],
+          "fit": "contain"
+        },
+        {
+          "src": "projects/pilateq/pilateq-buchungssystem-mitglieder-uebersicht-1600.webp",
+          "width": 1600,
+          "height": 1199,
+          "alt": {
+            "de": "Übersicht für Mitglieder mit Guthaben und anstehenden Kursen",
+            "en": "Member dashboard with credits and upcoming classes"
+          },
+          "srcset": [
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-mitglieder-uebersicht-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-mitglieder-uebersicht-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Mitglieder-Übersicht",
+            "en": "Member dashboard"
+          }
+        },
+        {
+          "src": "projects/pilateq/pilateq-buchungssystem-kurs-buchen-1600.webp",
+          "width": 1600,
+          "height": 1199,
+          "alt": {
+            "de": "Kursbuchung nach Typ, Datum und Verfügbarkeit",
+            "en": "Class booking by type, date and availability"
+          },
+          "srcset": [
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-kurs-buchen-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-kurs-buchen-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Kurs buchen",
+            "en": "Book a class"
+          }
+        },
+        {
+          "src": "projects/pilateq/pilateq-buchungssystem-guthaben-pakete-1600.webp",
+          "width": 1600,
+          "height": 1199,
+          "alt": {
+            "de": "Auswahl der Guthaben-Pakete",
+            "en": "Choice of credit packages"
+          },
+          "srcset": [
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-guthaben-pakete-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-guthaben-pakete-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Pakete",
+            "en": "Packages"
+          }
+        },
+        {
+          "src": "projects/pilateq/pilateq-buchungssystem-kursverwaltung-kalender-1600.webp",
+          "width": 1600,
+          "height": 1199,
+          "alt": {
+            "de": "Kursverwaltung mit Vorlagen und Kalender",
+            "en": "Class management with templates and calendar"
+          },
+          "srcset": [
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-kursverwaltung-kalender-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-kursverwaltung-kalender-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Kursverwaltung",
+            "en": "Class management"
+          }
+        },
+        {
+          "src": "projects/pilateq/pilateq-buchungssystem-zahlungen-1600.webp",
+          "width": 1600,
+          "height": 1199,
+          "alt": {
+            "de": "Zahlungsübersicht mit Filtern und Export",
+            "en": "Payment overview with filters and export"
+          },
+          "srcset": [
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-zahlungen-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/pilateq/pilateq-buchungssystem-zahlungen-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Zahlungen",
+            "en": "Payments"
+          }
+        }
+      ],
+      "de": {
+        "name": "Pilateq",
+        "industry": "Software für Pilates-Studios",
+        "services": "Produktdesign & Entwicklung",
+        "tech": "",
+        "summary": "Buchungs- und Verwaltungssystem für kleine Pilates-Studios: Kurse, Mitglieder, Guthaben und Zahlungen in einer Anwendung – mit genau den Funktionen, die ein Boutique-Studio braucht.",
+        "tags": [
+          "Produktdesign",
+          "Web-Anwendung",
+          "Vue.js",
+          "Node.js",
+          "MongoDB"
+        ],
+        "glance": [
+          {
+            "label": "Aufgabe",
+            "text": "Gängige Buchungssoftware ist für Boutique-Studios zu generisch, zu teuer und zu unflexibel."
+          },
+          {
+            "label": "Lösung",
+            "text": "Eine schlanke Anwendung: Verwaltung für das Studio, Buchung für die Mitglieder."
+          },
+          {
+            "label": "Ergebnis",
+            "text": "Start bei Paquita Pilates, danach für weitere Studios geplant."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Für wen",
+            "lead": "Inhaberinnen und Inhaber kleiner Studios mit festen Kursformaten wie Reformer, Chair oder Privatstunden – oft mit Prepaid-Guthaben.",
+            "blocks": [
+              {
+                "type": "stats",
+                "items": [
+                  {
+                    "value": "1–3",
+                    "label": "Instruktorinnen und Instruktoren"
+                  },
+                  {
+                    "value": "200–400",
+                    "label": "aktive Mitglieder"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Aufbau",
+            "lead": "Zwei Oberflächen auf denselben Daten: Das Studio verwaltet, die Mitglieder buchen.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Tagesübersicht",
+                    "text": "Kurse, aktive Mitglieder und Umsatz des Tages auf einen Blick."
+                  },
+                  {
+                    "title": "Kursplanung",
+                    "text": "Vorlagen mit Kapazität, Instruktor und Raum."
+                  },
+                  {
+                    "title": "Pakete & Guthaben",
+                    "text": "5er-Pakete, 10er-Pässe, Unlimited oder Privatstunden – jedes Studio legt eigene Konditionen fest."
+                  },
+                  {
+                    "title": "Mitglieder-App",
+                    "text": "Guthaben sehen, Kurse filtern, buchen, stornieren und Privatstunden anfragen."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Buchen",
+            "lead": "Mitglieder öffnen die App, sehen freie Plätze und buchen – ohne Pop-ups, ohne E-Mail-Flut.",
+            "blocks": [
+              {
+                "type": "steps",
+                "items": [
+                  {
+                    "title": "Kurs wählen",
+                    "text": "nach Typ und Datum"
+                  },
+                  {
+                    "title": "Platz prüfen",
+                    "text": "Verfügbarkeit in Echtzeit"
+                  },
+                  {
+                    "title": "Buchen",
+                    "text": "mit vorhandenem Guthaben"
+                  },
+                  {
+                    "title": "Bestätigung",
+                    "text": "sofort, ohne Wartezeit"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Bewusst schlank",
+            "lead": "Jede Funktion musste eine Frage bestehen:",
+            "blocks": [
+              {
+                "type": "quote",
+                "text": "Braucht ein Boutique-Studio das wirklich?"
+              },
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Im Fokus",
+                    "items": [
+                      "Kurse und Kapazitäten",
+                      "Flexible Pakete und Guthaben",
+                      "Buchen und Stornieren",
+                      "Zahlungen und Berichte"
+                    ]
+                  },
+                  {
+                    "title": "Bewusst weggelassen",
+                    "muted": true,
+                    "items": [
+                      "Chat – Kommunikation läuft im Studio",
+                      "Videoinhalte – der Fokus liegt auf Präsenztraining",
+                      "Automatische Erinnerungen – das Studio schreibt selbst"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "more": "Technik:\n• Oberfläche: Vue.js, für Smartphone und Desktop\n• Server: Node.js und MongoDB\n• Anmeldung: auch mit Google-Konto\n• Datenschutz: nach DSGVO ausgelegt, Zahlungsdaten verschlüsselt"
+          }
+        ],
+        "takeaway": "Kundinnen und Kunden buchen selbst, ohne Telefonate und E-Mail-Pingpong – Ihr Team hat den Kopf frei fürs Studio."
+      },
+      "en": {
+        "name": "Pilateq",
+        "industry": "Software for Pilates studios",
+        "services": "Product design & development",
+        "tech": "",
+        "summary": "Booking and management system for small Pilates studios: classes, members, credits and payments in one application – with exactly the features a boutique studio needs.",
+        "tags": [
+          "Product design",
+          "Web application",
+          "Vue.js",
+          "Node.js",
+          "MongoDB"
+        ],
+        "glance": [
+          {
+            "label": "Task",
+            "text": "Common booking software is too generic, too expensive and too rigid for boutique studios."
+          },
+          {
+            "label": "Solution",
+            "text": "A lean application: administration for the studio, booking for members."
+          },
+          {
+            "label": "Outcome",
+            "text": "Launching with Paquita Pilates, with more studios planned afterwards."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Who it is for",
+            "lead": "Owners of small studios with fixed class formats such as Reformer, Chair or private sessions – often with prepaid credits.",
+            "blocks": [
+              {
+                "type": "stats",
+                "items": [
+                  {
+                    "value": "1–3",
+                    "label": "instructors"
+                  },
+                  {
+                    "value": "200–400",
+                    "label": "active members"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Structure",
+            "lead": "Two interfaces on the same data: the studio manages, members book.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Daily overview",
+                    "text": "Today’s classes, active members and revenue at a glance."
+                  },
+                  {
+                    "title": "Class planning",
+                    "text": "Templates with capacity, instructor and room."
+                  },
+                  {
+                    "title": "Packages & credits",
+                    "text": "5-class packs, 10-class passes, unlimited or private sessions – each studio sets its own terms."
+                  },
+                  {
+                    "title": "Member app",
+                    "text": "See credits, filter classes, book, cancel and request private sessions."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Booking",
+            "lead": "Members open the app, see free spots and book – no pop-ups, no flood of emails.",
+            "blocks": [
+              {
+                "type": "steps",
+                "items": [
+                  {
+                    "title": "Choose a class",
+                    "text": "by type and date"
+                  },
+                  {
+                    "title": "Check a spot",
+                    "text": "live availability"
+                  },
+                  {
+                    "title": "Book",
+                    "text": "with existing credits"
+                  },
+                  {
+                    "title": "Confirmation",
+                    "text": "instant, no waiting"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Deliberately lean",
+            "lead": "Every feature had to pass one question:",
+            "blocks": [
+              {
+                "type": "quote",
+                "text": "Does a boutique studio really need this?"
+              },
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "In focus",
+                    "items": [
+                      "Classes and capacity",
+                      "Flexible packages and credits",
+                      "Booking and cancelling",
+                      "Payments and reports"
+                    ]
+                  },
+                  {
+                    "title": "Deliberately left out",
+                    "muted": true,
+                    "items": [
+                      "Chat – communication happens in the studio",
+                      "Video content – the focus is on in-person training",
+                      "Automatic reminders – the studio writes its own"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "more": "Technology:\n• Interface: Vue.js, for phone and desktop\n• Server: Node.js and MongoDB\n• Sign-in: also with a Google account\n• Privacy: designed for GDPR, payment data encrypted"
+          }
+        ],
+        "takeaway": "Clients book themselves, without phone calls or email ping-pong – your team can focus on the studio."
+      }
+    },
+    {
+      "slug": "connected-e-mobility",
+      "draft": false,
+      "kind": "study",
+      "shape": 2,
+      "serviceKeys": [
+        "design",
+        "webapps"
+      ],
+      "year": "2024",
+      "url": "",
+      "images": [
+        {
+          "src": "projects/connected-e-mobility/e-mobility-app-startbildschirm-fahrzeugstatus-831.webp",
+          "width": 831,
+          "height": 2048,
+          "alt": {
+            "de": "Startbildschirm mit Fahrzeugstatus, Ladestand und Energieübersicht",
+            "en": "Home screen with vehicle status, charge level and energy overview"
+          },
+          "srcset": [
+            {
+              "src": "projects/connected-e-mobility/e-mobility-app-startbildschirm-fahrzeugstatus-800.webp",
+              "width": 800
+            },
+            {
+              "src": "projects/connected-e-mobility/e-mobility-app-startbildschirm-fahrzeugstatus-400.webp",
+              "width": 400
+            }
+          ],
+          "fit": "contain"
+        },
+        {
+          "src": "projects/connected-e-mobility/e-mobility-app-energie-dashboard-446.webp",
+          "width": 446,
+          "height": 904,
+          "alt": {
+            "de": "Energie-Dashboard für Haus, Wallbox und Netz",
+            "en": "Energy dashboard for home, wallbox and grid"
+          },
+          "srcset": [
+            {
+              "src": "projects/connected-e-mobility/e-mobility-app-energie-dashboard-400.webp",
+              "width": 400
+            }
+          ],
+          "caption": {
+            "de": "Energie-Dashboard",
+            "en": "Energy dashboard"
+          }
+        },
+        {
+          "src": "projects/connected-e-mobility/e-mobility-app-intelligentes-laden-303.webp",
+          "width": 303,
+          "height": 614,
+          "alt": {
+            "de": "Intelligentes Laden mit Abfahrtszeit",
+            "en": "Smart charging with departure time"
+          },
+          "caption": {
+            "de": "Intelligentes Laden",
+            "en": "Smart charging"
+          }
+        },
+        {
+          "src": "projects/connected-e-mobility/e-mobility-app-widget-menue-391.webp",
+          "width": 391,
+          "height": 792,
+          "alt": {
+            "de": "Modulares Menü aus Widgets",
+            "en": "Modular menu built from widgets"
+          },
+          "caption": {
+            "de": "Modulares Menü",
+            "en": "Modular menu"
+          }
+        },
+        {
+          "src": "projects/connected-e-mobility/e-mobility-smartwatch-app-584.webp",
+          "width": 584,
+          "height": 730,
+          "alt": {
+            "de": "Fahrzeugstatus auf der Smartwatch",
+            "en": "Vehicle status on the smartwatch"
+          },
+          "srcset": [
+            {
+              "src": "projects/connected-e-mobility/e-mobility-smartwatch-app-400.webp",
+              "width": 400
+            }
+          ],
+          "caption": {
+            "de": "Smartwatch",
+            "en": "Smartwatch"
+          }
+        }
+      ],
+      "de": {
+        "name": "Connected E-Mobility",
+        "industry": "Automobil · E-Mobilität",
+        "services": "UX-Research & UI-Konzept",
+        "tech": "",
+        "summary": "Mit der Mercedes-Benz Customer Solutions GmbH: ein Interface, das Fahrzeug, Wallbox, Solaranlage und Smart Home zusammenführt – entwickelt als Bachelorarbeit und mit Nutzern getestet.",
+        "tags": [
+          "UX Research",
+          "UI-Konzept",
+          "Vernetzte Produkte",
+          "Figma",
+          "Nutzertests"
+        ],
+        "glance": [
+          {
+            "label": "Aufgabe",
+            "text": "Wer E-Auto, Wallbox, Solaranlage und Smart Home hat, jongliert heute mit mehreren Apps."
+          },
+          {
+            "label": "Lösung",
+            "text": "Ein Interface für alles – entwickelt mit künftigen Nutzerinnen und Nutzern und von ihnen getestet."
+          },
+          {
+            "label": "Ergebnis",
+            "text": "Ein Konzept, das die Testpersonen klar und spannend fanden – Bachelorarbeit mit Note 1,3."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Herausforderung",
+            "lead": "Bestehende Apps kümmern sich meist nur um das Fahrzeug. Wer Wallbox, Solaranlage und Smart Home dazunimmt, wechselt ständig zwischen getrennten Anwendungen.",
+            "blocks": [
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Heute",
+                    "muted": true,
+                    "items": [
+                      "Eine App für das Fahrzeug",
+                      "Eine für die Wallbox",
+                      "Eine für Solaranlage und Speicher",
+                      "Eine für das Smart Home"
+                    ]
+                  },
+                  {
+                    "title": "Konzept",
+                    "items": [
+                      "Alles in einem Interface",
+                      "Energiefluss live in einer Ansicht",
+                      "Gleiche Logik auf Smartphone und Smartwatch"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Vorgehen",
+            "lead": "Jede Gestaltungsentscheidung ist durch Recherche abgesichert.",
+            "blocks": [
+              {
+                "type": "steps",
+                "items": [
+                  {
+                    "title": "Markt verstehen",
+                    "text": "12 Apps verglichen, u. a. Mercedes me, Tesla und MyBMW"
+                  },
+                  {
+                    "title": "Nutzer verstehen",
+                    "text": "4 typische Nutzerprofile und Gespräche mit Fachleuten"
+                  },
+                  {
+                    "title": "Struktur prüfen",
+                    "text": "Testpersonen sortieren die Funktionen selbst"
+                  },
+                  {
+                    "title": "Entwerfen",
+                    "text": "klickbarer Prototyp in Figma"
+                  },
+                  {
+                    "title": "Testen",
+                    "text": "Bewertung durch Testpersonen mit standardisiertem Fragebogen"
+                  }
+                ]
+              }
+            ],
+            "more": "Was die Recherche ergab:\n• Marktanalyse: zentrales Dashboard, klares Onboarding, eigene Bereiche je Produkt\n• Interviews: kurze Wege, einfache Bedienung, individuelle Anpassung – und der Wunsch nach einer Smartwatch-Ansicht\n• Sortierübung (Card Sorting): Live-Status und Schnellzugriffe ins Dashboard, Fahrzeugsteuerung und Ladeeinstellungen in eigene Bereiche"
+          },
+          {
+            "heading": "Lösung",
+            "lead": "Ein Dashboard als Zentrale, aufgebaut aus Widgets – vom schnellen Blick bis zur vollen Steuerung.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Energiefluss live",
+                    "text": "Erzeugung, Speicherung und Verbrauch von Fahrzeug, Wallbox und Haus in einer Ansicht."
+                  },
+                  {
+                    "title": "Dynamic Island",
+                    "text": "Der Ladestatus ist sichtbar, ohne die App zu öffnen."
+                  },
+                  {
+                    "title": "Ladeprogramme",
+                    "text": "»Smart«, »Eco« oder eigene Regeln mit Abfahrtszeit und Strompreis."
+                  },
+                  {
+                    "title": "Vehicle-to-Load",
+                    "text": "Das Auto als mobile Stromquelle – mit Reserve und Laufzeit."
+                  },
+                  {
+                    "title": "Eco-Score",
+                    "text": "Fortschrittsanzeigen für nachhaltiges Verhalten."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Ergebnis",
+            "lead": "Die Testpersonen fanden die Bedienung klar und nützlich. Am meisten begeisterte sie, das Auto als Stromquelle fürs Haus zu nutzen.",
+            "blocks": [
+              {
+                "type": "scale",
+                "caption": "So bewerteten Testpersonen das Auto als Stromquelle (Vehicle-to-Load)",
+                "min": -3,
+                "max": 3,
+                "neutral": [
+                  -0.8,
+                  0.8
+                ],
+                "neutralLabel": "neutraler Bereich",
+                "axis": [
+                  "negativ",
+                  "neutral",
+                  "positiv"
+                ],
+                "items": [
+                  {
+                    "label": "Spannend und innovativ",
+                    "value": 2.2,
+                    "valueLabel": "deutlich positiv"
+                  }
+                ],
+                "note": "Standardisierter Fragebogen (UEQ-S)"
+              }
+            ],
+            "more": "Die Zahl dahinter: 2,2 auf einer Skala von −3 bis +3 – ab +0,8 gilt eine Bewertung als positiv.\n\nMein Beitrag: das komplette UI-Konzept – von der Informationsarchitektur bis zu detaillierten Entwürfen. Bewertet mit der Note 1,3."
+          }
+        ],
+        "takeaway": "Auch komplexe Technik lässt sich so gestalten, dass Kundinnen und Kunden sie ohne Erklärung verstehen – und gern nutzen."
+      },
+      "en": {
+        "name": "Connected E-Mobility",
+        "industry": "Automotive · e-mobility",
+        "services": "UX research & UI concept",
+        "tech": "",
+        "summary": "With Mercedes-Benz Customer Solutions GmbH: one interface that brings together vehicle, wallbox, solar system and smart home – developed as a bachelor’s thesis and tested with users.",
+        "tags": [
+          "UX research",
+          "UI concept",
+          "Connected products",
+          "Figma",
+          "User testing"
+        ],
+        "glance": [
+          {
+            "label": "Task",
+            "text": "Anyone with an EV, wallbox, solar system and smart home juggles several apps today."
+          },
+          {
+            "label": "Solution",
+            "text": "One interface for everything – developed with future users and tested by them."
+          },
+          {
+            "label": "Outcome",
+            "text": "A concept participants found clear and exciting – bachelor’s thesis graded 1.3 (German scale, 1 = best)."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Challenge",
+            "lead": "Existing apps mostly focus on the car. Add a wallbox, solar system and smart home, and you keep switching between separate apps.",
+            "blocks": [
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Today",
+                    "muted": true,
+                    "items": [
+                      "One app for the car",
+                      "One for the wallbox",
+                      "One for solar and storage",
+                      "One for the smart home"
+                    ]
+                  },
+                  {
+                    "title": "Concept",
+                    "items": [
+                      "Everything in one interface",
+                      "Live energy flow in one view",
+                      "Same logic on phone and smartwatch"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Approach",
+            "lead": "Every design decision is backed by research.",
+            "blocks": [
+              {
+                "type": "steps",
+                "items": [
+                  {
+                    "title": "Understand the market",
+                    "text": "12 apps compared, incl. Mercedes me, Tesla and MyBMW"
+                  },
+                  {
+                    "title": "Understand users",
+                    "text": "4 typical user profiles and interviews with experts"
+                  },
+                  {
+                    "title": "Check the structure",
+                    "text": "participants sort the features themselves"
+                  },
+                  {
+                    "title": "Design",
+                    "text": "clickable prototype in Figma"
+                  },
+                  {
+                    "title": "Test",
+                    "text": "rated by participants with a standardised questionnaire"
+                  }
+                ]
+              }
+            ],
+            "more": "What the research showed:\n• Market analysis: a central dashboard, clear onboarding, a separate area per product\n• Interviews: short paths, simple operation, personalisation – and a wish for a smartwatch view\n• Card sorting: live status and shortcuts on the dashboard, vehicle control and charging settings in their own areas"
+          },
+          {
+            "heading": "Solution",
+            "lead": "A dashboard as the hub, built from widgets – from a quick glance to full control.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Live energy flow",
+                    "text": "Generation, storage and consumption of car, wallbox and home in one view."
+                  },
+                  {
+                    "title": "Dynamic Island",
+                    "text": "Charging status visible without opening the app."
+                  },
+                  {
+                    "title": "Charging programmes",
+                    "text": "“Smart”, “Eco” or custom rules with departure time and electricity price."
+                  },
+                  {
+                    "title": "Vehicle-to-load",
+                    "text": "The car as a mobile power source – with reserve and runtime."
+                  },
+                  {
+                    "title": "Eco score",
+                    "text": "Progress indicators for sustainable behaviour."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Outcome",
+            "lead": "Participants found the interface clear and useful. What excited them most was using the car as a power source for the home.",
+            "blocks": [
+              {
+                "type": "scale",
+                "caption": "How participants rated the car as a power source (vehicle-to-load)",
+                "min": -3,
+                "max": 3,
+                "neutral": [
+                  -0.8,
+                  0.8
+                ],
+                "neutralLabel": "neutral range",
+                "axis": [
+                  "negative",
+                  "neutral",
+                  "positive"
+                ],
+                "items": [
+                  {
+                    "label": "Exciting and innovative",
+                    "value": 2.2,
+                    "valueLabel": "clearly positive"
+                  }
+                ],
+                "note": "Standardised questionnaire (UEQ-S)"
+              }
+            ],
+            "more": "The figure behind it: 2.2 on a scale from −3 to +3 – anything above +0.8 counts as positive.\n\nMy part: the complete UI concept – from information architecture to detailed designs. Graded 1.3 (German scale, 1 = best)."
+          }
+        ],
+        "takeaway": "Even complex technology can be designed so that customers understand it without explanation – and enjoy using it."
+      }
+    },
+    {
+      "slug": "beast",
+      "draft": false,
+      "kind": "study",
+      "shape": 3,
+      "serviceKeys": [
+        "design"
+      ],
+      "year": "2023",
+      "url": "",
+      "images": [],
+      "de": {
+        "name": "B.E.A.S.T.",
+        "industry": "Automobil · Mercedes-AMG",
+        "services": "UX-Research & Konzept",
+        "tech": "",
+        "summary": "Mit Mercedes-AMG: Wie sich das Laden eines Elektroautos nach Leistung anfühlen kann – mit Licht, Klang und Haptik, als Prototyp gebaut und an Testpersonen geprüft.",
+        "tags": [
+          "UX Research",
+          "Multisensorisches Design",
+          "Prototyping",
+          "Nutzertests"
+        ],
+        "glance": [
+          {
+            "label": "Aufgabe",
+            "text": "Elektroautos laden lautlos – das Gefühl von Leistung, für das AMG steht, fehlt."
+          },
+          {
+            "label": "Lösung",
+            "text": "Licht, Klang und Spürbares machen das Laden zum Erlebnis – gebaut als Prototyp am Fahrzeug."
+          },
+          {
+            "label": "Ergebnis",
+            "text": "Das blaue Lichtkonzept überzeugte die Testpersonen: verständlich und zugleich emotional."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Aufgabe",
+            "lead": "Im Wintersemester 2022/23 legte unser Projektteam der Hochschule der Medien mit Mercedes-AMG und Mercedes-Benz das Ziel fest: Das Auto soll beim Laden lebendig wirken.",
+            "blocks": [
+              {
+                "type": "cards",
+                "caption": "Zwei Zielgruppen",
+                "items": [
+                  {
+                    "title": "Performer",
+                    "text": "Statusorientiert, technikaffin, auf Effizienz bedacht."
+                  },
+                  {
+                    "title": "Hedonist",
+                    "text": "Erlebnisorientiert, komfortliebend, trendbewusst."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Konzept",
+            "lead": "Licht, Klang und Haptik greifen ineinander – vom Annähern bis zum vollen Akku.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Licht",
+                    "text": "Animationen an Kühlergrill und Seitenleuchten zeigen den Ladefortschritt."
+                  },
+                  {
+                    "title": "Klang",
+                    "text": "Drei Klangwelten: BEAST, PING und Futuristic."
+                  },
+                  {
+                    "title": "Haptik",
+                    "text": "Magnete am Ladestecker erzeugen ein spürbares Ansaugen."
+                  },
+                  {
+                    "title": "Annäherung",
+                    "text": "Scanner und Tags erkennen, wenn jemand zum Auto kommt."
+                  }
+                ]
+              }
+            ],
+            "more": "Die Klangwelten:\n• BEAST – organisch, animalisch, Herzschlag\n• PING – vertraut und komfortabel\n• Futuristic – synthetisch und energiegeladen\n\nGesteuert über ESP32-Controller; die Lichtkonzepte reichen von feurigem Rot (BEAST) bis zu blauem Energiefluss (Futuristic)."
+          },
+          {
+            "heading": "Tests",
+            "lead": "Zwei getrennte Testphasen im Mobile Lab der Hochschule der Medien.",
+            "blocks": [
+              {
+                "type": "stats",
+                "items": [
+                  {
+                    "value": "19",
+                    "label": "Testpersonen ordneten 20 Sounds den Phasen des Ladens zu"
+                  },
+                  {
+                    "value": "15",
+                    "label": "Testpersonen erlebten den Prototyp im Labor und bewerteten ihn"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Ergebnis",
+            "lead": "Blau steht für Energie, Rot für Gefahr: Das blaue Lichtkonzept kam am besten an – als verständlich und als emotional.",
+            "blocks": [
+              {
+                "type": "scale",
+                "caption": "So bewerteten 15 Testpersonen das blaue Lichtkonzept",
+                "min": -3,
+                "max": 3,
+                "neutral": [
+                  -0.8,
+                  0.8
+                ],
+                "neutralLabel": "neutraler Bereich",
+                "axis": [
+                  "negativ",
+                  "neutral",
+                  "positiv"
+                ],
+                "items": [
+                  {
+                    "label": "Verständlich und einfach",
+                    "value": 1.767,
+                    "valueLabel": "deutlich positiv"
+                  },
+                  {
+                    "label": "Spannend und emotional",
+                    "value": 1.926,
+                    "valueLabel": "deutlich positiv"
+                  }
+                ],
+                "note": "Standardisierter Fragebogen (UEQ-S) · 15 Testpersonen"
+              }
+            ],
+            "more": "Die Zahlen dahinter: Mittelwerte von 1,77 (verständlich) und 1,93 (emotional) auf einer Skala von −3 bis +3 – ab +0,8 gilt eine Bewertung als positiv.\n\n• BEAST-Sounds wirkten oft unheimlich; nur 55 % konnten sie einer Kategorie zuordnen.\n• Die Performer erkannten futuristische Sounds zu 100 % wieder, Hedonisten bevorzugten vertraute Ping-Sounds.\n• Empfehlung: blaue Lichtanimation mit dezentem BEAST-Sound beim Einstecken.\n• Gewünscht: Lautstärkeregelung, Abschaltoption, eigene Ladeanzeige.\n• Einschränkung: Die Testgruppe – überwiegend Studierende zwischen 18 und 25 – entspricht nicht genau der AMG-Zielgruppe.\n\nMein Beitrag: UX-Research und Konzeption, gemeinsam mit Teammitgliedern aus Sounddesign und Technischer Informatik – bis zur Präsentation bei Mercedes-AMG."
+          }
+        ],
+        "takeaway": "Ideen werden mit echten Menschen getestet, bevor viel Geld in die Umsetzung fließt – entschieden wird nach Wirkung, nicht nach Geschmack."
+      },
+      "en": {
+        "name": "B.E.A.S.T.",
+        "industry": "Automotive · Mercedes-AMG",
+        "services": "UX research & concept",
+        "tech": "",
+        "summary": "With Mercedes-AMG: how charging an electric car can feel like performance – with light, sound and haptics, built as a prototype and tested with participants.",
+        "tags": [
+          "UX research",
+          "Multisensory design",
+          "Prototyping",
+          "User testing"
+        ],
+        "glance": [
+          {
+            "label": "Task",
+            "text": "Electric cars charge silently – the sense of power AMG stands for is missing."
+          },
+          {
+            "label": "Solution",
+            "text": "Light, sound and touch turn charging into an experience – built as a prototype on the car."
+          },
+          {
+            "label": "Outcome",
+            "text": "The blue light concept won participants over: easy to understand and emotional at the same time."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Brief",
+            "lead": "In winter semester 2022/23 our project team at Stuttgart Media University set the goal together with Mercedes-AMG and Mercedes-Benz: the car should feel alive while charging.",
+            "blocks": [
+              {
+                "type": "cards",
+                "caption": "Two target groups",
+                "items": [
+                  {
+                    "title": "Performer",
+                    "text": "Status-oriented, tech-savvy, focused on efficiency."
+                  },
+                  {
+                    "title": "Hedonist",
+                    "text": "Experience-oriented, comfort-loving, trend-aware."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Concept",
+            "lead": "Light, sound and haptics work together – from approaching the car to a full battery.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Light",
+                    "text": "Animations on the grille and side lights show charging progress."
+                  },
+                  {
+                    "title": "Sound",
+                    "text": "Three sound worlds: BEAST, PING and Futuristic."
+                  },
+                  {
+                    "title": "Haptics",
+                    "text": "Magnets in the charging plug create a tangible pull."
+                  },
+                  {
+                    "title": "Approach",
+                    "text": "Scanners and tags detect when someone walks up to the car."
+                  }
+                ]
+              }
+            ],
+            "more": "The sound worlds:\n• BEAST – organic, animalistic, heartbeat\n• PING – familiar and comfortable\n• Futuristic – synthetic and energetic\n\nControlled by ESP32 boards; the light concepts range from fiery red (BEAST) to a blue flow of energy (Futuristic)."
+          },
+          {
+            "heading": "Tests",
+            "lead": "Two separate test phases in the mobile lab of Stuttgart Media University.",
+            "blocks": [
+              {
+                "type": "stats",
+                "items": [
+                  {
+                    "value": "19",
+                    "label": "participants matched 20 sounds to the phases of charging"
+                  },
+                  {
+                    "value": "15",
+                    "label": "participants experienced the prototype in the lab and rated it"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Outcome",
+            "lead": "Blue stands for energy, red for danger: the blue light concept went down best – easy to understand and emotional.",
+            "blocks": [
+              {
+                "type": "scale",
+                "caption": "How 15 participants rated the blue light concept",
+                "min": -3,
+                "max": 3,
+                "neutral": [
+                  -0.8,
+                  0.8
+                ],
+                "neutralLabel": "neutral range",
+                "axis": [
+                  "negative",
+                  "neutral",
+                  "positive"
+                ],
+                "items": [
+                  {
+                    "label": "Easy to understand",
+                    "value": 1.767,
+                    "valueLabel": "clearly positive"
+                  },
+                  {
+                    "label": "Exciting and emotional",
+                    "value": 1.926,
+                    "valueLabel": "clearly positive"
+                  }
+                ],
+                "note": "Standardised questionnaire (UEQ-S) · 15 participants"
+              }
+            ],
+            "more": "The figures behind it: means of 1.77 (easy to understand) and 1.93 (emotional) on a scale from −3 to +3 – anything above +0.8 counts as positive.\n\n• BEAST sounds often felt creepy; only 55% could assign them to a category.\n• Performers recognised futuristic sounds 100% of the time, hedonists preferred familiar ping sounds.\n• Recommendation: blue light animation with a subtle BEAST sound when plugging in.\n• Requested: volume control, an off switch, a personal charging display.\n• Limitation: the test group – mostly students aged 18 to 25 – does not exactly match the AMG target group.\n\nMy part: UX research and concept, together with team members from sound design and computer engineering – through to the presentation at Mercedes-AMG."
+          }
+        ],
+        "takeaway": "Ideas are tested with real people before serious money goes into building them – decisions follow impact, not taste."
+      }
+    },
+    {
+      "slug": "hiqer",
+      "draft": false,
+      "kind": "study",
+      "shape": 0,
+      "serviceKeys": [
+        "design"
+      ],
+      "year": "2021",
+      "url": "",
+      "images": [
+        {
+          "src": "projects/hiqer/hiqer-wander-app-karte-route-2400.webp",
+          "width": 2400,
+          "height": 1800,
+          "alt": {
+            "de": "Drei Smartphone-Ansichten von HIQER mit Karte, Route und Spots",
+            "en": "Three HIQER phone screens with map, route and spots"
+          },
+          "srcset": [
+            {
+              "src": "projects/hiqer/hiqer-wander-app-karte-route-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-karte-route-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-karte-route-800.webp",
+              "width": 800
+            }
+          ]
+        },
+        {
+          "src": "projects/hiqer/hiqer-wander-app-quests-1728.webp",
+          "width": 1728,
+          "height": 2384,
+          "alt": {
+            "de": "Aktive Quests mit Erfahrungspunkten und Fortschritt",
+            "en": "Active quests with experience points and progress"
+          },
+          "srcset": [
+            {
+              "src": "projects/hiqer/hiqer-wander-app-quests-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-quests-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-quests-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Quests",
+            "en": "Quests"
+          }
+        },
+        {
+          "src": "projects/hiqer/hiqer-wander-app-rangliste-2249.webp",
+          "width": 2249,
+          "height": 2380,
+          "alt": {
+            "de": "Rangliste unter Freunden",
+            "en": "Leaderboard among friends"
+          },
+          "srcset": [
+            {
+              "src": "projects/hiqer/hiqer-wander-app-rangliste-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-rangliste-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-rangliste-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Ranking",
+            "en": "Ranking"
+          }
+        },
+        {
+          "src": "projects/hiqer/hiqer-wander-app-apple-watch-668.webp",
+          "width": 668,
+          "height": 668,
+          "alt": {
+            "de": "HIQER auf der Apple Watch",
+            "en": "HIQER on the Apple Watch"
+          },
+          "caption": {
+            "de": "Apple Watch",
+            "en": "Apple Watch"
+          }
+        },
+        {
+          "src": "projects/hiqer/hiqer-wander-app-karte-spots-2329.webp",
+          "width": 2329,
+          "height": 2220,
+          "alt": {
+            "de": "Karte mit Spots und Detailansicht einer Route",
+            "en": "Map with spots and route detail"
+          },
+          "srcset": [
+            {
+              "src": "projects/hiqer/hiqer-wander-app-karte-spots-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-karte-spots-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/hiqer/hiqer-wander-app-karte-spots-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Karte & Route",
+            "en": "Map & route"
+          }
+        }
+      ],
+      "de": {
+        "name": "HIQER",
+        "industry": "Outdoor & Bewegung",
+        "services": "UX-Konzept & Persuasive Design",
+        "tech": "",
+        "summary": "Digitales Erlebniskonzept fürs Wandern: ortsbasierte Quests, Erfahrungspunkte und eine Apple-Watch-App, damit das Smartphone in der Tasche bleiben kann.",
+        "tags": [
+          "UX Design",
+          "Gamification",
+          "Motivationsdesign",
+          "Smartwatch"
+        ],
+        "glance": [
+          {
+            "label": "Aufgabe",
+            "text": "Wie motiviert man Menschen, draußen aktiv zu sein, ohne sie an den Bildschirm zu fesseln?"
+          },
+          {
+            "label": "Lösung",
+            "text": "Geschichten an Wegpunkten, Punkte und Level – geführt über die Smartwatch, das Handy bleibt in der Tasche."
+          },
+          {
+            "label": "Ergebnis",
+            "text": "Keine der 13 Testpersonen lehnte die App ab, 61,5 % würden sie definitiv nutzen."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Konzept",
+            "lead": "QR-Codes an Wegmarken oder GPS verbinden das Smartphone mit »Spots«. Dort warten Geschichten, Wissenswertes und Vergleiche zwischen früher und heute.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Inhalte vor Ort",
+                    "text": "Geschichten und Informationen genau dort, wo die Neugier entsteht."
+                  },
+                  {
+                    "title": "Quests & Level",
+                    "text": "Erfahrungspunkte für erreichte Spots machen den Weg zum kleinen Abenteuer."
+                  },
+                  {
+                    "title": "Ranking",
+                    "text": "Sozialer Vergleich unter Freunden."
+                  },
+                  {
+                    "title": "Apple Watch",
+                    "text": "Navigation und Haptik am Handgelenk – das Smartphone bleibt in der Tasche."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Motivation",
+            "lead": "Neugier, Spiel und Ehrgeiz sollen die eigene Motivation verstärken, nicht ersetzen.",
+            "blocks": [
+              {
+                "type": "steps",
+                "items": [
+                  {
+                    "title": "Neugier",
+                    "text": "exklusive Inhalte am Zielpunkt"
+                  },
+                  {
+                    "title": "Bewegung",
+                    "text": "Schritte und Fitnessdaten in Echtzeit"
+                  },
+                  {
+                    "title": "Belohnung",
+                    "text": "Punkte, Level, Quests"
+                  },
+                  {
+                    "title": "Vergleich",
+                    "text": "Ranking unter Freunden"
+                  }
+                ]
+              }
+            ],
+            "more": "Nach der Tour: Rabattcodes für Restaurants in der Nähe verbinden die digitale Belohnung mit echtem Nutzen."
+          },
+          {
+            "heading": "Nutzertest",
+            "lead": "Online-Befragung: Die Testpersonen sahen ein Erklärvideo und bewerteten Screens von Smartphone und Smartwatch.",
+            "blocks": [
+              {
+                "type": "groups",
+                "suffix": " %",
+                "note": "Online-Befragung mit 13 Testpersonen",
+                "items": [
+                  {
+                    "title": "Gestaltung",
+                    "value": 100,
+                    "label": "fanden das Design übersichtlich und einheitlich",
+                    "rows": [
+                      {
+                        "label": "Funktionen sinnvoll platziert",
+                        "value": 84.6
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Smartwatch",
+                    "value": 92.3,
+                    "label": "erkannten den nächsten QR-Code auf einen Blick",
+                    "rows": [
+                      {
+                        "label": "Smartwatch erleichtert die Bedienung",
+                        "value": 84.6
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Motivation & Soziales",
+                    "value": 92.3,
+                    "label": "wünschen sich Freunde und Ranking",
+                    "rows": [
+                      {
+                        "label": "Punkte und Level fühlen sich wie Belohnung an",
+                        "value": 76.9
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Ergebnis",
+            "lead": "Die Idee kommt an. Die Smartwatch-Integration erhielt 3,46 von 5 Punkten – positiv, mit Luft nach oben.",
+            "blocks": [
+              {
+                "type": "split",
+                "caption": "Nutzungsabsicht",
+                "suffix": " %",
+                "note": "Niemand lehnte die App ab · 13 Testpersonen",
+                "items": [
+                  {
+                    "label": "würden HIQER definitiv nutzen",
+                    "value": 61.5
+                  },
+                  {
+                    "label": "würden es gelegentlich nutzen",
+                    "value": 38.5
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "takeaway": "Digitale Angebote, die Menschen gern und regelmäßig nutzen – mit Motivation statt Pop-ups und Druck."
+      },
+      "en": {
+        "name": "HIQER",
+        "industry": "Outdoor & movement",
+        "services": "UX concept & persuasive design",
+        "tech": "",
+        "summary": "A digital experience concept for hiking: location-based quests, experience points and an Apple Watch app, so the phone can stay in your pocket.",
+        "tags": [
+          "UX design",
+          "Gamification",
+          "Motivation design",
+          "Smartwatch"
+        ],
+        "glance": [
+          {
+            "label": "Task",
+            "text": "How do you motivate people to be active outdoors without tying them to a screen?"
+          },
+          {
+            "label": "Solution",
+            "text": "Stories at waypoints, points and levels – guided by the smartwatch, the phone stays in your pocket."
+          },
+          {
+            "label": "Outcome",
+            "text": "None of the 13 participants rejected the app; 61.5% would definitely use it."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Concept",
+            "lead": "QR codes on trail markers or GPS connect the phone to “spots”. There, stories, facts and then-and-now comparisons are waiting.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Content on site",
+                    "text": "Stories and information exactly where curiosity arises."
+                  },
+                  {
+                    "title": "Quests & levels",
+                    "text": "Experience points for reached spots turn the walk into a small adventure."
+                  },
+                  {
+                    "title": "Ranking",
+                    "text": "Social comparison among friends."
+                  },
+                  {
+                    "title": "Apple Watch",
+                    "text": "Navigation and haptics on the wrist – the phone stays in your pocket."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Motivation",
+            "lead": "Curiosity, play and ambition should strengthen people’s own motivation, not replace it.",
+            "blocks": [
+              {
+                "type": "steps",
+                "items": [
+                  {
+                    "title": "Curiosity",
+                    "text": "exclusive content at the destination"
+                  },
+                  {
+                    "title": "Movement",
+                    "text": "steps and fitness data in real time"
+                  },
+                  {
+                    "title": "Reward",
+                    "text": "points, levels, quests"
+                  },
+                  {
+                    "title": "Comparison",
+                    "text": "ranking among friends"
+                  }
+                ]
+              }
+            ],
+            "more": "After the hike: discount codes for nearby restaurants connect the digital reward with real benefit."
+          },
+          {
+            "heading": "User test",
+            "lead": "Online survey: participants watched an explainer video and rated phone and smartwatch screens.",
+            "blocks": [
+              {
+                "type": "groups",
+                "suffix": "%",
+                "note": "Online survey with 13 participants",
+                "items": [
+                  {
+                    "title": "Design",
+                    "value": 100,
+                    "label": "found the design clear and consistent",
+                    "rows": [
+                      {
+                        "label": "Features placed sensibly",
+                        "value": 84.6
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Smartwatch",
+                    "value": 92.3,
+                    "label": "recognised the next QR code at a glance",
+                    "rows": [
+                      {
+                        "label": "Smartwatch makes it easier to use",
+                        "value": 84.6
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Motivation & social",
+                    "value": 92.3,
+                    "label": "want friends and rankings",
+                    "rows": [
+                      {
+                        "label": "Points and levels feel rewarding",
+                        "value": 76.9
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Outcome",
+            "lead": "The idea resonates. The smartwatch integration scored 3.46 out of 5 – positive, with room to improve.",
+            "blocks": [
+              {
+                "type": "split",
+                "caption": "Intention to use",
+                "suffix": "%",
+                "note": "Nobody rejected the app · 13 participants",
+                "items": [
+                  {
+                    "label": "would definitely use HIQER",
+                    "value": 61.5
+                  },
+                  {
+                    "label": "would use it occasionally",
+                    "value": 38.5
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "takeaway": "Digital products people use gladly and regularly – driven by motivation, not pop-ups and pressure."
+      }
+    },
+    {
+      "slug": "kischde",
+      "draft": false,
+      "kind": "study",
+      "shape": 1,
+      "serviceKeys": [
+        "webapps",
+        "design"
+      ],
+      "year": "2021",
+      "url": "",
+      "images": [
+        {
+          "src": "projects/kischde/kischde-tausch-app-startseite-2400.webp",
+          "width": 2400,
+          "height": 1800,
+          "alt": {
+            "de": "Startseite von Kischde mit Angeboten aus dem Vertrauenskreis",
+            "en": "Kischde home screen with offers from the trusted circle"
+          },
+          "srcset": [
+            {
+              "src": "projects/kischde/kischde-tausch-app-startseite-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/kischde/kischde-tausch-app-startseite-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/kischde/kischde-tausch-app-startseite-800.webp",
+              "width": 800
+            }
+          ]
+        },
+        {
+          "src": "projects/kischde/kischde-tausch-app-profil-2400.webp",
+          "width": 2400,
+          "height": 1800,
+          "alt": {
+            "de": "Profilansicht mit eigenen Angeboten",
+            "en": "Profile view with own offers"
+          },
+          "srcset": [
+            {
+              "src": "projects/kischde/kischde-tausch-app-profil-1600.webp",
+              "width": 1600
+            },
+            {
+              "src": "projects/kischde/kischde-tausch-app-profil-1200.webp",
+              "width": 1200
+            },
+            {
+              "src": "projects/kischde/kischde-tausch-app-profil-800.webp",
+              "width": 800
+            }
+          ],
+          "caption": {
+            "de": "Profil",
+            "en": "Profile"
+          }
+        }
+      ],
+      "de": {
+        "name": "Kischde",
+        "industry": "Nachhaltigkeit · Tauschen",
+        "services": "Konzept & Frontend-Entwicklung",
+        "tech": "",
+        "summary": "Tauschplattform für vertraute Kreise: Dinge, die man nicht mehr braucht, per Wischgeste an Freunde, Familie und Nachbarn weitergeben – statt sie wegzuwerfen.",
+        "tags": [
+          "Vue.js",
+          "Ionic",
+          "MongoDB",
+          "UX Design",
+          "Mobile"
+        ],
+        "glance": [
+          {
+            "label": "Aufgabe",
+            "text": "Kleinigkeiten zu verkaufen lohnt den Aufwand nicht – also landen sie im Müll."
+          },
+          {
+            "label": "Lösung",
+            "text": "Eine digitale »Zu verschenken«-Box für den eigenen Vertrauenskreis."
+          },
+          {
+            "label": "Ergebnis",
+            "text": "Ein funktionsfähiger Prototyp, entwickelt im Team in vier Monaten."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Idee",
+            "lead": "Statt Anonymität auf dem Marktplatz: Kreise vertrauter Menschen. Statt Verhandeln: eine Wischgeste.",
+            "blocks": [
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Bisher",
+                    "muted": true,
+                    "items": [
+                      "Ausführliche Beschreibungen",
+                      "Verhandeln über den Preis",
+                      "Versand organisieren"
+                    ]
+                  },
+                  {
+                    "title": "Mit Kischde",
+                    "items": [
+                      "Tauschen im eigenen Vertrauenskreis",
+                      "Anbieten und Anfragen per Geste",
+                      "Wiederverwenden statt wegwerfen"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Projekt",
+            "lead": "Anwendungsprojekt im Studiengang Mobile Medien an der Hochschule der Medien, März bis Juni 2021.",
+            "blocks": [
+              {
+                "type": "stats",
+                "items": [
+                  {
+                    "value": "5",
+                    "label": "Personen im Team"
+                  },
+                  {
+                    "value": "4",
+                    "label": "Monate bis zum Prototyp"
+                  }
+                ]
+              }
+            ],
+            "more": "Mein Beitrag:\n• Federführung bei der Definition des Projektumfangs\n• Entwicklung mit Vue.js und Ionic\n• Mitgestaltung des UX-Systems\n\nBewusst weggelassen: Bezahlsystem, Chat und aufwendige Animationen – der Fokus lag auf dem Kernerlebnis."
+          },
+          {
+            "heading": "Umsetzung",
+            "lead": "Der Prototyp konzentriert sich auf die wichtigsten Abläufe.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Feed",
+                    "text": "Angebote aus dem eigenen Vertrauenskreis."
+                  },
+                  {
+                    "title": "Profil",
+                    "text": "Eigene Angebote und Tauschverlauf."
+                  },
+                  {
+                    "title": "Wischen",
+                    "text": "Wenig Denkaufwand beim Anbieten und Anfragen."
+                  },
+                  {
+                    "title": "Plattformübergreifend",
+                    "text": "Mobile Web-App mit Backend für die Daten."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "takeaway": "Weniger Funktionen, mehr Wirkung: Nutzerinnen und Nutzer kommen ohne Anleitung ans Ziel."
+      },
+      "en": {
+        "name": "Kischde",
+        "industry": "Sustainability · swapping",
+        "services": "Concept & front-end development",
+        "tech": "",
+        "summary": "A swap platform for trusted circles: pass on things you no longer need to friends, family and neighbours with a swipe – instead of throwing them away.",
+        "tags": [
+          "Vue.js",
+          "Ionic",
+          "MongoDB",
+          "UX design",
+          "Mobile"
+        ],
+        "glance": [
+          {
+            "label": "Task",
+            "text": "Selling small items is not worth the effort – so they end up in the bin."
+          },
+          {
+            "label": "Solution",
+            "text": "A digital “free to a good home” box for your own trusted circle."
+          },
+          {
+            "label": "Outcome",
+            "text": "A working prototype, built as a team in four months."
+          }
+        ],
+        "sections": [
+          {
+            "heading": "Idea",
+            "lead": "Instead of marketplace anonymity: circles of people you trust. Instead of haggling: a swipe.",
+            "blocks": [
+              {
+                "type": "compare",
+                "columns": [
+                  {
+                    "title": "Until now",
+                    "muted": true,
+                    "items": [
+                      "Detailed descriptions",
+                      "Haggling over the price",
+                      "Arranging shipping"
+                    ]
+                  },
+                  {
+                    "title": "With Kischde",
+                    "items": [
+                      "Swapping within your trusted circle",
+                      "Offering and requesting with a gesture",
+                      "Reuse instead of throwing away"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Project",
+            "lead": "Applied project in the Mobile Media programme at Stuttgart Media University, March to June 2021.",
+            "blocks": [
+              {
+                "type": "stats",
+                "items": [
+                  {
+                    "value": "5",
+                    "label": "people in the team"
+                  },
+                  {
+                    "value": "4",
+                    "label": "months to the prototype"
+                  }
+                ]
+              }
+            ],
+            "more": "My part:\n• Leading the definition of the project scope\n• Development with Vue.js and Ionic\n• Co-designing the UX system\n\nDeliberately left out: payment, chat and elaborate animations – the focus was on the core experience."
+          },
+          {
+            "heading": "Build",
+            "lead": "The prototype concentrates on the key flows.",
+            "blocks": [
+              {
+                "type": "cards",
+                "items": [
+                  {
+                    "title": "Feed",
+                    "text": "Offers from your own trusted circle."
+                  },
+                  {
+                    "title": "Profile",
+                    "text": "Your own offers and swap history."
+                  },
+                  {
+                    "title": "Swipe",
+                    "text": "Little mental effort to offer and request."
+                  },
+                  {
+                    "title": "Cross-platform",
+                    "text": "Mobile web app with a backend for the data."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "takeaway": "Fewer features, more impact: users reach their goal without instructions."
+      }
+    },
+    {
+      "slug": "diese-website",
+      "draft": true,
+      "kind": "own",
+      "shape": 2,
+      "serviceKeys": [
+        "design",
+        "websites"
+      ],
+      "year": "2026",
+      "url": "",
+      "images": [],
+      "de": {
+        "name": "Diese Website",
+        "industry": "Eigenes Studio",
+        "services": "Konzept, Gestaltung & Entwicklung",
+        "tech": "Statischer Generator, eigenes PHP-Formular, ohne Fremddienste",
+        "summary": "Unsere eigene Website – gebaut nach denselben Maßstäben wie für Kundenprojekte: schnell, zugänglich, datensparsam und leicht zu pflegen. Alles, was hier steht, lässt sich im Code nachprüfen.",
+        "sections": [
+          {
+            "heading": "Ausgangslage",
+            "text": "Eine Studio-Website soll zeigen, was das Studio kann – ohne Versprechen, die sich nicht belegen lassen. Sie muss auf jedem Gerät funktionieren, ohne Cookie-Banner auskommen und sich mit wenig Aufwand aktuell halten lassen."
+          },
+          {
+            "heading": "Unser Beitrag",
+            "text": "Alle Seiten werden vorab als fertiges HTML erzeugt und funktionieren auch ohne JavaScript. Die Gestaltung liegt in über 30 kleinen CSS-Modulen mit festen Regeln; Farben, Abstände und Breakpoints stehen jeweils an genau einer Stelle. Die Animationen lassen sich anhalten und passen sich schwachen Geräten an. Das Kontaktformular läuft über den eigenen Webspace, ohne Dienste Dritter."
+          },
+          {
+            "heading": "Ergebnis",
+            "text": "Keine Cookies, kein Tracking, keine Inhalte fremder Anbieter. Über 60 automatische Tests prüfen bei jeder Änderung unter anderem Farbkontraste nach WCAG 2.2 AA, Überschriften, Beschriftungen, Sicherheits-Header und die Darstellung in sieben Bildschirmbreiten von 360 bis 1920 Pixel."
+          }
+        ]
+      },
+      "en": {
+        "name": "This website",
+        "industry": "Our own studio",
+        "services": "Concept, design & development",
+        "tech": "Static generator, own PHP form, no third-party services",
+        "summary": "Our own website – built to the same standards as client work: fast, accessible, privacy-friendly and easy to maintain. Everything stated here can be verified in the code.",
+        "sections": [
+          {
+            "heading": "Starting point",
+            "text": "A studio website should show what the studio can do – without promises that cannot be backed up. It has to work on every device, get by without a cookie banner and be easy to keep up to date."
+          },
+          {
+            "heading": "What we did",
+            "text": "Every page is generated in advance as finished HTML and works without JavaScript. The styling lives in more than 30 small CSS modules with clear rules; colours, spacing and breakpoints are each defined in exactly one place. The animations can be paused and adapt to slower devices. The contact form runs on our own web space, without third-party services."
+          },
+          {
+            "heading": "Outcome",
+            "text": "No cookies, no tracking, no third-party content. More than 60 automated tests check every change – including colour contrast to WCAG 2.2 AA, headings, labels, security headers and the layout at seven screen widths from 360 to 1920 pixels."
+          }
+        ]
+      }
+    }
+  ]
+}

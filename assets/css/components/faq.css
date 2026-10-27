@@ -1,0 +1,45 @@
+/**
+ * Häufige Fragen – <details>/<summary>, funktioniert ohne JavaScript.
+ */
+
+.faq-item {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--color-line);
+}
+
+.faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  align-items: center;
+  min-height: 56px;
+  padding: var(--space-3-5) 0;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  color: var(--color-accent-text);
+  transition: transform 300ms var(--ease-out);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 0 var(--space-5);
+  color: var(--color-muted);
+}

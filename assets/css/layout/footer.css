@@ -1,0 +1,120 @@
+/**
+ * Footer – dunkler Grund in beiden Farbschemata: Marke, Rechtsseiten, »Animationen anhalten«,
+ * Copyright.
+ *
+ * Der Schalter erfüllt WCAG 2.2.2 (Bewegung anhalten) auf jeder Seite; aria-pressed setzt
+ * app.js, bei »Bewegung reduzieren« ist er von Anfang an gedrückt.
+ */
+
+.site-footer {
+  --color-focus: var(--color-accent-light);
+  background-color: var(--color-navy);
+  color: var(--color-navy-dim);
+  padding: 0 var(--pad-x) max(var(--space-7), env(safe-area-inset-bottom));
+  font-size: var(--text-md);
+}
+
+.site-footer-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-7);
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--color-navy-line);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: baseline;
+  font-size: var(--text-lg);
+  color: var(--color-navy-fg);
+}
+
+.footer-brand .brand-name {
+  font-weight: 600;
+}
+
+.footer-brand .brand-tld {
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  color: var(--color-accent-light);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-2) var(--space-6);
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  display: inline-block;
+  padding: var(--space-1-5) 0;
+  color: var(--color-navy-muted);
+}
+
+.footer-links a:hover {
+  color: var(--color-navy-fg);
+}
+
+/* Animationen anhalten – sieht aus wie die Links daneben */
+.footer-motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1-5) 0;
+  color: var(--color-navy-muted);
+  transition: color 200ms ease;
+}
+
+.footer-motion-toggle:hover {
+  color: var(--color-navy-fg);
+}
+
+.no-js .footer-motion {
+  display: none;
+}
+
+/* Symbol: Pause (zwei Balken), gedrückt: Abspielen (Dreieck) */
+.motion-icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.motion-icon::before,
+.motion-icon::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  width: 3px;
+  height: 10px;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.motion-icon::before { left: 3px; }
+.motion-icon::after { left: 8px; }
+
+[aria-pressed="true"] > .motion-icon::before {
+  top: 1px;
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  background: none;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent currentColor;
+}
+
+[aria-pressed="true"] > .motion-icon::after {
+  display: none;
+}
+
+@media (--coarse) {
+  .footer-links a,
+  .footer-motion-toggle { padding: var(--space-3) 0; }
+}

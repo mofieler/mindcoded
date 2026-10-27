@@ -1,0 +1,206 @@
+/**
+ * Hero und Start-Intro.
+ *
+ * Desktop: Text links, Punktwolke rechts in .hero-desktop-stage-box, Fortschritt unten.
+ * Mobil: Punktwolke über dem Text in .hero-mobile-stage-box, alles zentriert.
+ * Stufenanzeige (Identity, Architecture, Code): hero-stages.css.
+ *
+ * Start-Intro (einmal pro Sitzung, entschieden in theme-init.js): Wortzeichen auf ruhiger
+ * Fläche, Header und Hero-Text blenden erst danach ein; jede Interaktion beendet das Intro.
+ * Sicherheitsnetz: Fällt JavaScript aus, erscheint der Inhalt nach 6 Sekunden trotzdem.
+ */
+
+.hero-section {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--header-h);
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  overflow: hidden;
+  transition: var(--trans-theme);
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-overlay);
+  opacity: 0;
+  transition: opacity 1300ms var(--ease-in-out);
+  pointer-events: none;
+}
+
+/* Start-Intro */
+.intro-pending .hero-overlay {
+  opacity: 1;
+}
+
+.hero-grid,
+.hero-footer-bar {
+  transition: opacity 700ms ease, transform 900ms var(--ease-out);
+}
+
+.intro-pending .site-header,
+.intro-pending .hero-grid,
+.intro-pending .hero-footer-bar,
+.intro-pending .progress-bar {
+  opacity: 0;
+  animation: mcIntroFailsafe 400ms ease 6s forwards;
+}
+
+.intro-pending .hero-grid {
+  transform: translateY(18px);
+}
+
+@keyframes mcIntroFailsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Inhalt */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: var(--space-fluid-xs) var(--pad-x) var(--space-vh-xl);
+}
+
+.hero-grid {
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--space-fluid-l);
+  align-items: center;
+}
+
+.hero-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-vh-s);
+  max-width: 560px;
+  text-align: left;
+}
+
+.hero-eyebrow {
+  color: var(--color-dim);
+}
+
+.hero-title {
+  font-size: var(--text-title-xl);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.hero-title .hero-line {
+  display: block;
+}
+
+/* Schreibmaschinen-Zeile (app.js) – der zugängliche Name der H1 bleibt stabil */
+.hero-title .typed-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 1.15em;
+  color: var(--color-accent);
+}
+
+.hero-title .typed-text {
+  white-space: nowrap;
+  display: inline-block;
+  transform: skewX(-9deg);
+  transform-origin: left bottom;
+}
+
+.hero-title .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.78em;
+  margin-left: var(--space-1-5);
+  background-color: var(--color-accent);
+  animation: mcBlink 1s steps(1) infinite;
+}
+
+.no-js .hero-title .cursor,
+.motion-paused .hero-title .cursor {
+  animation: none;
+  opacity: 0;
+}
+
+.hero-lead {
+  font-size: var(--text-lead-sm);
+  line-height: 1.55;
+  color: var(--color-muted);
+  max-width: 470px;
+  text-wrap: pretty;
+}
+
+/* Handlungen – auch auf Leistungsseiten verwendet */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+/* Flächen, in denen die Punktwolke ihre Motive zeichnet (unterhalb des Headers) */
+.hero-desktop-stage-box {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  right: clamp(12px, 3vw, 56px);
+  top: calc(var(--header-h) + 40px);
+  width: min(42vw, 760px);
+  height: calc(100% - var(--header-h) - 40px - 72px);
+}
+
+.hero-mobile-stage-box {
+  display: none;
+  width: calc(100% + 16px);
+  margin: 0 calc(var(--space-2) * -1);
+  height: 24svh;
+  min-height: 160px;
+  max-height: 240px;
+  pointer-events: none;
+}
+
+@media (--tablet) {
+  .hero-desktop-stage-box { width: 38vw; }
+  .hero-text-col { max-width: min(560px, 52vw); }
+}
+
+/* Hohe Tablets: Hero nach Inhalt statt nach Bildschirmhöhe – kein leerer Raum */
+@media (--tablet-portrait) {
+  .hero-section { min-height: 0; }
+  .hero-content-wrapper { padding-top: var(--space-vh-m); padding-bottom: var(--space-hero-footer); }
+  .hero-desktop-stage-box { top: calc(var(--header-h) + 24px); height: calc(100% - var(--header-h) - 24px - 96px); }
+}
+
+@media (--mobile) {
+  .hero-section { min-height: 0; }
+  .hero-content-wrapper { padding: 0 var(--space-5) var(--space-12); }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-text-col { margin: 0 auto; align-items: center; text-align: center; }
+  .hero-title .typed-row { justify-content: center; }
+  .hero-lead { text-align: center; }
+  .hero-actions { justify-content: center; gap: var(--space-4); }
+  .hero-actions .btn-primary-pill { width: 100%; }
+  .hero-desktop-stage-box { display: none; }
+  .hero-mobile-stage-box { display: block; }
+  .no-js .hero-mobile-stage-box { display: none; }
+}

@@ -1,0 +1,78 @@
+/**
+ * mindcoded.studio – Stylesheet, Einstieg
+ *
+ * Diese Datei legt nur die Reihenfolge fest. Der Build (tools/mcsite/css.py) fügt die Module
+ * zu einer Datei zusammen (assets/style.css, eine Anfrage), setzt die Breakpoints ein und
+ * verkleinert das Ergebnis im Release. Aufbau und Regeln: docs/CSS.md.
+ *
+ * Cascade Layers – später genannte Ebenen gewinnen, unabhängig von der Spezifität:
+ *   reset       Browser-Vorgaben angleichen
+ *   tokens      Design-Tokens (Farben, Maße, Ebenen, Bewegung)
+ *   base        Dokument, Fokus, Typo-Rollen
+ *   layout      Seitenrahmen: Header, Mobilmenü, Abschnitte, Footer
+ *   components  wiederverwendbare Bausteine
+ *   sections    Abschnitte der Startseite
+ *   pages       Unterseiten
+ *   utilities   Hilfsklassen, die immer gelten sollen
+ *   overrides   Nutzereinstellungen und Druck – das letzte Wort
+ *
+ * Ohne Layer stehen nur At-Regeln, die mit nichts konkurrieren (Breakpoints, Schriften,
+ * Seitenübergänge).
+ */
+
+@layer reset, tokens, base, layout, components, sections, pages, utilities, overrides;
+
+@import url("settings/media.css");
+@import url("settings/fonts.css");
+@import url("settings/tokens.css") layer(tokens);
+
+@import url("base/reset.css") layer(reset);
+@import url("base/document.css") layer(base);
+@import url("base/typography.css") layer(base);
+
+@import url("layout/header.css") layer(layout);
+@import url("layout/mobile-menu.css") layer(layout);
+@import url("layout/section.css") layer(layout);
+@import url("layout/footer.css") layer(layout);
+@import url("layout/curtain.css") layer(layout);
+
+@import url("components/button.css") layer(components);
+@import url("components/site-controls.css") layer(components);
+@import url("components/accordion.css") layer(components);
+@import url("components/badge.css") layer(components);
+@import url("components/breadcrumb.css") layer(components);
+@import url("components/card.css") layer(components);
+@import url("components/check-list.css") layer(components);
+@import url("components/col-block.css") layer(components);
+@import url("components/facts.css") layer(components);
+@import url("components/faq.css") layer(components);
+@import url("components/form.css") layer(components);
+@import url("components/dev-hints.css") layer(components);
+
+@import url("sections/hero.css") layer(sections);
+@import url("sections/hero-stages.css") layer(sections);
+@import url("sections/tools.css") layer(sections);
+@import url("sections/services.css") layer(sections);
+@import url("sections/projects.css") layer(sections);
+@import url("sections/process.css") layer(sections);
+@import url("sections/about.css") layer(sections);
+@import url("sections/contact.css") layer(sections);
+
+@import url("pages/case.css") layer(pages);
+@import url("pages/case-chapters.css") layer(pages);
+@import url("pages/case-blocks.css") layer(pages);
+@import url("pages/case-diagrams.css") layer(pages);
+@import url("pages/case-data.css") layer(pages);
+@import url("pages/case-gallery.css") layer(pages);
+@import url("pages/case-motion.css") layer(pages);
+@import url("pages/service.css") layer(pages);
+@import url("pages/text-page.css") layer(pages);
+@import url("pages/catalog.css") layer(pages);
+
+@import url("utilities/utilities.css") layer(utilities);
+@import url("utilities/snap-row.css") layer(utilities);
+
+@import url("overrides/forced-colors.css") layer(overrides);
+@import url("overrides/reduced-motion.css") layer(overrides);
+@import url("overrides/print.css") layer(overrides);
+@import url("overrides/view-transitions.css");

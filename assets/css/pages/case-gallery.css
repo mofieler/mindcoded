@@ -1,0 +1,115 @@
+/**
+ * Case Study – Bildstreifen »Einblicke«: waagerecht wischbar (Touch), Pfeile am Desktop
+ * (projects.js › initGallery), Hoch- und Querformate gemischt ohne Beschnitt.
+ *
+ *   .case-gallery-head   Überschrift und Pfeile (ohne JavaScript und bei Touch ausgeblendet)
+ *   .case-gallery-strip  Streifen, läuft bis an den Bildschirmrand, rastet je Bild ein
+ *   .case-shot           Bild mit Unterschrift
+ */
+
+.case-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.case-gallery-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-ink);
+}
+
+.case-gallery-title {
+  font-weight: 700;
+  font-size: var(--text-title-sm);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.case-gallery-nav {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.case-gallery-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease, opacity 300ms ease;
+}
+
+.case-gallery-btn:hover:not([aria-disabled="true"]) {
+  background-color: var(--color-btn);
+  border-color: var(--color-btn);
+  color: var(--color-btn-fg);
+}
+
+.case-gallery-btn[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.no-js .case-gallery-nav {
+  display: none;
+}
+
+.case-gallery-strip {
+  display: flex;
+  gap: var(--space-fluid-xs);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad-x);
+  margin-inline: calc(var(--pad-x) * -1);
+  padding: var(--space-1) var(--pad-x) var(--space-2);
+  scrollbar-width: none;
+}
+
+.case-gallery-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.case-shot {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  scroll-snap-align: start;
+}
+
+.case-shot img {
+  height: clamp(280px, 40vw, 560px);
+  width: auto;
+  max-width: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background-color: var(--color-card);
+}
+
+.case-shot-caption {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+@media (--mobile) {
+  .case-shot img {
+    height: auto;
+    max-height: clamp(240px, 70vw, 420px);
+    max-width: calc(100vw - var(--pad-x) * 2 - 24px);
+  }
+
+  .case-shot {
+    max-width: calc(100vw - var(--pad-x) * 2 - 24px);
+  }
+}
+
+@media (--coarse) {
+  .case-gallery-nav { display: none; }
+}

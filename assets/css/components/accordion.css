@@ -1,0 +1,87 @@
+/**
+ * Akkordeon – gemeinsame Mechanik für Leistungen und Projekte.
+ *
+ *   .accordion-item.is-open           (Zustand setzt app.js, aria-expanded am Button)
+ *     .accordion-heading > button     (Aussehen der Zeile im jeweiligen Abschnitt)
+ *       .accordion-icon > .plus-icon  Plus, das sich zum Kreuz dreht
+ *     .accordion-panel                animierte Höhe
+ *       .accordion-panel-inner        zugeklappt aus Tab-Reihenfolge und Vorlese-Baum entfernt
+ *
+ * Ohne JavaScript sind alle Panels offen.
+ */
+
+.accordion-heading {
+  font: inherit;
+  margin: 0;
+}
+
+.accordion-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.accordion-item.is-open .accordion-icon {
+  background-color: var(--color-btn);
+  border-color: var(--color-btn);
+}
+
+.plus-icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  transition: transform 500ms var(--ease-out);
+}
+
+.accordion-item.is-open .plus-icon {
+  transform: rotate(45deg);
+}
+
+.plus-icon-h,
+.plus-icon-v {
+  position: absolute;
+  background-color: var(--color-ink);
+  transition: background-color 300ms ease;
+}
+
+.accordion-item.is-open .plus-icon-h,
+.accordion-item.is-open .plus-icon-v {
+  background-color: var(--color-btn-fg);
+}
+
+.plus-icon-h { left: 0; right: 0; top: 5.25px; height: 1.5px; }
+.plus-icon-v { top: 0; bottom: 0; left: 5.25px; width: 1.5px; }
+
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 600ms var(--ease-out);
+}
+
+.accordion-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+  visibility: hidden;
+  transition: visibility 0s linear 600ms;
+}
+
+.accordion-item.is-open .accordion-panel,
+.no-js .accordion-panel {
+  grid-template-rows: 1fr;
+}
+
+.accordion-item.is-open .accordion-panel-inner,
+.no-js .accordion-panel-inner {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.no-js .accordion-icon {
+  display: none;
+}

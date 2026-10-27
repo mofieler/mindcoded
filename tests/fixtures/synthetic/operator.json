@@ -1,0 +1,30 @@
+{
+  "url": "https://www.example.com",
+  "operator": {
+    "name": "Max Mustermann",
+    "legalForm": "",
+    "street": "Musterstraße 1",
+    "postalCode": "00000",
+    "city": "Musterstadt",
+    "country": "Deutschland",
+    "phone": "",
+    "vatId": "",
+    "economicId": "",
+    "register": "",
+    "editorialResponsible": ""
+  },
+  "about": { "personName": "Max Mustermann" },
+  "hosting": {
+    "provider": "Beispiel-Hosting GmbH, Musterstraße 2, 00000 Musterstadt",
+    "dpaConfirmed": true,
+    "logRetention": "für sieben Tage",
+    "mailbox": "Beispiel-Hosting GmbH, Musterstadt",
+    "mailLogRetention": "nach 14 Tagen"
+  },
+  "privacy": { "updated": "Oktober 2026" },
+  "lang": {
+    "personRole": { "de": "Gründer · Gestaltung & Entwicklung", "en": "Founder · Design & development" },
+    "personBio": { "de": "Synthetischer Testtext für die Personenkarte.", "en": "Synthetic test text for the person card." },
+    "photoAlt": { "de": "Synthetisches Porträt", "en": "Synthetic portrait" }
+  }
+}

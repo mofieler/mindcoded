@@ -1,0 +1,139 @@
+/**
+ * Case Study – Ablauf und Stand (Erzeugung: tools/mcsite/blocks.py). Zeichnen sich einmal auf,
+ * sobald ihr Baustein ins Bild scrollt (.case-block.is-revealed, gesetzt von effects.js).
+ * Ohne JavaScript und bei »Bewegung reduzieren« stehen sie sofort vollständig da.
+ *
+ *   .case-steps            Ablauf: Punkte auf einer Linie – waagerecht bis 4 Schritte,
+ *                          senkrecht ab 5 Schritten und auf kleinen Bildschirmen
+ *   .case-steps--status    Stand: umgesetzt (gefüllt), in Arbeit (mit Hof), geplant (Umriss)
+ */
+
+/* Ablauf und Stand */
+.case-steps {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.case-steps::before,
+.case-steps::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 0;
+  top: 5px;
+  height: 1px;
+  background-color: var(--color-track);
+  transform-origin: left center;
+}
+
+.case-steps::after {
+  background-color: var(--color-accent);
+  transition: transform 1400ms var(--ease-out) 150ms;
+}
+
+.case-steps--status::after {
+  display: none;
+}
+
+.case-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding-top: var(--space-8);
+  transition: opacity 700ms ease, transform 900ms var(--ease-out);
+}
+
+.case-step:nth-child(2) { transition-delay: 120ms; }
+.case-step:nth-child(3) { transition-delay: 240ms; }
+.case-step:nth-child(4) { transition-delay: 360ms; }
+.case-step:nth-child(5) { transition-delay: 480ms; }
+.case-step:nth-child(6) { transition-delay: 600ms; }
+
+.case-step-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.case-step-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.case-step-text {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.case-step-state {
+  color: var(--color-accent-text);
+}
+
+.case-step.is-active .case-step-dot {
+  box-shadow: 0 0 0 5px var(--color-chip);
+}
+
+.case-step.is-planned .case-step-dot {
+  background-color: var(--color-bg);
+  border: 1.5px solid var(--color-dim);
+}
+
+.case-step.is-planned .case-step-state,
+.case-step.is-planned .case-step-title {
+  color: var(--color-muted);
+}
+
+.case-steps:has(> :nth-child(5)) {
+  grid-auto-flow: row;
+  gap: var(--space-6);
+}
+
+.case-steps:has(> :nth-child(5))::before,
+.case-steps:has(> :nth-child(5))::after {
+  top: 6px;
+  bottom: 6px;
+  right: auto;
+  width: 1px;
+  height: auto;
+  transform-origin: center top;
+}
+
+.case-steps:has(> :nth-child(5)) .case-step {
+  padding: 0 0 0 var(--space-8);
+}
+
+.js .case-block:not(.is-revealed) .case-step {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.js .case-block:not(.is-revealed) .case-steps::after {
+  transform: scaleX(0);
+}
+
+.js .case-block:not(.is-revealed) .case-steps:has(> :nth-child(5))::after {
+  transform: scaleY(0);
+}
+
+/* Schmaler Platz (Container »case«): Ablauf senkrecht */
+@container case (max-width: 520px) {
+  .case-steps { grid-auto-flow: row; gap: var(--space-6); }
+  .case-steps::before,
+  .case-steps::after { top: 6px; bottom: 6px; right: auto; width: 1px; height: auto; transform-origin: center top; }
+  .case-step { padding: 0 0 0 var(--space-8); }
+  .js .case-block:not(.is-revealed) .case-steps::after { transform: scaleY(0); }
+}
+
+@media (--forced-colors) {
+  .case-step-dot { forced-color-adjust: none; background-color: CanvasText; }
+}

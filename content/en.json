@@ -1,0 +1,211 @@
+{
+  "lang": "en",
+  "locale": "en_GB",
+  "langName": "English",
+
+  "meta": {
+    "title": "Web design in Stuttgart: websites & online booking – {brand.full}",
+    "description": "Web design from Stuttgart: websites, online booking and web apps that turn visitors into customers – with care and hosting in Germany.",
+    "socialAlt": "{brand.full} – Web design and development in Stuttgart"
+  },
+
+  "ui": {
+    "skipLink": "Skip to content",
+    "homeLabel": "{brand.full} – home",
+    "breadcrumb": "Breadcrumb",
+    "mainNav": "Main navigation",
+    "headerCta": "Book an intro call",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "menuLabel": "Menu",
+    "themeLabel": "Dark colour scheme",
+    "langNav": "Choose language",
+    "motionPause": "Pause animations",
+    "todoBadge": "Missing operator information",
+    "draftBadge": "Placeholder – not published"
+  },
+
+  "nav": [
+    { "label": "Services", "href": "#leistungen" },
+    { "label": "Work", "href": "#projekte", "requires": "projects" },
+    { "label": "Process", "href": "#ablauf" },
+    { "label": "About", "href": "#studio" },
+    { "label": "Contact", "href": "#kontakt" }
+  ],
+
+  "hero": {
+    "eyebrow": "Web design & development in Stuttgart",
+    "h1a": "Websites,",
+    "h1b": "made for",
+    "words": ["your customers.", "your members.", "your guests.", "your patients."],
+    "lead": "I design and build websites and online booking for businesses in and around Stuttgart – so your quality shows online, enquiries come more easily and routine work disappears.",
+    "cta": "Book an intro call",
+    "ctaProjects": "View projects",
+    "ctaProcess": "How I work",
+    "stages": ["Identity", "Architecture", "Code"],
+    "toolsLabel": "Tools & technology"
+  },
+
+  "services": {
+    "eyebrow": "Services",
+    "h": "What moves",
+    "em": "your business forward.",
+    "lead": "From your first website to online booking and care after launch: design and technology from one source – always focused on who uses your site and what they want to get done.",
+    "extra": "Beyond that: interactive prototypes as well as 3D and Unity applications – just ask.",
+    "swipeHint": "↔ Swipe to switch",
+    "slugBase": "services",
+    "pageLabels": {
+      "more": "More about this service",
+      "ask": "Enquire about this",
+      "intro": "What it is about",
+      "includes": "What is included",
+      "approach": "How I work",
+      "forWhom": "Who it is for",
+      "faq": "Frequently asked questions",
+      "projects": "Related projects",
+      "others": "Other services",
+      "ctaTitle": "Does this fit your project?",
+      "ctaText": "Tell me briefly what it is about – I will reply by email with a few first questions.",
+      "ctaButton": "Book an intro call",
+      "breadcrumbHome": "Home",
+      "breadcrumbServices": "Services"
+    }
+  },
+
+  "process": {
+    "eyebrow": "Process",
+    "h": "How a project",
+    "em": "comes together.",
+    "lead": "Four steps from your first message to launch – with clear check-ins between each stage and one point of contact from start to finish.",
+    "steps": [
+      { "title": "Getting to know you", "text": "You briefly describe your project. I reply by email and we clarify goals, audience and scope in an intro call." },
+      { "title": "Concept & quote", "text": "I outline structure and content and suggest a suitable scope. Based on that, you receive a quote." },
+      { "title": "Design & build", "text": "I design and develop in stages and agree on each milestone with you before moving on." },
+      { "title": "Launch & handover", "text": "After testing together, everything goes live. You receive all access details, the website belongs entirely to you – and on request I take care of hosting and updates afterwards." }
+    ],
+    "effortTitle": "What drives the effort",
+    "effortItems": [
+      "Scope: number of pages and amount of content",
+      "Whether copy and images already exist",
+      "Features such as online booking, forms or a customer area",
+      "Connections to existing systems",
+      "Your preferred timeline"
+    ],
+    "effortNote": "After our first conversation, you receive a quote tailored to your project."
+  },
+
+  "about": {
+    "eyebrow": "About me",
+    "h": "Your point of contact",
+    "em": "from day one.",
+    "lead": "Behind {brand.full} is me, Moritz Fieler – UX designer and front-end developer in Stuttgart, Germany. You talk to me from the first conversation until after launch, in person or by video.",
+    "personRole": "Freelance UX designer & front-end developer",
+    "personBio": "Several years of UX design at Mercedes-Benz – from the MBUX infotainment system to connected e-mobility – after studying Mobile Media at Stuttgart Media University. Today I bring that experience to projects for businesses in the region: understand people, reduce complexity, test results with users.",
+    "photoAlt": "Portrait of Moritz Fieler",
+    "cta": "Book an intro call",
+    "reasons": {"title": "Why work with me", "items": [{"title": "One point of contact", "text": "You talk to me from the first conversation until after launch – no hand-offs, no lost messages."}, {"title": "Design and code from one source", "text": "What I design, I build myself. Nothing gets lost between agency and developers."}, {"title": "Tested, not guessed", "text": "I test designs with people from your target group before serious money goes into building."}, {"title": "Accessible and privacy-friendly", "text": "Websites to WCAG standards, hosted in Germany – and without cookie banners where none are needed."}]}
+  },
+
+  "projects": {
+    "eyebrow": "Work",
+    "h": "Selected",
+    "em": "projects.",
+    "lead": "How I work, in practice – from a Pilates studio in Stuttgart to concepts with Mercedes-AMG.",
+    "note": "Select a project to expand it",
+    "cols": { "nr": "No.", "name": "Project", "industry": "Industry", "services": "Services", "year": "Year" },
+    "kinds": { "client": "Client project", "own": "In-house project", "concept": "Concept study", "study": "Study project" },
+    "moreTitle": "More projects",
+    "illustration": "Illustration",
+    "cta": "View case study",
+    "liveLink": "Visit website",
+    "takeawayKicker": "What’s in it for you",
+    "ctaKicker": "Planning something similar?",
+    "ctaTitle": "Let’s talk about it.",
+    "factLabels": { "industry": "Industry", "services": "Services", "year": "Year", "kind": "Type", "tech": "Technology" },
+    "glanceTitle": "At a glance",
+    "more": "More detail",
+    "states": { "done": "Done", "active": "In progress", "planned": "Planned" },
+    "galleryPrev": "Previous image",
+    "galleryNext": "Next image",
+    "tagsLabel": "Tags",
+    "back": "Back to projects",
+    "caseLabel": "Case",
+    "next": "Next project",
+    "galleryTitle": "Insights",
+    "slugBase": "work"
+  },
+
+  "contact": {
+    "eyebrow": "Contact",
+    "h": "Ready for your",
+    "em": "next project?",
+    "lead": "Tell me a little about your project – even if not everything is settled yet.",
+    "nextTitle": "What happens next",
+    "nextSteps": ["You briefly describe your project – a few sentences are enough.", "I usually reply within one working day with a few first questions.", "In a no-obligation intro call we clarify goals, scope and timing together – by video or in person."],
+    "direct": "Direct contact",
+    "loc": "Stuttgart, Germany · Remote and on site",
+    "formTitle": "Contact form",
+    "requiredNote": "Fields not marked “optional” are required.",
+    "optional": "optional",
+    "topicLegend": "What is it about?",
+    "topics": [{"key": "website", "label": "New website"}, {"key": "webapp", "label": "Web application"}, {"key": "redesign", "label": "Redesign"}, {"key": "audit", "label": "Audit & modernisation"}, {"key": "care", "label": "Care & hosting"}, {"key": "other", "label": "Something else"}],
+    "nameLabel": "Name or company",
+    "emailLabel": "Email address",
+    "emailHint": "This is where I will send my reply.",
+    "messageLabel": "Your message",
+    "messageHint": "A few sentences are enough: what are you planning, and by when?",
+    "timelineLabel": "Timeline",
+    "timelineOptions": [
+      { "value": "", "label": "Please choose" },
+      { "value": "asap", "label": "As soon as possible" },
+      { "value": "1-3-months", "label": "In one to three months" },
+      { "value": "later", "label": "Later or not decided yet" }
+    ],
+    "honeypotLabel": "Please leave this field empty",
+    "privacyNotice": "I only use your details to answer your enquiry. See the [privacy policy (German)]({privacyUrl}) for details.",
+    "consentLabel": "I have read the [privacy policy (German)]({privacyUrl}) and agree that my details are processed to answer my enquiry.",
+    "send": "Send message",
+    "sending": "Sending …",
+    "mailFallback": "Send your message with your email app instead",
+    "mailFallbackSubject": "Enquiry via {brand.full}",
+    "errors": {
+      "required": "Please fill in this field.",
+      "nameTooLong": "Please shorten the name to {contact.limits.nameMax} characters or fewer.",
+      "email": "Please enter a complete email address (with @ and a domain).",
+      "messageTooShort": "Please write at least {contact.limits.messageMin} characters.",
+      "messageTooLong": "Please shorten your message to {contact.limits.messageMax} characters or fewer.",
+      "consent": "Please confirm the privacy notice.",
+      "summary": "Please check the highlighted fields.",
+      "server": "Your message could not be sent just now. Your input has been kept – please try again or email me directly at {brand.email}.",
+      "rate": "Too many messages were sent in a short time. Please try again in a few minutes or email me directly at {brand.email}."
+    },
+    "thanks": "Thank you for your message.",
+    "thanksText": "Your enquiry has reached me. I will get back to you by email.",
+    "again": "Send another message"
+  },
+
+  "footer": {
+    "imprint": "Legal notice (German)",
+    "privacy": "Privacy policy (German)",
+    "accessibility": "Accessibility (German)",
+    "top": "Back to top",
+    "copyright": "© {year} {brand.full}"
+  },
+
+  "pages": {
+    "thanks": {
+      "slug": "contact/thanks",
+      "title": "Message sent",
+      "h1": "Thank you for your message.",
+      "text": "Your enquiry has reached me. I will get back to you by email.",
+      "back": "Back to the home page"
+    },
+    "error": {
+      "slug": "contact/error",
+      "title": "Message not sent",
+      "h1": "Your message was not sent.",
+      "text": "This can happen if details are missing, if too many messages were sent in a short time or because of a technical problem. Please try again or email me directly at [{brand.email}](mailto:{brand.email}).",
+      "back": "Back to the form"
+    }
+  }
+}

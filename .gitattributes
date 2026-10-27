@@ -1,0 +1,11 @@
+# Zeilenenden im Repository einheitlich (LF) – egal, ob unter Windows oder macOS bearbeitet
+* text=auto eol=lf
+
+# Binärdateien nie verändern
+*.png binary
+*.ico binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.woff2 binary

@@ -1,0 +1,130 @@
+{
+  "_hinweis": "Globale Einstellungen und Betreiberangaben. Werte mit »TODO:« muss der Betreiber ersetzen – der Release-Build bricht sonst ab. Leere Zeichenkette \"\" bedeutet: Angabe entfällt. Siehe README.md › Inhalte pflegen.",
+  "brand": {
+    "name": "mindcoded",
+    "tld": ".studio",
+    "email": "hallo@mindcoded.studio",
+    "city": "Stuttgart",
+    "countryCode": "DE"
+  },
+  "url": "https://mindcoded.studio",
+  "defaultTheme": "system",
+  "intro": "on-entry",
+  "socialImage": "social/og-default.png",
+  "seo": {
+    "_hinweis": "Werte aus Google Search Console bzw. Bing Webmaster Tools eintragen (leer = entfällt). Siehe docs/SEO.md.",
+    "googleSiteVerification": "",
+    "googleVerificationFile": "",
+    "bingSiteVerification": "",
+    "profiles": [],
+    "publishStreetAddress": false,
+    "blockAiTraining": false,
+    "securityTxt": true,
+    "areaServed": [
+      "Stuttgart",
+      "Esslingen am Neckar",
+      "Ludwigsburg",
+      "Böblingen",
+      "Sindelfingen",
+      "Leonberg",
+      "Fellbach",
+      "Waiblingen",
+      "Filderstadt",
+      "Leinfelden-Echterdingen",
+      "Ostfildern",
+      "Ditzingen",
+      "Kornwestheim"
+    ]
+  },
+  "contact": {
+    "endpoint": "api/contact.php",
+    "mailServer": "own",
+    "requireConsent": false,
+    "rateLimit": {
+      "maxRequests": 5,
+      "windowMinutes": 10
+    },
+    "limits": {
+      "nameMax": 100,
+      "emailMax": 254,
+      "messageMin": 10,
+      "messageMax": 5000,
+      "minFillSeconds": 3
+    }
+  },
+  "operator": {
+    "name": "Moritz Fieler",
+    "legalForm": "",
+    "street": "Sautterweg 30",
+    "postalCode": "70565",
+    "city": "Stuttgart",
+    "country": "Deutschland",
+    "phone": "",
+    "vatId": "",
+    "economicId": "TODO: Wirtschafts-Identifikationsnummer (leer lassen, wenn keine zugeteilt)",
+    "register": "",
+    "editorialResponsible": "",
+    "consumerDisputeStatement": true
+  },
+  "about": {
+    "personName": "Moritz Fieler",
+    "photo": "about/moritz-fieler-webdesigner-stuttgart-320.webp",
+    "photoWidth": 320,
+    "photoHeight": 320
+  },
+  "hosting": {
+    "provider": "Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland",
+    "dpaConfirmed": "TODO: auf true setzen, sobald der Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO) mit dem Server-Anbieter abgeschlossen ist",
+    "logRetention": "TODO: Speicherdauer der Webserver-Logfiles als Satzteil, z. B. »für sieben Tage« (auf dem eigenen Server selbst festgelegt, siehe docs/SERVER.md)",
+    "mailbox": "TODO: Nur bei mailServer »hoster«: Anbieter des E-Mail-Postfachs (Name und Sitz)",
+    "mailLogRetention": "TODO: Nur bei mailServer »own«: Löschfrist der Mailserver-Protokolle als Satzteil, z. B. »nach 14 Tagen« (in Stalwart einstellen, siehe docs/E-MAIL.md)"
+  },
+  "server": {
+    "_hinweis": "Pfade auf dem VPS – daraus erzeugt der Release-Build die Konfiguration für Caddy, nginx, Apache, PHP-FPM und den Wartungs-Timer (dist-server/). Siehe docs/SERVER.md.",
+    "root": "/srv/mindcoded",
+    "user": "mindcoded",
+    "phpVersion": "8.3",
+    "mailHost": "mail"
+  },
+  "privacy": {
+    "updated": "TODO: Stand der Datenschutzerklärung, z. B. »Oktober 2026«"
+  },
+  "tools": [
+    {
+      "name": "Figma",
+      "icon": "figma"
+    },
+    {
+      "name": "Vue.js",
+      "icon": "vuedotjs"
+    },
+    {
+      "name": "Nuxt",
+      "icon": "nuxtdotjs"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "typescript"
+    },
+    {
+      "name": "Tailwind CSS",
+      "icon": "tailwindcss"
+    },
+    {
+      "name": "Node.js",
+      "icon": "nodedotjs"
+    },
+    {
+      "name": "MongoDB",
+      "icon": "mongodb"
+    },
+    {
+      "name": "Ionic",
+      "icon": "ionic"
+    },
+    {
+      "name": "Python",
+      "icon": "python"
+    }
+  ]
+}

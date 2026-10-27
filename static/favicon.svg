@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>mindcoded.studio</title>
+  <rect width="64" height="64" rx="14" fill="#1A2540"/>
+  <circle cx="17" cy="32" r="7" fill="#ECE8E0"/>
+  <circle cx="32" cy="32" r="7" fill="#5B7FD6"/>
+  <circle cx="47" cy="32" r="7" fill="#ECE8E0"/>
+</svg>

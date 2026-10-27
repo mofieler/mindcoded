@@ -1,0 +1,199 @@
+/**
+ * Header – oben auf der Seite über dem Inhalt; nach dem Scrollen fixiert und beim
+ * Zurückscrollen sichtbar (Zustände setzt header.js: .is-floating, .is-shown, .no-anim).
+ *
+ * Desktop: Logo, Navigation, Anfrage-Button, Farbschema, Sprache.
+ * Bis --header-compact: Logo, Farbschema und Menü-Button (Mobilmenü: mobile-menu.css).
+ */
+
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  transition: opacity 700ms ease, transform 900ms var(--ease-out); /* Einblenden nach dem Start-Intro (hero.css) */
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--pad-x);
+  transition: padding 300ms ease;
+}
+
+.site-header.is-floating {
+  position: fixed;
+  background-color: var(--color-nav-bar);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-line);
+  transform: translateY(-105%);
+  transition: transform 380ms var(--ease-out), background-color var(--dur-theme) ease;
+}
+
+.site-header.is-floating .site-header-inner {
+  padding-top: var(--space-2-5);
+  padding-bottom: var(--space-2-5);
+}
+
+.site-header.is-floating .menu-burger-btn {
+  width: 44px;
+  height: 44px;
+}
+
+.site-header.is-floating.is-shown,
+.site-header.is-floating:focus-within {
+  transform: translateY(0);
+}
+
+.site-header.no-anim,
+.site-header.no-anim .site-header-inner {
+  transition: none;
+}
+
+/* Unterseiten: Inhalt beginnt unter dem Header */
+body:not(.page-home) > main {
+  padding-top: var(--header-h);
+}
+
+/* Logo (auch im Mobilmenü) */
+.site-logo {
+  display: flex;
+  align-items: baseline;
+  font-size: var(--text-xl);
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  user-select: none;
+}
+
+a.site-logo:hover {
+  color: var(--color-accent-text);
+}
+
+.site-logo .brand-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.site-logo .brand-tld {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--text-lg);
+  color: var(--color-accent);
+}
+
+/* Navigation */
+.desktop-nav ul {
+  display: flex;
+  gap: var(--space-fluid-s);
+  font-size: var(--text-md);
+}
+
+.desktop-nav a {
+  position: relative;
+  display: inline-block;
+  padding: var(--space-1-5) 0;
+  color: var(--color-muted);
+}
+
+.desktop-nav a:hover,
+.desktop-nav a.is-current {
+  color: var(--color-ink);
+}
+
+/* Aktueller Abschnitt: Akzentpunkt unter dem Link */
+.desktop-nav a.is-current::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.header-controls {
+  display: flex;
+  gap: var(--space-2-5);
+  align-items: center;
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-btn);
+  color: var(--color-btn-fg);
+  font-size: var(--text-md);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 250ms ease;
+}
+
+.header-cta:hover {
+  background-color: var(--color-btn-hover);
+  color: var(--color-btn-fg);
+}
+
+/* Kompakter Header */
+.mobile-controls {
+  display: none;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.menu-burger-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  background: var(--color-chip);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  transition: width 300ms ease, height 300ms ease;
+}
+
+.burger-line-1,
+.burger-line-2 {
+  height: 1.5px;
+  background: var(--color-ink);
+  border-radius: 2px;
+}
+
+.burger-line-1 { width: 18px; }
+.burger-line-2 { width: 12px; margin-left: var(--space-1-5); }
+
+@media (--header-compact) {
+  .desktop-nav { display: none; }
+  .header-controls { display: none; }
+  .mobile-controls { display: flex; }
+
+  /* Ohne JavaScript funktioniert das Mobilmenü nicht – dann einfache Linkzeile zeigen */
+  .no-js .site-header-inner { flex-wrap: wrap; }
+  .no-js .desktop-nav { display: block; width: 100%; order: 3; }
+  .no-js .desktop-nav ul { flex-wrap: wrap; gap: var(--space-2) var(--space-5); }
+  .no-js .menu-burger-btn { display: none; }
+}
+
+@media (--forced-colors) {
+  .header-cta {
+    border: 1px solid ButtonText;
+  }
+
+  .desktop-nav a.is-current::after {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}

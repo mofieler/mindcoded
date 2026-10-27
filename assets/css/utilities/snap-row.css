@@ -1,0 +1,63 @@
+/**
+ * Wischbare Reihe: Auf Handy und Tablet werden Kachel-Raster (Kurzüberblick und Karten der
+ * Case Study) zu einer waagerechten Reihe, die bis an den Bildschirmrand läuft und Kachel für
+ * Kachel einrastet. Die angeschnittene nächste Kachel zeigt, dass es weitergeht.
+ * Liegt in der Ebene »utilities«, damit sie das Raster des jeweiligen Bausteins ablöst.
+ *
+ *   .snap-row   am Raster; Kinder sind die Kacheln
+ */
+
+@media (--narrow) {
+  .snap-row {
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--pad-x);
+    margin-inline: calc(var(--pad-x) * -1);
+    padding-inline: var(--pad-x);
+    padding-bottom: var(--space-1);
+    scrollbar-width: none;
+  }
+
+  .snap-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .snap-row > * {
+    flex: 0 0 min(78%, 340px);
+    scroll-snap-align: start;
+  }
+}
+
+@supports (scroll-marker-group: after) {
+  @media (--narrow) {
+    .snap-row {
+      scroll-marker-group: after;
+    }
+
+    .snap-row::scroll-marker-group {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--space-2);
+    }
+
+    .snap-row > *::scroll-marker {
+      content: "";
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--color-dim) 0 2.5px, transparent 3px);
+    }
+
+    .snap-row > *::scroll-marker:target-current {
+      background: radial-gradient(circle, var(--color-ink) 0 4px, transparent 4.5px);
+    }
+
+    .snap-row > *::scroll-marker:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: -2px;
+    }
+  }
+}

@@ -1,0 +1,212 @@
+/**
+ * Case Study – Erzählstruktur: Kurzüberblick, Kapitel und »Mehr dazu«.
+ * Bausteine: case-blocks.css, case-diagrams.css; Bildstreifen: case-gallery.css.
+ *
+ *   .case-glance            drei kleine Boxen unter dem Hauptbild (auf Handy/Tablet wischbar)
+ *   .case-chapter           links nummerierte Überschrift (bleibt beim Scrollen stehen),
+ *                           rechts Kernsatz (.case-lead), Bausteine (.case-block), .case-more
+ *   .case-more              natives <details>: Einzelheiten, ohne JavaScript bedienbar
+ *   .case-indicator-chapter aktuelles Kapitel in der mitlaufenden Leiste (setzt projects.js)
+ */
+
+/* Kurzüberblick */
+.case-glance-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-fluid-xs);
+}
+
+.case-glance-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding: var(--space-fluid-s);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background-color: var(--color-card);
+}
+
+.case-glance-label {
+  color: var(--color-accent-text);
+}
+
+.case-glance-text {
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Kapitel */
+.case-chapters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-2xl);
+}
+
+.case-chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--space-fluid-l);
+  padding-top: var(--space-6);
+}
+
+/* Linie über dem Kapitel – zeichnet sich von links, sobald die Überschrift erscheint */
+.case-chapter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--color-ink);
+  transform-origin: left center;
+  transition: transform 1400ms var(--ease-out);
+}
+
+.js .case-chapter:not(:has(.case-chapter-head.is-revealed))::before {
+  transform: scaleX(0);
+}
+
+.case-chapter-head {
+  position: sticky;
+  top: var(--case-sticky-top);
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+  transition: top 380ms var(--ease-out);
+}
+
+.header-shown .case-chapter-head {
+  top: calc(var(--case-sticky-top) + var(--header-float-h));
+}
+
+.case-chapter-title {
+  font-weight: 700;
+  font-size: var(--text-title-sm);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.case-chapter-body {
+  container: case / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-m);
+  min-width: 0;
+}
+
+.case-lead {
+  max-width: 40em;
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.case-text {
+  max-width: 42em;
+  font-size: var(--text-lg);
+  line-height: 1.65;
+  color: var(--color-muted);
+  text-wrap: pretty;
+}
+
+/* Mehr dazu */
+.case-more {
+  border-top: 1px solid var(--color-line);
+  interpolate-size: allow-keywords;
+}
+
+.case-more::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 500ms var(--ease-out), content-visibility 500ms allow-discrete;
+}
+
+.case-more[open]::details-content {
+  block-size: auto;
+}
+
+.case-more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 44px;
+  padding: var(--space-3-5) 0;
+  list-style: none;
+  cursor: pointer;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.case-more-btn::-webkit-details-marker {
+  display: none;
+}
+
+.case-more-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.case-more-btn:hover .case-more-icon {
+  border-color: var(--color-ink);
+}
+
+.case-more[open] .case-more-icon {
+  background-color: var(--color-btn);
+  border-color: var(--color-btn);
+}
+
+.case-more[open] .plus-icon {
+  transform: rotate(45deg);
+}
+
+.case-more[open] .plus-icon-h,
+.case-more[open] .plus-icon-v {
+  background-color: var(--color-btn-fg);
+}
+
+.case-more-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+  padding: var(--space-1) 0 var(--space-6);
+}
+
+.case-more-body .check-list {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+}
+
+/* Aktuelles Kapitel in der Leiste */
+.case-indicator-chapter {
+  transition: opacity 300ms ease;
+}
+
+.case-indicator-chapter:not(:empty)::before {
+  content: "·";
+  margin: 0 var(--space-2);
+}
+
+.case-indicator-chapter.is-changing {
+  opacity: 0;
+}
+
+@media (--narrow) {
+  .case-chapter { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .case-chapter-head { position: static; }
+}
+
+@media (--small) {
+  .case-indicator.has-chapter .case-indicator-count { display: none; }
+  .case-indicator-chapter:not(:empty)::before { display: none; }
+}

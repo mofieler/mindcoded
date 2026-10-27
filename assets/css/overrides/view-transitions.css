@@ -1,0 +1,22 @@
+/**
+ * Weiche Übergänge zwischen Seiten (Chrome, Edge, Safari) – der Projekttitel wandert von der
+ * Projektliste in die Case Study (view-transition-name setzt app.js über [data-vt]).
+ * Ohne Layer: @view-transition und die Übergangs-Pseudoelemente konkurrieren mit nichts.
+ */
+
+@media (--motion-ok) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 320ms;
+    animation-timing-function: var(--ease-out);
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: 420ms;
+    animation-timing-function: var(--ease-out);
+  }
+}

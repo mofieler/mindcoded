@@ -1,0 +1,45 @@
+/**
+ * Typo-Rollen – einmal definiert, im HTML als Klasse vergeben.
+ *
+ *   .type-label    Mono, klein, gesperrt, Großbuchstaben (Eyebrows, Spaltenköpfe, Metadaten)
+ *   .type-mono     Mono, klein (Ziffern, Zähler, Bedienelemente)
+ *   .type-display  Bricolage, schmal, schwer (Überschriften)
+ *
+ * Bausteine ergänzen nur Größe, Farbe und Abstände. Weil die Rollen in der Ebene »base«
+ * stehen, gewinnt jede Angabe eines Bausteins.
+ */
+
+.type-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+}
+
+.type-display {
+  font-family: var(--font-display);
+  font-stretch: 84%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* Akzentwort in Überschriften (»… <em>Wort</em>«) */
+.type-display em {
+  font-style: normal;
+  display: inline-block;
+  transform: skewX(-9deg);
+}
+
+/* Links im Fließtext (aus [Text](Ziel) in den Inhalten) – ohne Farbe erkennbar */
+.text-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}

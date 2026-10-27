@@ -1,0 +1,131 @@
+/**
+ * Komponenten-Seite (nur Entwicklungs-Build, tools/mcsite/catalog.py): je Baustein Name und
+ * Hinweis links, rechts das gerenderte Beispiel und darunter die JSON-Vorlage zum Kopieren.
+ *
+ *   .catalog-group  Gruppe mit Überschrift
+ *   .catalog-item   .catalog-head + .catalog-demo + .catalog-code
+ */
+
+.catalog {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-fluid-2xl) var(--pad-x) var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-2xl);
+}
+
+.catalog-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 46em;
+}
+
+.catalog-title {
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.catalog-text {
+  font-size: var(--text-xl);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.catalog-text code,
+.catalog-code code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.catalog-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.catalog-group-title {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-ink);
+  font-size: var(--text-title-sm);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.catalog-item {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr);
+  gap: var(--space-5) var(--space-fluid-l);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+}
+
+.catalog-head {
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.catalog-name {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+}
+
+.catalog-note {
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.catalog-demo,
+.catalog-code {
+  grid-column: 2;
+  min-width: 0;
+}
+
+/* Gleicher Container wie im Kapitel: Bausteine verhalten sich hier wie auf der Case-Seite */
+.catalog-demo {
+  container: case / inline-size;
+}
+
+.catalog-code {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2-5);
+}
+
+.catalog-code pre {
+  width: 100%;
+  max-height: 280px;
+  overflow: auto;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  background-color: var(--color-card);
+  line-height: 1.5;
+}
+
+.catalog-dark {
+  padding: var(--space-3);
+  border-radius: 16px;
+  background-color: var(--color-navy);
+}
+
+.catalog-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+}
+
+@media (--narrow) {
+  .catalog-item { grid-template-columns: minmax(0, 1fr); }
+  .catalog-head { grid-row: auto; }
+  .catalog-demo,
+  .catalog-code { grid-column: auto; }
+}

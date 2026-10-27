@@ -1,0 +1,189 @@
+/**
+ * Buttons und Handlungslinks.
+ *
+ *   .btn-primary-pill    Hauptaktion (dunkle Pille mit Pfeilkreis)
+ *   .btn-contact-submit  Hauptaktion auf dunklem Grund (helle Pille)
+ *   .arrow-circle        Pfeilkreis in Pillen; [data-arrow] bewegt ihn bei Mausnähe (app.js)
+ *   .btn-secondary-link  Nebenaktion als unterstrichener Link
+ *   .pill-link           Verweis als Umriss-Pille (z. B. weitere Leistungen)
+ *   .cta-arrow           Pfeil im Anfrage-Button des Mobilmenüs und im schwebenden Button
+ *   .mobile-fab-btn      schwebender Anfrage-Button auf kleinen Bildschirmen
+ */
+
+.btn-primary-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3-5);
+  min-height: 52px;
+  padding: 0 var(--space-2) 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-btn);
+  color: var(--color-btn-fg);
+  font-size: var(--text-base);
+  font-weight: 600;
+  transition: background-color 250ms ease, color 250ms ease;
+  user-select: none;
+}
+
+.btn-primary-pill:hover {
+  background-color: var(--color-btn-hover);
+  color: var(--color-btn-fg);
+}
+
+.btn-contact-submit {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3-5);
+  min-height: 52px;
+  padding: 0 var(--space-2) 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-navy-inverse);
+  color: var(--color-navy-inverse-fg);
+  font-size: var(--text-base);
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 200ms ease;
+}
+
+.btn-contact-submit:hover {
+  background: var(--color-navy-inverse-hover);
+  color: var(--color-navy-inverse-fg);
+}
+
+.btn-contact-submit[aria-disabled="true"] {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+.arrow-circle {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-base);
+  color: var(--color-on-accent);
+  overflow: hidden;
+}
+
+.arrow-circle span {
+  display: block;
+  transition: transform 450ms var(--ease-out);
+}
+
+.btn-secondary-link {
+  font-size: var(--text-base);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-muted);
+  padding: var(--space-1-5) 0 3px;
+  color: var(--color-ink);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.btn-secondary-link:hover {
+  border-bottom-color: var(--color-accent-text);
+  color: var(--color-accent-text);
+}
+
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line);
+  font-weight: 600;
+}
+
+.pill-link:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.cta-arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Schwebender Anfrage-Button: blendet sich über Projekten, Formular und offenen Eingaben aus
+   (.is-visible setzt app.js) */
+.mobile-fab-btn {
+  position: fixed;
+  z-index: var(--z-fab);
+  right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 52px;
+  padding: 0 var(--space-1) 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-btn);
+  color: var(--color-btn-fg);
+  font-size: var(--text-base);
+  font-weight: 600;
+  box-shadow: var(--shadow-float);
+  transform: translateY(140%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 600ms var(--ease-out), opacity 400ms ease, visibility 0s linear 600ms,
+    padding 400ms var(--ease-out), gap 400ms var(--ease-out);
+}
+
+.mobile-fab-btn.is-visible {
+  transform: translateY(0%);
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+}
+
+.mobile-fab-btn:hover {
+  color: var(--color-btn-fg);
+}
+
+/* Beim Weiterlesen nur der Pfeilkreis (verdeckt kaum Text), beim Zurückscrollen wieder mit Text.
+   Der Text bleibt im Barrierefreiheitsbaum und damit der Name des Links. */
+.mobile-fab-label {
+  max-width: 14em;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 400ms var(--ease-out), opacity 300ms ease;
+}
+
+.mobile-fab-btn.is-compact {
+  gap: 0;
+  padding: 0 var(--space-1);
+}
+
+.mobile-fab-btn.is-compact .mobile-fab-label {
+  max-width: 0;
+  opacity: 0;
+}
+
+@media (--desktop) {
+  .mobile-fab-btn { display: none; }
+}
+
+@media (--small) {
+  .btn-contact-submit { align-self: stretch; justify-content: space-between; }
+}
+
+@media (--forced-colors) {
+  .btn-primary-pill,
+  .btn-contact-submit,
+  .pill-link,
+  .mobile-fab-btn {
+    border: 1px solid ButtonText;
+  }
+}

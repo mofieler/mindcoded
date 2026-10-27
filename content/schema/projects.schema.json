@@ -1,0 +1,807 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projects.schema.json",
+  "title": "mindcoded.studio – Projekte",
+  "description": "Schema für content/projects.json und content/templates/case-study.json. Für Autovervollständigung und Prüfung im Editor (.vscode/settings.json). Verbindlich prüft der Build (tools/mcsite/content.py); tests/test_build.py hält beide gleich. Regeln: docs/CASE-STUDIES.md.",
+  "type": "object",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "_hinweis": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/project"
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text. [Linktext](ziel) für Links; in längeren Texten trennt eine Leerzeile Absätze, »• « beginnt eine Aufzählung."
+    },
+    "lang": {
+      "enum": [
+        "de",
+        "en"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "required": [
+        "src",
+        "width",
+        "height",
+        "alt"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "pattern": "^projects/",
+          "description": "Pfad unter assets/, erzeugt von tools/make_images.py"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "srcset": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "src",
+              "width"
+            ],
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "alt": {
+          "type": "object",
+          "required": [
+            "de",
+            "en"
+          ],
+          "properties": {
+            "de": {
+              "$ref": "#/$defs/text"
+            },
+            "en": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        },
+        "caption": {
+          "type": "object",
+          "properties": {
+            "de": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          }
+        },
+        "fit": {
+          "const": "contain",
+          "description": "ganzes Bild zeigen statt Ausschnitt (Hochformate, Mockups)"
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "slug",
+        "kind",
+        "shape",
+        "year",
+        "de",
+        "en"
+      ],
+      "properties": {
+        "_hinweis": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "draft": {
+          "type": "boolean",
+          "description": "true = nur im Entwicklungs-Build sichtbar"
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "true = auf der Startseite als große Bildkarte über der Projektliste"
+        },
+        "kind": {
+          "enum": [
+            "client",
+            "own",
+            "concept",
+            "study"
+          ],
+          "description": "Kundenprojekt, Eigenprojekt, Konzeptstudie, Studienprojekt"
+        },
+        "shape": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Punktwolken-Illustration, wenn es keine Bilder gibt"
+        },
+        "serviceKeys": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "design",
+              "websites",
+              "webapps",
+              "modernization"
+            ]
+          }
+        },
+        "year": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^(https://.*)?$"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/image"
+          }
+        },
+        "de": {
+          "$ref": "#/$defs/content"
+        },
+        "en": {
+          "$ref": "#/$defs/content"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "required": [
+        "name",
+        "industry",
+        "services",
+        "summary",
+        "sections"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "industry": {
+          "$ref": "#/$defs/text"
+        },
+        "services": {
+          "$ref": "#/$defs/text"
+        },
+        "tech": {
+          "type": "string"
+        },
+        "summary": {
+          "$ref": "#/$defs/text",
+          "description": "Kernsatz: für wen, was, mit welchem Ziel"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "glance": {
+          "type": "array",
+          "maxItems": 3,
+          "description": "Auf einen Blick: drei Boxen, je ein Satz",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "text"
+            ],
+            "properties": {
+              "label": {
+                "$ref": "#/$defs/text"
+              },
+              "text": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        },
+        "takeaway": {
+          "$ref": "#/$defs/text",
+          "description": "Was Sie davon haben: ein Satz Nutzen für den Leser, erscheint im Abschluss über der Hauptaktion"
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": [
+        "heading"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "text"
+          ]
+        },
+        {
+          "required": [
+            "lead"
+          ]
+        },
+        {
+          "required": [
+            "blocks"
+          ]
+        }
+      ],
+      "properties": {
+        "heading": {
+          "$ref": "#/$defs/text"
+        },
+        "lead": {
+          "$ref": "#/$defs/text",
+          "description": "ein Kernsatz – die Aussage, die hängen bleiben soll"
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "more": {
+          "$ref": "#/$defs/text",
+          "description": "Einzelheiten hinter »Mehr dazu«"
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          }
+        }
+      }
+    },
+    "block": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "text",
+            "cards",
+            "steps",
+            "stats",
+            "bars",
+            "scale",
+            "split",
+            "groups",
+            "quote",
+            "palette",
+            "status",
+            "compare"
+          ]
+        },
+        "caption": {
+          "type": "string",
+          "description": "Label über dem Baustein"
+        },
+        "note": {
+          "type": "string",
+          "description": "Quelle oder Hinweis darunter, z. B. n = 13"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-text"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "cards"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-cards"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "steps"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-steps"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "stats"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-stats"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "bars"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-bars"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "scale"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-scale"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "split"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-split"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "groups"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-groups"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "quote"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-quote"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "palette"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-palette"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "status"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-status"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "compare"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/block-compare"
+          }
+        }
+      ]
+    },
+    "titled": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "valued": {
+      "type": "object",
+      "required": [
+        "label",
+        "value"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "block-text": {
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "block-cards": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/titled"
+              },
+              {
+                "required": [
+                  "text"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "block-steps": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/titled"
+          }
+        }
+      }
+    },
+    "block-stats": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "value",
+              "label"
+            ],
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "reine Zahl (mit %) zählt beim Erscheinen hoch"
+              },
+              "label": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        }
+      }
+    },
+    "block-bars": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "max": {
+          "type": "number"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/valued"
+          }
+        }
+      }
+    },
+    "block-scale": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "neutral": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "neutralLabel": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/valued"
+              },
+              {
+                "properties": {
+                  "valueLabel": {
+                    "type": "string",
+                    "description": "ersetzt die Zahl am Balken, z. B. »deutlich positiv«"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "axis": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "string"
+          },
+          "description": "Achse in Worten statt Zahlen, z. B. [\"negativ\", \"neutral\", \"positiv\"]"
+        }
+      }
+    },
+    "block-split": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "suffix": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/valued"
+          }
+        }
+      }
+    },
+    "block-groups": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "suffix": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "value",
+              "label"
+            ],
+            "properties": {
+              "title": {
+                "$ref": "#/$defs/text"
+              },
+              "value": {
+                "type": "number"
+              },
+              "label": {
+                "$ref": "#/$defs/text"
+              },
+              "rows": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/valued"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "block-quote": {
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "source": {
+          "type": "string",
+          "description": "Name, Rolle – macht das Zitat zur Kundenstimme"
+        }
+      }
+    },
+    "block-palette": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "hex",
+              "name",
+              "role"
+            ],
+            "properties": {
+              "hex": {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}$"
+              },
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "block-status": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/titled"
+              },
+              {
+                "required": [
+                  "state"
+                ],
+                "properties": {
+                  "state": {
+                    "enum": [
+                      "done",
+                      "active",
+                      "planned"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "block-compare": {
+      "required": [
+        "columns"
+      ],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "items"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "muted": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/text"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

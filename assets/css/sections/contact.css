@@ -1,0 +1,178 @@
+/**
+ * Kontakt – dunkler Bereich in beiden Farbschemata: Einleitung und direkter Kontakt links,
+ * Formular rechts (Felder: form.css); ab --narrow untereinander. Nach dem Senden ersetzt die
+ * Dankeskarte das Formular.
+ */
+
+.contact-section {
+  --color-focus: var(--color-accent-light);
+  position: relative;
+  color-scheme: dark;
+  background-color: var(--color-navy);
+  color: var(--color-navy-fg);
+  padding: var(--space-section-top) var(--pad-x) var(--space-fluid-2xl);
+  overflow: hidden;
+}
+
+.contact-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-fluid-l);
+}
+
+.contact-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(150px, 20vw, 320px);
+}
+
+.no-js .contact-canvas-wrapper {
+  display: none;
+}
+
+.contact-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-fluid-xl);
+  align-items: start;
+}
+
+/* Einleitung und direkter Kontakt */
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.contact-info-col .section-eyebrow {
+  margin-bottom: calc(var(--space-2) * -1);
+}
+
+.contact-title {
+  font-size: var(--text-title-lg);
+  text-wrap: balance;
+}
+
+.contact-title em {
+  color: var(--color-accent-light);
+}
+
+.contact-lead {
+  font-size: var(--text-lead-sm);
+  line-height: 1.55;
+  color: var(--color-navy-muted);
+  max-width: 440px;
+  text-wrap: pretty;
+}
+
+/* So geht es weiter: drei nummerierte Schritte */
+.contact-next {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.contact-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  max-width: 440px;
+  counter-reset: contact-step;
+}
+
+.contact-steps li {
+  position: relative;
+  padding-left: var(--space-8);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--color-navy-muted);
+  counter-increment: contact-step;
+}
+
+.contact-steps li::before {
+  content: counter(contact-step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-accent-light);
+}
+
+.contact-direct-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding-top: var(--space-3);
+}
+
+.contact-label-dim {
+  color: var(--color-navy-dim);
+}
+
+.contact-mail-link {
+  font-weight: 700;
+  font-size: var(--text-title-xs);
+  letter-spacing: -0.01em;
+  color: var(--color-navy-fg);
+  border-bottom: 1px solid var(--color-navy-field);
+  align-self: flex-start;
+  padding-bottom: var(--space-1);
+  overflow-wrap: anywhere;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.contact-mail-link:hover {
+  color: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+}
+
+.contact-location {
+  font-size: var(--text-base);
+  color: var(--color-navy-muted);
+}
+
+/* Formular- und Dankeskarte */
+.contact-form-card,
+.contact-thanks-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-fluid-m);
+  border-radius: 22px;
+  border: 1px solid var(--color-navy-line);
+  background: var(--color-navy-panel);
+}
+
+.thanks-title {
+  font-size: var(--text-title-sm);
+}
+
+.thanks-text {
+  font-size: var(--text-xl);
+  line-height: 1.55;
+  color: var(--color-navy-muted);
+}
+
+.thanks-reset-btn {
+  align-self: flex-start;
+  font-size: var(--text-base);
+  color: var(--color-navy-fg);
+  border-bottom: 1px solid var(--color-navy-field);
+  padding: var(--space-1-5) 0 3px;
+}
+
+/* Tablets im Hochformat und kleiner: Formular über volle Breite – bequemer zu bedienen */
+@media (--narrow) {
+  .contact-main-grid { grid-template-columns: 1fr; }
+  .contact-form-col { max-width: 720px; }
+}

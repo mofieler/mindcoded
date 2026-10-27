@@ -5,6 +5,7 @@ Der Release-Build schreibt nach dist-server/ (nie in den Webroot):
   nginx/mindcoded.conf          Alternative (+ nginx/security-headers.conf)
   apache/mindcoded.conf         Alternative (die .htaccess im Webroot gilt weiterhin)
   php-fpm/mindcoded.conf        PHP nur für das Formular, gehärtet
+  container/                    Caddyfile und PHP-FPM für das Docker-Image (Coolify, siehe Dockerfile)
   systemd/…cleanup.service/.timer  stündliche Wartung des Formulars
   dns.txt                       DNS-Einträge für Website und eigenen Mailserver
   LIESMICH.txt                  Reihenfolge der Einrichtung (ausführlich: docs/SERVER.md)
@@ -19,6 +20,10 @@ from .common import SECURITY_HEADERS, SPECULATION_RULES_FILE, SPECULATION_RULES_
 HSTS = "max-age=31536000"
 PHP_DISABLED = "exec,passthru,shell_exec,system,proc_open,popen,pcntl_exec"
 GENERATED = "Erzeugt von tools/build.py (Release) – nicht von Hand ändern, sondern content/site.json › server bzw. tools/mcsite/server.py."
+# Container für Coolify (Dockerfile im Projektordner): feste Pfade im Image
+CONTAINER_PORT = 8080
+CONTAINER_WEBROOT = "/srv/www"
+CONTAINER_SOCKET = "/tmp/php-fpm.sock"
 
 
 class ServerMixin:
@@ -52,6 +57,8 @@ class ServerMixin:
             "php-fpm/mindcoded.conf": self.fpm_pool(p),
             "systemd/mindcoded-contact-cleanup.service": self.cleanup_service(p),
             "systemd/mindcoded-contact-cleanup.timer": self.cleanup_timer(),
+            "container/Caddyfile": self.container_caddyfile(p),
+            "container/php-fpm.conf": self.container_fpm_pool(),
             "dns.txt": self.dns_records(p),
             "LIESMICH.txt": self.server_readme(p),
         }
@@ -59,7 +66,12 @@ class ServerMixin:
     # ------------------------------------------------------------------ Caddy
 
     def caddyfile(self, p: dict) -> str:
-        headers = "\n".join(f'\t\t{name} "{value}"' for name, value in SECURITY_HEADERS.items())
+        log = f"""
+	log {{
+		output file /var/log/caddy/{p['host']}.log {{
+			roll_keep_for 168h
+		}}
+	}}"""
         return f"""# {self.brand_full} – Caddy (empfohlen). {GENERATED}
 # Prüfen:  caddy validate --config /etc/caddy/Caddyfile   ·   Laden: systemctl reload caddy
 # HTTPS-Zertifikate holt Caddy automatisch (Let's Encrypt) für alle Namen unten.
@@ -69,7 +81,21 @@ class ServerMixin:
 }}
 
 {p['host']} {{
-	root * {p['webroot']}
+{self.caddy_site_body(p['webroot'], p['socket'])}
+{log}
+}}
+
+# Eigener Mailserver (Stalwart): Weboberfläche, JMAP und Einrichtungshilfen für Mailprogramme
+# laufen hinter Caddy. Stalwart lauscht dafür nur lokal auf HTTP 8080 (docs/E-MAIL.md).
+{p['mail']}, autoconfig.{p['apex']}, autodiscover.{p['apex']}, mta-sts.{p['apex']} {{
+	reverse_proxy 127.0.0.1:8080
+}}
+"""
+
+    def caddy_site_body(self, webroot: str, socket: str) -> str:
+        """Regeln der Website – gleich für den eigenen VPS und den Container hinter Coolify."""
+        headers = "\n".join(f'\t\t{name} "{value}"' for name, value in SECURITY_HEADERS.items())
+        return f"""	root * {webroot}
 	encode zstd gzip
 
 	header {{
@@ -106,7 +132,7 @@ class ServerMixin:
 		request_body @contact {{
 			max_size 32KB
 		}}
-		php_fastcgi @contact unix/{p['socket']}
+		php_fastcgi @contact unix/{socket}
 		error @php 404
 		file_server
 	}}
@@ -120,20 +146,63 @@ class ServerMixin:
 		handle {{
 			respond "{{err.status_code}} {{err.status_text}}"
 		}}
-	}}
+	}}"""
 
-	log {{
-		output file /var/log/caddy/{p['host']}.log {{
-			roll_keep_for 168h
-		}}
+    # ------------------------------------------------------------------ Container (Coolify)
+
+    def container_caddyfile(self, p: dict) -> str:
+        return f"""# {self.brand_full} – Caddy im Container hinter Coolify (Traefik). {GENERATED}
+# TLS und Zertifikate übernimmt Traefik; Caddy liefert intern HTTP auf :{CONTAINER_PORT}.
+# Kein Zugriffsprotokoll im Container – Docker-Logs würden sonst unbegrenzt IP-Adressen sammeln.
+{{
+	admin off
+	auto_https off
+	persist_config off
+	servers {{
+		# echte Besucher-IP aus X-Forwarded-For – sonst greift das Rate-Limit für alle gemeinsam
+		trusted_proxies static private_ranges
+		client_ip_headers X-Forwarded-For
 	}}
 }}
 
-# Eigener Mailserver (Stalwart): Weboberfläche, JMAP und Einrichtungshilfen für Mailprogramme
-# laufen hinter Caddy. Stalwart lauscht dafür nur lokal auf HTTP 8080 (docs/E-MAIL.md).
-{p['mail']}, autoconfig.{p['apex']}, autodiscover.{p['apex']}, mta-sts.{p['apex']} {{
-	reverse_proxy 127.0.0.1:8080
+:{CONTAINER_PORT} {{
+	@alt host {p['alt']}
+	redir @alt https://{p['host']}{{uri}} permanent
+
+{self.caddy_site_body(CONTAINER_WEBROOT, CONTAINER_SOCKET)}
 }}
+"""
+
+    def container_fpm_pool(self) -> str:
+        return f"""; {self.brand_full} – PHP-FPM im Container, nur für das Kontaktformular. {GENERATED}
+; Läuft als www-data (Container ohne root). Die MC_*-Variablen kommen aus Coolify.
+[global]
+error_log = /proc/self/fd/2
+pid = /tmp/php-fpm.pid
+
+[mindcoded]
+listen = {CONTAINER_SOCKET}
+listen.mode = 0600
+
+pm = ondemand
+pm.max_children = 4
+pm.process_idle_timeout = 30s
+pm.max_requests = 500
+
+; Die Umgebung des Containers enthält nur, was Coolify setzt (MC_CONTACT_TO, MC_SMTP_… usw.)
+clear_env = no
+catch_workers_output = yes
+
+; Härtung: nur, was das Formular braucht
+php_admin_value[open_basedir] = /srv/
+php_admin_value[disable_functions] = {PHP_DISABLED}
+php_admin_flag[allow_url_fopen] = off
+php_admin_flag[display_errors] = off
+php_admin_flag[log_errors] = on
+php_admin_value[post_max_size] = 32K
+php_admin_flag[file_uploads] = off
+php_admin_value[max_execution_time] = 30
+php_admin_value[memory_limit] = 32M
 """
 
     # ------------------------------------------------------------------ nginx

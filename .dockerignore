@@ -1,0 +1,17 @@
+# Nur Quellen ins Build-Image – Build-Ergebnisse entstehen dort neu
+.git
+.github
+.githooks
+.vscode
+bildquellen
+dist
+dist-dev
+dist-server
+.css-diff
+tests
+**/__pycache__
+.ruff_cache
+.env
+.env.*
+mindcoded-private
+contact-config.php

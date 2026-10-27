@@ -357,10 +357,12 @@ class TestBuildModes(BuildFixtures):
         srv = self.rel_out.with_name(self.rel_out.name + "-server")
         read = lambda rel: (srv / rel).read_text(encoding="utf-8")  # noqa: E731
         caddy, nginx, headers = read("Caddyfile"), read("nginx/mindcoded.conf"), read("nginx/security-headers.conf")
+        container = read("container/Caddyfile")
         htaccess = self.read(self.rel_out, ".htaccess")
         for name, value in site_build.SECURITY_HEADERS.items():
             with self.subTest(header=name):
                 self.assertIn(f'{name} "{value}"', caddy)
+                self.assertIn(f'{name} "{value}"', container)
                 self.assertIn(f'add_header {name} "{value}" always;', headers)
                 self.assertIn(f'Header always set {name} "{value}"', htaccess)
         # Vorladen beim Projektwechsel: Header und MIME-Typ der Regeldatei in jedem Server
@@ -372,8 +374,19 @@ class TestBuildModes(BuildFixtures):
         self.assertIn("ForceType application/speculationrules+json", htaccess)
         rules = json.loads(self.read(self.rel_out, "speculation-rules.json"))
         self.assertEqual(rules["prefetch"][0]["where"]["selector_matches"], "a[data-curtain-link]")
-        for text in (caddy, nginx):
+        for text in (caddy, nginx, container):
             self.assertEqual(text.count("{"), text.count("}"), "Klammern ausgeglichen")
+        # Container hinter Coolify: gleiche Regeln, HTTP intern, echte Besucher-IP, kein Zugriffsprotokoll
+        for rule in ("auto_https off", "trusted_proxies static private_ranges", ":8080 {", "root * /srv/www",
+                     "@alt host example.com", "redir @alt https://www.example.com{uri} permanent",
+                     "error @hidden 404", "error @internal 404", "php_fastcgi @contact unix//tmp/php-fpm.sock",
+                     "error @php 404", "max_size 32KB"):
+            self.assertIn(rule, container)
+        self.assertNotIn("log {", container)
+        container_pool = read("container/php-fpm.conf")
+        for rule in ("listen = /tmp/php-fpm.sock", "pid = /tmp/php-fpm.pid", "php_admin_value[disable_functions]",
+                     "php_admin_flag[allow_url_fopen] = off"):
+            self.assertIn(rule, container_pool)
         # Kanonische Adresse, Sperren, PHP nur für das Formular
         self.assertIn("example.com {\n\tredir https://www.example.com{uri} permanent", caddy)
         self.assertIn("root * /srv/mindcoded/current", caddy)

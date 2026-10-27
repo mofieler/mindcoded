@@ -79,10 +79,20 @@ PHP-FPM-Pool, Wartungs-Timer), nur Caddy lauscht intern statt öffentlich.
 - Stalwarts Mail-Ports (25, 465, 587, 993) sind davon nicht betroffen; Traefik belegt sie nicht.
   Das SMTP/IMAP-Zertifikat am besten per DNS-01 ([E-MAIL.md](E-MAIL.md) › Port 443 teilen).
 
-**Alternative – als Coolify-Anwendung:** Ein Container mit Caddy und PHP-FPM, der `dist/` ausliefert.
-Passt zu den übrigen Coolify-Projekten, ersetzt aber `deploy.py` (atomare Releases, Rollback) und
-den Wartungs-Timer durch Coolify-Mittel; `private/` braucht ein dauerhaftes Volume. Dafür gibt es
-hier noch kein Dockerfile.
+**Gewählt (27.10.2026) – als Coolify-Anwendung:** Das `Dockerfile` im Projektordner baut den
+Release und liefert ihn mit Caddy aus; PHP-FPM läuft nur für das Formular. Caddyfile und PHP-FPM-Pool
+erzeugt der Release-Build in `dist-server/container/` aus denselben Regeln wie für den VPS.
+Passt zu den übrigen Coolify-Projekten: Push auf `main` → Deploy, Rollback über Coolify. Statt
+`deploy.py` und systemd-Timer gilt:
+- Coolify-Anwendung aus `mofieler/mindcoded`, Branch `main`, Build Pack **Dockerfile**, Port **8080**,
+  Domains `https://mindcoded.studio,https://www.mindcoded.studio`.
+- **Dauerhaftes Volume** auf `/srv/private` (Rate-Limit-Prüfwerte, Zustellfehler).
+- Formular über Umgebungsvariablen in Coolify: `MC_CONTACT_TO`, `MC_CONTACT_FROM`, `MC_SMTP_HOST`,
+  `MC_SMTP_PORT`, `MC_SMTP_SECURITY`, `MC_SMTP_USER`, `MC_SMTP_PASSWORD` (Werte wie in
+  [contact-config.example.php](contact-config.example.php)). Prüfen im Coolify-Terminal:
+  `php /srv/www/api/contact.php --check`.
+- Die stündliche Wartung läuft im Container (`docker/entrypoint.sh`), `tini` räumt Prozesse ab.
+- Kein Zugriffsprotokoll im Container; Traefik protokolliert ab Werk ebenfalls nicht.
 
 Diese Anpassungen sind **noch nicht** in den erzeugten Server-Dateien (`dist-server/`) umgesetzt.
 Vorher klären, ob Coolify auf dem Ziel-VPS tatsächlich läuft und welche Ports belegt sind
@@ -90,7 +100,7 @@ Vorher klären, ob Coolify auf dem Ziel-VPS tatsächlich läuft und welche Ports
 
 ## Git und Deployment des alten Repositorys
 
-Das GitHub-Repository `mindcoded` gehört zur alten Nuxt-App; Coolify baut vermutlich automatisch aus
-dessen `main`. Diesen Stand **nicht** auf `main` dieses Repositorys pushen, solange die alte App dort
-deployt wird – Coolify würde ihn als Node-Anwendung bauen und die Website wäre offline. Entweder
-ein neues Repository anlegen oder erst die alte App in Coolify vom Repository trennen.
+Stand 27.10.2026: `main` von `mofieler/mindcoded` ist dieser statische Generator. Die alte Nuxt-App
+ist gesichert als Branch **`legacy-nuxt`** und Tag **`nuxt-final`** (Commit `3c352de`); die alte
+Coolify-Anwendung baut nur noch aus `legacy-nuxt` und ist gestoppt, nicht gelöscht.
+Zurück zur alten Seite: alte Anwendung starten und ihr die Domains wieder zuweisen.

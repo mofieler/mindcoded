@@ -176,13 +176,14 @@ class LayoutMixin:
 
     def analytics_tag(self) -> list[str]:
         """Besucherstatistik (Umami auf eigenem Server): keine Cookies, nichts im Browser gespeichert,
-        »Do Not Track« wird beachtet. Nur im Release-Build – Entwicklung und Tests zählen nicht mit."""
+        »Do Not Track« wird beachtet, Ladezeiten (Core Web Vitals) werden mitgemessen – Entscheidung des Betreibers
+        trotz Restrisiko nach § 25 TDDDG (docs/STATISTIK.md). Nur im Release-Build – Entwicklung und Tests zählen nicht mit."""
         cfg = self.site.get("analytics") or {}
         if not self.release or not cfg.get("websiteId"):
             return []
         domain = self.site["url"].split("//", 1)[-1]
         return [f'<script defer src="{esc(cfg["script"])}" data-website-id="{esc(cfg["websiteId"])}" '
-                f'data-domains="{esc(domain)}" data-do-not-track="true" data-exclude-hash="true"></script>']
+                f'data-domains="{esc(domain)}" data-do-not-track="true" data-exclude-hash="true" data-performance="true"></script>']
 
     def nav_items(self, lang: str, page: Page) -> list[tuple[str, str, str]]:
         """(Beschriftung, Ziel, Abschnitts-ID) – auf Unterseiten zeigen Anker auf die Startseite."""

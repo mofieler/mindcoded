@@ -309,6 +309,7 @@ def render(now: dt.datetime) -> tuple[str, str, str]:
     referrers = top(cur, "referrer_domain", extra="and coalesce(referrer_domain, '') not like '%mindcoded.studio'")
     referrers = [("Direkt / unbekannt" if k == "—" else k, v) for k, v in referrers]
     campaigns = utm(cur)
+    missing = by_prop(CUR, "Seite nicht gefunden", "pfad")
 
     start = (now - dt.timedelta(days=7)).strftime("%d.%m.")
     end = now.strftime("%d.%m.%Y")
@@ -345,6 +346,8 @@ def render(now: dt.datetime) -> tuple[str, str, str]:
                 + '<div style="height:10px"></div>'
                 + bars([(DEVICES.get(k, k), v) for k, v in sessions_top(cur, "device", 4)])),
         section("Probleme im Formular", bars(fails, empty="Keine – alles lief glatt.")) if fails or ev.get("Kontaktformular begonnen") else "",
+        section("Nicht gefundene Seiten", bars(missing), "Aufrufe, die ins Leere führten – Hinweis auf kaputte Links.")
+        if missing else "",
         section("Server", f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{status_rows}</table>'),
         f'<tr><td style="padding:26px 24px 30px" align="center">{button("Dashboard öffnen", DASHBOARD)}'
         f'<p style="margin:14px 0 0;font-family:{SANS};font-size:13px;color:{C["muted"]}">'

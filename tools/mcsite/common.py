@@ -32,7 +32,7 @@ ANALYTICS_ORIGIN = "https://stats.mindcoded.studio"
 # Erlaubte Ereignisse – eine Liste für Generator, Skripte (assets/analytics.js) und Tests; Bedeutung: docs/STATISTIK.md
 ANALYTICS_EVENTS = (
     "Erstgespräch-Klick", "E-Mail-Klick", "Projekt geöffnet", "Live-Seite geöffnet", "Video abgespielt",
-    "Sprache gewechselt", "Abschnitt gesehen",
+    "Sprache gewechselt", "Abschnitt gesehen", "Seite nicht gefunden",
     "Kontaktformular begonnen", "Kontaktformular gesendet", "Kontaktformular fehlgeschlagen",
 )
 

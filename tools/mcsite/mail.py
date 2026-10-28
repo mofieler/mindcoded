@@ -94,6 +94,10 @@ class MailMixin:
         size, color, css = ("13px", s["muted"], "mc-muted") if small else ("16px", s["ink"], "mc-ink")
         return f'<p style="margin:0 0 16px;font-family:{s["sans"]};font-size:{size};line-height:1.6;color:{color}" class="{css}">{esc(text)}</p>'
 
+    def mail_link(self, medium: str) -> str:
+        """Link zur Startseite aus einer Mail – markiert, damit die Statistik die Herkunft kennt (utm)."""
+        return f'{self.site["url"]}/?utm_source=e-mail&utm_medium={medium}'
+
     def mail_footer(self, lang: str, imprint_label: str) -> tuple[str, str]:
         """Pflichtangaben (Name, Anschrift, Kontakt) und Link zum Impressum – als HTML und Text."""
         op, brand = self.site["operator"], self.site["brand"]
@@ -102,7 +106,7 @@ class MailMixin:
         link = self.mail_style()["link"]
         html = (" · ".join(esc(p) for p in parts)
                 + f'<br><a href="{esc(imprint)}" style="color:{link}" class="mc-link">{esc(imprint_label)}</a>'
-                + f' · <a href="{esc(self.site["url"])}/" style="color:{link}" class="mc-link">{esc(self.brand_full)}</a>')
+                + f' · <a href="{esc(self.mail_link("fusszeile"))}" style="color:{link}" class="mc-link">{esc(self.brand_full)}</a>')
         text = "\n".join(["-- ", " · ".join(parts), f"{imprint_label}: {imprint}"])
         return html, text
 
@@ -120,7 +124,7 @@ class MailMixin:
                  f'<div style="{small}" class="mc-muted">{esc(role)}</div>'
                  f'<div style="{small}" class="mc-muted">'
                  f'<a href="mailto:{esc(brand["email"])}" style="{link}" class="mc-link">{esc(brand["email"])}</a>'
-                 f' · <a href="{esc(url)}/" style="{link}" class="mc-link">{esc(self.brand_full)}</a></div>')
+                 f' · <a href="{esc(self.mail_link("signatur"))}" style="{link}" class="mc-link">{esc(self.brand_full)}</a></div>')
         html = ('<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>'
                 f'<td style="padding:0 16px 0 0;vertical-align:middle"><img src="{esc(photo)}" width="64" height="64" '
                 f'alt="{esc(op["name"])}" style="display:block;width:64px;height:64px;border-radius:50%;border:0"></td>'

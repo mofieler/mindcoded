@@ -8,6 +8,8 @@
  * Erlaubte Namen: tools/mcsite/common.py › ANALYTICS_EVENTS, Bedeutung: docs/STATISTIK.md.
  */
 
+import { data as pageData } from './context.js';
+
 /** So lange muss ein Abschnitt in der Bildschirmmitte stehen – Vorbeiscrollen zählt nicht */
 const SECTION_DWELL_MS = 1000;
 /** Obergrenze für Ereignisse, die auf das (mit »defer« geladene) Umami warten */
@@ -42,13 +44,16 @@ function flush() {
 }
 
 /**
- * Zählt jeden Abschnitt mit data-track-section einmal pro Seitenaufruf, sobald er eine Weile in
- * der Bildschirmmitte steht. So zeigt die Statistik, wie weit die Startseite gelesen wird; ein Sprung
- * über das Menü, bei dem andere Abschnitte nur vorbeiziehen, zählt nur das Ziel.
+ * Meldet nicht gefundene Seiten und zählt jeden Abschnitt mit data-track-section einmal pro Seitenaufruf,
+ * sobald er eine Weile in der Bildschirmmitte steht. So zeigt die Statistik, wie weit die Startseite gelesen
+ * wird; ein Sprung über das Menü, bei dem andere Abschnitte nur vorbeiziehen, zählt nur das Ziel.
  */
 export function initSectionViews() {
   if (document.readyState === 'complete') flush();
   else window.addEventListener('load', flush, { once: true });
+
+  // Kaputte Links finden: welcher Pfad ins Leere führte (nur der Pfad, ohne Parameter)
+  if (pageData.page === 'notfound') track('Seite nicht gefunden', { pfad: window.location.pathname.slice(0, 200) });
 
   const sections = document.querySelectorAll('[data-track-section]');
   if (!sections.length || typeof IntersectionObserver === 'undefined') return;

@@ -1,0 +1,24 @@
+# Prüft alle 15 Minuten von außen, ob Website, Formular, Statistik und Mailserver erreichbar sind
+# (ops/monitor.py). Schlägt ein Lauf fehl, schickt GitHub eine Mail an den Repo-Inhaber.
+# Hinweis: GitHub pausiert Zeitpläne nach 60 Tagen ohne Commit – dann unter Actions › Überwachung wieder einschalten.
+name: Überwachung
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: ops/monitor.py
+          sparse-checkout-cone-mode: false
+      - name: Dienste prüfen
+        run: python3 ops/monitor.py

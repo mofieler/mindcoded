@@ -11,6 +11,16 @@ Zugang im Passwort-Manager „Umami Statistik“). Datenschutzerklärung: `conte
 - `data-exclude-hash` – Sprünge zu Abschnitten (`/#leistungen`) sind **keine** eigenen Seitenaufrufe.
   Wie weit die Startseite gelesen wird, zeigt stattdessen das Ereignis „Abschnitt gesehen“.
 - Daten älter als 26 Monate löscht eine wöchentliche Aufgabe in Coolify.
+- Links in unseren Mails tragen `utm_source=e-mail` und `utm_medium=signatur` bzw. `fusszeile`; eigene Links
+  (Google-Profil, Social Media, Angebote) ebenso kennzeichnen, z. B. `?utm_source=google-profil`. Sonst erscheinen
+  solche Besuche als „Direkt / unbekannt“, weil Mail-Apps und Messenger keinen Verweis mitsenden.
+- Ort: Land, Region und Stadt aus der IP-Adresse (die IP selbst speichert Umami nicht).
+- `data-performance` – Ladezeiten (Core Web Vitals: LCP, INP, CLS …) unter *Performance* in Umami. Liest weitere
+  Geräteinformationen aus; nach strenger Lesart von § 25 TDDDG ein Restrisiko (wie die Bildschirmgröße) – bewusst
+  so entschieden (28.10.2026), kein Banner.
+- Bewusst **nicht** genutzt: Session Replay und Heatmaps (zeichnen Besuche auf – widerspricht dem Versprechen).
+
+Der Wochenbericht (`ops/bin/mc-weekly-report`) fasst die Zahlen jeden Freitag per Mail zusammen.
 
 ## Ereignisse
 
@@ -28,6 +38,7 @@ Klicks setzt der Generator per `self.track(...)` als `data-umami-event`; alles a
 | Video abgespielt | `projekt` | Start des Videos (Zwei-Klick-Lösung) |
 | Sprache gewechselt | `nach` (de, en) | Klick auf die andere Sprache |
 | Abschnitt gesehen | `abschnitt` (leistungen, ablauf, studio, projekte, kontakt) | Abschnitt steht 1 s in der Bildschirmmitte, einmal pro Aufruf |
+| Seite nicht gefunden | `pfad` | Aufruf der 404-Seite – zeigt kaputte Links |
 | Kontaktformular begonnen | – | erster Fokus im Formular |
 | Kontaktformular gesendet | – | Server hat den Versand bestätigt |
 | Kontaktformular fehlgeschlagen | `grund` (eingabe, limit, spamschutz, server) | Versand nicht möglich |

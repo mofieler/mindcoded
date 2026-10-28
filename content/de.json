@@ -320,7 +320,7 @@
         {
           "heading": "Das Wichtigste in Kürze",
           "list": [
-            "Diese Website setzt keine Cookies und keine Analyse-, Tracking- oder Werbedienste ein.",
+            "Diese Website setzt keine Cookies und keine Tracking- oder Werbedienste anderer Anbieter ein. Für eine anonyme Besucherstatistik nutze ich ein Programm auf meinem eigenen Server – ohne Cookies und ohne Speicherung in Ihrem Browser.",
             "Schriften, Skripte und Grafiken werden ausschließlich von meinem eigenen Server geladen. Inhalte fremder Anbieter wie Google Fonts oder Karten binde ich nicht ein. Einzige Ausnahme ist ein Projektvideo von YouTube – es lädt erst, wenn Sie selbst auf »Abspielen« tippen.",
             "Personenbezogene Daten verarbeite ich in den technisch notwendigen Server-Logfiles und wenn Sie mir schreiben – über das Kontaktformular oder per E-Mail."
           ]
@@ -351,6 +351,14 @@
             "Sobald Sie das Formular verwenden, löst Ihr Browser im Hintergrund eine kleine Rechenaufgabe, die mein Server zuvor gestellt hat (Proof-of-Work). Für Sie dauert das meist weniger als eine Sekunde; automatisierte Programme, die massenhaft Nachrichten senden, bremst es dagegen deutlich. Dafür werden keine Daten an Dritte übertragen, keine Cookies gesetzt und keine Merkmale Ihres Geräts ausgewertet. Mein Server merkt sich bis zu {contact.challenge.ttlMinutes} Minuten lang nur, welche Aufgabe bereits gelöst wurde, damit jede Lösung nur einmal gilt – ohne Bezug zu Ihrer Person.",
             "Zusätzlich enthält das Formular ein für Menschen unsichtbares Feld, das automatisierte Programme häufig ausfüllen; so erkenne ich Spam, ohne Sie mit Rätselaufgaben zu belasten.",
             "Außerdem begrenze ich, wie viele Nachrichten in kurzer Zeit vom selben Internetanschluss gesendet werden können (höchstens {contact.rateLimit.maxRequests} in {contact.rateLimit.windowMinutes} Minuten). Dazu speichere ich auf meinem Webserver kurzzeitig einen Prüfwert (Hash), der aus Ihrer IP-Adresse – bei IPv6 aus dem Netzbereich Ihres Anschlusses – und einem geheimen Zufallsschlüssel gebildet wird. Der Schlüssel wird täglich neu erzeugt und der des Vortags gelöscht; die IP-Adresse selbst speichere ich dafür nicht. Die Prüfwerte werden spätestens nach 24 Stunden gelöscht. Rechtsgrundlage ist mein berechtigtes Interesse an einem funktionsfähigen und vor Missbrauch geschützten Kontaktweg (Art. 6 Abs. 1 lit. f DSGVO)."
+          ]
+        },
+        {
+          "heading": "Besucherstatistik",
+          "paragraphs": [
+            "Um zu verstehen, welche Inhalte gelesen werden und wie Besucher zu mir finden, erstelle ich eine anonyme Besucherstatistik mit der Open-Source-Software Umami. Sie läuft auf meinem eigenen Server in Deutschland (siehe »Hosting«); die Daten werden nicht an Dritte weitergegeben.",
+            "Erfasst werden die aufgerufene Seite, die verweisende Seite (z. B. eine Suchmaschine), Browser, Betriebssystem, Gerätetyp, Bildschirmgröße, Sprache und das aus der IP-Adresse abgeleitete Land sowie einzelne Klicks ohne Inhalte – etwa ob das Kontaktformular abgeschickt, ein Projekt geöffnet oder ein Video gestartet wurde. Ihre IP-Adresse wird dabei nicht gespeichert: Um Besuche zu zählen, bildet die Software aus IP-Adresse und Browserkennung einen Prüfwert (Hash) mit einem regelmäßig wechselnden Zufallswert, sodass Sie nicht über längere Zeit wiedererkannt werden. Es werden keine Cookies gesetzt und keine Informationen in Ihrem Browser gespeichert. Hat Ihr Browser »Do Not Track« aktiviert, wird nichts erfasst.",
+            "Rechtsgrundlage ist mein berechtigtes Interesse, mein Angebot zu verbessern und seine Reichweite zu messen (Art. 6 Abs. 1 lit. f DSGVO). Die Statistikdaten lösche ich nach spätestens 26 Monaten. Sie können der Erfassung jederzeit widersprechen, indem Sie »Do Not Track« in Ihrem Browser einschalten oder mir schreiben."
           ]
         },
         {

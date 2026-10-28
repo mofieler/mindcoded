@@ -11,6 +11,10 @@
   "defaultTheme": "system",
   "intro": "on-entry",
   "socialImage": "social/og-default.png",
+  "analytics": {
+    "script": "https://stats.mindcoded.studio/insights",
+    "websiteId": "742f52d6-2748-4f9a-8987-3ed5cdf3a831"
+  },
   "seo": {
     "_hinweis": "Werte aus Google Search Console bzw. Bing Webmaster Tools eintragen (leer = entfällt). Siehe docs/SEO.md.",
     "googleSiteVerification": "",

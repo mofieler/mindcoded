@@ -22,6 +22,8 @@ export function initContact() {
     initContactForm(form, {
       ...data.contact,
       onSuccess: () => {
+        // Besucherstatistik: nur das Ereignis, keine Eingaben (Umami, falls geladen)
+        /** @type {any} */ (window).umami?.track('Kontaktformular gesendet');
         if (!field) return;
         field.show(1);
         if (field.W && !motion.paused) field.pulse(field.W / 2, field.H / 2, 4);

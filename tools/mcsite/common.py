@@ -27,14 +27,17 @@ EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")
 BUILD_MARKER = ".mindcoded-build"
 TODO_OPEN, TODO_CLOSE = "\x02", "\x03"
 
+# Besucherstatistik (Umami, eigener Server, ohne Cookies) – einzige fremde Herkunft für Skripte
+ANALYTICS_ORIGIN = "https://stats.mindcoded.studio"
+
 # Sicherheits-Header: eine Quelle für .htaccess (Apache) und tools/serve.py (lokal).
 CSP = "; ".join([
     "default-src 'self'",
-    "script-src 'self'",
+    f"script-src 'self' {ANALYTICS_ORIGIN}",
     "style-src 'self'",
     "img-src 'self' data:",
     "font-src 'self'",
-    "connect-src 'self'",
+    f"connect-src 'self' {ANALYTICS_ORIGIN}",
     # Nur der Video-Player, und erst nach Klick (assets/video.js, Zwei-Klick-Lösung)
     "frame-src https://www.youtube-nocookie.com",
     "form-action 'self'",

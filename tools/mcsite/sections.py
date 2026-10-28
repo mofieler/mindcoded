@@ -207,7 +207,7 @@ class SectionsMixin:
                   <p class="project-summary">{self.fmt(d["summary"])}</p>
                   {self.facts_html(lang, proj, limit=4)}
                   {self.tags_html(lang, proj)}
-                  {action(pj["cta"], page.to(self.case_path(lang, proj["slug"])), attrs=self.curtain_link(self.case_curtain(lang, proj)), hidden_suffix=": " + d["name"])}
+                  {action(pj["cta"], page.to(self.case_path(lang, proj["slug"])), attrs=self.curtain_link(self.case_curtain(lang, proj)) + self.track("Projekt geöffnet", projekt=proj["slug"]), hidden_suffix=": " + d["name"])}
                 </div>
               </div>
             </div>
@@ -245,7 +245,7 @@ class SectionsMixin:
                               sizes="(max-width: 767px) calc(100vw - 32px), 45vw")
         href = page.to(self.case_path(lang, proj["slug"]))
         return (f'<li class="project-card" data-rv><a class="project-card-link" href="{esc(href)}" '
-                f'aria-labelledby="card-{slug}-title card-{slug}-cta"{self.curtain_link(self.case_curtain(lang, proj))}>'
+                f'aria-labelledby="card-{slug}-title card-{slug}-cta"{self.curtain_link(self.case_curtain(lang, proj))}{self.track("Projekt geöffnet", projekt=slug)}>'
                 f'<div class="project-card-media">{media}</div>'
                 f'<div class="project-card-body">'
                 f'<p class="project-card-meta type-label">{esc(pj["kinds"][proj["kind"]])} · {esc(d["industry"])} · {esc(proj["year"])}</p>'

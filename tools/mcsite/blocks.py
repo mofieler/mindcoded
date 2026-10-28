@@ -71,7 +71,7 @@ class BlocksMixin:
         return (f'<section class="case-video" aria-labelledby="video-title" data-rv>'
                 f'<h2 id="video-title" class="case-gallery-title type-display">{esc(pj["videoTitle"])}</h2>'
                 f'<div class="video-embed" data-video="{esc(vid)}" data-video-title="{esc(title)}">'
-                f'<a class="video-embed-poster" href="https://www.youtube.com/watch?v={esc(vid)}" rel="noopener" data-video-play>'
+                f'<a class="video-embed-poster" href="https://www.youtube.com/watch?v={esc(vid)}" rel="noopener" data-video-play{self.track("Video abgespielt", projekt=proj["slug"])}>'
                 + self.img_html(video["poster"], lang, page, sizes="(max-width: 1440px) 92vw, 1300px")
                 + f'<span class="video-embed-play" aria-hidden="true"></span>'
                 f'<span class="video-embed-label"><span class="video-embed-title">{esc(title)}</span>{duration}</span>'

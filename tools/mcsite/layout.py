@@ -79,6 +79,7 @@ class LayoutMixin:
             f'<link rel="stylesheet" href="{self.asset(page, "style.css")}">',
             f'<script src="{self.asset(page, "theme-init.js")}"></script>',
             f'<script type="module" src="{self.asset(page, "app.js")}"></script>',
+            *self.analytics_tag(),
             # Ganzer Modulbaum parallel statt Kette von Anfragen (app.js → hero.js → hero-canvas.js …)
             *(f'<link rel="modulepreload" href="{self.asset(page, name)}">' for name in self.module_graph("app.js")),
         ]
@@ -173,6 +174,16 @@ class LayoutMixin:
         b = self.site["brand"]
         return f'<span class="brand-name">{esc(b["name"])}</span><span class="brand-tld">{esc(b["tld"])}</span>'
 
+    def analytics_tag(self) -> list[str]:
+        """Besucherstatistik (Umami auf eigenem Server): keine Cookies, nichts im Browser gespeichert,
+        »Do Not Track« wird beachtet. Nur im Release-Build – Entwicklung und Tests zählen nicht mit."""
+        cfg = self.site.get("analytics") or {}
+        if not self.release or not cfg.get("websiteId"):
+            return []
+        domain = self.site["url"].split("//", 1)[-1]
+        return [f'<script defer src="{esc(cfg["script"])}" data-website-id="{esc(cfg["websiteId"])}" '
+                f'data-domains="{esc(domain)}" data-do-not-track="true"></script>']
+
     def nav_items(self, lang: str, page: Page) -> list[tuple[str, str, str]]:
         """(Beschriftung, Ziel, Abschnitts-ID) – auf Unterseiten zeigen Anker auf die Startseite."""
         has_projects = bool(self.visible_projects())
@@ -222,7 +233,7 @@ class LayoutMixin:
     <a href="{page.to(self.home_path(lang))}" id="site-logo" class="site-logo" aria-label="{self.attr(c["ui"]["homeLabel"], v)}">{self.brand_html()}</a>
     <nav class="desktop-nav" aria-label="{esc(c["ui"]["mainNav"])}"><ul>{nav}</ul></nav>
     <div class="header-controls">
-      <a class="header-cta" href="{self.cta_href(lang, page)}"{self.nav_curtain(lang, page, "kontakt")}>{esc(c["ui"]["headerCta"])}</a>
+      <a class="header-cta" href="{self.cta_href(lang, page)}"{self.nav_curtain(lang, page, "kontakt")}{self.track("Erstgespräch-Klick", ort="Kopfzeile")}>{esc(c["ui"]["headerCta"])}</a>
       {self.theme_toggle(lang)}
       {self.lang_switch(lang, page, counterparts)}
     </div>
@@ -354,6 +365,12 @@ class LayoutMixin:
                 '<span class="curtain-rule"></span>'
                 f'<p class="curtain-title type-display" data-curtain-title>{words}</p>'
                 f'<p class="curtain-line-mask"><span class="curtain-sub" data-curtain-sub>{esc(cur.get("sub", ""))}</span></p></div>')
+
+    @staticmethod
+    def track(event: str, **props: str) -> str:
+        """Ereignis für die Besucherstatistik (Umami zählt Klicks auf Elemente mit data-umami-event).
+        Nur Art des Klicks und Projekt – nie Eingaben oder personenbezogene Daten."""
+        return f' data-umami-event="{esc(event)}"' + "".join(f' data-umami-event-{k}="{esc(v)}"' for k, v in props.items())
 
     @staticmethod
     def curtain_link(cur: dict) -> str:

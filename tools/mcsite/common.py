@@ -35,6 +35,8 @@ CSP = "; ".join([
     "img-src 'self' data:",
     "font-src 'self'",
     "connect-src 'self'",
+    # Nur der Video-Player, und erst nach Klick (assets/video.js, Zwei-Klick-Lösung)
+    "frame-src https://www.youtube-nocookie.com",
     "form-action 'self'",
     "frame-ancestors 'none'",
     "base-uri 'self'",

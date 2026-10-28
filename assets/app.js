@@ -15,7 +15,8 @@
  *   services.js      Leistungen und Leistungsseiten
  *   projects.js      Projekte, Case Study (Kapitelanzeige, Bildstreifen, Zahlen), Seitenübergänge
  *   contact.js       Kontaktbereich und Formular (contact-form.js)
- *   transitions.js   Projektwechsel als Vorhang (Folienübergang)
+ *   transitions.js   Seitenwechsel als Vorhang (Folienübergang)
+ *   video.js         Video erst nach Klick laden (Zwei-Klick-Lösung, Datenschutz)
  *   scroll.js        Fortschritt, Parallax, schwebender Button
  *   smooth-scroll.js sanftes Scrollen mit Mausrad und bei Sprüngen zu Abschnitten
  *   effects.js       magnetische Buttons, Einblenden
@@ -36,12 +37,13 @@ import { initCasePage, initChapters, initCountUp, initGallery, initProjects, ini
 import { initContact } from './contact.js';
 import { initScroll } from './scroll.js';
 import { initCurtain } from './transitions.js';
+import { initVideo } from './video.js';
 import { initSmoothScroll } from './smooth-scroll.js';
 import { initMagnets, initReveal } from './effects.js';
 import { initCopy } from './copy.js';
 
 const STEPS = [initMotion, initTheme, initHeader, initScrollSpy, initMenu, initHero, initLogo, initTypewriter,
-  initServices, initServicePage, initProjects, initCasePage, initChapters, initGallery, initCountUp, initViewTransitions, initCurtain, initContact, initScroll,
+  initServices, initServicePage, initProjects, initCasePage, initChapters, initGallery, initCountUp, initViewTransitions, initCurtain, initVideo, initContact, initScroll,
   initSmoothScroll, initMagnets, initReveal, initCopy];
 
 function boot() {

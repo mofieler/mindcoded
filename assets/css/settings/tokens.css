@@ -68,6 +68,7 @@
   --color-accent-text: var(--blue-700);    /* kleiner Text in Akzentfarbe (5,7:1) */
   --color-focus: var(--blue-700);          /* Fokusrahmen (5,7:1) */
   --color-on-accent: var(--white);         /* Pfeile auf Akzentflächen */
+  --color-scrim: rgba(15, 23, 41, 0.75);   /* Abdunkelung unter Text auf Fotos (Video-Vorschau) */
 
   /* Dunkle Bereiche (Kontakt, Footer, Abschluss-Karte) – in beiden Schemata dunkel */
   --color-navy: var(--navy-900);

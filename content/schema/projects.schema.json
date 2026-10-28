@@ -167,6 +167,17 @@
             "$ref": "#/$defs/image"
           }
         },
+        "video": {
+          "type": "object",
+          "description": "Video von YouTube, erst nach Klick geladen (youtube-nocookie.com); Vorschaubild vom eigenen Server",
+          "required": ["youtube", "title", "poster"],
+          "properties": {
+            "youtube": {"type": "string", "pattern": "^[A-Za-z0-9_-]{11}$"},
+            "duration": {"type": "string", "pattern": "^\\d{1,2}:\\d{2}$"},
+            "title": {"type": "object", "required": ["de", "en"]},
+            "poster": {"$ref": "#/$defs/image"}
+          }
+        },
         "de": {
           "$ref": "#/$defs/content"
         },
@@ -236,10 +247,6 @@
         "takeaway": {
           "$ref": "#/$defs/text",
           "description": "Was Sie davon haben: ein Satz Nutzen für den Leser, erscheint im Abschluss über der Hauptaktion"
-        },
-        "linkLabel": {
-          "$ref": "#/$defs/text",
-          "description": "Beschriftung des Links zu »url«, wenn er nicht auf eine Website führt (z. B. »Video ansehen (YouTube)«)"
         }
       }
     },

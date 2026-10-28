@@ -58,6 +58,28 @@ class BlocksMixin:
                 f'<div class="case-gallery-strip" data-gallery tabindex="0" role="region" aria-labelledby="gallery-title">{shots}</div>'
                 f'</section>')
 
+    def case_video(self, lang: str, page, proj: dict) -> str:
+        """Video mit Zwei-Klick-Lösung: Vorschaubild vom eigenen Server, der Player von
+        youtube-nocookie.com lädt erst nach dem Klick (assets/video.js). Ohne JavaScript ein Link."""
+        video = proj.get("video")
+        if not video:
+            return ""
+        pj = self.langs[lang]["projects"]
+        vid, title = video["youtube"], video["title"][lang]
+        duration = f'<span class="video-embed-duration type-mono">{esc(video["duration"])}</span>' if video.get("duration") else ""
+        notice = self.fmt(pj["videoNotice"], self.vars(lang, page))
+        return (f'<section class="case-video" aria-labelledby="video-title" data-rv>'
+                f'<h2 id="video-title" class="case-gallery-title type-display">{esc(pj["videoTitle"])}</h2>'
+                f'<div class="video-embed" data-video="{esc(vid)}" data-video-title="{esc(title)}">'
+                f'<a class="video-embed-poster" href="https://www.youtube.com/watch?v={esc(vid)}" rel="noopener" data-video-play>'
+                + self.img_html(video["poster"], lang, page, sizes="(max-width: 1440px) 92vw, 1300px")
+                + f'<span class="video-embed-play" aria-hidden="true"></span>'
+                f'<span class="video-embed-label"><span class="video-embed-title">{esc(title)}</span>{duration}</span>'
+                f'<span class="visually-hidden">{esc(pj["videoPlay"])}: {esc(title)}</span></a></div>'
+                f'<p class="video-embed-notice">{notice} '
+                f'<a class="text-link" href="https://www.youtube.com/watch?v={esc(vid)}" rel="noopener">{esc(pj["videoExternal"])}</a></p>'
+                f'</section>')
+
     @staticmethod
     def img_class(img: dict) -> str:
         return "img-contain" if img.get("fit") == "contain" else ""

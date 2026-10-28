@@ -1289,7 +1289,7 @@
                 "design"
             ],
             "year": "2023",
-            "url": "https://www.youtube.com/watch?v=1Q19osJ8UH0",
+            "url": "",
             "images": [
                 {
                     "src": "projects/beast/beast-ladeerlebnis-blaues-licht-ladeanschluss-2048.webp",
@@ -1613,8 +1613,7 @@
                         "more": "Die Zahlen dahinter: Mittelwerte von 1,77 (verständlich) und 1,9 (emotional) auf einer Skala von −3 bis +3 – ab +0,8 gilt eine Bewertung als positiv.\n\n• BEAST-Sounds wirkten oft unheimlich; nur 55 % konnten sie einer Kategorie zuordnen.\n• Die Performer erkannten futuristische Sounds zu 100 % wieder, Hedonisten bevorzugten vertraute Ping-Sounds.\n• Empfehlung: blaue Lichtanimation mit dezentem BEAST-Sound beim Einstecken.\n• Gewünscht: Lautstärkeregelung, Abschaltoption, eigene Ladeanzeige.\n• Einschränkung: Die Testgruppe – überwiegend Studierende zwischen 18 und 25 – entspricht nicht genau der AMG-Zielgruppe.\n\nMein Beitrag: UX-Research und Konzeption, gemeinsam mit Teammitgliedern aus Sounddesign und Technischer Informatik – bis zur Präsentation bei Mercedes-AMG."
                     }
                 ],
-                "takeaway": "Ideen werden mit echten Menschen getestet, bevor viel Geld in die Umsetzung fließt – entschieden wird nach Wirkung, nicht nach Geschmack.",
-                "linkLabel": "Video zum Projekt ansehen (YouTube)"
+                "takeaway": "Ideen werden mit echten Menschen getestet, bevor viel Geld in die Umsetzung fließt – entschieden wird nach Wirkung, nicht nach Geschmack."
             },
             "en": {
                 "name": "B.E.A.S.T.",
@@ -1786,8 +1785,38 @@
                         "more": "The figures behind it: means of 1.77 (easy to understand) and 1.9 (emotional) on a scale from −3 to +3 – anything above +0.8 counts as positive.\n\n• BEAST sounds often felt creepy; only 55% could assign them to a category.\n• Performers recognised futuristic sounds 100% of the time, hedonists preferred familiar ping sounds.\n• Recommendation: blue light animation with a subtle BEAST sound when plugging in.\n• Requested: volume control, an off switch, a personal charging display.\n• Limitation: the test group – mostly students aged 18 to 25 – does not exactly match the AMG target group.\n\nMy part: UX research and concept, together with team members from sound design and computer engineering – through to the presentation at Mercedes-AMG."
                     }
                 ],
-                "takeaway": "Ideas are tested with real people before serious money goes into building them – decisions follow impact, not taste.",
-                "linkLabel": "Watch the project video (YouTube)"
+                "takeaway": "Ideas are tested with real people before serious money goes into building them – decisions follow impact, not taste."
+            },
+            "video": {
+                "youtube": "1Q19osJ8UH0",
+                "duration": "3:01",
+                "title": {
+                    "de": "Das Projekt in drei Minuten",
+                    "en": "The project in three minutes"
+                },
+                "poster": {
+                    "src": "projects/beast/beast-recap-video-nutzertest-mobile-lab-1920.webp",
+                    "width": 1920,
+                    "height": 1080,
+                    "alt": {
+                        "de": "Zwei Testpersonen am Fahrzeug-Modell im Mobile Lab, der Ladestecker leuchtet rot",
+                        "en": "Two participants at the car mock-up in the Mobile Lab, the charging connector glows red"
+                    },
+                    "srcset": [
+                        {
+                            "src": "projects/beast/beast-recap-video-nutzertest-mobile-lab-1600.webp",
+                            "width": 1600
+                        },
+                        {
+                            "src": "projects/beast/beast-recap-video-nutzertest-mobile-lab-1200.webp",
+                            "width": 1200
+                        },
+                        {
+                            "src": "projects/beast/beast-recap-video-nutzertest-mobile-lab-800.webp",
+                            "width": 800
+                        }
+                    ]
+                }
             }
         },
         {

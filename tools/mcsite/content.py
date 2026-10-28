@@ -220,6 +220,18 @@ class ContentMixin:
                 p.append(f"{where}: url muss mit https:// beginnen.")
             for j, img in enumerate(proj.get("images", [])):
                 self._check_image(f"{where} › images › {j}", img)
+            if video := proj.get("video"):
+                if not re.fullmatch(r"[A-Za-z0-9_-]{11}", str(video.get("youtube", ""))):
+                    p.append(f"{where} › video: youtube muss die 11-stellige Video-ID sein (nicht die ganze Adresse).")
+                if video.get("duration") and not re.fullmatch(r"\d{1,2}:\d{2}", str(video["duration"])):
+                    p.append(f"{where} › video: duration wie »3:02«.")
+                for lang in LANGS:
+                    if not video.get("title", {}).get(lang):
+                        p.append(f"{where} › video: title ({lang}) fehlt.")
+                if not video.get("poster"):
+                    p.append(f"{where} › video: poster fehlt – Vorschaubild vom eigenen Server (Datenschutz).")
+                else:
+                    self._check_image(f"{where} › video › poster", video["poster"])
 
         # Werte, die in Pfade, Attribute oder Skripte gelangen, streng prüfen.
         for lang in LANGS:

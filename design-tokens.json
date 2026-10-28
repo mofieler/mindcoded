@@ -435,6 +435,19 @@
         "$type": "color",
         "$value": "{color.palette.white}"
       },
+      "scrim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0588,
+            0.0902,
+            0.1608
+          ],
+          "alpha": 0.75,
+          "hex": "#0f1729"
+        }
+      },
       "navy": {
         "$type": "color",
         "$value": "{color.palette.navy-900}"

@@ -131,6 +131,10 @@
     "back": "Back to projects",
     "caseLabel": "Case",
     "next": "Next project",
+    "videoTitle": "Video",
+    "videoPlay": "Play video",
+    "videoExternal": "Watch on YouTube",
+    "videoNotice": "The video is hosted on YouTube. It only loads once you press play – your browser then sends data such as your IP address to YouTube (Google). See the [privacy policy]({privacyUrl}) (German).",
     "galleryTitle": "Insights",
     "slugBase": "work"
   },

@@ -208,6 +208,7 @@ def make_handler(out: Path, api: MockApi | None, frameable: bool = False):
         # Nur für automatisierte Layout-Tests (iframes gleicher Herkunft) – nie für Vorschau oder Betrieb.
         headers.pop("X-Frame-Options", None)
         headers["Content-Security-Policy"] = headers["Content-Security-Policy"].replace("frame-ancestors 'none'", "frame-ancestors 'self'")
+        headers["Content-Security-Policy"] = headers["Content-Security-Policy"].replace("frame-src ", "frame-src 'self' ")
 
     class Handler(SimpleHTTPRequestHandler):
         extensions_map = {**SimpleHTTPRequestHandler.extensions_map, ".js": "text/javascript",

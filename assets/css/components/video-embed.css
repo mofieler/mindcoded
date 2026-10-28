@@ -1,0 +1,135 @@
+/**
+ * Video mit Zwei-Klick-Lösung (blocks.py › case_video, video.js): Vorschaubild vom eigenen Server
+ * mit Abspielknopf; nach dem Klick sitzt an derselben Stelle der Player (16:9, kein Sprung).
+ *
+ *   .case-video           Abschnitt mit Überschrift, Video und Hinweis
+ *   .video-embed          Rahmen 16:9; .is-playing, sobald der Player geladen ist
+ *   .video-embed-poster   Link mit Bild, Knopf und Titel (ohne JavaScript: öffnet YouTube)
+ *   .video-embed-notice   Hinweis zur Datenübertragung, vor dem Abspielen sichtbar
+ */
+
+.case-video {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-ink);
+}
+
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-card-lg);
+  border: 1px solid var(--color-line);
+  background-color: var(--color-ink);
+  overflow: hidden;
+}
+
+.video-embed-poster {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: var(--color-on-accent);
+}
+
+.video-embed-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms var(--ease-out), filter 600ms ease;
+}
+
+/* Abdunkeln nach unten: Titel bleibt auf hellen Bildstellen lesbar */
+.video-embed-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--color-scrim), transparent 55%);
+}
+
+.video-embed-play {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: clamp(64px, 9vw, 96px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: var(--shadow-float);
+  transform: translate(-50%, -50%);
+  transition: transform 400ms var(--ease-out), background-color 300ms ease;
+}
+
+/* Dreieck aus Rahmen, mittig mit optischem Ausgleich nach rechts */
+.video-embed-play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  border-style: solid;
+  border-width: 0.6em 0 0.6em 1em;
+  border-color: transparent transparent transparent var(--color-on-accent);
+  font-size: var(--text-lead);
+  transform: translate(-50%, -50%);
+}
+
+.video-embed-label {
+  position: absolute;
+  z-index: 1;
+  left: var(--space-5);
+  right: var(--space-5);
+  bottom: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.video-embed-title {
+  font-family: var(--font-display);
+  font-size: var(--text-title-sm);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.video-embed-duration {
+  font-size: var(--text-sm);
+}
+
+.video-embed-poster:hover img,
+.video-embed-poster:focus-visible img {
+  transform: scale(1.03);
+}
+
+.video-embed-poster:hover .video-embed-play,
+.video-embed-poster:focus-visible .video-embed-play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.video-embed-poster:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+.video-embed-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-embed-notice {
+  max-width: 70ch;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+@media (--motion-reduced) {
+  .video-embed-poster img,
+  .video-embed-play {
+    transition: none;
+  }
+}

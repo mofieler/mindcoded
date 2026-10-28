@@ -48,6 +48,7 @@
 @import url("components/faq.css") layer(components);
 @import url("components/form.css") layer(components);
 @import url("components/dev-hints.css") layer(components);
+@import url("components/video-embed.css") layer(components);
 
 @import url("sections/hero.css") layer(sections);
 @import url("sections/hero-stages.css") layer(sections);

@@ -1,9 +1,11 @@
 // @ts-check
 /**
- * mindcoded.studio — Projektwechsel als Vorhang, wie ein Folienübergang.
+ * mindcoded.studio — Seitenwechsel als Vorhang, wie ein Folienübergang. Ein Konzept für alle Wechsel
+ * innerhalb der Website: zu Projekten, zurück zur Projektliste und aus dem Menü von Unterseiten
+ * in einen Abschnitt der Startseite.
  *
  * Ausgang (hier): Klick auf einen Link mit [data-curtain-link] → der Vorhang fährt von unten hoch,
- * Art, Titel und Leistung des Ziels steigen zeilenweise ein, dann folgt der Seitenwechsel.
+ * Nummer, Art, Linie und der Titel (Wort für Wort) des Ziels steigen ein, dann folgt der Seitenwechsel.
  * Eingang (theme-init.js, vor dem ersten Zeichnen): Die neue Seite startet unter demselben Vorhang;
  * Titel und Vorhang heben sich per CSS (layout/curtain.css) – ohne JavaScript-Abhängigkeit.
  *
@@ -13,9 +15,25 @@
 
 import { $, closest, motion, root } from './context.js';
 
-const COVER_MS = 780;
-const FAILSAFE_MS = 3000;
-const FIELDS = ['kicker', 'title', 'sub'];
+const COVER_MS = 900;
+const FAILSAFE_MS = 3200;
+const FIELDS = ['index', 'kicker', 'sub'];
+
+/**
+ * Titel Wort für Wort in Masken setzen – derselbe Aufbau wie layout.py › curtain_body.
+ * @param {HTMLElement} title
+ * @param {string} text
+ */
+function setTitle(title, text) {
+  title.replaceChildren(...text.split(/\s+/).filter(Boolean).flatMap((word, i) => {
+    const mask = document.createElement('span');
+    mask.className = 'curtain-word';
+    const inner = document.createElement('span');
+    inner.textContent = word;
+    mask.append(inner);
+    return i ? [document.createTextNode(' '), mask] : [mask];
+  }));
+}
 
 /** Während der Vorhang verdeckt, ist die Seite darunter weder fokussier- noch klickbar. */
 function setInert(curtain, on) {
@@ -56,10 +74,17 @@ export function initCurtain() {
     const url = new URL(link.href, location.href);
     if (url.origin !== location.origin) return;
     e.preventDefault();
-    FIELDS.forEach(key => {
-      const field = $(`[data-curtain-${key}]`, curtain);
-      if (field) field.textContent = link.getAttribute(`data-curtain-${key}`) || '';
-    });
+    // Ausgang zeigt immer den ersten Inhalt (»default«), gefüllt mit den Angaben des Links
+    const body = $('[data-curtain-body="default"]', curtain);
+    if (body) {
+      FIELDS.forEach(key => {
+        const field = $(`[data-curtain-${key}]`, body);
+        if (field) field.textContent = link.getAttribute(`data-curtain-${key}`) || '';
+      });
+      const title = $('[data-curtain-title]', body);
+      if (title) setTitle(title, link.getAttribute('data-curtain-title') || '');
+    }
+    root.removeAttribute('data-curtain-target');
     root.classList.remove('curtain-in');
     root.classList.add('curtain-out');
     setInert(curtain, true);

@@ -43,7 +43,12 @@
       return parts[parts.length - 1] || '';
     };
     var fromSite = fromOwnSite && freshNavigation && lastSegment(ref) !== lastSegment(location.href);
-    if (fromSite && (curtainPage === 'case' || location.hash === '#projekte')) {
+    /* Startseite: nur bei Sprung in einen Abschnitt mit eigenem Vorhang (data-curtain-targets) */
+    var targets = (root.getAttribute('data-curtain-targets') || '').split(' ');
+    var target = location.hash.slice(1);
+    var toSection = curtainPage === 'home' && target !== '' && targets.indexOf(target) !== -1;
+    if (fromSite && (curtainPage === 'case' || toSection)) {
+      if (toSection) root.setAttribute('data-curtain-target', target);
       root.classList.add('curtain-in');
       window.addEventListener('pagereveal', function (e) {
         var vt = /** @type {any} */ (e).viewTransition;

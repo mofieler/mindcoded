@@ -89,7 +89,7 @@ als `split`; Skalenwerte immer mit Skala (`scale`), sonst ist »1,9« nicht einz
 
 | Was | Wie | Ohne Unterstützung / reduziert |
 |---|---|---|
-| **Projektwechsel** | Vorhang wie ein Folienübergang (transitions.js, layout/curtain.css): fährt hoch mit Art · Titel · Leistung des Ziels, neue Seite startet darunter, Titel gleitet weg, Vorhang hebt sich, Seitenkopf steigt nach. Hell: Navy, dunkel: Beige. Gilt für »Case Study ansehen«, »Nächstes Projekt«, »Zurück zu den Projekten« | normaler Seitenwechsel (auch bei Zusatztaste, Zurück-Button, Neuladen) |
+| **Seitenwechsel** | Ein Vorhang für alle Wechsel innerhalb der Website (transitions.js, layout/curtain.css): Projekte, »Nächstes Projekt«, »Zurück zu den Projekten« und Menü/CTA von Unterseiten in einen Abschnitt der Startseite. Fährt hoch mit Nummer (`04 / 06`, `02 / 05` wie im mobilen Menü), Art, Akzentlinie und Titel Wort für Wort – optisch mittig, nie am unteren Rand (Browserleisten). Neue Seite startet darunter, Inhalt gleitet nach oben weg, Vorhang hebt sich, Seitenkopf bzw. Abschnittsüberschrift steigt nach. Hell: Navy, dunkel: Beige. Sprünge innerhalb der Startseite bleiben sanftes Scrollen | normaler Seitenwechsel (auch bei Zusatztaste, Zurück-Button, Neuladen) |
 | Einblenden | `[data-rv]` + IntersectionObserver (effects.js) | sofort sichtbar |
 | Boxen einer Reihe | kurz nacheinander (case-motion.css) | sofort sichtbar |
 | Linien, Balken, Anteile | wachsen einmal von links/vom Nullpunkt | vollständig |

@@ -1,24 +1,27 @@
 /**
- * Vorhang beim Projektwechsel – wie ein Folienübergang. Vollflächig in der Schriftfarbe der Seite
- * (helles Schema: Navy, dunkles Schema: Beige), darauf Art, Titel und Leistung des Ziels.
+ * Vorhang beim Seitenwechsel – ein Konzept für alle Wechsel innerhalb der Website (Projekte, zurück
+ * zur Projektliste, Menü von Unterseiten in einen Abschnitt). Vollflächig in der Schriftfarbe der
+ * Seite (helles Schema: Navy, dunkles Schema: Beige), darauf das Ziel: Nummer, Art, Linie, Titel.
  *
  *   .page-curtain        Vorhang (Markup: layout.py › curtain_html), ohne Zustand unsichtbar
- *   html.curtain-out     Ausgang: fährt von unten hoch, Zeilen steigen ein, dann Seitenwechsel
- *   html.curtain-in      Eingang: Seite startet verdeckt, Zeilen gleiten nach oben weg, der Vorhang
+ *   html.curtain-out     Ausgang: fährt von unten hoch, Nummer und Art steigen ein, die Linie zieht
+ *                        sich, der Titel folgt Wort für Wort, dann der Seitenwechsel
+ *   html.curtain-in      Eingang: Seite startet verdeckt, Inhalt gleitet nach oben weg, der Vorhang
  *                        hebt sich und der Seitenkopf steigt nach
+ *   [data-curtain-target] welcher Inhalt beim Eingang auf der Startseite gezeigt wird (theme-init.js)
  *
- * Die Abläufe sind reines CSS; JavaScript (transitions.js, theme-init.js) setzt nur die Klassen.
- * Der Eingang endet immer von selbst – auch wenn danach kein Skript mehr läuft.
+ * Komposition: Inhalt optisch mittig (etwas über der Mitte), nie am unteren Rand – dort liegen auf
+ * Handys die Leisten des Browsers (safe-area). Die Abläufe sind reines CSS; JavaScript setzt nur
+ * Klassen. Der Eingang endet immer von selbst – auch wenn danach kein Skript mehr läuft.
  */
 
 .page-curtain {
   position: fixed;
   inset: 0;
   z-index: var(--z-curtain);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--space-fluid-m) var(--pad-x) var(--space-vh-l);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: var(--space-fluid-m) var(--pad-x) calc(var(--space-fluid-m) + env(safe-area-inset-bottom, 0px));
   background-color: var(--color-ink);
   color: var(--color-bg);
   clip-path: inset(100% 0 0 0);
@@ -31,41 +34,74 @@
   visibility: visible;
 }
 
-/* Unter dem Vorhang sitzt der Sprung zum Ziel (#projekte) sofort – kein Nachscrollen beim Heben */
+/* Unter dem Vorhang sitzt der Sprung zum Ziel sofort – kein Nachscrollen beim Heben */
 .curtain-in {
   scroll-behavior: auto;
 }
 
-.curtain-brand {
+.curtain-top {
   font-size: var(--text-sm);
   opacity: 0.7;
 }
 
 .curtain-body {
+  grid-row: 2;
+  align-self: center;
   width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
+  padding-bottom: var(--space-vh-l); /* optische Mitte: etwas über der geometrischen */
   display: flex;
   flex-direction: column;
-  gap: var(--space-3-5);
+  align-items: flex-start;
+  gap: var(--space-3);
 }
 
-/* Jede Zeile in einer Maske: der Text gleitet hinein bzw. heraus, statt einzublenden */
-.curtain-line-mask {
+/* Je Ziel ein Inhalt; ohne Ziel der erste (Projekt bzw. Ausgang) */
+.curtain-body:not([data-curtain-body="default"]),
+[data-curtain-target] .curtain-body[data-curtain-body="default"] {
+  display: none;
+}
+
+[data-curtain-target="leistungen"] .curtain-body[data-curtain-body="leistungen"],
+[data-curtain-target="projekte"] .curtain-body[data-curtain-body="projekte"],
+[data-curtain-target="ablauf"] .curtain-body[data-curtain-body="ablauf"],
+[data-curtain-target="studio"] .curtain-body[data-curtain-body="studio"],
+[data-curtain-target="kontakt"] .curtain-body[data-curtain-body="kontakt"] {
+  display: flex;
+}
+
+/* Zeilen und Wörter in Masken: der Text gleitet hinein bzw. heraus, statt einzublenden */
+.curtain-line-mask,
+.curtain-word {
   overflow: hidden;
-  padding-bottom: 0.1em;
+  padding-bottom: 0.08em;
 }
 
-.curtain-line-mask > span {
-  display: block;
+.curtain-line-mask > span,
+.curtain-word > span {
+  display: inline-block;
 }
 
 .curtain-line-mask:has(> :empty) {
   display: none;
 }
 
+.curtain-index {
+  font-size: var(--text-sm);
+  opacity: 0.6;
+}
+
 .curtain-kicker {
-  opacity: 0.7;
+  opacity: 0.8;
+}
+
+.curtain-rule {
+  display: block;
+  width: min(100%, 320px);
+  height: 2px;
+  background-color: var(--color-accent);
+  transform-origin: left center;
 }
 
 .curtain-title {
@@ -74,6 +110,12 @@
   line-height: 1;
   letter-spacing: -0.03em;
   overflow-wrap: anywhere;
+  max-width: 16ch;
+}
+
+.curtain-word {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .curtain-sub {
@@ -92,42 +134,68 @@
   transform-origin: left center;
 }
 
-/* Ausgang */
+/* ------------------------------------------------------------------ Ausgang */
+
 .curtain-out .page-curtain {
-  animation: curtain-cover 640ms var(--ease-menu) both;
+  animation: curtain-cover 620ms var(--ease-menu) both;
 }
 
 .curtain-out .curtain-line-mask > span {
-  animation: curtain-rise 700ms var(--ease-out) 260ms both;
+  animation: curtain-rise 620ms var(--ease-out) 240ms both;
 }
 
-.curtain-out .curtain-line-mask:nth-child(2) > span { animation-delay: 330ms; }
-.curtain-out .curtain-line-mask:nth-child(3) > span { animation-delay: 400ms; }
+.curtain-out .curtain-line-mask:nth-child(2) > span { animation-delay: 300ms; }
+.curtain-out .curtain-line-mask:last-child > span { animation-delay: 560ms; }
+
+.curtain-out .curtain-rule {
+  animation: curtain-draw 700ms var(--ease-out) 320ms both;
+}
+
+.curtain-out .curtain-word > span {
+  animation: curtain-rise 680ms var(--ease-out) 380ms both;
+}
+
+.curtain-out .curtain-word:nth-child(2) > span { animation-delay: 440ms; }
+.curtain-out .curtain-word:nth-child(3) > span { animation-delay: 500ms; }
+.curtain-out .curtain-word:nth-child(4) > span { animation-delay: 560ms; }
+.curtain-out .curtain-word:nth-child(n + 5) > span { animation-delay: 620ms; }
 
 .curtain-out .curtain-progress {
   animation: curtain-progress-start 900ms var(--ease-out) 300ms both;
 }
 
-/* Eingang */
+/* ------------------------------------------------------------------ Eingang */
+
 .curtain-in .page-curtain {
   clip-path: inset(0);
-  animation: curtain-lift 900ms var(--ease-menu) 700ms both;
+  animation: curtain-lift 900ms var(--ease-menu) 720ms both;
 }
 
-.curtain-in .curtain-line-mask > span {
-  animation: curtain-leave 560ms var(--ease-in-out) 160ms both;
+.curtain-in .curtain-line-mask > span,
+.curtain-in .curtain-word > span {
+  transform: none;
+  animation: curtain-leave 560ms var(--ease-in-out) 140ms both;
 }
 
-.curtain-in .curtain-line-mask:nth-child(2) > span { animation-delay: 220ms; }
-.curtain-in .curtain-line-mask:nth-child(3) > span { animation-delay: 280ms; }
+.curtain-in .curtain-line-mask:nth-child(2) > span { animation-delay: 180ms; }
+.curtain-in .curtain-word > span { animation-delay: 220ms; }
+.curtain-in .curtain-word:nth-child(2) > span { animation-delay: 250ms; }
+.curtain-in .curtain-word:nth-child(n + 3) > span { animation-delay: 280ms; }
+.curtain-in .curtain-line-mask:last-child > span { animation-delay: 300ms; }
+
+.curtain-in .curtain-rule {
+  animation: curtain-undraw 520ms var(--ease-in-out) 200ms both;
+}
 
 .curtain-in .curtain-progress {
   animation: curtain-progress-end 700ms var(--ease-out) both;
 }
 
+/* Nach dem Heben steigt der Seitenkopf nach: Case Study bzw. die Überschrift des Abschnitts */
 .curtain-in .case-topbar,
 .curtain-in .case-header,
-.curtain-in .case-summary {
+.curtain-in .case-summary,
+.curtain-in[data-curtain-target] :target .section-header-grid {
   animation: curtain-content 1000ms var(--ease-out) 950ms both;
 }
 
@@ -153,6 +221,16 @@
 @keyframes curtain-leave {
   from { transform: none; }
   to { transform: translateY(-110%); }
+}
+
+@keyframes curtain-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes curtain-undraw {
+  from { transform: scaleX(1); transform-origin: right center; }
+  to { transform: scaleX(0); transform-origin: right center; }
 }
 
 @keyframes curtain-progress-start {

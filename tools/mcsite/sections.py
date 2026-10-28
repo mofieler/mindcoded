@@ -431,4 +431,4 @@ class SectionsMixin:
         }
         return self.shell(page, title=c["meta"]["title"], description=c["meta"]["description"], body=body,
                           alternates=counterparts, data=data, body_class="page-home",
-                          curtain=self.projects_curtain(lang) if projects else None)
+                          curtain=self.home_curtain(lang))

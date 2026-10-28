@@ -102,13 +102,16 @@ class LayoutMixin:
             attrs.append(f'data-intro="{esc(site["intro"])}"')
         if curtain:
             attrs.append(f'data-curtain-page="{esc(page.kind)}"')
+            if curtain.get("targets"):
+                attrs.append(f'data-curtain-targets="{esc(" ".join(curtain["targets"]))}"')
         return (
             "<!DOCTYPE html>\n"
             f'<html {" ".join(attrs)}>\n<head>\n'
             + "\n".join(head)
             + f'\n</head>\n<body class="{body_class}">\n'
             + f'<a class="skip-link" href="#main">{esc(c["ui"]["skipLink"])}</a>\n'
-            + (self.curtain_html(curtain) + "\n" if curtain else "")
+            # Vorhang auf jeder Seite: Ausgang zu Projekten und Abschnitten; Eingang nur mit »curtain«
+            + self.curtain_html(curtain or {}) + "\n"
             + body
             + f'\n{dev}\n<script type="application/json" id="mc-data">{script_json(payload)}</script>\n</body>\n</html>\n'
         )
@@ -209,7 +212,7 @@ class LayoutMixin:
     def header(self, lang: str, page: Page, counterparts: dict) -> str:
         c = self.langs[lang]
         nav = "".join(
-            f'<li><a href="{esc(href)}"{self.spy_attr(page, target)}>{esc(label)}</a></li>'
+            f'<li><a href="{esc(href)}"{self.spy_attr(page, target)}{self.nav_curtain(lang, page, target)}>{esc(label)}</a></li>'
             for label, href, target in self.nav_items(lang, page)
         )
         v = self.vars(lang, page)
@@ -219,7 +222,7 @@ class LayoutMixin:
     <a href="{page.to(self.home_path(lang))}" id="site-logo" class="site-logo" aria-label="{self.attr(c["ui"]["homeLabel"], v)}">{self.brand_html()}</a>
     <nav class="desktop-nav" aria-label="{esc(c["ui"]["mainNav"])}"><ul>{nav}</ul></nav>
     <div class="header-controls">
-      <a class="header-cta" href="{self.cta_href(lang, page)}">{esc(c["ui"]["headerCta"])}</a>
+      <a class="header-cta" href="{self.cta_href(lang, page)}"{self.nav_curtain(lang, page, "kontakt")}>{esc(c["ui"]["headerCta"])}</a>
       {self.theme_toggle(lang)}
       {self.lang_switch(lang, page, counterparts)}
     </div>
@@ -237,7 +240,7 @@ class LayoutMixin:
         c = self.langs[lang]
         email = self.site["brand"]["email"]
         links = "".join(
-            f'<li><a href="{esc(href)}" class="menu-link-item"{self.spy_attr(page, target)}>'
+            f'<li><a href="{esc(href)}" class="menu-link-item"{self.spy_attr(page, target)}{self.nav_curtain(lang, page, target)}>'
             f'<span class="menu-link-num type-mono" aria-hidden="true">0{i + 1}</span>'
             f'<span class="menu-link-label type-display">{esc(label)}<span class="menu-dot" aria-hidden="true"></span></span>'
             f'<span class="menu-link-arrow" aria-hidden="true">→</span></a></li>'
@@ -330,26 +333,64 @@ class LayoutMixin:
     # ------------------------------------------------------------------ Vorhang beim Projektwechsel
 
     def curtain_html(self, cur: dict) -> str:
-        """Vollflächiger Vorhang mit Titel des Ziels (layout/curtain.css, transitions.js). Rein
-        dekorativ: Screenreader erleben einen normalen Seitenwechsel."""
-        lines = "".join(f'<p class="curtain-line-mask"><span class="curtain-{key}{cls}" data-curtain-{key}>{esc(cur.get(key, ""))}</span></p>'
-                        for key, cls in (("kicker", " type-label"), ("title", " type-display"), ("sub", "")))
-        return (f'<div class="page-curtain" aria-hidden="true" data-curtain><p class="curtain-brand type-mono">{esc(self.brand_full)}</p>'
-                f'<div class="curtain-body">{lines}</div><span class="curtain-progress"></span></div>')
+        """Vollflächiger Vorhang mit dem Ziel des Seitenwechsels (layout/curtain.css, transitions.js).
+        Ein Inhalt je Ziel: »default« (Projekt bzw. Ausgang), auf der Startseite zusätzlich einer je
+        Abschnitt – sichtbar über html[data-curtain-target] (theme-init.js). Rein dekorativ:
+        Screenreader erleben einen normalen Seitenwechsel."""
+        bodies = [self.curtain_body(cur, "default")]
+        bodies += [self.curtain_body(target, key) for key, target in cur.get("targets", {}).items()]
+        return ('<div class="page-curtain" aria-hidden="true" data-curtain>'
+                f'<div class="curtain-top type-mono"><span class="curtain-brand">{esc(self.brand_full)}</span></div>'
+                + "".join(bodies) + '<span class="curtain-progress"></span></div>')
+
+    @staticmethod
+    def curtain_body(cur: dict, key: str) -> str:
+        """Nummer, Art, Linie, Titel (Wort für Wort in Masken) und Zusatz – derselbe Aufbau, den
+        transitions.js beim Ausgang mit den Angaben des Links füllt."""
+        words = " ".join(f'<span class="curtain-word"><span>{esc(w)}</span></span>' for w in str(cur.get("title", "")).split())
+        return (f'<div class="curtain-body" data-curtain-body="{esc(key)}">'
+                f'<p class="curtain-line-mask"><span class="curtain-index type-mono" data-curtain-index>{esc(cur.get("index", ""))}</span></p>'
+                f'<p class="curtain-line-mask"><span class="curtain-kicker type-label" data-curtain-kicker>{esc(cur.get("kicker", ""))}</span></p>'
+                '<span class="curtain-rule"></span>'
+                f'<p class="curtain-title type-display" data-curtain-title>{words}</p>'
+                f'<p class="curtain-line-mask"><span class="curtain-sub" data-curtain-sub>{esc(cur.get("sub", ""))}</span></p></div>')
 
     @staticmethod
     def curtain_link(cur: dict) -> str:
         """Attribute für einen Link, der mit Vorhang zu seinem Ziel wechselt."""
-        return " data-curtain-link" + "".join(f' data-curtain-{key}="{esc(cur.get(key, ""))}"' for key in ("kicker", "title", "sub"))
+        return " data-curtain-link" + "".join(f' data-curtain-{key}="{esc(cur.get(key, ""))}"' for key in ("index", "kicker", "title", "sub"))
 
     def case_curtain(self, lang: str, proj: dict) -> dict:
         d = proj[lang]
+        projects = self.visible_projects()
+        number = next((i for i, p in enumerate(projects) if p is proj), 0) + 1
         return {"kicker": f'{self.langs[lang]["projects"]["kinds"][proj["kind"]]} · {d["industry"]}',
-                "title": d["name"], "sub": d["services"]}
+                "title": d["name"], "sub": d["services"], "index": f"{number:02d} / {len(projects):02d}"}
+
+    def section_curtains(self, lang: str) -> dict[str, dict]:
+        """Vorhang je Abschnitt der Startseite; Nummern wie im mobilen Menü (01 / 05 …)."""
+        c = self.langs[lang]
+        content_keys = {"leistungen": "services", "projekte": "projects", "ablauf": "process", "studio": "about", "kontakt": "contact"}
+        items = self.nav_items(lang, Page(path="", lang=lang, kind="home"))
+        out = {}
+        for i, (_, _, target) in enumerate(items):
+            sec = c.get(content_keys.get(target, ""))
+            if sec:
+                title = " ".join(part for part in (sec["h"], sec.get("em", "")) if part).rstrip(".?")
+                out[target] = {"kicker": sec["eyebrow"], "title": title, "sub": "", "index": f"{i + 1:02d} / {len(items):02d}"}
+        return out
 
     def projects_curtain(self, lang: str) -> dict:
-        pj = self.langs[lang]["projects"]
-        return {"kicker": pj["eyebrow"], "title": f'{pj["h"]} {pj["em"]}'.rstrip("."), "sub": ""}
+        return self.section_curtains(lang).get("projekte", {})
+
+    def home_curtain(self, lang: str) -> dict:
+        """Startseite: ein Vorhang je Abschnitt, in den man von einer Unterseite springt."""
+        return {**self.projects_curtain(lang), "targets": self.section_curtains(lang)}
+
+    def nav_curtain(self, lang: str, page: Page, target: str) -> str:
+        """Menü-Links von Unterseiten wechseln mit Vorhang zum Abschnitt – wie Projektlinks."""
+        cur = self.section_curtains(lang).get(target) if page.kind != "home" else None
+        return self.curtain_link(cur) if cur else ""
 
     def simple_page(self, lang: str, page: Page, *, title: str, description: str, main: str,
                     counterparts: dict | None = None, noindex: bool = False, data: dict | None = None,

@@ -27,7 +27,8 @@ class PagesMixin:
         gallery = self.case_gallery(lang, page, proj.get("images", [])[1:])
         live = ""
         if proj.get("url"):
-            live = f'<p class="case-live">{link_action(pj["liveLink"], proj["url"], external=True)}</p>'
+            label = proj[lang].get("linkLabel") or pj["liveLink"]
+            live = f'<p class="case-live">{link_action(label, proj["url"], external=True)}</p>'
         # Thema fürs Formular vorauswählen: die umfassendste Leistung des Projekts; Studienprojekte ohne Vorauswahl
         topic = ""
         if proj["kind"] in ("client", "own"):

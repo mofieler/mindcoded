@@ -26,10 +26,13 @@ Bewusst nicht übernommen:
   `bildquellen/` – für gezielte Entwürfe an echte Interessenten.
 - Personen- und Ambiente-Fotos unter `public/images/` (Herkunft und Lizenz nicht dokumentiert).
 - »Steal Back« (Spielkonzept): auf moritzfieler.de nicht veröffentlicht, keine Bilder.
-- Die B.E.A.S.T.-Präsentation (PDF) und das Video – vor einer Veröffentlichung die Freigabe von
-  Mercedes-AMG klären.
+- B.E.A.S.T.: Präsentation (PDF) und Video nicht eingebettet. Übernommen sind sechs eigene Fotos des
+  Teams aus Prototyp und Labortest (Quelle: Projektdokumentation WS 22/23, keine Pressefotos von
+  Mercedes-Benz) und ein Link auf das öffentliche Recap-Video auf YouTube – kein eingebettetes Video,
+  damit ohne Klick keine Daten an YouTube gehen.
 - Double-Opt-in, Datenbank und reCAPTCHA des alten Formulars. Das neue Formular braucht sie
-  nicht: Schutz über Honeypot, Zeitfalle, Herkunftsprüfung und Rate-Limit (README › Kontaktformular).
+  nicht: Schutz über Rechenaufgabe (Proof-of-Work, ADR 0009), Honeypot, Zeitfalle, Herkunftsprüfung und
+  Rate-Limit; statt Double-Opt-in eine werbefreie Eingangsbestätigung.
 
 Widersprüche in den Quellen, offen zu klären:
 - Note der Bachelorarbeit: 1,3 (bestätigt am 26.10.2026; die alte Projektseite nannte fälschlich 1,0).

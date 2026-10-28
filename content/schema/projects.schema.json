@@ -236,6 +236,10 @@
         "takeaway": {
           "$ref": "#/$defs/text",
           "description": "Was Sie davon haben: ein Satz Nutzen für den Leser, erscheint im Abschluss über der Hauptaktion"
+        },
+        "linkLabel": {
+          "$ref": "#/$defs/text",
+          "description": "Beschriftung des Links zu »url«, wenn er nicht auf eine Website führt (z. B. »Video ansehen (YouTube)«)"
         }
       }
     },

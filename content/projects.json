@@ -2269,61 +2269,6 @@
         ],
         "takeaway": "Fewer features, more impact: users reach their goal without instructions."
       }
-    },
-    {
-      "slug": "diese-website",
-      "draft": true,
-      "kind": "own",
-      "shape": 2,
-      "serviceKeys": [
-        "design",
-        "websites"
-      ],
-      "year": "2026",
-      "url": "",
-      "images": [],
-      "de": {
-        "name": "Diese Website",
-        "industry": "Eigenes Studio",
-        "services": "Konzept, Gestaltung & Entwicklung",
-        "tech": "Statischer Generator, eigenes PHP-Formular, ohne Fremddienste",
-        "summary": "Unsere eigene Website – gebaut nach denselben Maßstäben wie für Kundenprojekte: schnell, zugänglich, datensparsam und leicht zu pflegen. Alles, was hier steht, lässt sich im Code nachprüfen.",
-        "sections": [
-          {
-            "heading": "Ausgangslage",
-            "text": "Eine Studio-Website soll zeigen, was das Studio kann – ohne Versprechen, die sich nicht belegen lassen. Sie muss auf jedem Gerät funktionieren, ohne Cookie-Banner auskommen und sich mit wenig Aufwand aktuell halten lassen."
-          },
-          {
-            "heading": "Unser Beitrag",
-            "text": "Alle Seiten werden vorab als fertiges HTML erzeugt und funktionieren auch ohne JavaScript. Die Gestaltung liegt in über 30 kleinen CSS-Modulen mit festen Regeln; Farben, Abstände und Breakpoints stehen jeweils an genau einer Stelle. Die Animationen lassen sich anhalten und passen sich schwachen Geräten an. Das Kontaktformular läuft über den eigenen Webspace, ohne Dienste Dritter."
-          },
-          {
-            "heading": "Ergebnis",
-            "text": "Keine Cookies, kein Tracking, keine Inhalte fremder Anbieter. Über 60 automatische Tests prüfen bei jeder Änderung unter anderem Farbkontraste nach WCAG 2.2 AA, Überschriften, Beschriftungen, Sicherheits-Header und die Darstellung in sieben Bildschirmbreiten von 360 bis 1920 Pixel."
-          }
-        ]
-      },
-      "en": {
-        "name": "This website",
-        "industry": "Our own studio",
-        "services": "Concept, design & development",
-        "tech": "Static generator, own PHP form, no third-party services",
-        "summary": "Our own website – built to the same standards as client work: fast, accessible, privacy-friendly and easy to maintain. Everything stated here can be verified in the code.",
-        "sections": [
-          {
-            "heading": "Starting point",
-            "text": "A studio website should show what the studio can do – without promises that cannot be backed up. It has to work on every device, get by without a cookie banner and be easy to keep up to date."
-          },
-          {
-            "heading": "What we did",
-            "text": "Every page is generated in advance as finished HTML and works without JavaScript. The styling lives in more than 30 small CSS modules with clear rules; colours, spacing and breakpoints are each defined in exactly one place. The animations can be paused and adapt to slower devices. The contact form runs on our own web space, without third-party services."
-          },
-          {
-            "heading": "Outcome",
-            "text": "No cookies, no tracking, no third-party content. More than 60 automated tests check every change – including colour contrast to WCAG 2.2 AA, headings, labels, security headers and the layout at seven screen widths from 360 to 1920 pixels."
-          }
-        ]
-      }
     }
   ]
 }

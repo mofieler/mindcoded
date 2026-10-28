@@ -288,7 +288,6 @@ class TestBuildModes(BuildFixtures):
         self.assertIn('href="barrierefreiheit/"', self.read(self.dev_out, "index.html"))
         self.assertFalse((self.rel_out / "barrierefreiheit").exists(), "Entwurf darf nicht veröffentlicht werden")
         self.assertNotIn("barrierefreiheit/", self.read(self.rel_out, "index.html"))
-        self.assertFalse((self.rel_out / "projekte" / "diese-website").exists())
 
     def test_animated_steps_also_as_text(self):
         # Die Leistungs-Animation ist für Screenreader ausgeblendet – ihre Schritte stehen als Text im Panel.

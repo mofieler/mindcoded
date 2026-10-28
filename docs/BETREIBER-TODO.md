@@ -82,13 +82,6 @@ Die vier Beispielprojekte sind Platzhalter (`draft: true`) und werden nicht ver�
 Die früheren Kennzahlen (»85 % digitale Buchungen«, »98/100 Lighthouse«, »40.000 Tickets«,
 »WCAG 2.1 AA zertifiziert« usw.) waren nicht belegt und sind entfernt.
 
-**Sofort möglich: »Diese Website« als Eigenprojekt** (`diese-website`, Entwurf):
-- Die Texte sind geschrieben und beschreiben nur, was im Projekt nachprüfbar ist (keine Cookies,
-  keine Fremddienste, über 60 automatische Tests …).
-- Lesen, anpassen und `draft: false` setzen. Damit erscheint der Projektbereich mit einem ehrlichen
-  ersten Beleg.
-- Nach dem Livegang gemessene Werte (PageSpeed Insights) ergänzen.
-
 Für jedes echte Projekt (Schema in der README; Bilder mit `python tools/make_images.py`):
 
 - Art festlegen: Kundenprojekt (nur mit Freigabe des Kunden), Eigenprojekt oder Konzeptstudie

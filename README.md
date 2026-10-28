@@ -135,7 +135,7 @@ In `content/projects.json` steht je Projekt ein Eintrag:
 }
 ```
 
-- `draft: true` – nur im Entwicklungs-Build sichtbar (derzeit »Diese Website«).
+- `draft: true` – nur im Entwicklungs-Build sichtbar.
 - `featured: true` – auf der Startseite als große Bildkarte über der Projektliste (braucht Bilder; gezeigt wird der erste randlose Screenshot). Höchstens zwei bis drei, am besten Kundenprojekte.
 - `kind` – `client` (Kundenprojekt, nur mit Freigabe), `own` (Eigenprojekt), `concept` (Konzeptstudie),
   `study` (Studienprojekt). Die Kennzeichnung steht sichtbar an jeder Karte.
@@ -160,8 +160,6 @@ In `content/projects.json` steht je Projekt ein Eintrag:
 - Hinweis: `--write` formatiert `projects.json` einheitlich neu.
 
 Ohne veröffentlichte Projekte blendet der Build den Abschnitt »Projekte« samt Navigationspunkt aus.
-Die Case Study **»Diese Website«** (`diese-website`) liegt als Entwurf bereit; nach dem Livegang
-gemessene Werte (z. B. PageSpeed) ergänzen und veröffentlichen.
 
 ## Veröffentlichen
 

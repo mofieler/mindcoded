@@ -82,7 +82,7 @@ Recherche: Google-Dokumentation, Local Search Forum, Search Engine Journal, Brig
 7. **Bilder** – sprechende Dateinamen (der Build lehnt generische Namen ab), Alt-Texte, die beschreiben,
    was zu sehen ist; WebP in mehreren Größen. Laut Foren ein kleiner, aber kostenloser Faktor; Alt-Text und Kontext wiegen mehr.
 8. **Messen ohne Tracking-Banner** – Google Search Console (Suchbegriffe, Klicks, Positionen) und Bing Webmaster
-   Tools genügen für SEO. Besucherzahlen bei Bedarf cookielos selbst gehostet (z. B. Umami über Coolify).
+   Tools genügen für SEO. Besucherzahlen cookielos selbst gehostet mit Umami (siehe [STATISTIK.md](STATISTIK.md)).
    **Google Analytics 4** nur mit Einwilligungs-Banner (TTDSG/DSGVO) – widerspricht dem Versprechen
    »keine Cookies, kein Tracking« und liefert wegen Ablehnungen lückenhafte Daten. Entscheidung: offen (Betreiber).
 

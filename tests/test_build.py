@@ -17,6 +17,7 @@ from tests.support import ROOT, Doc, export_tokens, make_release_content, new_pr
 
 # isort: split
 from mcsite.blocks import BLOCK_TYPES, STATES  # noqa: E402 – Pfad setzt tests.support
+from mcsite.common import ANALYTICS_EVENTS  # noqa: E402
 from mcsite.css import load_tokens  # noqa: E402
 
 GENERIC_TITLES = {"bundled page", "untitled", "document", "index"}
@@ -642,6 +643,25 @@ class TestHtmlQuality(BuildFixtures):
                 hrefs = [a.attrs.get("href", "") for a in doc.all("a")]
                 self.assertTrue(any(h.endswith("impressum/") for h in hrefs))
                 self.assertTrue(any(h.endswith("datenschutz/") for h in hrefs))
+
+    def test_analytics_events_are_registered(self):
+        """Jedes Statistik-Ereignis in Seiten und Skripten steht in ANALYTICS_EVENTS – ein Tippfehler
+        würde die Auswertung sonst unbemerkt auf zwei Namen verteilen."""
+        used = set()
+        for _out, _page, doc in self.each_page():
+            used |= {a.attrs["data-umami-event"] for a in doc.all("a") if "data-umami-event" in a.attrs}
+        for script in (ROOT / "assets").glob("*.js"):
+            used |= set(re.findall(r"\btrack\('([^']+)'", script.read_text(encoding="utf-8")))
+        self.assertTrue(used)
+        self.assertEqual(used - set(ANALYTICS_EVENTS), set())
+        unused = set(ANALYTICS_EVENTS) - used
+        self.assertEqual(unused, set(), "Ereignis registriert, aber nirgends gemeldet")
+
+    def test_analytics_only_in_release(self):
+        home = self.read(self.rel_out, "index.html")
+        self.assertIn('data-exclude-hash="true"', home)
+        self.assertIn('data-track-section="kontakt"', home)
+        self.assertNotIn("data-website-id", self.read(self.dev_out, "index.html"))
 
 
 class TestSingleSource(unittest.TestCase):

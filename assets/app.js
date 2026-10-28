@@ -21,6 +21,7 @@
  *   smooth-scroll.js sanftes Scrollen mit Mausrad und bei Sprüngen zu Abschnitten
  *   effects.js       magnetische Buttons, Einblenden
  *   copy.js          Kopieren-Knöpfe (Komponenten-Seite)
+ *   analytics.js     Besucherstatistik: gelesene Abschnitte, Formular-Ereignisse (ohne Inhalte)
  *
  * Farben und Breakpoints stehen nur in assets/css/settings/ (tokens.js liest sie).
  * Der Build lädt alle Module per modulepreload parallel vor (keine Kette von Anfragen).
@@ -41,10 +42,11 @@ import { initVideo } from './video.js';
 import { initSmoothScroll } from './smooth-scroll.js';
 import { initMagnets, initReveal } from './effects.js';
 import { initCopy } from './copy.js';
+import { initSectionViews } from './analytics.js';
 
 const STEPS = [initMotion, initTheme, initHeader, initScrollSpy, initMenu, initHero, initLogo, initTypewriter,
   initServices, initServicePage, initProjects, initCasePage, initChapters, initGallery, initCountUp, initViewTransitions, initCurtain, initVideo, initContact, initScroll,
-  initSmoothScroll, initMagnets, initReveal, initCopy];
+  initSmoothScroll, initMagnets, initReveal, initCopy, initSectionViews];
 
 function boot() {
   const failed = [];

@@ -33,7 +33,7 @@ class SectionsMixin:
         </h1>
         <p class="hero-lead">{self.fmt(h["lead"])}</p>
         <div class="hero-actions">
-          {action(h["cta"], "#kontakt")}
+          {action(h["cta"], "#kontakt", attrs=self.track("Erstgespräch-Klick", ort="Hero"))}
           {secondary}
         </div>
         <div class="hero-mobile-stages" aria-hidden="true">{stages}</div>
@@ -61,7 +61,8 @@ class SectionsMixin:
             if self.has_service_page(svc):
                 more = (f'<a class="service-more-link" href="{esc(page.to(self.service_path(lang, svc)))}">'
                         f'{esc(labels["more"])}{name} <span aria-hidden="true">→</span></a>')
-            ask = (f'<a class="service-ask-link" href="#kontakt" data-topic-select="{esc(svc["topic"])}">'
+            ask = (f'<a class="service-ask-link" href="#kontakt" data-topic-select="{esc(svc["topic"])}"'
+                   f'{self.track("Erstgespräch-Klick", ort="Leistungen", leistung=svc["topic"])}>'
                    f'{esc(labels["ask"])}{name}</a>')
             # Die Animation zeigt die vier Schritte nur als Bild (für Screenreader ausgeblendet) –
             # hier stehen sie als Text.
@@ -90,7 +91,7 @@ class SectionsMixin:
         first = self.services[0][lang]
         bars = "".join(f'<div class="story-bar-track"><div class="story-bar-fill" data-scbar="{k}"></div></div>' for k in range(4))
         return f"""
-<section id="leistungen" class="section services-section" aria-labelledby="services-title">
+<section id="leistungen" class="section services-section" data-track-section="leistungen" aria-labelledby="services-title">
   <div class="section-container">{self.section_head(s, "services-title")}
     <div class="services-main-grid">
       <div id="services-accordion-list" class="services-accordion-list" data-rv>{"".join(items)}
@@ -119,7 +120,7 @@ class SectionsMixin:
         )
         effort = "".join(f"<li>{self.fmt(x)}</li>" for x in p["effortItems"])
         return f"""
-<section id="ablauf" class="section process-section" aria-labelledby="process-title">
+<section id="ablauf" class="section process-section" data-track-section="ablauf" aria-labelledby="process-title">
   <div class="section-container">{self.section_head(p, "process-title")}
     <ol class="process-steps" data-rv>{steps}</ol>
     <div class="effort-card" data-rv>
@@ -150,7 +151,7 @@ class SectionsMixin:
           <p class="person-bio">{self.fmt(a["personBio"])}</p>
         </figcaption>
       </figure>"""
-        cta = action(a["cta"], "#kontakt")
+        cta = action(a["cta"], "#kontakt", attrs=self.track("Erstgespräch-Klick", ort="Studio"))
         lead = f'<p class="section-lead">{self.fmt(a["lead"], v)}</p><div class="about-cta">{cta}</div>'
         reasons = ""
         if a.get("reasons"):
@@ -158,7 +159,7 @@ class SectionsMixin:
             reasons = (f'<div class="about-reasons" data-rv><h3 class="about-reasons-title type-display">{esc(a["reasons"]["title"])}</h3>'
                        f'<ul class="about-reasons-list snap-row">{cards}</ul></div>')
         return f"""
-<section id="studio" class="section about-section" aria-labelledby="about-title">
+<section id="studio" class="section about-section" data-track-section="studio" aria-labelledby="about-title">
   <div class="section-container">{self.section_head(a, "about-title", lead)}{person}{reasons}
   </div>
 </section>"""
@@ -222,7 +223,7 @@ class SectionsMixin:
                 if cards else '<div class="projects-more-head">')
         more += f'<p class="section-note type-label">{esc(pj["note"])}</p></div>'
         return f"""
-<section id="projekte" class="section projects-section" aria-labelledby="projects-title">
+<section id="projekte" class="section projects-section" data-track-section="projekte" aria-labelledby="projects-title">
   <div class="section-container">{self.section_head(pj, "projects-title", lead)}{featured}
     <div class="projects-table" data-rv>
       {more}
@@ -320,7 +321,7 @@ class SectionsMixin:
             <p id="cf-consent-error" class="field-error" hidden></p>
           </div>"""
         return f"""
-<section id="kontakt" class="contact-section" aria-labelledby="contact-title">
+<section id="kontakt" class="contact-section" data-track-section="kontakt" aria-labelledby="contact-title">
   <div class="contact-container">
     <div class="contact-canvas-wrapper" aria-hidden="true"><canvas id="contact-canvas" class="contact-canvas"></canvas></div>
     <div class="contact-main-grid">
@@ -334,7 +335,7 @@ class SectionsMixin:
         </div>
         <div class="contact-direct-links">
           <p class="contact-label-dim type-label">{esc(ct["direct"])}</p>
-          <a href="mailto:{esc(email)}" class="contact-mail-link type-display">{esc(email)}</a>
+          <a href="mailto:{esc(email)}" class="contact-mail-link type-display"{self.track("E-Mail-Klick", ort="Kontakt")}>{esc(email)}</a>
           <p class="contact-location">{esc(ct["loc"])}</p>
         </div>
       </div>

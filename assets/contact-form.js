@@ -30,6 +30,8 @@ const POW_MARGIN_S = 60;
 /** @typedef {{ ok?: boolean, error?: string, fields?: Record<string, string> }} ServerPayload */
 /** @typedef {{ href: string, label: string }} StatusLink */
 /** @typedef {{ url: string, worker: string, ttl: number }} ChallengeOptions */
+/** Grund eines gescheiterten Versands (für die Besucherstatistik, ohne Inhalte) */
+/** @typedef {'eingabe' | 'limit' | 'spamschutz' | 'server'} FailReason */
 
 /**
  * Holt eine Rechenaufgabe und löst sie – im Worker, sonst (ohne Worker-Unterstützung) direkt.
@@ -175,10 +177,11 @@ export function mapServerErrors(fields = {}) {
  * @param {HTMLFormElement} form
  * @param {{ endpoint: string, limits: ContactLimits, requireConsent: boolean, send: string, sending: string,
  *   errors: Record<string, string>, onSuccess?: () => void, onReset?: () => void, topics?: string[],
+ *   onStart?: () => void, onError?: (reason: FailReason) => void,
  *   fallback?: { email: string, subject: string, label: string }, challenge?: ChallengeOptions }} options
  */
 export function initContactForm(form, options) {
-  const { endpoint, limits, requireConsent, send, sending, errors: messages, onSuccess, onReset, topics = [], fallback, challenge } = options;
+  const { endpoint, limits, requireConsent, send, sending, errors: messages, onSuccess, onReset, onStart, onError, topics = [], fallback, challenge } = options;
 
   // Vorauswahl: von einer Leistungsseite (…?thema=website#kontakt) oder »Dazu anfragen«
   const preset = topicFromSearch(window.location.search, topics);
@@ -233,7 +236,10 @@ export function initContactForm(form, options) {
   // Spam-Schutz: Ausfülldauer seit der ersten Interaktion. performance.now() ist monoton
   // und unabhängig von der Uhrzeit des Geräts – eine falsch gehende Uhr schadet nicht.
   form.addEventListener('focusin', () => {
-    if (startedAt === null) startedAt = performance.now();
+    if (startedAt === null) {
+      startedAt = performance.now();
+      if (onStart) onStart();
+    }
     if (!pow) startPow();
   });
 
@@ -341,7 +347,10 @@ export function initContactForm(form, options) {
     attempted = true;
     setStatus('');
 
-    if (showErrors(validateContact(values(), limits, requireConsent))) return;
+    if (showErrors(validateContact(values(), limits, requireConsent))) {
+      if (onError) onError('eingabe');
+      return;
+    }
 
     if (elapsed) elapsed.value = startedAt === null ? '' : String(Math.round(performance.now() - startedAt));
     setBusy(true);
@@ -394,12 +403,15 @@ export function initContactForm(form, options) {
       const mapped = mapServerErrors(payload.fields);
       if (Object.keys(mapped).length) {
         showErrors(mapped);
+        if (onError) onError('eingabe');
         return;
       }
     }
     const mailto = fallback ? mailtoFallback(fallback.email, fallback.subject, values()) : null;
     const failedCheck = solution === null || (payload && payload.error === 'challenge');
-    const text = response && response.status === 429 ? messages.rate : failedCheck ? messages.challenge || messages.server : messages.server;
+    const limited = Boolean(response && response.status === 429);
+    const text = limited ? messages.rate : failedCheck ? messages.challenge || messages.server : messages.server;
+    if (onError) onError(limited ? 'limit' : failedCheck ? 'spamschutz' : 'server');
     setStatus(text, true, mailto && fallback ? { href: mailto, label: fallback.label } : null);
   });
 

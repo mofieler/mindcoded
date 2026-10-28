@@ -27,11 +27,11 @@ def action(label: str, href: str = "", *, variant: str = "primary", attrs: str =
     return f'<a class="{cls}" href="{esc(href)}"{attrs}{mag}>{inner}</a>'
 
 
-def link_action(label: str, href: str, *, external: bool = False) -> str:
+def link_action(label: str, href: str, *, external: bool = False, attrs: str = "") -> str:
     """Nebenaktion als unterstrichener Link; extern mit Pfeil nach außen."""
     if external:
-        return f'<a class="btn-secondary-link" href="{esc(href)}" rel="noopener">{esc(label)} <span aria-hidden="true">↗</span></a>'
-    return f'<a class="btn-secondary-link" href="{esc(href)}">{esc(label)}</a>'
+        return f'<a class="btn-secondary-link" href="{esc(href)}" rel="noopener"{attrs}>{esc(label)} <span aria-hidden="true">↗</span></a>'
+    return f'<a class="btn-secondary-link" href="{esc(href)}"{attrs}>{esc(label)}</a>'
 
 
 def pill_link(label: str, href: str) -> str:

@@ -27,7 +27,7 @@ class PagesMixin:
         gallery = self.case_gallery(lang, page, proj.get("images", [])[1:])
         live = ""
         if proj.get("url"):
-            live = f'<p class="case-live">{link_action(pj["liveLink"], proj["url"], external=True)}</p>'
+            live = f'<p class="case-live">{link_action(pj["liveLink"], proj["url"], external=True, attrs=self.track("Live-Seite geöffnet", projekt=proj["slug"]))}</p>'
         # Thema fürs Formular vorauswählen: die umfassendste Leistung des Projekts; Studienprojekte ohne Vorauswahl
         topic = ""
         if proj["kind"] in ("client", "own"):
@@ -40,7 +40,7 @@ class PagesMixin:
         cta = (f'<section class="case-cta" aria-labelledby="case-cta-title" data-rv>'
                f'<div class="case-cta-text"><p class="case-cta-kicker type-label">{esc(kicker)}</p>'
                f'<h2 id="case-cta-title" class="case-cta-title type-display">{self.fmt(title)}</h2></div>'
-               f'{action(c["ui"]["headerCta"], ask)}</section>')
+               f'{action(c["ui"]["headerCta"], ask, attrs=self.track("Erstgespräch-Klick", ort="Projektseite", projekt=proj["slug"]))}</section>')
         next_link = ""
         if len(projects) > 1:
             next_link = (f'<a class="case-next-btn" href="{esc(page.to(self.case_path(lang, nxt["slug"])))}"{self.curtain_link(self.case_curtain(lang, nxt))}>'
@@ -148,7 +148,7 @@ class PagesMixin:
         <h1 class="service-page-title type-display" id="service-title">{esc(d["title"])}</h1>
         <p class="service-page-lead">{self.fmt(d["desc"])}</p>
         <div class="hero-actions">
-          {action(labels["ctaButton"], ask)}
+          {action(labels["ctaButton"], ask, attrs=self.track("Erstgespräch-Klick", ort="Leistungsseite", leistung=svc["topic"]))}
         </div>
       </div>
       <div class="service-visual" aria-hidden="true"><canvas id="service-canvas" class="service-canvas"></canvas></div>
@@ -162,7 +162,7 @@ class PagesMixin:
     <section class="service-cta-card" aria-labelledby="svc-cta" data-rv>
       <h2 class="service-cta-title type-display" id="svc-cta">{esc(labels["ctaTitle"])}</h2>
       <p class="service-cta-text">{esc(labels["ctaText"])}</p>
-      {action(labels["ctaButton"], ask, variant="on-dark")}
+      {action(labels["ctaButton"], ask, variant="on-dark", attrs=self.track("Erstgespräch-Klick", ort="Leistungsseite", leistung=svc["topic"]))}
     </section>
     {others_html}
   </div>

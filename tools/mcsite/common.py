@@ -29,6 +29,12 @@ TODO_OPEN, TODO_CLOSE = "\x02", "\x03"
 
 # Besucherstatistik (Umami, eigener Server, ohne Cookies) – einzige fremde Herkunft für Skripte
 ANALYTICS_ORIGIN = "https://stats.mindcoded.studio"
+# Erlaubte Ereignisse – eine Liste für Generator, Skripte (assets/analytics.js) und Tests; Bedeutung: docs/STATISTIK.md
+ANALYTICS_EVENTS = (
+    "Erstgespräch-Klick", "E-Mail-Klick", "Projekt geöffnet", "Live-Seite geöffnet", "Video abgespielt",
+    "Sprache gewechselt", "Abschnitt gesehen",
+    "Kontaktformular begonnen", "Kontaktformular gesendet", "Kontaktformular fehlgeschlagen",
+)
 
 # Sicherheits-Header: eine Quelle für .htaccess (Apache) und tools/serve.py (lokal).
 CSP = "; ".join([

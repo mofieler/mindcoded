@@ -7,6 +7,7 @@
 import { $, createField, data, motion } from './context.js';
 import { initContactForm } from './contact-form.js';
 import { contact as contactShapes } from './shapes.js';
+import { track } from './analytics.js';
 
 export function initContact() {
   const cv = $('#contact-canvas');
@@ -21,9 +22,11 @@ export function initContact() {
   if (form instanceof HTMLFormElement && data.contact) {
     initContactForm(form, {
       ...data.contact,
+      // Besucherstatistik: nur die Ereignisse, nie Eingaben
+      onStart: () => track('Kontaktformular begonnen'),
+      onError: reason => track('Kontaktformular fehlgeschlagen', { grund: reason }),
       onSuccess: () => {
-        // Besucherstatistik: nur das Ereignis, keine Eingaben (Umami, falls geladen)
-        /** @type {any} */ (window).umami?.track('Kontaktformular gesendet');
+        track('Kontaktformular gesendet');
         if (!field) return;
         field.show(1);
         if (field.W && !motion.paused) field.pulse(field.W / 2, field.H / 2, 4);

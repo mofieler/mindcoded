@@ -1,7 +1,7 @@
 """Seitenrahmen und wiederkehrende Bausteine (Head, Header, Menü, Footer, Bilder)."""
 from __future__ import annotations
 
-from .common import LANGS, Page, esc, is_todo, script_json
+from .common import ANALYTICS_EVENTS, LANGS, Page, esc, is_todo, script_json
 from .components import eyebrow
 
 
@@ -182,7 +182,7 @@ class LayoutMixin:
             return []
         domain = self.site["url"].split("//", 1)[-1]
         return [f'<script defer src="{esc(cfg["script"])}" data-website-id="{esc(cfg["websiteId"])}" '
-                f'data-domains="{esc(domain)}" data-do-not-track="true"></script>']
+                f'data-domains="{esc(domain)}" data-do-not-track="true" data-exclude-hash="true"></script>']
 
     def nav_items(self, lang: str, page: Page) -> list[tuple[str, str, str]]:
         """(Beschriftung, Ziel, Abschnitts-ID) – auf Unterseiten zeigen Anker auf die Startseite."""
@@ -208,7 +208,8 @@ class LayoutMixin:
             name = esc(self.langs[other]["langName"])
             current = ' aria-current="page"' if other == lang else ""
             cls = "lang-btn is-active" if other == lang else "lang-btn"
-            links.append(f'<a class="{cls}" href="{page.to(target)}" hreflang="{other}" lang="{other}"{current}>'
+            track = "" if other == lang else self.track("Sprache gewechselt", nach=other)
+            links.append(f'<a class="{cls}" href="{page.to(target)}" hreflang="{other}" lang="{other}"{current}{track}>'
                          f'<span aria-hidden="true">{other.upper()}</span><span class="visually-hidden">{name}</span></a>')
         return f'<nav class="lang-switcher type-mono" aria-label="{esc(c["ui"]["langNav"])}">{"".join(links)}</nav>'
 
@@ -269,10 +270,10 @@ class LayoutMixin:
   </div>
   <nav class="menu-nav-links" aria-label="{esc(c["ui"]["mainNav"])}"><ul>{links}</ul></nav>
   <div class="menu-bottom-box">
-    <a href="{self.cta_href(lang, page)}" class="menu-cta-pill"><span>{esc(c["ui"]["headerCta"])}</span><span class="cta-arrow" aria-hidden="true">→</span></a>
+    <a href="{self.cta_href(lang, page)}" class="menu-cta-pill"{self.track("Erstgespräch-Klick", ort="Menü")}><span>{esc(c["ui"]["headerCta"])}</span><span class="cta-arrow" aria-hidden="true">→</span></a>
     <div class="menu-sub-row">
       <div class="menu-controls-group">{self.theme_toggle(lang)}{self.lang_switch(lang, page, counterparts)}</div>
-      <a href="mailto:{esc(email)}" class="menu-mail-link type-mono">{esc(email)}</a>
+      <a href="mailto:{esc(email)}" class="menu-mail-link type-mono"{self.track("E-Mail-Klick", ort="Menü")}>{esc(email)}</a>
     </div>
   </div>
 </div>"""
@@ -370,6 +371,8 @@ class LayoutMixin:
     def track(event: str, **props: str) -> str:
         """Ereignis für die Besucherstatistik (Umami zählt Klicks auf Elemente mit data-umami-event).
         Nur Art des Klicks und Projekt – nie Eingaben oder personenbezogene Daten."""
+        if event not in ANALYTICS_EVENTS:
+            raise ValueError(f"Unbekanntes Statistik-Ereignis: {event}")
         return f' data-umami-event="{esc(event)}"' + "".join(f' data-umami-event-{k}="{esc(v)}"' for k, v in props.items())
 
     @staticmethod

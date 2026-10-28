@@ -195,7 +195,13 @@
         "greeting": "Guten Tag,",
         "paragraphs": [
           "Ihre Nachricht über das Kontaktformular auf {brand.full} ist bei mir angekommen.",
-          "Ich antworte in der Regel innerhalb eines Werktags per E-Mail. Falls Sie in der Zwischenzeit etwas ergänzen möchten, antworten Sie einfach auf diese E-Mail."
+          "Falls Sie in der Zwischenzeit etwas ergänzen möchten, antworten Sie einfach auf diese E-Mail."
+        ],
+        "nextTitle": "So geht es weiter",
+        "nextSteps": [
+          "Ich lese Ihre Anfrage persönlich.",
+          "Innerhalb eines Werktags melde ich mich per E-Mail – meist mit ein paar ersten Fragen.",
+          "Im unverbindlichen Erstgespräch klären wir Ziele, Umfang und Zeitrahmen."
         ],
         "closing": "Viele Grüße",
         "notice": "Diese automatische Bestätigung wurde am %date% verschickt, weil diese Adresse im Kontaktformular angegeben wurde. Waren Sie das nicht, können Sie die E-Mail ignorieren – es folgen keine weiteren Nachrichten.",
@@ -215,6 +221,11 @@
         },
         "sent": "Gesendet über das Kontaktformular am %date%.",
         "replyHint": "Mit »Antworten« schreiben Sie direkt an die anfragende Person. Eine Eingangsbestätigung ohne Inhalt der Nachricht wurde an sie verschickt."
+      },
+      "signature": {
+        "subject": "Ihre E-Mail-Signatur für {brand.full}",
+        "heading": "Ihre E-Mail-Signatur",
+        "intro": "Unten steht Ihre Signatur. So übernehmen Sie sie: Signatur markieren und kopieren, dann einfügen – iPhone: Einstellungen › Apps › Mail › Signatur; Outlook, Thunderbird, Apple Mail: Einstellungen › Signaturen."
       }
     }
   },

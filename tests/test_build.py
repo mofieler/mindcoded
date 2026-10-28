@@ -345,7 +345,11 @@ class TestBuildModes(BuildFixtures):
         site = json.loads((self.content / "site.json").read_text(encoding="utf-8"))
         for url in re.findall(r"https?://[^\s'\"<>)]+", php):
             self.assertTrue(url.startswith(site["url"]), url)
-        self.assertNotRegex(php, r"<img|@import|<link", "keine externen Bilder oder Stylesheets")
+        self.assertNotRegex(php, r"@import|<link", "keine externen Stylesheets")
+        for src in re.findall(r'<img[^>]*\bsrc="([^"]+)"', php):
+            self.assertTrue(src.startswith(site["url"] + "/assets/") and src.endswith((".jpg", ".png")),
+                            f"Bild in Mails nur vom eigenen Server als JPEG/PNG (Outlook kann kein WebP): {src}")
+            self.assertTrue((ROOT / "assets" / src.split("/assets/", 1)[1]).is_file(), src)
         receipt = php.split("'receipt' =>", 1)[1]
         for placeholder in ("%rows%", "%message%", "%value%", "%label%"):
             self.assertNotIn(placeholder, receipt, "Eingangsbestätigung darf keine Formularinhalte enthalten")

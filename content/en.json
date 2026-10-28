@@ -195,11 +195,22 @@
         "greeting": "Hello,",
         "paragraphs": [
           "Your message sent via the contact form on {brand.full} has reached me.",
-          "I usually reply by email within one working day. If you would like to add anything in the meantime, simply reply to this email."
+          "If you would like to add anything in the meantime, simply reply to this email."
+        ],
+        "nextTitle": "What happens next",
+        "nextSteps": [
+          "I read your enquiry personally.",
+          "Within one working day I reply by email – usually with a few first questions.",
+          "In a no-obligation intro call we clarify goals, scope and timing."
         ],
         "closing": "Kind regards",
         "notice": "This automatic confirmation was sent on %date% because this address was entered in the contact form. If that wasn't you, you can ignore this email – no further messages will follow.",
         "imprint": "Legal notice"
+      },
+      "signature": {
+        "subject": "Your email signature for {brand.full}",
+        "heading": "Your email signature",
+        "intro": "Your signature is below. Select and copy it, then paste it – iPhone: Settings › Apps › Mail › Signature; Outlook, Thunderbird, Apple Mail: Settings › Signatures."
       }
     }
   },

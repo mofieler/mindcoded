@@ -15,6 +15,8 @@ import re
 from .common import ASSETS, Page, esc
 
 TOKENS_CSS = ASSETS / "css" / "settings" / "tokens.css"
+# Porträt für Mails: JPEG (Outlook kann kein WebP), dreifache Größe für scharfe 64 px
+MAIL_PORTRAIT = "mail/moritz-fieler-webdesigner-stuttgart-192.jpg"
 # Datumsformat (PHP date()) je Sprache
 DATE_FORMATS = {"de": "d.m.Y, H:i \\U\\h\\r", "en": "j M Y, H:i"}
 
@@ -32,6 +34,7 @@ class MailMixin:
             "date_format": DATE_FORMATS,
             "notify": self.mail_notify(de["notify"]),
             "receipt": {lang: self.mail_receipt(lang, self.langs[lang]["contact"]["mail"]["receipt"]) for lang in self.langs},
+            "signature": {lang: self.mail_signature_mail(lang) for lang in self.langs},
         }
 
     # ------------------------------------------------------------------ Bausteine
@@ -103,24 +106,72 @@ class MailMixin:
         text = "\n".join(["-- ", " · ".join(parts), f"{imprint_label}: {imprint}"])
         return html, text
 
+    def mail_signature(self, lang: str) -> tuple[str, str]:
+        """Signatur mit Foto, Name, Rolle und Kontakt – in der Eingangsbestätigung und als eigene
+        Signatur für Mail-Programme. Das Foto liegt als JPEG auf dem eigenen Server (Outlook kann
+        kein WebP); Programme, die Bilder erst nach Freigabe laden, zeigen den Alternativtext."""
+        s, op, brand = self.mail_style(), self.site["operator"], self.site["brand"]
+        role = self.langs[lang]["about"]["personRole"]
+        url = self.site["url"]
+        photo = f"{url}/assets/{MAIL_PORTRAIT}"
+        small = f'font-family:{s["sans"]};font-size:14px;line-height:1.5;color:{s["muted"]}'
+        link = f'color:{s["link"]};text-decoration:none'
+        lines = (f'<div style="font-family:{s["display"]};font-size:17px;font-weight:700;color:{s["ink"]}" class="mc-ink">{esc(op["name"])}</div>'
+                 f'<div style="{small}" class="mc-muted">{esc(role)}</div>'
+                 f'<div style="{small}" class="mc-muted">'
+                 f'<a href="mailto:{esc(brand["email"])}" style="{link}" class="mc-link">{esc(brand["email"])}</a>'
+                 f' · <a href="{esc(url)}/" style="{link}" class="mc-link">{esc(self.brand_full)}</a></div>')
+        html = ('<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>'
+                f'<td style="padding:0 16px 0 0;vertical-align:middle"><img src="{esc(photo)}" width="64" height="64" '
+                f'alt="{esc(op["name"])}" style="display:block;width:64px;height:64px;border-radius:50%;border:0"></td>'
+                f'<td style="vertical-align:middle">{lines}</td></tr></table>')
+        text = "\n".join([op["name"], role, f'{brand["email"]} · {url}/'])
+        return html, text
+
+    def mail_signature_mail(self, lang: str) -> dict:
+        """Signatur zum Übernehmen: »php contact.php --send-signature« schickt sie ins eigene Postfach,
+        dort markieren, kopieren und in den Einstellungen des Mail-Programms einfügen."""
+        t, v = self.langs[lang]["contact"]["mail"]["signature"], self.mail_vars(lang)
+        subject, heading, intro = (self.plain(t[k], v) for k in ("subject", "heading", "intro"))
+        sig_html, sig_text = self.mail_signature(lang)
+        body = self.mail_paragraph(intro, small=True) + f'<div style="margin-top:24px">{sig_html}</div>'
+        footer_html, _ = self.mail_footer(lang, self.plain(self.langs[lang]["contact"]["mail"]["receipt"]["imprint"], v))
+        return {"subject": subject, "html": self.mail_html(lang, subject, heading, heading, body, footer_html),
+                "text": f"{intro}\n\n{sig_text}\n"}
+
+    def mail_steps(self, title: str, steps: list[str]) -> str:
+        """Nummerierte Schritte (»So geht es weiter«) als Tabelle – Listen stellen Mail-Programme uneinheitlich dar."""
+        s = self.mail_style()
+        rows = "".join(
+            f'<tr><td style="font-family:{s["sans"]};font-size:13px;color:{s["link"]};padding:6px 12px 6px 0;vertical-align:top;width:24px" class="mc-link">{i:02d}</td>'
+            f'<td style="font-family:{s["sans"]};font-size:15px;line-height:1.5;color:{s["ink"]};padding:6px 0;vertical-align:top" class="mc-ink">{esc(step)}</td></tr>'
+            for i, step in enumerate(steps, 1))
+        return (f'<p style="margin:8px 0 4px;font-family:{s["sans"]};font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:{s["muted"]}" class="mc-muted">{esc(title)}</p>'
+                f'<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px">{rows}</table>')
+
     # ------------------------------------------------------------------ Vorlagen
 
     def mail_receipt(self, lang: str, t: dict) -> dict:
         """Eingangsbestätigung an die anfragende Person – werbefrei und ohne Formularinhalte
         (sonst ließe sich das Formular nutzen, um fremden Text an fremde Adressen zu schicken)."""
         v = self.mail_vars(lang)
-        p = {key: self.plain(t[key], v) for key in ("subject", "preheader", "heading", "greeting", "closing", "notice", "imprint")}
+        p = {key: self.plain(t[key], v) for key in ("subject", "preheader", "heading", "greeting", "closing", "notice", "imprint", "nextTitle")}
         paragraphs = [self.plain(text, v) for text in t["paragraphs"]]
-        name = self.site["operator"]["name"]
+        steps = [self.plain(text, v) for text in t["nextSteps"]]
+        sig_html, sig_text = self.mail_signature(lang)
         footer_html, footer_text = self.mail_footer(lang, p["imprint"])
         body = "".join([
             self.mail_paragraph(p["greeting"]),
             *(self.mail_paragraph(text) for text in paragraphs),
-            self.mail_paragraph(f'{p["closing"]}\n{name}').replace("\n", "<br>"),
-            f'<hr style="border:0;border-top:1px solid {self.mail_style()["line"]};margin:24px 0" class="mc-line">',
+            self.mail_steps(p["nextTitle"], steps),
+            self.mail_paragraph(p["closing"]),
+            sig_html,
+            f'<hr style="border:0;border-top:1px solid {self.mail_style()["line"]};margin:28px 0 20px" class="mc-line">',
             self.mail_paragraph(p["notice"], small=True),
         ])
-        text = "\n\n".join([p["greeting"], *paragraphs, f'{p["closing"]}\n{name}', p["notice"], footer_text]) + "\n"
+        steps_text = "\n".join(f"{i}. {step}" for i, step in enumerate(steps, 1))
+        text = "\n\n".join([p["greeting"], *paragraphs, f'{p["nextTitle"]}:\n{steps_text}', p["closing"], sig_text,
+                            p["notice"], footer_text]) + "\n"
         return {
             "subject": p["subject"],
             "html": self.mail_html(lang, p["subject"], p["preheader"], p["heading"], body, footer_html),

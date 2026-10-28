@@ -164,6 +164,7 @@ Aufruf:
   php contact.php --cleanup     abgelaufene Prüfwerte löschen, Zustellfehler melden (stündlich per Cron/Timer)
   php contact.php --check       Konfiguration prüfen, ohne etwas zu senden
   php contact.php --send-test   Testnachricht über den konfigurierten Versandweg an die Empfängeradresse
+  php contact.php --send-signature [en]  eigene E-Mail-Signatur an die Empfängeradresse (zum Übernehmen)
 
 TXT;
 
@@ -175,6 +176,7 @@ function mc_cli(array $argv): int
         '--cleanup' => mc_cli_cleanup($cfg),
         '--check' => mc_cli_check($cfg),
         '--send-test' => mc_cli_send_test($cfg),
+        '--send-signature' => mc_cli_send_signature($cfg, ($argv[2] ?? '') === 'en' ? 'en' : 'de'),
         default => mc_cli_usage(),
     };
 }
@@ -244,6 +246,34 @@ function mc_cli_send_test(array $cfg): int
         return 1;
     }
     echo "Angenommen. Bitte im Postfach von {$cfg['to']} nachsehen.\n";
+    return 0;
+}
+
+/** Signatur (Foto, Name, Kontakt) als Mail ins eigene Postfach – dort kopieren und einfügen. */
+function mc_cli_send_signature(array $cfg, string $lang): int
+{
+    $problems = mc_config_problems($cfg);
+    if ($problems) {
+        fwrite(STDERR, 'Konfiguration unvollständig: ' . implode('; ', $problems) . "
+");
+        return 1;
+    }
+    $tpl = mc_templates()['signature'][$lang];
+    $settings = mc_settings();
+    $mail = [
+        'subject' => $tpl['subject'],
+        'text' => $tpl['text'],
+        'html' => $tpl['html'],
+        'reply_to' => $cfg['to'],
+        'from_name' => $settings['site_name'],
+    ];
+    if (!mc_send($mail, $cfg, $settings)) {
+        fwrite(STDERR, "Versand fehlgeschlagen – Schritt und Code stehen in der Zeile mit »[mindcoded-contact] smtp:« darüber.
+");
+        return 1;
+    }
+    echo "Angenommen. Signatur im Postfach von {$cfg['to']} öffnen, markieren und kopieren.
+";
     return 0;
 }
 

@@ -129,10 +129,13 @@ def safe(label: str, check) -> list[Check]:
 
 
 def check_backups() -> list[Check]:
+    """Green when the latest run succeeded; earlier failures of the week are shown, not judged."""
     log = run(["journalctl", "-u", "mc-backup.service", "--since", "-7 days", "-o", "cat", "--no-pager"])
     done, failed = log.count(" done"), log.count("Failed with result")
-    return [("Backups (7 Tage)", f"{done} erfolgreich" + (f", {failed} fehlgeschlagen" if failed else ""),
-             failed == 0 and done > 0)]
+    last = max(log.rfind(" done"), log.rfind("Failed with result"))
+    last_ok = last >= 0 and log.startswith(" done", last)
+    value = ("letzter Lauf erfolgreich" if last_ok else "letzter Lauf fehlgeschlagen") + f" · {done} ok"
+    return [("Backups", value + (f", {failed} Fehler in 7 Tagen" if failed else " in 7 Tagen"), last_ok)]
 
 
 def check_system() -> list[Check]:

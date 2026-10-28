@@ -1,0 +1,79 @@
+# Permanent copy of the Coolify dashboard route (mindcoded ops). Coolify deleted its coolify.yaml on a
+# proxy restart (28.10.2026) and the dashboard returned 503 - this file is not managed by Coolify.
+
+http:
+  middlewares:
+    mc-redirect-to-https:
+      redirectscheme:
+        scheme: https
+    mc-gzip:
+      compress: true
+  routers:
+    mc-coolify-http:
+      middlewares:
+        - mc-redirect-to-https
+      entryPoints:
+        - http
+      service: mc-coolify
+      rule: Host(`coolify.178.104.42.108.sslip.io`)
+    mc-coolify-reverb-ws:
+      entryPoints:
+        - http
+      service: mc-coolify-reverb
+      rule: 'Host(`coolify.178.104.42.108.sslip.io`) && PathPrefix(`/app`)'
+    mc-coolify-reverb-api:
+      entryPoints:
+        - http
+      service: mc-coolify-reverb
+      rule: 'Host(`coolify.178.104.42.108.sslip.io`) && PathPrefix(`/apps`)'
+    mc-coolify-terminal-ws:
+      entryPoints:
+        - http
+      service: mc-coolify-terminal
+      rule: 'Host(`coolify.178.104.42.108.sslip.io`) && PathPrefix(`/terminal/ws`)'
+    mc-coolify-https:
+      middlewares:
+        - mc-gzip
+      entryPoints:
+        - https
+      service: mc-coolify
+      rule: Host(`coolify.178.104.42.108.sslip.io`)
+      tls:
+        certresolver: letsencrypt
+    mc-coolify-reverb-wss:
+      entryPoints:
+        - https
+      service: mc-coolify-reverb
+      rule: 'Host(`coolify.178.104.42.108.sslip.io`) && PathPrefix(`/app`)'
+      tls:
+        certresolver: letsencrypt
+    mc-coolify-reverb-api-https:
+      entryPoints:
+        - https
+      service: mc-coolify-reverb
+      rule: 'Host(`coolify.178.104.42.108.sslip.io`) && PathPrefix(`/apps`)'
+      tls:
+        certresolver: letsencrypt
+    mc-coolify-terminal-wss:
+      entryPoints:
+        - https
+      service: mc-coolify-terminal
+      rule: 'Host(`coolify.178.104.42.108.sslip.io`) && PathPrefix(`/terminal/ws`)'
+      tls:
+        certresolver: letsencrypt
+  services:
+    mc-coolify:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://coolify:8080'
+    mc-coolify-reverb:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://coolify:6001'
+    mc-coolify-terminal:
+      loadBalancer:
+        servers:
+          -
+            url: 'http://coolify:6002'

@@ -25,6 +25,7 @@ PAGES = {
     "Statistik-Skript": "https://stats.mindcoded.studio/insights",
     "Mail-Verwaltung": f"https://{MAIL_HOST}/admin/",
     "MTA-STS-Richtlinie": "https://mta-sts.mindcoded.studio/.well-known/mta-sts.txt",
+    "Coolify": "https://coolify.178.104.42.108.sslip.io/login",
 }
 
 

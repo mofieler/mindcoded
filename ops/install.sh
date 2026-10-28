@@ -15,6 +15,8 @@ chmod 0700 /usr/local/bin/mc-backup /usr/local/bin/mc-restic
 
 install -m 0644 systemd/* /etc/systemd/system/
 install -m 0644 apt/52unattended-reboot /etc/apt/apt.conf.d/52unattended-reboot
+# Coolify dashboard route that survives proxy restarts (Traefik reloads the folder by itself)
+install -m 0644 traefik/mc-coolify-dashboard.yaml /data/coolify/proxy/dynamic/mc-coolify-dashboard.yaml
 sed -i 's/\r$//' /etc/systemd/system/mc-*.service /etc/systemd/system/mc-*.timer /etc/apt/apt.conf.d/52unattended-reboot
 
 # Old name from the first setup

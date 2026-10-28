@@ -30,7 +30,7 @@ SMTP_URL = "smtp://mail.mindcoded.studio:25/mail.mindcoded.studio"
 DOMAIN = "mindcoded.studio"
 TLS_HOSTS = ["mindcoded.studio", "mail.mindcoded.studio", "stats.mindcoded.studio", "mta-sts.mindcoded.studio"]
 URLS = {"Website": f"{SITE}/", "Website (EN)": f"{SITE}/en/", "Statistik": "https://stats.mindcoded.studio/insights",
-        "Mail-Verwaltung": "https://mail.mindcoded.studio/admin/"}
+        "Mail-Verwaltung": "https://mail.mindcoded.studio/admin/", "Coolify": "https://coolify.178.104.42.108.sslip.io/login"}
 APP_PREFIX = "voriurfwnru0o2jizdjbwbfl"  # website container (name changes with every deploy)
 STALWART = "stalwart-itctfm4kx9cyganl5nfqilc9"
 UMAMI = "umami-lzv2utgligmwj0dkcclzjigx"

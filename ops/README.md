@@ -15,6 +15,8 @@ Geheimnisse liegen **nie** im Repo (es ist öffentlich), sondern nur auf dem Ser
 | `bin/mc-alert` | Mail an hallo@, wenn ein Dienst fehlschlägt (`OnFailure=` in den Units) | bei Fehler |
 | `bin/mc-restic` | restic mit den Backup-Zugangsdaten, z. B. `mc-restic snapshots` | von Hand |
 | `apt/52unattended-reboot` | Sicherheitsupdates mit automatischem Neustart, nur wenn nötig | 04:00 UTC |
+| `traefik/mc-coolify-dashboard.yaml` | Route zur Coolify-Oberfläche, die Coolify nicht verwaltet – Coolify löschte seine `coolify.yaml` beim Proxy-Neustart (28.10.2026), die Oberfläche lieferte 503 | dauerhaft |
+| `monitor.py` | Prüfung von außen (GitHub Actions, `.github/workflows/monitor.yml`): Seiten, Formular, Coolify, MTA-STS, TLS von SMTP/IMAP | alle 15 Min. |
 
 Test des Berichts ohne Versand: `ssh mindcoded 'mc-weekly-report --dry-run' > bericht.html`
 

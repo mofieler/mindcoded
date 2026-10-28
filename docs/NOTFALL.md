@@ -40,6 +40,8 @@ Was tun, wenn der VPS kaputt, gelöscht oder kompromittiert ist. Ziel: Website u
 ## Wenn nur ein Teil kaputt ist
 
 - **Website:** in Coolify neu deployen; letzter funktionierender Commit über *Rollback*.
+- **Coolify-Oberfläche zeigt 503:** Route fehlt – `ops/traefik/mc-coolify-dashboard.yaml` nach
+  `/data/coolify/proxy/dynamic/` kopieren (wirkt sofort).
 - **Mail-Verwaltung zeigt 502:** Stalwart hat vermutlich den Proxy gesperrt – in Stalwart unter
   Settings › Security › Blocked IPs entsperren; `10.0.4.0/24` muss unter Allowed IPs stehen.
 - **Einzelne Datei aus dem Backup:** `mc-restic restore latest --target /tmp/r --include <pfad>`.

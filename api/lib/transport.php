@@ -16,26 +16,29 @@ if (!defined('MC_CONTACT')) {
     exit;
 }
 
-/** true nur, wenn der Versandweg die Nachricht angenommen hat. */
+/**
+ * true nur, wenn der Versandweg die Nachricht angenommen hat.
+ * Empfänger: $mail['to'] (Eingangsbestätigung), sonst die Adresse des Studios.
+ */
 function mc_send(array $mail, array $cfg, array $settings, ?int $now = null): bool
 {
-    $headers = mc_message_headers($mail, $cfg, $settings['site_name'], $now ?? time());
-    $body = mc_message_body($mail['text']);
+    [$headers, $body] = mc_message_parts($mail, $cfg, $settings['site_name'], $now ?? time());
+    $to = mc_recipient($mail, $cfg);
     return match ($cfg['transport']) {
-        'smtp' => mc_smtp_send($cfg['from'], $cfg['to'], mc_message_raw($headers, $body), $cfg),
-        'mail' => mc_send_via_mail($headers, $body, $cfg),
+        'smtp' => mc_smtp_send($cfg['from'], $to, mc_message_raw($headers, $body), $cfg),
+        'mail' => mc_send_via_mail($to, $headers, $body, $cfg),
         'file' => mc_send_via_file(mc_message_raw($headers, $body), $cfg),
         default => false,
     };
 }
 
-function mc_send_via_mail(array $headers, string $body, array $cfg): bool
+function mc_send_via_mail(string $to, array $headers, string $body, array $cfg): bool
 {
     $subject = $headers['Subject'];
     unset($headers['To'], $headers['Subject']); // setzt mail() selbst
     // Envelope-Absender = eigene Adresse, damit SPF zur Absender-Domain passt.
     $params = ($cfg['envelope_sender'] && mc_is_email($cfg['from'])) ? '-f' . $cfg['from'] : '';
-    return mail($cfg['to'], $subject, $body, $headers, $params);
+    return mail($to, $subject, $body, $headers, $params);
 }
 
 /** Nur für lokale Tests mit »php -S«: echte Speicherung als .eml, nichts verlässt den Rechner. */

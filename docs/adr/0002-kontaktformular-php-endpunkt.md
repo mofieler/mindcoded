@@ -1,6 +1,6 @@
 # 0002 – Kontaktformular über eigenen PHP-Endpunkt
 
-- **Status:** angenommen
+- **Status:** angenommen, ergänzt durch 0006 (eigener Mailserver) und 0009 (Rechenaufgabe, Eingangsbestätigung)
 - **Datum:** 2026-10-19
 - **Beteiligte:** Betreiber (Hosting-Entscheidung), Entwicklung
 
@@ -11,7 +11,7 @@ Das Formular zeigte eine Erfolgsmeldung, ohne Daten zu übermitteln – Anfragen
 ## Entscheidungstreiber
 
 - Erfolgsmeldung nur nach bestätigtem Versand
-- Serverseitige Prüfung, Spam-Schutz ohne Captcha, Rate-Limit
+- Serverseitige Prüfung, Spam-Schutz ohne Rätsel-Captcha, Rate-Limit (seit 0009 zusätzlich eine unsichtbare Rechenaufgabe)
 - Möglichst wenige Empfänger personenbezogener Daten (DSGVO)
 - Läuft auf üblichem PHP-Hosting ohne Composer oder Zusatzdienste
 - Formular funktioniert auch ohne JavaScript
@@ -24,7 +24,7 @@ Das Formular zeigte eine Erfolgsmeldung, ohne Daten zu übermitteln – Anfragen
 
 ## Entscheidung
 
-Gewählt: Option 1, weil sie zum Hosting passt, ohne weitere Auftragsverarbeiter auskommt (Standard-Versand über den Hoster) und alle Schutzmaßnahmen serverseitig umsetzt: Herkunftsprüfung (Origin und Sec-Fetch-Site, `Origin: null` wird abgelehnt), Größenlimit, Rate-Limit mit gehashter IP (IPv6 je /64) und täglich neu erzeugtem Zufallsschlüssel, Honeypot, Zeitfalle über die im Browser gemessene Ausfülldauer, Validierung und Schutz vor Header-Injection. Weicht der konfigurierte Versandweg von dem in `content/site.json` ab, den die Datenschutzerklärung beschreibt, verweigert der Endpunkt den Versand. Zugangsdaten kommen aus Umgebungsvariablen oder einer Datei außerhalb des Webroots. Ohne JavaScript leitet der Endpunkt auf Danke- bzw. Fehlerseiten weiter (Post/Redirect/Get).
+Gewählt: Option 1, weil sie zum Hosting passt, ohne weitere Auftragsverarbeiter auskommt (Standard-Versand über den Hoster) und alle Schutzmaßnahmen serverseitig umsetzt: Herkunftsprüfung (Origin und Sec-Fetch-Site, `Origin: null` wird abgelehnt), Größenlimit, Rate-Limit mit gehashter IP (IPv6 je /64) und täglich neu erzeugtem Zufallsschlüssel, Honeypot, Zeitfalle über die im Browser gemessene Ausfülldauer, Validierung und Schutz vor Header-Injection. Welcher Versandweg in der Datenschutzerklärung steht, legt `content/site.json › contact.mailServer` fest. Der Endpunkt prüft das nicht selbst, deshalb muss die Konfiguration auf dem Server dazu passen. Zugangsdaten kommen aus Umgebungsvariablen oder einer Datei außerhalb des Webroots. Ohne JavaScript leitet der Endpunkt auf Danke- bzw. Fehlerseiten weiter (Post/Redirect/Get).
 
 ## Konsequenzen
 

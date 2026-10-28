@@ -18,10 +18,14 @@ Zählerstand in der Konsole. Den echten PHP-Endpunkt testet man mit »php -S« (
 from __future__ import annotations
 
 import argparse
+import base64
 import contextlib
+import hashlib
+import hmac
 import importlib
 import json
 import re
+import secrets
 import sys
 import threading
 import time
@@ -84,6 +88,15 @@ def validate(form: dict, settings: dict) -> tuple[dict, dict]:
     return {"name": name, "email": email, "message": message, "topics": topics, "timeline": timeline, "lang": lang}, errors
 
 
+def solve_challenge(task: dict) -> str:
+    """Löst eine Rechenaufgabe wie assets/pow-worker.js – für Tests und Werkzeuge."""
+    for number in range(task["maxnumber"] + 1):
+        if hashlib.sha256(f"{task['salt']}{number}".encode()).hexdigest() == task["challenge"]:
+            solution = {key: task[key] for key in ("algorithm", "challenge", "salt", "signature")}
+            return base64.b64encode(json.dumps({**solution, "number": number}).encode()).decode()
+    raise ValueError("Rechenaufgabe ohne Lösung")
+
+
 class MockApi:
     """Vertragsgleicher Ersatz für api/contact.php (ohne Versand)."""
 
@@ -94,6 +107,45 @@ class MockApi:
         self.accepted = 0
         self.quiet = False
         self.lock = threading.Lock()
+        self.key = secrets.token_hex(32)
+        self.used: dict[str, float] = {}
+
+    def issue_challenge(self) -> dict:
+        """Spiegelt mc_challenge_issue() aus api/lib/challenge.php."""
+        cfg = self.settings["challenge"]
+        salt = f"{secrets.token_hex(12)}?expires={int(time.time()) + cfg['ttl']}"
+        challenge = hashlib.sha256(f"{salt}{secrets.randbelow(cfg['max_number'] + 1)}".encode()).hexdigest()
+        return {"algorithm": "SHA-256", "challenge": challenge, "maxnumber": cfg["max_number"], "salt": salt,
+                "signature": hmac.new(self.key.encode(), challenge.encode(), hashlib.sha256).hexdigest()}
+
+    def verify_challenge(self, payload: str) -> bool:
+        """Spiegelt mc_challenge_verify(): Signatur, Ablauf, Lösung, nur einmal gültig."""
+        if not payload or len(payload) > 1000:
+            return False
+        try:
+            data = json.loads(base64.b64decode(payload, validate=True))
+        except ValueError:
+            return False
+        if not isinstance(data, dict):
+            return False
+        cfg = self.settings["challenge"]
+        challenge, salt, number = str(data.get("challenge", "")), str(data.get("salt", "")), data.get("number")
+        expires = re.search(r"\?expires=(\d{1,12})$", salt)
+        now = time.time()
+        if (data.get("algorithm") != "SHA-256" or not isinstance(number, int) or isinstance(number, bool)
+                or not 0 <= number <= cfg["max_number"] or not re.fullmatch(r"[0-9a-f]{64}", challenge)
+                or not expires or not now <= int(expires.group(1)) <= now + cfg["ttl"]):
+            return False
+        expected = hmac.new(self.key.encode(), challenge.encode(), hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(expected, str(data.get("signature", ""))):
+            return False
+        if hashlib.sha256(f"{salt}{number}".encode()).hexdigest() != challenge:
+            return False
+        with self.lock:
+            if challenge in self.used:
+                return False
+            self.used[challenge] = now
+        return True
 
     def handle(self, client: str, headers, body: bytes, host: str) -> tuple[int, dict, str]:
         if len(body) > 20000:
@@ -125,6 +177,9 @@ class MockApi:
             self.hits[client] = hits
         if limited:
             return 429, {"ok": False, "error": "rate_limited"}, lang
+
+        if not self.verify_challenge((form.get("altcha") or [""])[0]):
+            return 422, {"ok": False, "error": "challenge"}, lang
 
         if (form.get("website") or [""])[0].strip():
             return 200, {"ok": True}, lang
@@ -183,6 +238,8 @@ def make_handler(out: Path, api: MockApi | None, frameable: bool = False):
         def do_GET(self):
             path = urlparse(self.path).path
             if path.endswith("/api/contact.php"):
+                if api is not None and urlparse(self.path).query == "challenge":
+                    return self.json(200, api.issue_challenge())
                 return self.json(405, {"ok": False, "error": "method_not_allowed"}, extra={"Allow": "POST"})
             if self.blocked():
                 return self.not_found()

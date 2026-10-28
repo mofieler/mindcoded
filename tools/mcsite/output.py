@@ -196,7 +196,7 @@ AddType image/webp .webp
 </Files>
 
 # Interne Dateien nie ausliefern
-<FilesMatch "^(contact-settings\\.php|\\..*)$">
+<FilesMatch "^(contact-settings\\.php|mail-templates\\.php|\\..*)$">
   Require all denied
 </FilesMatch>
 """
@@ -388,6 +388,10 @@ AddType image/webp .webp
                    "<?php\n// Generiert von tools/build.py – nicht von Hand bearbeiten.\n"
                    "if (realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME'] ?? '')) { http_response_code(404); exit; }\n"
                    f"return {php_export(contact_settings(self.site, self.langs))};\n")
+        self.write("api/mail-templates.php",
+                   "<?php\n// Generiert von tools/build.py (tools/mcsite/mail.py) – nicht von Hand bearbeiten.\n"
+                   "if (realpath(__FILE__) === realpath($_SERVER['SCRIPT_FILENAME'] ?? '')) { http_response_code(404); exit; }\n"
+                   f"return {php_export(self.mail_templates())};\n")
 
         seo = self.site.get("seo", {})
         self.write(".htaccess", self.htaccess())

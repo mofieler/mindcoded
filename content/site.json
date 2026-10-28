@@ -44,6 +44,10 @@
       "maxRequests": 5,
       "windowMinutes": 10
     },
+    "challenge": {
+      "maxNumber": 50000,
+      "ttlMinutes": 10
+    },
     "limits": {
       "nameMax": 100,
       "emailMax": 254,

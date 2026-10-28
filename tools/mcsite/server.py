@@ -111,7 +111,7 @@ class ServerMixin:
 		path */.*
 		not path /.well-known/*
 	}}
-	@internal path /api/lib/* /api/contact-settings.php
+	@internal path /api/lib/* /api/contact-settings.php /api/mail-templates.php
 	@index path_regexp index ^(.*/)index\\.html$
 	@contact path /api/contact.php
 	@php path *.php
@@ -262,6 +262,7 @@ server {{
 	location ~ /\\.(?!well-known/) {{ return 404; }}
 	location ^~ /api/lib/ {{ return 404; }}
 	location = /api/contact-settings.php {{ return 404; }}
+	location = /api/mail-templates.php {{ return 404; }}
 
 	location = /api/contact.php {{
 		client_max_body_size 32k;

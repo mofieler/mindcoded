@@ -7,6 +7,7 @@ import { defaultTheme, themeToStore } from '../assets/theme.js';
 import { isSlow, createFrameMonitor, quality, onQualityChange } from '../assets/perf.js';
 import { easeOutExpo, lerpFactor, glideDuration, wheelDelta, nestedScroller } from '../assets/smooth-scroll.js';
 import { DEVICES, ELEMENTS, uiLayouts, buildResponsiveUi } from '../assets/hero-ui.js';
+import { isPowTask, sha256Hex, solvePow } from '../assets/pow.js';
 
 const limits = { nameMax: 100, emailMax: 254, messageMin: 10, messageMax: 5000 };
 const valid = { name: 'Max Mustermann', email: 'max.mustermann@example.com', message: 'Synthetische Testnachricht.' };
@@ -25,6 +26,11 @@ const test = (name, fn) => {
     results.push({ name, ok: false, error: err.message });
   }
 };
+const pending = [];
+const asyncTest = (name, fn) => pending.push(fn().then(
+  () => results.push({ name, ok: true }),
+  err => results.push({ name, ok: false, error: err.message }),
+));
 
 test('leeres Formular meldet alle Pflichtfelder', () => eq(validateContact({}, limits), { name: 'required', email: 'required', message: 'required' }));
 test('gültige Eingaben ohne Fehler', () => eq(validateContact(valid, limits), {}));
@@ -217,6 +223,25 @@ test('Hero-Finale: jeder Punkt hat in allen drei Layouts ein Ziel in der Motivfl
   eq(ui.tap.x > tap.x && ui.tap.x < tap.x + tap.w && ui.tap.y > tap.y && ui.tap.y < tap.y + tap.h, true);
 });
 
+asyncTest('Rechenaufgabe: Lösung wird gefunden und im ALTCHA-Format geliefert', async () => {
+  const salt = 'abc123?expires=4102444800';
+  const task = { algorithm: 'SHA-256', challenge: await sha256Hex(salt + 742), maxnumber: 1000, salt, signature: 'sig' };
+  eq(isPowTask(task), true);
+  const solved = JSON.parse(atob(await solvePow(task)));
+  eq(solved, { algorithm: 'SHA-256', challenge: task.challenge, number: 742, salt, signature: 'sig' });
+});
+asyncTest('Rechenaufgabe: ohne Treffer null', async () => {
+  const task = { algorithm: 'SHA-256', challenge: '0'.repeat(64), maxnumber: 300, salt: 'x', signature: 's' };
+  eq(await solvePow(task), null);
+});
+test('Rechenaufgabe: ungültige Aufgaben werden abgelehnt', () => {
+  eq(isPowTask(null), false);
+  eq(isPowTask({ algorithm: 'SHA-1', challenge: 'a'.repeat(64), maxnumber: 5, salt: 's', signature: 's' }), false);
+  eq(isPowTask({ algorithm: 'SHA-256', challenge: 'xyz', maxnumber: 5, salt: 's', signature: 's' }), false);
+  eq(isPowTask({ algorithm: 'SHA-256', challenge: 'a'.repeat(64), maxnumber: 0, salt: 's', signature: 's' }), false);
+});
+
+await Promise.all(pending);
 const failed = results.filter(r => !r.ok);
 document.getElementById('result').textContent = JSON.stringify({ passed: results.length - failed.length, failed: failed.length, failures: failed });
 document.documentElement.dataset.done = '1';

@@ -2,7 +2,9 @@
 /**
  * Ablauf einer Anfrage und Wartungsbefehle.
  *
- * POST → Herkunft → Größe → Rate-Limit → Spam-Schutz → Prüfung → Konfiguration → Versand.
+ * GET ?challenge → Rechenaufgabe für den Spam-Schutz (challenge.php), immer als JSON.
+ * POST → Herkunft → Größe → Rate-Limit → Rechenaufgabe → Honeypot/Zeitfalle → Prüfung →
+ * Konfiguration → Versand an das Studio → Eingangsbestätigung an die anfragende Person.
  * Antwort: JSON, wenn der Browser »Accept: application/json« sendet (Formular mit JavaScript),
  * sonst Weiterleitung auf die Danke- bzw. Fehlerseite (Formular ohne JavaScript).
  */
@@ -14,9 +16,9 @@ if (!defined('MC_CONTACT')) {
     exit;
 }
 
-function mc_result(int $status, array $body, string $lang = 'de'): array
+function mc_result(int $status, array $body, string $lang = 'de', bool $json = false): array
 {
-    return ['status' => $status, 'body' => $body, 'lang' => $lang];
+    return ['status' => $status, 'body' => $body, 'lang' => $lang, 'json' => $json];
 }
 
 function mc_wants_json(array $server): bool
@@ -57,7 +59,16 @@ function mc_handle(array $server, array $post, string $raw, ?callable $sender = 
     $settings = mc_settings();
     $cfg = mc_config();
 
-    if (strtoupper((string) ($server['REQUEST_METHOD'] ?? 'GET')) !== 'POST') {
+    $method = strtoupper((string) ($server['REQUEST_METHOD'] ?? 'GET'));
+    if ($method === 'GET' && (string) ($server['QUERY_STRING'] ?? '') === 'challenge') {
+        $challenge = mc_challenge_issue($cfg, $settings, $now);
+        if ($challenge === null) {
+            mc_log('challenge_unavailable');
+            return mc_result(503, ['ok' => false, 'error' => 'not_configured'], 'de', true);
+        }
+        return mc_result(200, $challenge, 'de', true);
+    }
+    if ($method !== 'POST') {
         return mc_result(405, ['ok' => false, 'error' => 'method_not_allowed']);
     }
     if ((int) ($server['CONTENT_LENGTH'] ?? 0) > MC_MAX_BODY || strlen($raw) > MC_MAX_BODY) {
@@ -79,7 +90,14 @@ function mc_handle(array $server, array $post, string $raw, ?callable $sender = 
         return mc_result(429, ['ok' => false, 'error' => 'rate_limited'], $lang);
     }
 
-    // Spam-Schutz: Honeypot-Feld ausgefüllt oder Formular unrealistisch schnell abgeschickt.
+    // Spam-Schutz 1: gelöste Rechenaufgabe. Ohne sie keine Zustellung – mit Meldung, damit echte
+    // Besucher (z. B. ohne JavaScript) den Ausweg per E-Mail-Programm sehen.
+    if (!mc_challenge_verify(mc_scalar($input['altcha'] ?? ''), $cfg, $settings, $now)) {
+        mc_log('challenge_failed');
+        return mc_result(422, ['ok' => false, 'error' => 'challenge'], $lang);
+    }
+
+    // Spam-Schutz 2: Honeypot-Feld ausgefüllt oder Formular unrealistisch schnell abgeschickt.
     // Antwortet wie bei Erfolg, damit Programme nichts lernen – es wird aber nichts versendet.
     if (trim(mc_scalar($input['website'] ?? '')) !== '') {
         mc_log('spam_honeypot');
@@ -104,12 +122,16 @@ function mc_handle(array $server, array $post, string $raw, ?callable $sender = 
         return mc_result(503, ['ok' => false, 'error' => 'not_configured'], $lang);
     }
 
-    $mail = mc_build_mail($data, $settings);
-    $sent = $sender ? (bool) $sender($mail, $cfg) : mc_send($mail, $cfg, $settings, $now);
-    if (!$sent) {
+    $send = static fn (array $mail): bool => $sender ? (bool) $sender($mail, $cfg) : mc_send($mail, $cfg, $settings, $now);
+    if (!$send(mc_build_mail($data, $settings, $now))) {
         mc_log('send_failed:' . $cfg['transport']);
         mc_note_failure($cfg, 'send_failed:' . $cfg['transport'], $now);
         return mc_result(502, ['ok' => false, 'error' => 'send_failed'], $lang);
+    }
+    // Eingangsbestätigung erst nach erfolgreicher Zustellung der Anfrage. Scheitert sie, ist die
+    // Anfrage trotzdem angekommen – nur protokollieren, die Antwort an den Besucher bleibt »ok«.
+    if (!$send(mc_build_receipt($data, $cfg, $settings, $now))) {
+        mc_log('receipt_failed:' . $cfg['transport']);
     }
     return mc_result(200, ['ok' => true], $lang);
 }
@@ -123,7 +145,7 @@ function mc_respond(array $result, array $server): void
     if ($result['status'] === 405) {
         header('Allow: POST');
     }
-    if (mc_wants_json($server) || $result['status'] === 405) {
+    if ($result['json'] || mc_wants_json($server) || $result['status'] === 405) {
         http_response_code($result['status']);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($result['body'], JSON_UNESCAPED_UNICODE);
@@ -171,7 +193,9 @@ function mc_cli_cleanup(array $cfg): int
         return 1;
     }
     $now = time();
-    $removed = mc_cleanup($dir, (int) mc_settings()['rate_limit']['window'], $now);
+    $settings = mc_settings();
+    $removed = mc_cleanup($dir, (int) $settings['rate_limit']['window'], $now)
+        + mc_challenge_cleanup($cfg, $settings, $now);
     echo date('c') . " Abgelaufene Prüfwerte gelöscht: {$removed}\n";
     $failures = mc_failure_report($cfg['private_dir'], $now);
     if ($failures) {

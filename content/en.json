@@ -177,11 +177,27 @@
       "consent": "Please confirm the privacy notice.",
       "summary": "Please check the highlighted fields.",
       "server": "Your message could not be sent just now. Your input has been kept – please try again or email me directly at {brand.email}.",
-      "rate": "Too many messages were sent in a short time. Please try again in a few minutes or email me directly at {brand.email}."
+      "rate": "Too many messages were sent in a short time. Please try again in a few minutes or email me directly at {brand.email}.",
+      "challenge": "The automatic security check did not work. Your input is kept – please send again or email me directly at {brand.email}."
     },
     "thanks": "Thank you for your message.",
     "thanksText": "Your enquiry has reached me. I will get back to you by email.",
-    "again": "Send another message"
+    "again": "Send another message",
+    "mail": {
+      "receipt": {
+        "subject": "Your message to {brand.full} has arrived",
+        "preheader": "Thank you for your message – I usually reply within one working day.",
+        "heading": "Thank you for your message",
+        "greeting": "Hello,",
+        "paragraphs": [
+          "Your message sent via the contact form on {brand.full} has reached me.",
+          "I usually reply by email within one working day. If you would like to add anything in the meantime, simply reply to this email."
+        ],
+        "closing": "Kind regards",
+        "notice": "This automatic confirmation was sent on %date% because this address was entered in the contact form. If that wasn't you, you can ignore this email – no further messages will follow.",
+        "imprint": "Legal notice"
+      }
+    }
   },
 
   "footer": {

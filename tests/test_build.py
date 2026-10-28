@@ -17,6 +17,7 @@ from tests.support import ROOT, Doc, export_tokens, make_release_content, new_pr
 
 # isort: split
 from mcsite.blocks import BLOCK_TYPES, STATES  # noqa: E402 – Pfad setzt tests.support
+from mcsite.css import load_tokens  # noqa: E402
 
 GENERIC_TITLES = {"bundled page", "untitled", "document", "index"}
 
@@ -247,6 +248,7 @@ class TestBuildModes(BuildFixtures):
         self.assertIn("index\\.html$ /$1 [L,R=301]", ht)
         self.assertIn("immutable", ht)
         self.assertIn("contact-settings", ht)
+        self.assertIn("mail-templates", ht)
         self.assertIn("ErrorDocument 404 /404.html", ht)
         dev = self.read(self.dev_out, ".htaccess")
         self.assertNotIn("RewriteRule", dev, "Entwicklungs-Build darf nicht umleiten")
@@ -332,6 +334,24 @@ class TestBuildModes(BuildFixtures):
         self.assertIn("'success' => 'kontakt/danke/'", php)
         self.assertIn("'success' => 'en/contact/thanks/'", php)
 
+    def test_mail_templates_follow_tokens(self):
+        """E-Mail-Vorlagen: nur Token-Farben, keine fremden Adressen, Bestätigung ohne Formular-Platzhalter."""
+        php = self.read(self.rel_out, "api/mail-templates.php")
+        self.assertTrue(php.startswith("<?php"))
+        tokens = load_tokens()
+        allowed = {v.lower() for scheme in tokens.values() for v in scheme.values()}
+        used = {c.lower() for c in re.findall(r"#[0-9a-fA-F]{6}(?![0-9a-fA-F])", php)}
+        self.assertTrue(used, "keine Farben gefunden")
+        self.assertLessEqual(used, allowed, "Farben außerhalb der Design-Tokens")
+        site = json.loads((self.content / "site.json").read_text(encoding="utf-8"))
+        for url in re.findall(r"https?://[^\s'\"<>)]+", php):
+            self.assertTrue(url.startswith(site["url"]), url)
+        self.assertNotRegex(php, r"<img|@import|<link", "keine externen Bilder oder Stylesheets")
+        receipt = php.split("'receipt' =>", 1)[1]
+        for placeholder in ("%rows%", "%message%", "%value%", "%label%"):
+            self.assertNotIn(placeholder, receipt, "Eingangsbestätigung darf keine Formularinhalte enthalten")
+        self.assertIn("%rows%", php.split("'receipt' =>", 1)[0])
+
     def test_page_data_cannot_break_out_of_script(self):
         home = self.read(self.dev_out, "index.html")
         block = re.search(r'<script type="application/json" id="mc-data">(.*?)</script>', home, re.S).group(1)
@@ -393,7 +413,9 @@ class TestBuildModes(BuildFixtures):
         for rule in ("error @hidden 404", "error @internal 404", "php_fastcgi @contact unix//run/php/mindcoded-fpm.sock",
                      "error @php 404", "max_size 32KB"):
             self.assertIn(rule, caddy)
+        self.assertIn("@internal path /api/lib/* /api/contact-settings.php /api/mail-templates.php", caddy)
         for rule in ("location ^~ /api/lib/ { return 404; }", "location = /api/contact-settings.php { return 404; }",
+                     "location = /api/mail-templates.php { return 404; }",
                      "fastcgi_pass unix:/run/php/mindcoded-fpm.sock;", "location ~ \\.php$ { return 404; }"):
             self.assertIn(rule, nginx)
         pool = read("php-fpm/mindcoded.conf")
@@ -410,7 +432,7 @@ class TestBuildModes(BuildFixtures):
         self.assertFalse(self.dev_out.with_name(self.dev_out.name + "-server").exists(), "nur der Release erzeugt Serverkonfiguration")
 
     def test_contact_endpoint_modules_shipped_and_locked(self):
-        for name in ("support", "config", "validate", "ratelimit", "message", "smtp", "transport", "failures", "handler"):
+        for name in ("support", "config", "validate", "ratelimit", "challenge", "message", "smtp", "transport", "failures", "handler"):
             self.assertTrue((self.rel_out / "api" / "lib" / f"{name}.php").is_file(), name)
         self.assertEqual(self.read(self.rel_out, "api/lib/.htaccess").strip(), "Require all denied")
 

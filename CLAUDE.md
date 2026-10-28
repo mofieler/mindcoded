@@ -43,11 +43,11 @@ Hat es funktioniert? Was habe ich davon?
 
 - Alle Module sind typgeprüft (`jsconfig.json › checkJs: true`, strict) und bleiben ohne Meldungen (`tsc -p jsconfig.json`). Typen per JSDoc; `// @ts-check` oben schadet nicht.
 - Noch ohne Typprüfung (Ratsche – beim Anfassen nachziehen, nie neue hinzufügen):
-  `contact-form.js`, `dotfield.js`, `hero-canvas.js`, `hero-ui.js`, `logo-egg.js`, `shapes.js`, `smooth-scroll.js`.
+  `dotfield.js`, `hero-canvas.js`, `hero-ui.js`, `logo-egg.js`, `shapes.js`, `smooth-scroll.js`.
 - Reine Logik in eigene Module ohne DOM, Tests in `tests/browser/unit.js`.
 
 ## Nicht tun
 
 - Nichts von Hand in `design-tokens.json`, `dist*/`, `.css-diff/` ändern (erzeugt).
 - Quellfotos nie unter `assets/` (dort wird alles ausgeliefert) – `bildquellen/`.
-- Nicht auf `main` des alten GitHub-Repos `mindcoded` pushen (Coolify baut dort die alte Nuxt-App, docs/MIGRATION.md).
+- `main` von `mofieler/mindcoded` ist dieser Generator; jeder Push baut in Coolify die neue App. Die alte Nuxt-App liegt auf Branch `legacy-nuxt` (docs/MIGRATION.md) – dort nichts ändern.

@@ -8,7 +8,8 @@
  *   config.php     Einstellungen (aus content/) und Konfiguration (Umgebung / privater Ordner)
  *   validate.php   Feldprüfung – dieselben Regeln wie im Browser
  *   ratelimit.php  Anfragen je Anschluss begrenzen, ohne IP-Adressen zu speichern
- *   message.php    die E-Mail selbst (RFC 5322, DMARC-gerecht)
+ *   challenge.php  Spam-Schutz per Rechenaufgabe im Browser (Proof-of-Work, ALTCHA-kompatibel)
+ *   message.php    die E-Mails selbst (RFC 5322, Text + HTML, DMARC-gerecht)
  *   smtp.php       SMTP-Client mit TLS und Anmeldung
  *   transport.php  Versandwege smtp / mail / file
  *   failures.php   Protokoll nicht zugestellter Anfragen
@@ -28,6 +29,8 @@
 declare(strict_types=1);
 
 ini_set('display_errors', '0');
+// Uhrzeit in den E-Mails – unabhängig von der Zeitzone des Servers oder Containers (meist UTC)
+date_default_timezone_set('Europe/Berlin');
 
 const MC_CONTACT = true;
 const MC_API_DIR = __DIR__;
@@ -36,6 +39,7 @@ require __DIR__ . '/lib/support.php';
 require __DIR__ . '/lib/config.php';
 require __DIR__ . '/lib/validate.php';
 require __DIR__ . '/lib/ratelimit.php';
+require __DIR__ . '/lib/challenge.php';
 require __DIR__ . '/lib/message.php';
 require __DIR__ . '/lib/smtp.php';
 require __DIR__ . '/lib/transport.php';

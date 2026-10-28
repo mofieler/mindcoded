@@ -8,20 +8,52 @@
  * - Versand per fetch; die Erfolgsmeldung erscheint NUR, wenn der Server
  *   {"ok": true} bestätigt
  * - Lade-, Fehler- und Erfolgszustand; Eingaben bleiben bei Fehlern erhalten
+ * - Spam-Schutz ohne Rätsel: Beim ersten Kontakt mit dem Formular holt es eine Rechenaufgabe vom
+ *   Server und löst sie im Hintergrund (pow-worker.js). Jede Lösung gilt für genau eine Absendung.
  * - Warnung vor dem Verlassen der Seite, solange ungesendete Eingaben im Formular stehen.
  *   Gespeichert wird dafür nichts: Bei Links innerhalb der Website stellt der Browser die
  *   Eingaben beim Zurückgehen selbst wieder her; die Warnung greift nur beim Neuladen,
  *   Schließen oder Verlassen der Website.
  */
 
+import { isPowTask, solvePow } from './pow.js';
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const TIMEOUT_MS = 15000;
+const POW_TIMEOUT_MS = 30000;
+/** Sicherheitsabstand zum Ablauf einer Aufgabe – danach wird eine neue geholt */
+const POW_MARGIN_S = 60;
 
 /** @typedef {{ name: string, email: string, message: string, consent?: boolean }} ContactValues */
 /** @typedef {{ nameMax: number, emailMax: number, messageMin: number, messageMax: number }} ContactLimits */
 /** @typedef {Partial<Record<'name' | 'email' | 'message' | 'consent', string>>} FieldErrors */
-/** @typedef {{ ok?: boolean, fields?: Record<string, string> }} ServerPayload */
+/** @typedef {{ ok?: boolean, error?: string, fields?: Record<string, string> }} ServerPayload */
 /** @typedef {{ href: string, label: string }} StatusLink */
+/** @typedef {{ url: string, worker: string, ttl: number }} ChallengeOptions */
+
+/**
+ * Holt eine Rechenaufgabe und löst sie – im Worker, sonst (ohne Worker-Unterstützung) direkt.
+ * Liefert das Feld »altcha« oder null, wenn etwas scheitert.
+ * @param {ChallengeOptions} options
+ * @returns {Promise<string | null>}
+ */
+export async function requestPowSolution({ url, worker }) {
+  try {
+    const response = await fetch(url, { headers: { Accept: 'application/json' }, credentials: 'same-origin', cache: 'no-store' });
+    const task = response.ok ? await response.json() : null;
+    if (!isPowTask(task)) return null;
+    if (typeof Worker === 'undefined') return await solvePow(task);
+    const w = new Worker(worker, { type: 'module' });
+    return await new Promise(resolve => {
+      const timer = setTimeout(() => { w.terminate(); resolve(null); }, POW_TIMEOUT_MS);
+      w.addEventListener('message', event => { clearTimeout(timer); w.terminate(); resolve(typeof event.data === 'string' ? event.data : null); });
+      w.addEventListener('error', () => { clearTimeout(timer); w.terminate(); resolve(null); });
+      w.postMessage(task);
+    });
+  } catch (err) {
+    return null;
+  }
+}
 
 /**
  * Element, auf das sich ein Ereignis bezieht – oder null (Text-Knoten, Fenster).
@@ -143,10 +175,10 @@ export function mapServerErrors(fields = {}) {
  * @param {HTMLFormElement} form
  * @param {{ endpoint: string, limits: ContactLimits, requireConsent: boolean, send: string, sending: string,
  *   errors: Record<string, string>, onSuccess?: () => void, onReset?: () => void, topics?: string[],
- *   fallback?: { email: string, subject: string, label: string } }} options
+ *   fallback?: { email: string, subject: string, label: string }, challenge?: ChallengeOptions }} options
  */
 export function initContactForm(form, options) {
-  const { endpoint, limits, requireConsent, send, sending, errors: messages, onSuccess, onReset, topics = [], fallback } = options;
+  const { endpoint, limits, requireConsent, send, sending, errors: messages, onSuccess, onReset, topics = [], fallback, challenge } = options;
 
   // Vorauswahl: von einer Leistungsseite (…?thema=website#kontakt) oder »Dazu anfragen«
   const preset = topicFromSearch(window.location.search, topics);
@@ -181,10 +213,28 @@ export function initContactForm(form, options) {
   // Eigene, verständliche Prüfung statt Browser-Blasen
   form.setAttribute('novalidate', '');
 
+  // Rechenaufgabe: beim ersten Kontakt starten, damit sie beim Absenden meist schon gelöst ist.
+  // Alter per performance.now() – eine falsch gehende Geräteuhr schadet nicht.
+  const altcha = field('altcha');
+  /** @type {{ at: number, solution: Promise<string | null> } | null} */
+  let pow = null;
+  const startPow = () => {
+    pow = challenge ? { at: performance.now(), solution: requestPowSolution(challenge) } : null;
+  };
+  /** Gelöste, noch gültige Aufgabe – jede nur einmal verwenden. */
+  const takePow = async () => {
+    if (!challenge) return '';
+    if (!pow || performance.now() - pow.at > (challenge.ttl - POW_MARGIN_S) * 1000) startPow();
+    const solution = await /** @type {NonNullable<typeof pow>} */ (pow).solution;
+    pow = null;
+    return solution;
+  };
+
   // Spam-Schutz: Ausfülldauer seit der ersten Interaktion. performance.now() ist monoton
   // und unabhängig von der Uhrzeit des Geräts – eine falsch gehende Uhr schadet nicht.
   form.addEventListener('focusin', () => {
     if (startedAt === null) startedAt = performance.now();
+    if (!pow) startPow();
   });
 
   /** @returns {ContactValues} */
@@ -300,19 +350,29 @@ export function initContactForm(form, options) {
     let response = null;
     /** @type {ServerPayload | null} */
     let payload = null;
+    /** @type {string | null} */
+    let solution = null;
     try {
-      response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        // Nur Textfelder – wie ohne JavaScript als application/x-www-form-urlencoded
-        body: new URLSearchParams(/** @type {any} */ (new FormData(form))),
-        credentials: 'same-origin',
-        signal: AbortSignal.timeout ? AbortSignal.timeout(TIMEOUT_MS) : undefined,
-      });
-      payload = await response.json().catch(() => null);
+      // Abgelaufene oder schon verbrauchte Aufgabe: einmal still mit einer neuen versuchen
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        solution = await takePow();
+        if (solution === null) break;
+        if (altcha) altcha.value = solution;
+        response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          // Nur Textfelder – wie ohne JavaScript als application/x-www-form-urlencoded
+          body: new URLSearchParams(/** @type {any} */ (new FormData(form))),
+          credentials: 'same-origin',
+          signal: AbortSignal.timeout ? AbortSignal.timeout(TIMEOUT_MS) : undefined,
+        });
+        payload = await response.json().catch(() => null);
+        if (!(response.status === 422 && payload && payload.error === 'challenge')) break;
+      }
     } catch (err) {
       response = null;
     } finally {
+      if (altcha) altcha.value = '';
       setBusy(false);
     }
 
@@ -329,6 +389,7 @@ export function initContactForm(form, options) {
       return;
     }
 
+    startPow(); // für den nächsten Versuch schon vorrechnen
     if (response && response.status === 422 && payload && payload.fields) {
       const mapped = mapServerErrors(payload.fields);
       if (Object.keys(mapped).length) {
@@ -337,8 +398,9 @@ export function initContactForm(form, options) {
       }
     }
     const mailto = fallback ? mailtoFallback(fallback.email, fallback.subject, values()) : null;
-    setStatus(response && response.status === 429 ? messages.rate : messages.server, true,
-      mailto && fallback ? { href: mailto, label: fallback.label } : null);
+    const failedCheck = solution === null || (payload && payload.error === 'challenge');
+    const text = response && response.status === 429 ? messages.rate : failedCheck ? messages.challenge || messages.server : messages.server;
+    setStatus(text, true, mailto && fallback ? { href: mailto, label: fallback.label } : null);
   });
 
   resetBtn?.addEventListener('click', () => {

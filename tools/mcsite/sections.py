@@ -343,6 +343,7 @@ class SectionsMixin:
           <h3 class="visually-hidden" id="contact-form-title">{esc(ct["formTitle"])}</h3>
           <input type="hidden" name="lang" value="{lang}">
           <input type="hidden" name="elapsed" value="">
+          <input type="hidden" name="altcha" value="">
           <p class="form-required-note">{esc(ct["requiredNote"])}</p>
           <fieldset class="topic-group">
             <legend class="contact-label type-label">{esc(ct["topicLegend"])}{opt}</legend>
@@ -414,6 +415,10 @@ class SectionsMixin:
             "services": [{"cap": s[lang]["cap"], "stories": s[lang]["stories"]} for s in self.services],
             "contact": {
                 "endpoint": page.to(self.site["contact"]["endpoint"]),
+                # Spam-Schutz: Aufgabe vom Endpunkt, gelöst im Worker (assets/pow-worker.js)
+                "challenge": {"url": page.to(self.site["contact"]["endpoint"]) + "?challenge",
+                              "worker": self.asset(page, "pow-worker.js"),
+                              "ttl": self.site["contact"]["challenge"]["ttlMinutes"] * 60},
                 "limits": self.site["contact"]["limits"],
                 "requireConsent": self.site["contact"]["requireConsent"],
                 "topics": [t["key"] for t in ct["topics"]],

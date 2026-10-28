@@ -17,6 +17,10 @@ def contact_settings(site: dict, langs: dict) -> dict:
             "max": contact["rateLimit"]["maxRequests"],
             "window": contact["rateLimit"]["windowMinutes"] * 60,
         },
+        "challenge": {
+            "max_number": contact["challenge"]["maxNumber"],
+            "ttl": contact["challenge"]["ttlMinutes"] * 60,
+        },
         "topics": [t["key"] for t in de["topics"]],
         "timelines": [o["value"] for o in de["timelineOptions"] if o["value"]],
         "topic_labels": {t["key"]: t["label"] for t in de["topics"]},
@@ -231,7 +235,7 @@ class ContentMixin:
                     p.append(f"content/{lang}.json: Pfad »{slug}« ungültig (nur a–z, 0–9, Bindestrich, Schrägstrich).")
             if not re.fullmatch(r"[a-z]{2}_[A-Z]{2}", str(c.get("locale", ""))):
                 p.append(f"content/{lang}.json › locale muss wie de_DE aufgebaut sein.")
-        numbers = {**site["contact"]["limits"], **site["contact"]["rateLimit"]}
+        numbers = {**site["contact"]["limits"], **site["contact"]["rateLimit"], **site["contact"]["challenge"]}
         for key, value in numbers.items():
             if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
                 p.append(f"content/site.json › contact: {key} muss eine positive ganze Zahl sein.")

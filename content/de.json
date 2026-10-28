@@ -177,11 +177,42 @@
       "consent": "Bitte bestätigen Sie den Datenschutzhinweis.",
       "summary": "Bitte prüfen Sie die markierten Felder.",
       "server": "Ihre Nachricht konnte gerade nicht gesendet werden. Ihre Eingaben bleiben erhalten – bitte versuchen Sie es erneut oder schreiben Sie mir direkt an {brand.email}.",
-      "rate": "Es wurden in kurzer Zeit zu viele Nachrichten gesendet. Bitte versuchen Sie es in einigen Minuten erneut oder schreiben Sie mir direkt an {brand.email}."
+      "rate": "Es wurden in kurzer Zeit zu viele Nachrichten gesendet. Bitte versuchen Sie es in einigen Minuten erneut oder schreiben Sie mir direkt an {brand.email}.",
+      "challenge": "Die automatische Sicherheitsprüfung hat nicht geklappt. Ihre Eingaben bleiben erhalten – bitte senden Sie erneut oder schreiben Sie mir direkt an {brand.email}."
     },
     "thanks": "Danke für Ihre Nachricht.",
     "thanksText": "Ihre Anfrage ist bei mir eingegangen. Ich melde mich per E-Mail bei Ihnen.",
-    "again": "Weitere Nachricht senden"
+    "again": "Weitere Nachricht senden",
+    "mail": {
+      "receipt": {
+        "subject": "Ihre Nachricht an {brand.full} ist angekommen",
+        "preheader": "Danke für Ihre Nachricht – ich melde mich in der Regel innerhalb eines Werktags.",
+        "heading": "Danke für Ihre Nachricht",
+        "greeting": "Guten Tag,",
+        "paragraphs": [
+          "Ihre Nachricht über das Kontaktformular auf {brand.full} ist bei mir angekommen.",
+          "Ich antworte in der Regel innerhalb eines Werktags per E-Mail. Falls Sie in der Zwischenzeit etwas ergänzen möchten, antworten Sie einfach auf diese E-Mail."
+        ],
+        "closing": "Viele Grüße",
+        "notice": "Diese automatische Bestätigung wurde am %date% verschickt, weil diese Adresse im Kontaktformular angegeben wurde. Waren Sie das nicht, können Sie die E-Mail ignorieren – es folgen keine weiteren Nachrichten.",
+        "imprint": "Impressum"
+      },
+      "notify": {
+        "subject": "Neue Anfrage über {brand.full}",
+        "preheader": "Neue Anfrage über das Kontaktformular",
+        "heading": "Neue Anfrage",
+        "labels": {
+          "name": "Name",
+          "email": "E-Mail",
+          "topics": "Themen",
+          "timeline": "Zeitrahmen",
+          "lang": "Sprache",
+          "message": "Nachricht"
+        },
+        "sent": "Gesendet über das Kontaktformular am %date%.",
+        "replyHint": "Mit »Antworten« schreiben Sie direkt an die anfragende Person. Eine Eingangsbestätigung ohne Inhalt der Nachricht wurde an sie verschickt."
+      }
+    }
   },
 
   "footer": {
@@ -295,13 +326,15 @@
             "Zweck ist die Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn Ihre Anfrage auf einen Vertrag abzielt, im Übrigen mein berechtigtes Interesse an der Beantwortung von Anfragen (Art. 6 Abs. 1 lit. f DSGVO). Ihre Angaben sind freiwillig; ohne Name, E-Mail-Adresse und Nachricht kann ich Ihre Anfrage jedoch nicht beantworten.",
             "{contact.transportSentence}",
             "{contact.mailboxSentence}",
+            "Nach dem Absenden schicke ich Ihnen eine automatische Eingangsbestätigung an die angegebene E-Mail-Adresse. Sie enthält keine Werbung und keine Inhalte Ihrer Nachricht, sondern bestätigt nur den Eingang. Rechtsgrundlage ist mein berechtigtes Interesse, Ihnen den Eingang zu bestätigen und Sie auf eine missbräuchliche Verwendung Ihrer Adresse aufmerksam zu machen (Art. 6 Abs. 1 lit. f DSGVO).",
             "Ich lösche Ihre Anfrage, sobald sie abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Entsteht aus Ihrer Anfrage ein Auftrag, bewahre ich die Korrespondenz im Rahmen der gesetzlichen Aufbewahrungsfristen auf."
           ]
         },
         {
           "heading": "Schutz des Formulars vor Missbrauch",
           "paragraphs": [
-            "Das Formular enthält ein für Menschen unsichtbares Feld, das automatisierte Programme häufig ausfüllen; so erkenne ich Spam, ohne Sie mit Rätselaufgaben zu belasten.",
+            "Sobald Sie das Formular verwenden, löst Ihr Browser im Hintergrund eine kleine Rechenaufgabe, die mein Server zuvor gestellt hat (Proof-of-Work). Für Sie dauert das meist weniger als eine Sekunde; automatisierte Programme, die massenhaft Nachrichten senden, bremst es dagegen deutlich. Dafür werden keine Daten an Dritte übertragen, keine Cookies gesetzt und keine Merkmale Ihres Geräts ausgewertet. Mein Server merkt sich bis zu {contact.challenge.ttlMinutes} Minuten lang nur, welche Aufgabe bereits gelöst wurde, damit jede Lösung nur einmal gilt – ohne Bezug zu Ihrer Person.",
+            "Zusätzlich enthält das Formular ein für Menschen unsichtbares Feld, das automatisierte Programme häufig ausfüllen; so erkenne ich Spam, ohne Sie mit Rätselaufgaben zu belasten.",
             "Außerdem begrenze ich, wie viele Nachrichten in kurzer Zeit vom selben Internetanschluss gesendet werden können (höchstens {contact.rateLimit.maxRequests} in {contact.rateLimit.windowMinutes} Minuten). Dazu speichere ich auf meinem Webserver kurzzeitig einen Prüfwert (Hash), der aus Ihrer IP-Adresse – bei IPv6 aus dem Netzbereich Ihres Anschlusses – und einem geheimen Zufallsschlüssel gebildet wird. Der Schlüssel wird täglich neu erzeugt und der des Vortags gelöscht; die IP-Adresse selbst speichere ich dafür nicht. Die Prüfwerte werden spätestens nach 24 Stunden gelöscht. Rechtsgrundlage ist mein berechtigtes Interesse an einem funktionsfähigen und vor Missbrauch geschützten Kontaktweg (Art. 6 Abs. 1 lit. f DSGVO)."
           ]
         },

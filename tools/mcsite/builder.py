@@ -10,6 +10,7 @@ from .catalog import CatalogMixin
 from .common import CONTENT, ROOT
 from .content import ContentMixin
 from .layout import LayoutMixin
+from .mail import MailMixin
 from .output import OutputMixin
 from .pages import PagesMixin
 from .sections import SectionsMixin
@@ -18,7 +19,7 @@ from .text import TextMixin
 
 
 @dataclass
-class Builder(ContentMixin, TextMixin, LayoutMixin, SectionsMixin, PagesMixin, BlocksMixin, CatalogMixin, OutputMixin, ServerMixin):
+class Builder(ContentMixin, TextMixin, LayoutMixin, SectionsMixin, PagesMixin, BlocksMixin, CatalogMixin, MailMixin, OutputMixin, ServerMixin):
     release: bool
     out: Path
     content_dir: Path = CONTENT

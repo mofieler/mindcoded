@@ -222,10 +222,12 @@ Browser ──POST──▶ api/contact.php ──SMTP 465 (TLS, Anmeldung)─�
    │                 │                                              └─▶ Postfach (lokal zugestellt)
    │ mit JS: JSON    ├─ Herkunft (Origin, Sec-Fetch-Site), max. 20 KB
    │ ohne JS: 303 ──▶├─ Rate-Limit 5 / 10 min (HMAC der IP bzw. IPv6-/64, Schlüssel täglich neu)
-   ▼  Danke-/Fehlerseite ├─ Honeypot-Feld, Zeitfalle (im Browser gemessene Ausfülldauer < 3 s)
+   ▼  Danke-/Fehlerseite ├─ Rechenaufgabe gelöst? (Proof-of-Work, ALTCHA-kompatibel, docs/adr/0009)
+                     ├─ Honeypot-Feld, Zeitfalle (im Browser gemessene Ausfülldauer < 3 s)
                      ├─ Validierung (Pflichtfelder, Längen, E-Mail, erlaubte Themen)
                      ├─ Konfiguration vollständig? (sonst 503, Eintrag im Zustellfehler-Protokoll)
-                     └─ Erfolg nur, wenn der Mailserver die Nachricht angenommen hat
+                     ├─ Erfolg nur, wenn der Mailserver die Nachricht angenommen hat
+                     └─ danach Eingangsbestätigung an die anfragende Person (werbefrei, ohne Inhalte)
 ```
 
 Der Endpunkt ist in Module zerlegt (`api/lib/`, vom Webserver gesperrt): Konfiguration, Prüfung,
@@ -295,7 +297,7 @@ Fremdbibliothek), Versandwege, Fehlerprotokoll, Ablauf. Wartung auf dem Server:
 | Datei | Prüft |
 |---|---|
 | `tests/test_build.py` | Seiten vollständig, Release-Sperre, keine Entwürfe/Platzhalter im Release, Titel/Description/`lang`, eine H1 (komplett ohne JS), Überschriftenfolge, IDs, ARIA-Bezüge, Links und Assets erreichbar, CSP-taugliches Markup, Labels, Alt-Texte, Rechtsseiten, SEO-Dateien und -Optionen, `.htaccess` (Sicherheit, Weiterleitungen, Cache), Serverkonfiguration (gleiche Header in Caddy/nginx/Apache, Sperren, PHP nur fürs Formular, gehärteter Pool, Timer, DNS), Datenschutztext je Mailserver, Versionierung der Skripte, aufgelöste Breakpoints und Platzhalter, keine Farben/Breakpoints im JavaScript, Kontraste, **CSS-Architektur** (Module eingebunden und dokumentiert, Farben nur in Tokens, Breakpoints nur über `@custom-media`, `z-index`/`!important`/IDs, Tokens definiert und genutzt, Verkleinern verlustfrei) |
-| `tests/test_contact_api.py` | Formular-Vertrag: 405, 422 je Feldregel, verschachtelte Felder, Header-Injection, Honeypot, Zeitfalle, Herkunft, 413, Weiterleitungen ohne JS, Rate-Limit |
+| `tests/test_contact_api.py` | Formular-Vertrag: 405, Rechenaufgabe (fehlt, gefälscht, doppelt), 422 je Feldregel, verschachtelte Felder, Header-Injection, Honeypot, Zeitfalle, Herkunft, 413, Weiterleitungen ohne JS, Rate-Limit |
 | `tests/test_browser.py` | Edge/Chrome headless: JS-Einheitentests (Formular, Rückfrage beim Verlassen, Header-Logik, Themen-Vorauswahl, Farbschema, Leistungswächter), **Layout in 7 Breiten von 360 bis 1920 px ohne Überlaufen**, App startet fehlerfrei auf jedem Seitentyp, stabile H1, Darstellung ohne JavaScript, Start-Intro, Reduced Motion, Bildwerkzeug (WebP-Varianten) |
 | `tests/test_php_static.py` | PHP-Endpunkt ohne PHP: Kopf und `strict_types`, Klammern, jede aufgerufene Funktion/Konstante definiert, Module nicht direkt aufrufbar, keine gefährlichen Funktionen, TLS immer geprüft, keine echten Adressen oder Zugangsdaten |
 | `tests/browser/a11y.js` (über `test_browser.py`) | **WCAG 2.2 AA mit axe-core** auf jeder Seitenart; Logo-Wortmarke ausgenommen (Logo-Ausnahme in WCAG 1.4.3) |

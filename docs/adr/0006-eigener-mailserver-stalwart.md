@@ -50,7 +50,7 @@ Umsetzung:
 
 - **Gut:**
   - Keine laufenden Kosten und keine Dritten im Formularweg.
-  - Formular-Mails werden lokal zugestellt und sind damit unabhängig von IP-Ruf und Spamfiltern
+  - Formular-Mails an das eigene Postfach werden lokal zugestellt und sind damit unabhängig von IP-Ruf und Spamfiltern. Die Eingangsbestätigung an die anfragende Person (0009) ist dagegen ausgehende Mail und braucht Port 25 sowie einen sauberen IP-Ruf.
     anderer Anbieter.
 - **Gut:** Beliebig viele Postfächer, Aliase und weitere Domains ohne Mehrkosten.
 - **Gut:** Das Formular kennt Erfolg nur als »vom Server angenommen«. Fehler werden protokolliert,

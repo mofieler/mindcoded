@@ -9,6 +9,7 @@ und MC_RATE_LIMIT_MAX=1000 gesetzt sein; der Rate-Limit-Test läuft nur gegen de
 """
 from __future__ import annotations
 
+import base64
 import json
 import os
 import shutil
@@ -17,7 +18,9 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from tests.support import Server, site_build, temp_dir
+from tests.support import Server, site_build, site_serve, temp_dir
+
+solve_challenge = site_serve.solve_challenge
 
 # Synthetische Werte aus reservierten Bereichen (RFC 2606 / freigegebener Platzhalter).
 VALID = {
@@ -33,6 +36,17 @@ VALID = {
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, *args, **kwargs):
         return None
+
+
+def fetch_challenge(url) -> dict:
+    req = urllib.request.Request(url + "?challenge", headers={"Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=10) as res:
+        return json.loads(res.read().decode("utf-8"))
+
+
+def solved(url) -> str:
+    """Frisch ausgegebene und gelöste Rechenaufgabe (Feld »altcha«)."""
+    return solve_challenge(fetch_challenge(url))
 
 
 def post(url, fields, *, json_accept=True, headers=None, raw: bytes | None = None):
@@ -79,9 +93,44 @@ class ContactApiContract(unittest.TestCase):
         return json.loads(body.decode("utf-8"))
 
     def valid(self, **override):
-        data = {**VALID, "elapsed": "10000"}
+        data = {**VALID, "elapsed": "10000", "altcha": solved(self.url)}
         data.update(override)
         return data
+
+    def test_challenge_is_issued(self):
+        task = fetch_challenge(self.url)
+        self.assertEqual(task["algorithm"], "SHA-256")
+        self.assertRegex(task["challenge"], r"^[0-9a-f]{64}$")
+        self.assertRegex(task["salt"], r"\?expires=\d+$")
+        self.assertRegex(task["signature"], r"^[0-9a-f]{64}$")
+        self.assertGreater(task["maxnumber"], 0)
+
+    def test_missing_or_forged_challenge_is_rejected(self):
+        task = fetch_challenge(self.url)
+        forged = json.loads(base64.b64decode(solve_challenge(task)))
+        cases = {
+            "fehlt": "",
+            "kein Base64": "%%%",
+            "falsche Zahl": {**forged, "number": forged["number"] + 1},
+            "falsche Signatur": {**forged, "signature": "0" * 64},
+            "verlängert": {**forged, "salt": forged["salt"].rsplit("=", 1)[0] + "=9999999999"},
+        }
+        for label, value in cases.items():
+            with self.subTest(label):
+                encoded = value if isinstance(value, str) else base64.b64encode(json.dumps(value).encode()).decode()
+                before = self.accepted()
+                status, _, body = post(self.url, self.valid(altcha=encoded))
+                self.assertEqual(status, 422)
+                self.assertEqual(self.json(body)["error"], "challenge")
+                if before is not None:
+                    self.assertEqual(self.accepted(), before)
+
+    def test_solution_is_valid_only_once(self):
+        solution = solved(self.url)
+        self.assertEqual(post(self.url, self.valid(altcha=solution))[0], 200)
+        status, _, body = post(self.url, self.valid(altcha=solution))
+        self.assertEqual(status, 422)
+        self.assertEqual(self.json(body)["error"], "challenge")
 
     def test_get_is_rejected(self):
         req = urllib.request.Request(self.url, headers={"Accept": "application/json"})
@@ -100,7 +149,7 @@ class ContactApiContract(unittest.TestCase):
             self.assertEqual(self.accepted(), before + 1)
 
     def test_empty_submission_is_rejected_server_side(self):
-        status, _, body = post(self.url, {"lang": "de"})
+        status, _, body = post(self.url, {"lang": "de", "altcha": solved(self.url)})
         self.assertEqual(status, 422)
         data = self.json(body)
         self.assertFalse(data["ok"])
@@ -164,7 +213,8 @@ class ContactApiContract(unittest.TestCase):
         self.assertEqual(status, 200)
 
     def test_nested_values_are_rejected_cleanly(self):
-        status, _, body = post(self.url, None, raw=b"name[]=x&email[]=y&message[]=z&website[]=&topics[][]=a&lang=de")
+        altcha = urllib.parse.urlencode({"altcha": solved(self.url)}).encode()
+        status, _, body = post(self.url, None, raw=b"name[]=x&email[]=y&message[]=z&website[]=&topics[][]=a&lang=de&" + altcha)
         self.assertEqual(status, 422)
         self.assertEqual(self.json(body)["error"], "validation")
 
@@ -178,7 +228,7 @@ class ContactApiContract(unittest.TestCase):
                 status, headers, _ = post(self.url, self.valid(lang=lang), json_accept=False)
                 self.assertEqual(status, 303)
                 self.assertTrue(headers["Location"].endswith(success), headers["Location"])
-                status, headers, _ = post(self.url, {"lang": lang}, json_accept=False)
+                status, headers, _ = post(self.url, {"lang": lang, "altcha": solved(self.url)}, json_accept=False)
                 self.assertEqual(status, 303)
                 self.assertTrue(headers["Location"].endswith(error), headers["Location"])
 
@@ -195,8 +245,8 @@ class ContactApiRateLimit(unittest.TestCase):
                 limit = server.httpd.api.settings["rate_limit"]["max"]
                 data = {**VALID, "elapsed": "10000"}
                 for _ in range(limit):
-                    self.assertEqual(post(url, data)[0], 200)
-                status, _, body = post(url, data)
+                    self.assertEqual(post(url, {**data, "altcha": solved(url)})[0], 200)
+                status, _, body = post(url, {**data, "altcha": solved(url)})
                 self.assertEqual(status, 429)
                 self.assertEqual(json.loads(body)["error"], "rate_limited")
         finally:

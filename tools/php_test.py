@@ -8,17 +8,17 @@ Voraussetzung: PHP 8.1+ im PATH (oder Pfad über MC_PHP). Auch auf dem VPS ausf�
 
   1. Formular-Vertrag (tests/test_contact_api.py) mit transport »file« – angenommene Anfragen
      landen als .eml-Datei in einem Temp-Ordner
-  2. SMTP-Versand an einen lokalen Test-Mailserver (tests/smtp_server.py): Kopfzeilen,
-     Absender, Antwortadresse, Message-ID, Kodierung
+  2. SMTP-Versand an einen lokalen Test-Mailserver (tests/smtp_server.py): Benachrichtigung und
+     Eingangsbestätigung – Kopfzeilen, Absender, Antwortadresse, Message-ID, Text + HTML, Kodierung
   3. SMTP-Fehler (Server lehnt ab) → 502 und Eintrag im Zustellfehler-Protokoll
   4. Wartung: --check und --cleanup (meldet den Fehler aus Schritt 3 mit Exit-Code 2)
 """
 from __future__ import annotations
 
-import base64
 import email
 import json
 import os
+import re
 import shutil
 import socket
 import subprocess
@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT))
 import build as site_build  # noqa: E402
+import serve as site_serve  # noqa: E402
 
 from tests.smtp_server import FakeSmtpServer  # noqa: E402
 
@@ -78,9 +79,20 @@ def php_server(php: str, out: Path, env: dict):
         proc.wait(timeout=5)
 
 
+def solved(base: str) -> str:
+    req = urllib.request.Request(f"{base}/api/contact.php?challenge", headers={"Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=20) as res:
+        return site_serve.solve_challenge(json.loads(res.read()))
+
+
+def parts(msg) -> dict[str, str]:
+    """Text- und HTML-Fassung einer Nachricht, dekodiert."""
+    return {p.get_content_type(): p.get_payload(decode=True).decode("utf-8") for p in msg.walk() if not p.is_multipart()}
+
+
 def post_form(base: str) -> tuple[int, dict]:
-    body = urlencode({"name": "Max Mustermann", "email": VISITOR, "message": "Synthetische Testanfrage mit Umlauten: äöü.",
-                      "topics[]": "website", "lang": "de", "elapsed": "5000"}).encode()
+    body = urlencode({"name": "Max Mustermann", "email": VISITOR, "message": "Synthetische Testanfrage mit Umlauten: äöü <b>.",
+                      "topics[]": "website", "lang": "de", "elapsed": "5000", "altcha": solved(base)}).encode()
     req = urllib.request.Request(f"{base}/api/contact.php", data=body, method="POST", headers={
         "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded",
         "Origin": base, "Sec-Fetch-Site": "same-origin"})
@@ -136,7 +148,7 @@ def main() -> int:
         with FakeSmtpServer() as smtp, php_server(php, out, {**smtp_env, "MC_SMTP_PORT": str(smtp.port)}) as base:
             status, body = post_form(base)
         check(status == 200 and body.get("ok") is True, f"Antwort 200 ok (erhalten: {status} {body})")
-        check(len(smtp.messages) == 1, "genau eine Nachricht angenommen")
+        check(len(smtp.messages) == 2, "zwei Nachrichten angenommen: Anfrage und Eingangsbestätigung")
         if smtp.messages:
             received = smtp.messages[0]
             msg = email.message_from_bytes(received.data)
@@ -146,9 +158,24 @@ def main() -> int:
             check(bool(msg["Message-ID"]) and msg["Message-ID"].endswith("@example.com>"), "Message-ID mit eigener Domain")
             check(bool(msg["Date"]), "Date gesetzt")
             check(msg["Auto-Submitted"] == "auto-generated", "Auto-Submitted gesetzt")
-            text = base64.b64decode(msg.get_payload()).decode("utf-8")
-            check("Max Mustermann" in text and "äöü" in text, "Text vollständig, UTF-8 korrekt")
+            body = parts(msg)
+            check(msg.get_content_type() == "multipart/alternative" and set(body) == {"text/plain", "text/html"},
+                  "multipart/alternative mit Text- und HTML-Fassung")
+            text, html = body.get("text/plain", ""), body.get("text/html", "")
+            check("Max Mustermann" in text and "äöü <b>." in text, "Text vollständig, UTF-8 korrekt")
+            check("äöü &lt;b&gt;." in html and "<b>." not in html, "HTML: Formularinhalte escaped")
+            check(not re.search(r"%[a-z_]+%", text + html), "alle Platzhalter ersetzt")
             check(b"\r\n" in received.data and b"\n\n" not in received.data.replace(b"\r\n", b""), "CRLF-Zeilenenden")
+        if len(smtp.messages) == 2:
+            receipt = smtp.messages[1]
+            msg = email.message_from_bytes(receipt.data)
+            content = "".join(parts(msg).values())
+            check(receipt.mail_from == SENDER and receipt.rcpt_to == [VISITOR], "Eingangsbestätigung: eigene Adresse → Besucher")
+            check(msg["Reply-To"] == f"<{INBOX}>" and msg["Auto-Submitted"] == "auto-replied",
+                  "Eingangsbestätigung: Antworten gehen ans Studio, auto-replied")
+            check(not any(word in content for word in ("Mustermann", "Synthetische", "äöü")),
+                  "Eingangsbestätigung ohne Formularinhalte")
+            check(not re.search(r"%[a-z_]+%", content), "Eingangsbestätigung: alle Platzhalter ersetzt")
 
         print("\n3. SMTP-Fehler: Server lehnt den Empfänger ab")
         with FakeSmtpServer(reject_rcpt=True) as smtp, php_server(php, out, {**smtp_env, "MC_SMTP_PORT": str(smtp.port)}) as base:

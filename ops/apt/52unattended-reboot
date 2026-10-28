@@ -1,0 +1,4 @@
+// Reboot automatically when a security update (e.g. kernel) requires it
+Unattended-Upgrade::Automatic-Reboot "true";
+Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
+Unattended-Upgrade::Automatic-Reboot-Time "04:00";

@@ -1,0 +1,6 @@
+[Unit]
+Description=Mail alert for failed unit %i
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mc-alert %i

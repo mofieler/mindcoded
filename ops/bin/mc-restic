@@ -1,0 +1,5 @@
+#!/bin/bash
+# restic with the backup credentials, e.g.: mc-restic snapshots | mc-restic restore latest --target /tmp/r
+set -a; . /root/.config/mc-backup.env; set +a
+export RESTIC_CACHE_DIR=/var/cache/restic
+exec restic "$@"

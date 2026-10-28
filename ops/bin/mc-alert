@@ -1,0 +1,13 @@
+#!/bin/bash
+# Mail to hallo@ when a systemd unit fails: mc-alert <unit>
+unit="$1"
+log=$(journalctl -u "$unit" -n 30 --no-pager -o cat 2>&1)
+{
+  printf "From: Server mindcoded-vps <server@mindcoded.studio>\r\nTo: hallo@mindcoded.studio\r\n"
+  printf "Subject: Fehler auf dem Server: %s\r\nDate: %s\r\n" "$unit" "$(date -R)"
+  printf "Message-ID: <%s.%s@mail.mindcoded.studio>\r\nMIME-Version: 1.0\r\n" "$(date +%s)" "$RANDOM"
+  printf "Content-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\nAuto-Submitted: auto-generated\r\n\r\n"
+  printf "Der Dienst %s ist auf dem Server fehlgeschlagen (%s UTC).\r\n\r\nLetzte Log-Zeilen:\r\n\r\n" "$unit" "$(date -u "+%F %T")"
+  printf "%s\r\n" "$log"
+} | curl -sS --url smtp://mail.mindcoded.studio:25/mail.mindcoded.studio \
+    --mail-from server@mindcoded.studio --mail-rcpt hallo@mindcoded.studio --upload-file -

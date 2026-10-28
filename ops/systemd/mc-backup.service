@@ -1,0 +1,11 @@
+[Unit]
+Description=Nightly encrypted off-site backup (restic to Backblaze B2)
+After=docker.service network-online.target
+Wants=network-online.target
+OnFailure=mc-alert@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mc-backup
+Nice=10
+IOSchedulingClass=idle

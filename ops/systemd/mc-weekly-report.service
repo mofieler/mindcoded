@@ -1,0 +1,8 @@
+[Unit]
+Description=Weekly statistics and server report mail
+After=docker.service network-online.target
+OnFailure=mc-alert@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mc-weekly-report

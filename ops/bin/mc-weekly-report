@@ -1,0 +1,409 @@
+#!/usr/bin/env python3
+"""Weekly report for mindcoded.studio: visitor statistics (Umami DB) + server status, mailed to hallo@.
+
+Runs via mc-weekly-report.timer (Fridays 16:00 Europe/Berlin). Reads the Umami Postgres container
+directly (no API password needed). Test: mc-weekly-report --dry-run > /tmp/report.html
+"""
+from __future__ import annotations
+
+import datetime as dt
+import html
+import json
+import re
+import shutil
+import socket
+import ssl
+import subprocess
+import sys
+import urllib.request
+import uuid
+from email.message import EmailMessage
+from email.utils import format_datetime, make_msgid
+
+WEBSITE_ID = "742f52d6-2748-4f9a-8987-3ed5cdf3a831"
+DB_CONTAINER = "postgresql-lzv2utgligmwj0dkcclzjigx"
+DASHBOARD = f"https://stats.mindcoded.studio/websites/{WEBSITE_ID}"
+SITE = "https://mindcoded.studio"
+MAIL_FROM = "server@mindcoded.studio"
+MAIL_TO = "hallo@mindcoded.studio"
+SMTP_URL = "smtp://mail.mindcoded.studio:25/mail.mindcoded.studio"
+DOMAIN = "mindcoded.studio"
+TLS_HOSTS = ["mindcoded.studio", "mail.mindcoded.studio", "stats.mindcoded.studio", "mta-sts.mindcoded.studio"]
+URLS = {"Website": f"{SITE}/", "Website (EN)": f"{SITE}/en/", "Statistik": "https://stats.mindcoded.studio/insights",
+        "Mail-Verwaltung": "https://mail.mindcoded.studio/admin/"}
+APP_PREFIX = "voriurfwnru0o2jizdjbwbfl"  # website container (name changes with every deploy)
+STALWART = "stalwart-itctfm4kx9cyganl5nfqilc9"
+UMAMI = "umami-lzv2utgligmwj0dkcclzjigx"
+
+# Palette from assets/css/settings/tokens.css (light theme)
+C = {
+    "bg": "#F3F1EC", "card": "#F8F6F1", "ink": "#1A2540", "muted": "#5A6178", "line": "#D9D5CC",
+    "accent": "#5B7FD6", "accent_text": "#3D5BA9", "accent_soft": "#A5B9E8", "dark": "#0F1729",
+    "up": "#2F7A4F", "down": "#B4443A",
+}
+SANS = "Manrope, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+DISPLAY = "'Bricolage Grotesque', 'Arial Narrow', -apple-system, sans-serif"
+MONO = "'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
+
+SECTIONS = [("leistungen", "Leistungen"), ("ablauf", "Ablauf"), ("studio", "Studio"),
+            ("projekte", "Projekte"), ("kontakt", "Kontakt")]
+COUNTRIES = {"DE": "Deutschland", "AT": "Österreich", "CH": "Schweiz", "US": "USA", "GB": "Großbritannien",
+             "NL": "Niederlande", "FR": "Frankreich", "IT": "Italien", "ES": "Spanien", "PL": "Polen",
+             "IE": "Irland", "SE": "Schweden", "CA": "Kanada", "IN": "Indien", "CN": "China", "RU": "Russland",
+             "SG": "Singapur", "FI": "Finnland", "BE": "Belgien", "DK": "Dänemark"}
+DEVICES = {"mobile": "Smartphone", "tablet": "Tablet", "laptop": "Laptop", "desktop": "Desktop"}
+REASONS = {"eingabe": "Eingabe unvollständig", "limit": "zu viele Versuche", "spamschutz": "Spamschutz",
+           "server": "Serverfehler"}
+
+
+# ------------------------------------------------------------------ data
+
+def sql(query: str) -> list[list[str]]:
+    """Runs a query in the Umami container; values are tab-separated strings."""
+    cmd = ["docker", "exec", "-i", DB_CONTAINER, "sh", "-c",
+           'psql -U "$POSTGRES_USER" -d "${POSTGRES_DB:-umami}" -At -F "\t" -v ON_ERROR_STOP=1']
+    out = subprocess.run(cmd, input=query, capture_output=True, text=True, check=True).stdout
+    return [line.split("\t") for line in out.splitlines() if line]
+
+
+def window(days_from: int, days_to: int, alias: str = "") -> str:
+    p = f"{alias}." if alias else ""
+    return (f"{p}website_id = '{WEBSITE_ID}' and {p}created_at >= now() - interval '{days_from} days' "
+            f"and {p}created_at < now() - interval '{days_to} days'")
+
+
+def totals(w: str) -> dict[str, int]:
+    row = sql(f"""select count(distinct session_id) filter (where event_type = 1),
+                         count(distinct visit_id) filter (where event_type = 1),
+                         count(*) filter (where event_type = 1)
+                  from website_event where {w};""")[0]
+    return {"visitors": int(row[0]), "visits": int(row[1]), "views": int(row[2])}
+
+
+def events(w: str) -> dict[str, int]:
+    return {r[0]: int(r[1]) for r in sql(
+        f"select event_name, count(distinct visit_id) from website_event where {w} and event_type = 2 group by 1;")}
+
+
+def by_prop(days: tuple[int, int], event: str, key: str) -> list[tuple[str, int]]:
+    rows = sql(f"""select d.string_value, count(distinct e.visit_id) from website_event e
+                   join event_data d on d.website_event_id = e.event_id and d.data_key = '{key}'
+                   where {window(*days, alias='e')} and e.event_name = '{event}'
+                   group by 1 order by 2 desc limit 8;""")
+    return [(r[0], int(r[1])) for r in rows]
+
+
+def top(w: str, column: str, limit: int = 5, extra: str = "") -> list[tuple[str, int]]:
+    rows = sql(f"""select coalesce(nullif({column}, ''), '—'), count(distinct visit_id) from website_event
+                   where {w} and event_type = 1 {extra} group by 1 order by 2 desc limit {limit};""")
+    return [(r[0], int(r[1])) for r in rows]
+
+
+def sessions_top(w: str, column: str, limit: int = 5) -> list[tuple[str, int]]:
+    rows = sql(f"""select coalesce(nullif(s.{column}, ''), '—'), count(distinct s.session_id) from session s
+                   where s.session_id in (select session_id from website_event where {w} and event_type = 1)
+                   group by 1 order by 2 desc limit {limit};""")
+    return [(r[0], int(r[1])) for r in rows]
+
+
+Check = tuple[str, str, bool]  # (label, value, ok)
+
+
+def run(cmd: list[str]) -> str:
+    """stdout and stderr together (docker logs writes to both)."""
+    return subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=60).stdout
+
+
+def fetch_json(url: str):
+    req = urllib.request.Request(url, headers={"User-Agent": "mindcoded-weekly-report", "Accept": "application/rdap+json, application/json"})
+    with urllib.request.urlopen(req, timeout=20) as res:
+        return json.load(res)
+
+
+def safe(label: str, check) -> list[Check]:
+    """One failing check must not break the report."""
+    try:
+        return check()
+    except Exception as err:  # noqa: BLE001 – shown in the report instead
+        return [(label, f"nicht prüfbar ({type(err).__name__})", False)]
+
+
+def check_backups() -> list[Check]:
+    log = run(["journalctl", "-u", "mc-backup.service", "--since", "-7 days", "-o", "cat", "--no-pager"])
+    done, failed = log.count(" done"), log.count("Failed with result")
+    return [("Backups (7 Tage)", f"{done} erfolgreich" + (f", {failed} fehlgeschlagen" if failed else ""),
+             failed == 0 and done > 0)]
+
+
+def check_system() -> list[Check]:
+    du = shutil.disk_usage("/")
+    pct = round(du.used / du.total * 100)
+    reboot = subprocess.run(["test", "-f", "/var/run/reboot-required"]).returncode == 0
+    return [("Speicherplatz", f"{pct} % belegt ({du.free // 2**30} GB frei)", pct < 80),
+            ("System-Updates", "Neustart steht aus (erfolgt nachts automatisch)" if reboot else "aktuell", True)]
+
+
+def check_urls() -> list[Check]:
+    down = []
+    for name, url in URLS.items():
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "mindcoded-weekly-report"}),
+                                        timeout=15) as res:
+                if res.status != 200:
+                    down.append(f"{name} ({res.status})")
+        except Exception as err:  # noqa: BLE001
+            down.append(f"{name} ({getattr(err, 'code', type(err).__name__)})")
+    return [("Erreichbarkeit", "alle Dienste antworten" if not down else "Problem: " + ", ".join(down), not down)]
+
+
+def check_form() -> list[Check]:
+    names = [n for n in run(["docker", "ps", "--format", "{{.Names}}"]).split() if n.startswith(APP_PREFIX)]
+    if not names:
+        return [("Kontaktformular", "Website-Container nicht gefunden", False)]
+    out = run(["docker", "exec", names[0], "php", "/srv/www/api/contact.php", "--check"])
+    return [("Kontaktformular", "Selbsttest bestanden" if "Bereit" in out else "Selbsttest fehlgeschlagen", "Bereit" in out)]
+
+
+def check_tls() -> list[Check]:
+    soonest = None
+    for host in TLS_HOSTS:
+        ctx = ssl.create_default_context()
+        with socket.create_connection((host, 443), timeout=10) as sock, ctx.wrap_socket(sock, server_hostname=host) as tls:
+            expires = dt.datetime.fromtimestamp(ssl.cert_time_to_seconds(tls.getpeercert()["notAfter"]), dt.timezone.utc)
+        days = (expires - dt.datetime.now(dt.timezone.utc)).days
+        if soonest is None or days < soonest[1]:
+            soonest = (host, days)
+    host, days = soonest
+    return [("Zertifikate", f"gültig, frühestes Ende in {days} Tagen ({host})", days > 14)]
+
+
+def check_domain() -> list[Check]:
+    # Registry RDAP server from the IANA bootstrap file (rdap.org redirects and rejects scripts)
+    tld = DOMAIN.rsplit(".", 1)[-1]
+    services = fetch_json("https://data.iana.org/rdap/dns.json")["services"]
+    base = next(urls[0] for tlds, urls in services if tld in tlds)
+    data = fetch_json(f"{base.rstrip('/')}/domain/{DOMAIN}")
+    end = next(ev["eventDate"] for ev in data.get("events", []) if ev.get("eventAction") == "expiration")
+    expires = dt.datetime.fromisoformat(end.replace("Z", "+00:00"))
+    days = (expires - dt.datetime.now(dt.timezone.utc)).days
+    return [("Domain", f"läuft bis {expires:%d.%m.%Y} ({days} Tage)", days > 45)]
+
+
+def image_tag(container: str) -> str:
+    image = run(["docker", "inspect", "-f", "{{.Config.Image}}", container]).strip()
+    return image.rsplit(":", 1)[-1] if ":" in image else ""
+
+
+def semver(text: str) -> tuple[int, ...]:
+    m = re.search(r"(\d+)\.(\d+)\.(\d+)", text or "")
+    return tuple(int(x) for x in m.groups()) if m else ()
+
+
+def check_versions() -> list[Check]:
+    """Running versions against the latest releases – only reports, never updates."""
+    found = []
+    stalwart_log = run(["docker", "logs", STALWART])
+    stalwart_now = semver(next(iter(re.findall(r'version = "([\d.]+)"', stalwart_log)[-1:]), ""))
+    tags = fetch_json("https://hub.docker.com/v2/repositories/stalwartlabs/stalwart/tags?page_size=50&ordering=last_updated")
+    stalwart_new = max((semver(t["name"]) for t in tags["results"] if re.fullmatch(r"v\d+\.\d+\.\d+", t["name"])), default=())
+    found.append(("Stalwart", stalwart_now, stalwart_new))
+    umami_new = semver(fetch_json("https://api.github.com/repos/umami-software/umami/releases/latest")["tag_name"])
+    found.append(("Umami", semver(image_tag(UMAMI)), umami_new))
+    coolify_new = semver(fetch_json("https://cdn.coollabs.io/coolify/versions.json")["coolify"]["v4"]["version"])
+    found.append(("Coolify", semver(image_tag("coolify")), coolify_new))
+    traefik_new = semver(fetch_json("https://api.github.com/repos/traefik/traefik/releases/latest")["tag_name"])
+    found.append(("Traefik", semver(run(["docker", "exec", "coolify-proxy", "traefik", "version"])), traefik_new))
+    fmt = lambda v: ".".join(map(str, v)) or "?"  # noqa: E731
+    outdated = [f"{n} {fmt(a)} → {fmt(b)}" for n, a, b in found if a and b and b > a]
+    return [("Software-Versionen", "alle aktuell" if not outdated else "Update verfügbar: " + ", ".join(outdated),
+             not outdated)]
+
+
+def cities(w: str) -> list[tuple[str, int]]:
+    rows = sql(f"""select s.city, s.country, count(distinct s.session_id) from session s
+                   where coalesce(s.city, '') <> '' and s.session_id in
+                     (select session_id from website_event where {w} and event_type = 1)
+                   group by 1, 2 order by 3 desc limit 6;""")
+    return [(f"{r[0]} ({COUNTRIES.get(r[1], r[1])})", int(r[2])) for r in rows]
+
+
+def utm(w: str) -> list[tuple[str, int]]:
+    rows = sql(f"""select utm_source || coalesce(' / ' || nullif(utm_medium, ''), ''), count(distinct visit_id)
+                   from website_event where {w} and event_type = 1 and coalesce(utm_source, '') <> ''
+                   group by 1 order by 2 desc limit 6;""")
+    return [(r[0], int(r[1])) for r in rows]
+
+
+def server_status() -> list[Check]:
+    checks = []
+    for label, fn in [("Backups", check_backups), ("System", check_system), ("Erreichbarkeit", check_urls),
+                      ("Kontaktformular", check_form), ("Zertifikate", check_tls), ("Domain", check_domain),
+                      ("Software-Versionen", check_versions)]:
+        checks += safe(label, fn)
+    return checks
+
+
+# ------------------------------------------------------------------ rendering
+
+def e(text) -> str:
+    return html.escape(str(text), quote=True)
+
+
+def delta(now: int, before: int) -> str:
+    if before == 0:
+        return f'<span style="color:{C["muted"]}">neu</span>' if now else f'<span style="color:{C["muted"]}">±0</span>'
+    change = round((now - before) / before * 100)
+    color, arrow = (C["up"], "▲") if change > 0 else (C["down"], "▼") if change < 0 else (C["muted"], "")
+    return f'<span style="color:{color}">{arrow} {abs(change)} %</span>'
+
+
+def tile(label: str, value: int, before: int) -> str:
+    return (f'<td width="50%" style="padding:6px" valign="top"><div style="background:{C["card"]};border:1px solid {C["line"]};'
+            f'border-radius:14px;padding:16px 18px">'
+            f'<div style="font-family:{MONO};font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:{C["muted"]}">{e(label)}</div>'
+            f'<div style="font-family:{DISPLAY};font-size:34px;font-weight:700;color:{C["ink"]};line-height:1.15;margin-top:6px">{value}</div>'
+            f'<div style="font-family:{SANS};font-size:13px;margin-top:2px">{delta(value, before)}'
+            f'<span style="color:{C["muted"]}"> zur Vorwoche ({before})</span></div></div></td>')
+
+
+def bars(rows: list[tuple[str, int]], base: int | None = None, empty: str = "Noch keine Daten") -> str:
+    if not rows:
+        return f'<p style="margin:0;font-family:{SANS};font-size:14px;color:{C["muted"]}">{e(empty)}</p>'
+    peak = base or max(v for _, v in rows) or 1
+    out = []
+    for label, value in rows:
+        width = max(2, round(value / peak * 100)) if value else 0
+        share = f" · {round(value / base * 100)} %" if base else ""
+        out.append(
+            f'<tr><td style="padding:5px 0;font-family:{SANS};font-size:14px;color:{C["ink"]}">{e(label)}</td>'
+            f'<td align="right" style="padding:5px 0;font-family:{MONO};font-size:13px;color:{C["muted"]};white-space:nowrap">{value}{share}</td></tr>'
+            f'<tr><td colspan="2" style="padding:0 0 6px"><div style="background:{C["line"]};border-radius:4px;height:6px">'
+            f'<div style="background:{C["accent"]};border-radius:4px;height:6px;width:{width}%"></div></div></td></tr>')
+    return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{"".join(out)}</table>'
+
+
+def section(title: str, body: str, hint: str = "") -> str:
+    hint_html = f'<p style="margin:4px 0 12px;font-family:{SANS};font-size:13px;color:{C["muted"]}">{e(hint)}</p>' if hint else '<div style="height:10px"></div>'
+    return (f'<tr><td style="padding:22px 24px 4px"><h2 style="margin:0;font-family:{DISPLAY};font-size:19px;color:{C["ink"]}">{e(title)}</h2>'
+            f'{hint_html}{body}</td></tr>')
+
+
+def button(label: str, href: str) -> str:
+    return (f'<a href="{e(href)}" style="display:inline-block;background:{C["dark"]};color:#FFFFFF;text-decoration:none;'
+            f'font-family:{SANS};font-size:15px;font-weight:700;padding:13px 22px;border-radius:999px">{e(label)} →</a>')
+
+
+def render(now: dt.datetime) -> tuple[str, str, str]:
+    CUR = (7, 0)
+    cur, prev = window(*CUR), window(14, 7)
+    t, tp = totals(cur), totals(prev)
+    ev, evp = events(cur), events(prev)
+    inquiries = ev.get("Kontaktformular gesendet", 0) + ev.get("E-Mail-Klick", 0)
+    inquiries_prev = evp.get("Kontaktformular gesendet", 0) + evp.get("E-Mail-Klick", 0)
+
+    seen = dict(by_prop(CUR, "Abschnitt gesehen", "abschnitt"))
+    funnel = [("Besuche", t["visits"])] + [(f"{name} gesehen", seen.get(key, 0)) for key, name in SECTIONS] + [
+        ("Formular begonnen", ev.get("Kontaktformular begonnen", 0)),
+        ("Formular gesendet", ev.get("Kontaktformular gesendet", 0))]
+    fails = [(REASONS.get(k, k), v) for k, v in by_prop(CUR, "Kontaktformular fehlgeschlagen", "grund")]
+    referrers = top(cur, "referrer_domain", extra="and coalesce(referrer_domain, '') not like '%mindcoded.studio'")
+    referrers = [("Direkt / unbekannt" if k == "—" else k, v) for k, v in referrers]
+    campaigns = utm(cur)
+
+    start = (now - dt.timedelta(days=7)).strftime("%d.%m.")
+    end = now.strftime("%d.%m.%Y")
+    week = now.isocalendar().week
+    title = f"Wochenbericht KW {week} · {t['visitors']} Besucher, {inquiries} Anfragen"
+    preheader = (f"{t['visitors']} Besucher, {t['views']} Seitenaufrufe, {inquiries} Anfragen "
+                 f"({start}–{end}). Alles im Überblick.")
+
+    status_rows = "".join(
+        f'<tr><td style="padding:5px 0;font-family:{SANS};font-size:14px;color:{C["ink"]}">'
+        f'<span style="color:{C["up"] if ok else C["down"]}">●</span>&nbsp; {e(label)}</td>'
+        f'<td align="right" style="padding:5px 0;font-family:{SANS};font-size:14px;color:{C["muted"]}">{e(value)}</td></tr>'
+        for label, value, ok in server_status())
+
+    body = "".join([
+        f'<tr><td style="padding:6px 18px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
+        f'<tr>{tile("Besucher", t["visitors"], tp["visitors"])}{tile("Seitenaufrufe", t["views"], tp["views"])}</tr>'
+        f'<tr>{tile("Anfragen", inquiries, inquiries_prev)}'
+        f'{tile("Klicks auf Erstgespräch", ev.get("Erstgespräch-Klick", 0), evp.get("Erstgespräch-Klick", 0))}</tr>'
+        f'</table></td></tr>',
+        section("Weg zur Anfrage", bars(funnel, base=t["visits"] or None),
+                "Wie viele Besuche bis zu welchem Abschnitt kamen – und wie viele das Formular nutzten."),
+        section("Welche Buttons wirken", bars(by_prop(CUR, "Erstgespräch-Klick", "ort")),
+                "Klicks auf „Erstgespräch“, nach Ort auf der Seite."),
+        section("Herkunft", bars(referrers), "Woher die Besuche kamen."),
+        section("Meistbesuchte Seiten", bars([("Startseite" if k == "/" else "Startseite (EN)" if k == "/en/" else k, v)
+                                              for k, v in top(cur, "url_path")])),
+        section("Projekte", bars(by_prop(CUR, "Projekt geöffnet", "projekt"), empty="Kein Projekt geöffnet"),
+                f"Video abgespielt: {ev.get('Video abgespielt', 0)} · Live-Seite geöffnet: {ev.get('Live-Seite geöffnet', 0)}"),
+        section("Kampagnen und markierte Links", bars(campaigns), "Besuche über Links mit Kennzeichnung (utm_source), "
+                "z. B. aus Mail-Signatur, Google-Profil oder Social Media.") if campaigns else "",
+        section("Städte", bars(cities(cur)), "Ungefähre Herkunft aus der IP-Adresse (die IP selbst wird nicht gespeichert)."),
+        section("Länder und Geräte", bars([(COUNTRIES.get(k, k), v) for k, v in sessions_top(cur, "country")])
+                + '<div style="height:10px"></div>'
+                + bars([(DEVICES.get(k, k), v) for k, v in sessions_top(cur, "device", 4)])),
+        section("Probleme im Formular", bars(fails, empty="Keine – alles lief glatt.")) if fails or ev.get("Kontaktformular begonnen") else "",
+        section("Server", f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0">{status_rows}</table>'),
+        f'<tr><td style="padding:26px 24px 30px" align="center">{button("Dashboard öffnen", DASHBOARD)}'
+        f'<p style="margin:14px 0 0;font-family:{SANS};font-size:13px;color:{C["muted"]}">'
+        f'<a href="{SITE}" style="color:{C["accent_text"]}">mindcoded.studio</a> · '
+        f'<a href="https://search.google.com/search-console" style="color:{C["accent_text"]}">Search Console</a></p></td></tr>',
+    ])
+
+    page = (
+        '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light">'
+        f'<title>{e(title)}</title></head>'
+        f'<body style="margin:0;padding:0;background:{C["bg"]}">'
+        f'<div style="display:none;max-height:0;overflow:hidden;opacity:0">{e(preheader)}</div>'
+        f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{C["bg"]}"><tr><td align="center" style="padding:24px 12px">'
+        f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#FFFFFF;border-radius:20px;border:1px solid {C["line"]}">'
+        f'<tr><td style="padding:26px 24px 8px">'
+        f'<div><span style="font-family:{DISPLAY};font-size:20px;font-weight:700;color:{C["ink"]}">mindcoded</span>'
+        f'<span style="font-family:{DISPLAY};font-size:20px;color:{C["accent_text"]}">.studio</span></div>'
+        f'<div style="font-family:{MONO};font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:{C["muted"]};margin-top:18px">Wochenbericht · KW {week}</div>'
+        f'<h1 style="margin:6px 0 0;font-family:{DISPLAY};font-size:26px;line-height:1.2;color:{C["ink"]}">Deine Woche in Zahlen</h1>'
+        f'<p style="margin:6px 0 0;font-family:{SANS};font-size:14px;color:{C["muted"]}">{e(start)} – {e(end)} · im Vergleich zur Woche davor</p>'
+        f'</td></tr>{body}</table>'
+        f'<p style="margin:16px 0 0;font-family:{SANS};font-size:12px;color:{C["muted"]}">Automatisch erstellt vom Server jeden Freitag. '
+        f'Statistik ohne Cookies (Umami).</p>'
+        '</td></tr></table></body></html>')
+
+    lines = [f"Wochenbericht KW {week} ({start}–{end})", "",
+             f"Besucher: {t['visitors']} (Vorwoche {tp['visitors']})",
+             f"Seitenaufrufe: {t['views']} (Vorwoche {tp['views']})",
+             f"Anfragen: {inquiries} (Vorwoche {inquiries_prev})",
+             f"Klicks auf Erstgespräch: {ev.get('Erstgespräch-Klick', 0)}", "",
+             "Weg zur Anfrage:"] + [f"  {k}: {v}" for k, v in funnel] + ["", f"Dashboard: {DASHBOARD}"]
+    return title, page, "\n".join(lines)
+
+
+def send(subject: str, page: str, text: str, now: dt.datetime) -> None:
+    msg = EmailMessage()
+    msg["From"] = f"mindcoded Server <{MAIL_FROM}>"
+    msg["To"] = MAIL_TO
+    msg["Subject"] = subject
+    msg["Date"] = format_datetime(now)
+    msg["Message-ID"] = make_msgid(idstring=uuid.uuid4().hex[:8], domain="mail.mindcoded.studio")
+    msg["Auto-Submitted"] = "auto-generated"
+    msg.set_content(text)
+    msg.add_alternative(page, subtype="html")
+    subprocess.run(["curl", "-sS", "--url", SMTP_URL, "--mail-from", MAIL_FROM, "--mail-rcpt", MAIL_TO,
+                    "--upload-file", "-"], input=msg.as_bytes(), check=True)
+
+
+def main() -> None:
+    now = dt.datetime.now().astimezone()
+    subject, page, text = render(now)
+    if "--dry-run" in sys.argv:
+        print(page)
+        return
+    send(subject, page, text, now)
+    print(f"sent: {subject}")
+
+
+if __name__ == "__main__":
+    main()

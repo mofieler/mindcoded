@@ -1,0 +1,54 @@
+#!/bin/bash
+# Nightly encrypted off-site backup (restic -> Backblaze B2).
+# Secrets: /root/.config/mc-backup.env (B2_ACCOUNT_ID, B2_ACCOUNT_KEY, RESTIC_REPOSITORY, RESTIC_PASSWORD)
+# Restore: docs in /root/BACKUP-RESTORE.txt
+set -euo pipefail
+
+ENV_FILE=/root/.config/mc-backup.env
+STAGE=/var/backups/mc-stage
+STALWART=stalwart-itctfm4kx9cyganl5nfqilc9
+VOLUMES=/var/lib/docker/volumes
+
+set -a; . "$ENV_FILE"; set +a
+export RESTIC_CACHE_DIR=/var/cache/restic
+
+log() { echo "$(date -u +%FT%TZ) $*"; }
+
+# First run: create the encrypted repository
+restic cat config >/dev/null 2>&1 || { log "init repository"; restic init --quiet; }
+
+rm -rf "$STAGE"; mkdir -p "$STAGE/db" "$STAGE/stalwart"; chmod 700 "$STAGE"
+
+# 1. Consistent SQL dumps of every running Postgres container
+for c in $(docker ps --format '{{.Names}}'); do
+  # Only containers that actually run a server (the coolify app ships the client tools only)
+  if docker exec "$c" sh -c 'command -v pg_dumpall && pg_isready -q' >/dev/null 2>&1; then
+    log "dump $c"
+    docker exec "$c" sh -c 'pg_dumpall -U "${POSTGRES_USER:-postgres}"' | gzip > "$STAGE/db/$c.sql.gz"
+  fi
+done
+
+# 2. Stalwart (RocksDB): copy while paused for a consistent state (a few seconds, mail queues meanwhile)
+log "copy stalwart"
+docker pause "$STALWART" >/dev/null
+trap 'docker unpause "$STALWART" >/dev/null 2>&1 || true' EXIT
+cp -a "$VOLUMES/itctfm4kx9cyganl5nfqilc9_stalwart-data/_data" "$STAGE/stalwart/data"
+cp -a "$VOLUMES/itctfm4kx9cyganl5nfqilc9_stalwart-mail/_data" "$STAGE/stalwart/etc"
+docker unpause "$STALWART" >/dev/null
+trap - EXIT
+
+# 3. Upload: dumps, mail, website private data, Coolify config (keys, proxy, env)
+log "restic backup"
+restic backup --quiet --host mindcoded-vps --tag nightly \
+  "$STAGE" \
+  "$VOLUMES/voriurfwnru0o2jizdjbwbfl-mindcoded-private/_data" \
+  /data/coolify --exclude /data/coolify/backups
+
+# 4. Retention: 7 daily, 4 weekly, 6 monthly
+restic forget --quiet --host mindcoded-vps --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
+
+# 5. Sundays: verify a sample of the stored data
+if [ "$(date -u +%u)" = 7 ]; then restic check --read-data-subset=5% --quiet; fi
+
+rm -rf "$STAGE"
+log "done"

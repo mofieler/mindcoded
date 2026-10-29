@@ -37,17 +37,26 @@ cp -a "$VOLUMES/itctfm4kx9cyganl5nfqilc9_stalwart-mail/_data" "$STAGE/stalwart/e
 docker unpause "$STALWART" >/dev/null
 trap - EXIT
 
-# 3. Upload: dumps, mail, website private data, Coolify config (keys, proxy, env)
+# 3. n8n (outside Coolify, /opt/n8n): workflows in SQLite – consistent copy via SQLite's backup API
+N8N_DATA="$VOLUMES/n8n_n8n_data/_data"
+if [ -f "$N8N_DATA/database.sqlite" ]; then
+  log "copy n8n"
+  mkdir -p "$STAGE/n8n"
+  python3 -c 'import sqlite3,sys; s=sqlite3.connect(f"file:{sys.argv[1]}?mode=ro", uri=True); d=sqlite3.connect(sys.argv[2]); s.backup(d); d.close()'     "$N8N_DATA/database.sqlite" "$STAGE/n8n/database.sqlite"
+  cp -a "$N8N_DATA/config" /opt/n8n/docker-compose.yml "$STAGE/n8n/" 2>/dev/null || true
+fi
+
+# 4. Upload: dumps, mail, n8n, website private data, Coolify config (keys, proxy, env)
 log "restic backup"
 restic backup --quiet --host mindcoded-vps --tag nightly \
   "$STAGE" \
   "$VOLUMES/voriurfwnru0o2jizdjbwbfl-mindcoded-private/_data" \
   /data/coolify --exclude /data/coolify/backups
 
-# 4. Retention: 7 daily, 4 weekly, 6 monthly
+# 5. Retention: 7 daily, 4 weekly, 6 monthly
 restic forget --quiet --host mindcoded-vps --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
 
-# 5. Sundays: verify a sample of the stored data
+# 6. Sundays: verify a sample of the stored data
 if [ "$(date -u +%u)" = 7 ]; then restic check --read-data-subset=5% --quiet; fi
 
 rm -rf "$STAGE"

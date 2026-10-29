@@ -10,7 +10,7 @@ Geheimnisse liegen **nie** im Repo (es ist öffentlich), sondern nur auf dem Ser
 
 | Datei | Aufgabe | Zeitplan |
 |---|---|---|
-| `bin/mc-backup` | verschlüsseltes Backup mit restic nach Backblaze B2 (Datenbank-Dumps, Stalwart, Website-Daten, Coolify-Konfiguration); Aufbewahrung 7 Tage / 4 Wochen / 6 Monate; sonntags Stichprobe der Daten | täglich 03:15 UTC |
+| `bin/mc-backup` | verschlüsseltes Backup mit restic nach Backblaze B2 (Datenbank-Dumps, Stalwart, n8n, Website-Daten, Coolify-Konfiguration); Aufbewahrung 7 Tage / 4 Wochen / 6 Monate; sonntags Stichprobe der Daten | täglich 03:15 UTC |
 | `bin/mc-weekly-report` | Wochenbericht an hallo@: Besucherzahlen aus Umami, Weg zur Anfrage, Herkunft, Server-Gesundheit (Backups, Platz, Erreichbarkeit, Formular, Zertifikate, Domain, Software-Versionen) | Freitag 16:00 Berlin |
 | `bin/mc-alert` | Mail an hallo@, wenn ein Dienst fehlschlägt (`OnFailure=` in den Units) | bei Fehler |
 | `bin/mc-restic` | restic mit den Backup-Zugangsdaten, z. B. `mc-restic snapshots` | von Hand |

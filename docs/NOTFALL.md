@@ -34,6 +34,8 @@ Was tun, wenn der VPS kaputt, gelöscht oder kompromittiert ist. Ziel: Website u
      Daten-Volume und `…/stalwart/etc/*` in das Konfig-Volume kopieren – Konten, Mails und Einstellungen sind dann da.
    - Umami: Dienst „Umami“, danach den Dump einspielen:
      `zcat /root/r/var/backups/mc-stage/db/postgresql-*.sql.gz | docker exec -i <postgres-container> psql -U <user>`
+   - n8n (läuft außerhalb von Coolify unter `/opt/n8n`): `…/mc-stage/n8n/docker-compose.yml` nach `/opt/n8n`,
+     `database.sqlite` und `config` ins Volume `n8n_n8n_data`, dann `docker compose up -d`.
 5. **Betrieb einspielen:** `ops/install.sh` (siehe [ops/README.md](../ops/README.md)) und die Backup-Zugangsdaten anlegen.
 6. **Prüfen:** Website, Formular (Testanfrage), Mail senden/empfangen, `mc-weekly-report --dry-run`.
 

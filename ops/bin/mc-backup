@@ -28,6 +28,15 @@ for c in $(docker ps --format '{{.Names}}'); do
   fi
 done
 
+# 1b. MariaDB/MySQL containers (Firefly III, Invoice Ninja): consistent dump with the container's root password
+for c in $(docker ps --format '{{.Names}}'); do
+  # Only containers that run the server themselves (app images may ship the client tools)
+  if docker exec "$c" sh -c 'command -v mariadb-dump && [ -n "$MYSQL_ROOT_PASSWORD" ] && mariadb-admin ping -uroot -p"$MYSQL_ROOT_PASSWORD" --silent' >/dev/null 2>&1; then
+    log "dump $c (mariadb)"
+    docker exec "$c" sh -c 'mariadb-dump -uroot -p"$MYSQL_ROOT_PASSWORD" --all-databases --single-transaction --routines --events'       | gzip > "$STAGE/db/$c.mariadb.sql.gz"
+  fi
+done
+
 # 2. Stalwart (RocksDB): copy while paused for a consistent state (a few seconds, mail queues meanwhile)
 log "copy stalwart"
 docker pause "$STALWART" >/dev/null
